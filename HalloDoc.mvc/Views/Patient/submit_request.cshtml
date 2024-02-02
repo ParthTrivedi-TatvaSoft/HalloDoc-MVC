@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit request</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/submit_request.css">
+
+</head>
+
+<body>
+    <nav id="navbar">
+        <img id="logo" src="/images/hallodoc.png" alt="logo">
+        <img onclick="myFunction()" class="light" src="/images/dark.png" alt="">
+    </nav>
+    <div class="container ">
+        <button id="back-btn" onclick="location.href='./index.html'">&lt; Back</button>
+        <h2>I am a ...</h2>
+        <button class="req-btn purple" onclick="location.href='patientreq.html'">PATIENT</button>
+        <button class="req-btn blue" onclick="location.href='friendfamilyreq.html'">FRIEND/FAMILY</button>
+        <button class="req-btn green" onclick="location.href='conciergereq.html'">CONCIERGE</button>
+        <button class="req-btn pink" onclick="location.href='businessreq.html'">BUSINESS PARTNERS</button>
+        <footer id="footr">
+            <p>Terms of Conditions | Privacy Policy</p>
+        </footer>
+    </div>
+    <script src="./js/bootstrap.bundle.js"></script>
+    <script src="./js/custom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+.main {
+    height: 100vh;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.hallodoc-img {
+    width: 200px;
+    height: 100px;
+}
+
+.light {
+    width: 30px;
+    height: 30px;
+}
+
+.terms {
+    background-color: #f8f8f9;
+    margin-bottom: 5%;
+}
+
+footer {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:319px) {
+    .hallodoc-img {
+        display: none;
+    }
+
+    .light {
+        position: fixed;
+        right: 5%;
+        top: 2%;
+    }
+}
+
+

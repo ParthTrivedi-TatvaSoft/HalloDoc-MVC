@@ -1,0 +1,109 @@
+﻿body {
+    background-color: aliceblue;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.dark-mode {
+    background-color: rgb(46, 44, 44);
+    color: white;
+}
+
+#navbar {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+#logo {
+    width: 9rem;
+    margin-left: 5rem;
+}
+
+.light {
+    width: 2rem;
+    float: right;
+    margin: 1.5rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+
+.req-btn {
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    width: 18rem;
+    height: 3.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: large;
+    text-align: left;
+}
+
+.purple {
+    color: #7b7fa0;
+    background-color: #e9eaef;
+    border: 1px solid #7b7fa0;
+}
+
+.blue {
+    color: #2cc7f1;
+    background-color: #e5f2fa;
+    border: 1px solid #2cc7f1;
+}
+
+.green {
+    color: #77ad7d;
+    background-color: #e9f0e8;
+    border: 1px solid #77ad7d;
+}
+
+.pink {
+    color: #996080;
+    background-color: #f7e6ec;
+    border: 1px solid #996080;
+}
+
+#back-btn {
+    position: absolute;
+    color: rgb(0, 183, 255);
+    background-color: white;
+    border: 1px solid rgb(0, 183, 255);
+    border-radius: 5px;
+    width: 5rem;
+    height: 2.5rem;
+    top: 8rem;
+    right: 10rem;
+}
+
+#footr {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    height: 3rem;
+}
+
+footer p {
+    font-size: 0.75rem;
+    float: right;
+    padding: 0.25rem 1rem 0 0;
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        margin-top: 4rem;
+    }
+
+    #back-btn {
+        top: 7rem;
+        right: 2rem;
+    }
+}

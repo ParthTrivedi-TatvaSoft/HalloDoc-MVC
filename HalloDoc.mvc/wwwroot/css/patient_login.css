@@ -1,0 +1,74 @@
+﻿.hallodoc-img {
+    width: 200px;
+    height: 100px;
+}
+
+body {
+    height: 100vh;
+    background-image: url("/images/d1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    color: black;
+}
+
+
+
+#d-mode {
+    align-self: flex-end;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    width: 2.5rem;
+}
+
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.input-div {
+    color: blue;
+    width: 20rem;
+}
+
+button {
+    background-color: rgb(0, 183, 255);
+    ;
+    border-color: rgb(0, 183, 255);
+    ;
+    color: #FFFFFF;
+    ;
+    padding: 0.75rem 1rem;
+    border-radius: 0.50rem;
+    width: 20rem;
+}
+
+#forget-pass {
+    color: rgb(0, 183, 255);
+    ;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: -40px;
+}
+
+p {
+    color: blue;
+    margin-left: -17rem;
+}
+
+@media screen and (max-width:768px) {
+    body {
+        background-size: cover;
+    }
+}
