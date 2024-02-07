@@ -1,15 +1,14 @@
-body {
+body{
     background-color: white;
     color: black;
+}
+.dark-mode{
+    background-color: black;
+    color: white;
 }
 
 .main {
     height: 100vh;
-}
-
-.dark-mode {
-    background-color: black;
-    color: white;
 }
 
 .hallodoc-img {
@@ -18,18 +17,18 @@ body {
 }
 
 .light {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
 }
 
 .terms {
     background-color: #f8f8f9;
     margin-bottom: 5%;
 }
-
-footer {
+footer{
     text-align: center;
     margin-bottom: 2rem;
+    
 }
 
 @media screen and (max-width:319px) {
@@ -37,11 +36,43 @@ footer {
         display: none;
     }
 
-    .light {
+    .light{
         position: fixed;
         right: 5%;
         top: 2%;
     }
 }
+#navbar {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+#nav-logo {
+    width: 9rem;
+    margin-left: 5rem;
+}
+
+.light {
+    width: 2rem;
+    float: right;
+    margin: 1.5rem;
+}
+
+
+#footr {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    height: 3rem;
+}
+
+footer p {
+    font-size: large;
+    float: right;
+    padding: 0.25rem 1rem 0 0;
+}
+
 
 

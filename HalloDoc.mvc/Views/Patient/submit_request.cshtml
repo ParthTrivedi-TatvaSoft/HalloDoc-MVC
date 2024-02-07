@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "submit_request";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,25 +11,42 @@
     <title>Submit request</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/submit_request.css">
-
 </head>
 
 <body>
-    <nav id="navbar">
-        <img id="logo" src="/images/hallodoc.png" alt="logo">
-        <img onclick="myFunction()" class="light" src="/images/dark.png" alt="">
-    </nav>
+   <partial name="_navbar" />
     <div class="container ">
-        <button id="back-btn" onclick="location.href='./index.html'">&lt; Back</button>
+        <a asp-controller="Home" asp-action="Index">
+        <button id="back-btn">&lt; Back</button>
+        </a>
+
         <h2>I am a ...</h2>
-        <button class="req-btn purple" onclick="location.href='patientreq.html'">PATIENT</button>
-        <button class="req-btn blue" onclick="location.href='friendfamilyreq.html'">FRIEND/FAMILY</button>
-        <button class="req-btn green" onclick="location.href='conciergereq.html'">CONCIERGE</button>
-        <button class="req-btn pink" onclick="location.href='businessreq.html'">BUSINESS PARTNERS</button>
-        <footer id="footr">
-            <p>Terms of Conditions | Privacy Policy</p>
+
+
+        <a asp-controller="Patient" asp-action="patient_request">
+        <button class="req-btn purple">PATIENT</button>
+        </a>
+
+        <a asp-controller="Patient" asp-action="friendfamily_request">
+        <button class="req-btn blue" >FRIEND/FAMILY</button>
+        </a>
+
+        <a asp-controller="Patient" asp-action="concierge_request">
+        <button class="req-btn green">CONCIERGE</button>
+        </a>
+
+         <a asp-controller="Patient" asp-action="business_request">
+        <button class="req-btn pink">BUSINESS PARTNERS</button>
+        </a>
+
+
+        <footer id="footeer">
+            <p >Terms of Conditions | Privacy Policy</p>
         </footer>
+
     </div>
+
+
     <script src="./js/bootstrap.bundle.js"></script>
     <script src="./js/custom.js"></script>
 </body>

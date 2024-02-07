@@ -9,8 +9,28 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\business_request.css",
+      "PackagePath": "staticwebassets\\css\\business_request.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\concierge_request.css",
+      "PackagePath": "staticwebassets\\css\\concierge_request.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
+      "PackagePath": "staticwebassets\\css\\forgot_password.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\friendfamily_request.css",
+      "PackagePath": "staticwebassets\\css\\friendfamily_request.css"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
       "PackagePath": "staticwebassets\\css\\patient_login.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
+      "PackagePath": "staticwebassets\\css\\patient_request.css"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\site.css",

@@ -82,20 +82,7 @@
     right: 10rem;
 }
 
-#footr {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
-    height: 3rem;
-}
 
-footer p {
-    font-size: 0.75rem;
-    float: right;
-    padding: 0.25rem 1rem 0 0;
-}
 
 @media screen and (max-width:768px) {
     .container {
@@ -107,3 +94,21 @@ footer p {
         right: 2rem;
     }
 }
+
+#footeer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    height: 3rem;
+}
+
+footer p {
+    font-size: large;
+    float: right;
+    padding: 0.25rem 1rem 0 0;
+}
+
+
+

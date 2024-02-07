@@ -1,0 +1,130 @@
+﻿
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.comman {
+    margin-left: 10px;
+    color: black;
+}
+
+#textarea {
+    color: black;
+}
+
+#hallodoc-img {
+    width: 200px;
+    height: 100px;
+}
+
+#navbar {
+    width: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.light {
+    height: 30px;
+    width: 30px;
+}
+
+.dark-mode {
+    background-color: rgb(46, 44, 44);
+    color: white;
+}
+
+.modebtn {
+    width: 45px;
+    height: 45px;
+}
+
+.logo {
+    width: 150px;
+    height: 100px;
+}
+
+#footr {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    height: 3rem;
+}
+
+footer p {
+    font-size: large;
+    float: right;
+    padding: 0.25rem 1rem 0 0;
+}
+
+.form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
+    color: #00b8e6;
+}
+
+    .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after {
+        background-color: transparent;
+    }
+
+.form-control:focus {
+    border: 1px solid #00b8e6;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    padding-top: 200px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 1.5rem;
+    border: 0.07rem solid #888;
+    width: 32rem;
+    height: 27rem;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+#info-icon {
+    width: 5rem;
+    border: 0.07rem solid orange;
+    padding: 0.25rem;
+    border-radius: 100%;
+}
+
+#info {
+    width: 75%;
+    text-align: center;
+}
+
+@media screen and (max-width: 424px) {
+    .model-content {
+        margin-left: 50px;
+    }
+}
+

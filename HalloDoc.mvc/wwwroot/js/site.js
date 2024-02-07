@@ -9,7 +9,19 @@ function myFunction() {
     var element = document.body;
     element.classList.toggle("dark-mode");
     var img = element.querySelector(".light")
-    img.src.includes("dark") ? img.src = "images/light.png" : img.src = "images/dark.png";
+    img.src.includes("dark") ? img.src = "../images/light.png" : img.src = "../images/dark.png";
+
+    //var e2 = document.getElementById('cont');
+    //e2.classList.toggle("dark-mode");
+
+    //if (element.classList.contains('dark-mode')) {
+    //    e2.style.backgroundColor = 'black';
+    //    e2.style.color = 'white';
+
+    //} else {
+    //    e2.style.backgroundColor = '';
+    //    e2.style.color = '';
+    //}
 }
 var modal = document.getElementById("myModal");
 

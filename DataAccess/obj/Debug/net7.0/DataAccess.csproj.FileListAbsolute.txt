@@ -1,0 +1,14 @@
+D:\HalloDoc\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+D:\HalloDoc\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+D:\HalloDoc\DataAccess\bin\Debug\net7.0\DataAccess.dll
+D:\HalloDoc\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.dll
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+D:\HalloDoc\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll

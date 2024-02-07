@@ -1,3 +1,9 @@
+//using halloDoc.Models;
+//using Microsoft.EntityFrameworkCore;
+
+using DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +11,9 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+//Register
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDbContext")));
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
