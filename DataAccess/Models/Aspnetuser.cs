@@ -44,9 +44,4 @@ public partial class Aspnetuser
     public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
-
-    public Task FirstOrDefaultAsync(Func<object, bool> value)
-    {
-        throw new NotImplementedException();
-    }
 }

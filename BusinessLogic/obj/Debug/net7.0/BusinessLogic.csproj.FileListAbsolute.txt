@@ -9,3 +9,7 @@ D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\BusinessLogic.dll
 D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\refint\BusinessLogic.dll
 D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\BusinessLogic.pdb
 D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\ref\BusinessLogic.dll
+D:\HalloDoc\BusinessLogic\bin\Debug\net7.0\DataAccess.dll
+D:\HalloDoc\BusinessLogic\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.AssemblyReference.cache
+D:\HalloDoc\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.CopyComplete

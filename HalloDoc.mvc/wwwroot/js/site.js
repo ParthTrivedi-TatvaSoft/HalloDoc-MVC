@@ -50,3 +50,22 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+
+
+
+var temp = true;
+function password() {
+    if (temp) {
+        document.getElementById("icon_1").style.display = "none";
+        document.getElementById("icon_2").style.display = "flex";
+        document.getElementById('floatingPassword').type = 'text';
+        temp = false;
+    }
+    else {
+        document.getElementById("icon_1").style.display = "flex";
+        document.getElementById("icon_2").style.display = "none";
+        document.getElementById('floatingPassword').type = 'password'
+        temp = true;
+    }
+}

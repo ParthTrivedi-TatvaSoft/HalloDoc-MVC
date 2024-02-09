@@ -1,50 +1,60 @@
 ﻿using DataAccess.Models;
-using DataAccess.Data;
+using DataAccess.CustomModels;
 using HalloDoc.mvc.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics; 
+using System.Diagnostics;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Services;
 
 namespace HalloDoc.mvc.Controllers
 {
     public class PatientController : Controller
     {
-        private readonly ILogger<PatientController> _logger;
-        private readonly  ApplicationDbContext _db;
 
-        public PatientController(ILogger<PatientController> logger, ApplicationDbContext db) : this(logger)
-        {
-            _db = db;
-        }
-        [HttpPost]
-        public async Task<IActionResult> LoginToAcc(Aspnetuser aspnetuser)
-        {
-            var email = aspnetuser.Email;
-            var password = aspnetuser.Passwordhash;
-            var user = await aspnetuser.FirstOrDefaultAsync(u => u.Email.Trim() == email && u.Passwordhash.Trim() == password);
-            if (user != null)
+
+            private readonly ILogger<PatientController> _logger;
+            private readonly ILoginService _loginService;
+            private readonly IPatientService _patientService;
+
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService,IPatientService patientService)
             {
+                _logger = logger;
+                _loginService = loginService;
+                _patientService = patientService;
+        }
+
+
+
+
+            [HttpPost]
+
+            public IActionResult patient_login(LoginModel loginModel)
+            {
+                if (_loginService.Login(loginModel))
+                {
+              
                 return RedirectToAction("submit_request", "Patient");
+                }
+            TempData["Email"] = "Enter Valid Email";
+
+            return RedirectToAction("patient_login", "Patient");
             }
-            return RedirectToAction("patient_login");
-        }
 
-        
-        //public async Task<IActionResult> Login(Aspnetuser model)
-        //{
-        //    var email = model.Email;
-        //    var password = model.Passwordhash;
-        //    var user = await _db.aspnetusers.FirstOrDefaultAsync(u => u.Email.Trim() == email && u.PasswordHash.Trim() == password);
-        //    if (user != null)
-        //    {
-        //        return RedirectToAction("submit_request", "Patient");
-        //    }
-        //    return RedirectToAction("patient_login");
-        //}
 
-        public PatientController(ILogger<PatientController> logger)
+        [HttpPost]
+        public IActionResult AddPatient(PatientInfoModel patientInfoModel)
         {
-            _logger = logger;
+
+            _patientService.AddPatientInfo(patientInfoModel);
+
+            return RedirectToAction("submit_request", "Patient");
         }
+
+
+
+
+
+
 
         public IActionResult Index()
         {

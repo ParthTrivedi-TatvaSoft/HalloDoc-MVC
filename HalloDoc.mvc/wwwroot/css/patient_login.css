@@ -36,11 +36,8 @@ body {
 
 button {
     background-color: rgb(0, 183, 255);
-    ;
     border-color: rgb(0, 183, 255);
-    ;
     color: #FFFFFF;
-    ;
     padding: 0.75rem 1rem;
     border-radius: 0.50rem;
     width: 20rem;
@@ -48,7 +45,6 @@ button {
 
 #forget-pass {
     color: rgb(0, 183, 255);
-    ;
     text-decoration: none;
 }
 
@@ -72,4 +68,8 @@ p {
     body {
         background-size: cover;
     }
+}
+
+#icon_2 {
+    display: none;
 }

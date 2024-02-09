@@ -1016,7 +1016,6 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.Region).WithMany(p => p.Requestclients)
                 .HasForeignKey(d => d.Regionid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_requestclient1");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Requestclients)
@@ -1504,9 +1503,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Strmonth)
                 .HasMaxLength(20)
                 .HasColumnName("strmonth");
-            entity.Property(e => e.Zip)
+            entity.Property(e => e.Zipcode)
                 .HasMaxLength(10)
-                .HasColumnName("zip");
+                .HasColumnName("zipcode");
 
             entity.HasOne(d => d.Aspnetuser).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Aspnetuserid)

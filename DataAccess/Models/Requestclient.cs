@@ -20,7 +20,7 @@ public partial class Requestclient
 
     public string? Address { get; set; }
 
-    public int Regionid { get; set; }
+    public int? Regionid { get; set; }
 
     public string? Notimobile { get; set; }
 
@@ -62,7 +62,7 @@ public partial class Requestclient
 
     public decimal? Longitude { get; set; }
 
-    public virtual Region Region { get; set; } = null!;
+    public virtual Region? Region { get; set; }
 
     public virtual Request Request { get; set; } = null!;
 }

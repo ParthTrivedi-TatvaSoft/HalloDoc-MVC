@@ -27,7 +27,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\HalloDoc\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\HalloDoc\\DataAccess\\DataAccess.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

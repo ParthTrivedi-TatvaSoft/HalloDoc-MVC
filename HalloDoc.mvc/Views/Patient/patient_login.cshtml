@@ -1,6 +1,9 @@
-﻿@{
+﻿@* @model DataAccess.Models.Aspnetuser; *@
+
+@{
     ViewData["Title"] = "patient_login";
 }
+@model DataAccess.CustomModels.LoginModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,21 +28,29 @@
         <p><a asp-controller="Home" asp-action="Index" class="text-decoration-none">&lt; Back</a></p>
         <h2>Login To Your Account</h2>
         <br>
+        <form method="post">
         <div class="  input-div form-floating mb-3">
-            <input type="email" class="icon1 form-control" id="floatingInput" placeholder="Username">
-            <label for="floatingInput">Email </label>
+            <input type="email" asp-for="Email"  class="icon1 form-control" id="floatingInput" placeholder="Username">
+                <label >Email </label>
+                <span class="text-danger">@TempData["Email"]</span>
+
             <i class="icon bi bi-person "></i>
 
         </div>
         <div class=" input-div form-floating mb-3">
-            <input type="password" class="icon2 form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-            <i class="icon bi bi-eye"></i>
+                <input type="password" asp-for="Password" class="icon2 form-control" id="floatingPassword" placeholder="Password">
+                <label >Password</label>
+                <i class="icon bi bi-eye" onclick="password()" id="icon_1"></i>
+                <i class="icon bi bi-eye-slash-fill" onclick="password()" id="icon_2"></i>
 
         </div>
+
         <br>
 
-        <button>Log In</button>
+        <button type="submit">Log In</button>
+        
+
+        </form>
         <br>
         <a asp-controller="Patient" asp-action="forgot_password" id="forget-pass">Forget Password?</a>
 
@@ -49,7 +60,7 @@
 
 
     <script src="./js/bootstrap.bundle.js"></script>
-    <script src="./js/custom.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 
 </html>

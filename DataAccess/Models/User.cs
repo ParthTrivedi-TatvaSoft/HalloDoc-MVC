@@ -28,7 +28,7 @@ public partial class User
 
     public int? Regionid { get; set; }
 
-    public string? Zip { get; set; }
+    public string? Zipcode { get; set; }
 
     public string? Strmonth { get; set; }
 
