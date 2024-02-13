@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxmcmllbmRmYW1pbHlfcmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Patient/patient_dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxwYXRpZW50X2Rhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Patient/patient_login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxwYXRpZW50X2xvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

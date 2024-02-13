@@ -9,6 +9,10 @@
     color: black;
 }
 
+.hidenpass{
+    color:black;
+}
+
 #textarea {
     color: black;
 }
@@ -34,6 +38,8 @@
     width: 150px;
     height: 100px;
 }
+
+  
 
 
 .form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {

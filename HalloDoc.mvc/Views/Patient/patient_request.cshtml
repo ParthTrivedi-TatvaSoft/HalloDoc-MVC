@@ -41,7 +41,7 @@
 
     <div class="container" id="cont">
         <div>
-            <form method="post" asp-controller="Patient" asp-action="AddPatient">
+            <form method="post">
             <h4 class="p-2">Patient Infromation</h4>
 
             <div class=" form-floating col-12 mb-4 ">
@@ -69,14 +69,35 @@
             <h4>Patient Contact Information</h4>
             <div class="row mt-2">
 
-                <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
-                        <input asp-for="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput" class="comman">Email</label>
-                </div>
-                <div class="form-floating col-lg-6 col-md-12 col-sm-12">
-                        <input asp-for="phoneNo"  type="tel" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
-                </div>
+               
             </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+                            <label for="floatingInput" class="hidenpass">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input asp-for="phoneNo" type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput">
+
+                        </div>
+                    </div>
+                    <div id="passwordSection" class="col-6 " style="display:none">
+                        <div class="input-div form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="hidenpass">Password</label>
+                        </div>
+                    </div>
+                    <div id="confirmPasswordSec" class="col-6" style="display:none">
+                        <div class="input-div form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="hidenpass">Confirm Password</label>
+                        </div>
+                    </div>
+                </div>
             <br>
             <h4>Patient Location</h4>
             <div class="row mt-2">
@@ -120,18 +141,44 @@
             <div class="d-flex justify-content-end gap-2">
 
                 <button type="submit" class="btn btn-primary" >Submit</button>
-                <button type="button" class="btn btn-outline-primary">Cancle</button>
+                <button type="reset" class="btn btn-outline-primary">Cancel</button>
 
             </div>
 
+            
+            
             </form>
 
-
         </div>
+        
        
     </div>
     <br>
     <partial name="_footer" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+    $('#email').focusout(function () {
+        debugger
+        var email = $(this).val();
+        $.ajax({
+            url: '/Patient/CheckEmailExists',
+            type: 'GET',
+            contentType: 'application/json',
+            data: { email: email },
+            success: function (response) {
+                if (response.emailExists) {
+                    $('#passwordSection').hide();
+                    $('#confirmPasswordSec').hide();
+                } else {
+                    $('#passwordSection').show();
+                    $('#confirmPasswordSec').show();
+                }
+            }
+        });
+    });
+    </script>
     <script src="./js/custom.js"></script>
     <script>
         const phoneInputField = document.querySelectorAll("input[type='tel']");

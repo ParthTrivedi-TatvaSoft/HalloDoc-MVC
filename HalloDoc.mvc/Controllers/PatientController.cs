@@ -12,43 +12,81 @@ namespace HalloDoc.mvc.Controllers
     {
 
 
-            private readonly ILogger<PatientController> _logger;
-            private readonly ILoginService _loginService;
-            private readonly IPatientService _patientService;
+        private readonly ILogger<PatientController> _logger;
+        private readonly ILoginService _loginService;
+        private readonly IPatientService _patientService;
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService,IPatientService patientService)
-            {
-                _logger = logger;
-                _loginService = loginService;
-                _patientService = patientService;
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService)
+        {
+            _logger = logger;
+            _loginService = loginService;
+            _patientService = patientService;
         }
 
 
 
 
-            [HttpPost]
+        [HttpPost]
 
-            public IActionResult patient_login(LoginModel loginModel)
+        public IActionResult patient_login(LoginModel loginModel)
+        {
+            if (_loginService.Login(loginModel))
             {
-                if (_loginService.Login(loginModel))
-                {
-              
-                return RedirectToAction("submit_request", "Patient");
-                }
-            TempData["Email"] = "Enter Valid Email";
+
+                return RedirectToAction("patient_dashboard", "Patient");
+            }
+    
 
             return RedirectToAction("patient_login", "Patient");
-            }
+        }
 
 
         [HttpPost]
-        public IActionResult AddPatient(PatientInfoModel patientInfoModel)
+        public IActionResult friendfamily_request(FamilyReqModel familyReqModel)
+        {
+
+            _patientService.AddFamilyReq(familyReqModel);
+
+            return RedirectToAction("submit_request", "Patient");
+        }
+
+
+        [HttpPost]
+        public IActionResult patient_request(PatientInfoModel patientInfoModel)
         {
 
             _patientService.AddPatientInfo(patientInfoModel);
 
             return RedirectToAction("submit_request", "Patient");
         }
+
+
+        [HttpPost]
+        public IActionResult concierge_request(ConciergeReqModel conciergeReqModel)
+        {
+
+            _patientService.AddConciergeReq(conciergeReqModel);
+
+            return RedirectToAction("submit_request", "Patient");
+        }
+
+        [HttpPost]
+        public IActionResult business_request(BusinessReqModel businessReqModel)
+        {
+
+            _patientService.AddBusinessReq(businessReqModel);
+
+            return RedirectToAction("submit_request", "Patient");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckEmailExists(string email)
+        {
+            var emailExists = await _patientService.IsEmailExists(email);
+            return Json(new { emailExists });
+        }
+
+
 
 
 
@@ -90,6 +128,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+       
         public IActionResult business_request()
         {
             return View();
@@ -100,5 +139,14 @@ namespace HalloDoc.mvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult patient_dashboard()
+        {
+            var infos = _patientService.GetPatientInfos();
+            var viewmodel = new PatientDashboardInfo { patientDashboardItems = infos };
+            return View(viewmodel);
+        }
+
+
     }
 }

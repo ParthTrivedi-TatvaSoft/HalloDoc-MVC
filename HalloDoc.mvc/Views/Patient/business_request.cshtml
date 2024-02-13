@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "business_request";
 }
+@model DataAccess.CustomModels.BusinessReqModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +51,7 @@
 
   <partial name="_navbar" />
     <div class="container-fluid">
-
+        
         <div class="navbar navbar-light justify-content-end">
              <a asp-controller="Patient" asp-action="submit_request">
             <button class="back btn btn-outline-info m-2">
@@ -63,38 +64,38 @@
 
     <div class="container">
         <div>
-
+            <form method="post">
             <h4>Business Infromation</h4>
             <div class="row mt-2">
 
                 <div class="form-floating mb-3 col-md-6">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="text" asp-for="firstName" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput" class="comman">Your First Name</label>
                 </div>
                 <div class="form-floating col-lg-6 col-md-6">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword" class="comman"> Your Last Name</label>
+                        <input type="text" asp-for="lastName" class="form-control" id="floatingPassword" placeholder="lastname">
+                    <label for="floatingInput" class="comman"> Your Last Name</label>
                 </div>
             </div>
 
             <div class="row mt-2">
 
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
-                    <input type="tel" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
+                        <input type="tel" asp-for="phoneNo" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
-                    <input type="email" class="form-control" id="floatingPassword" placeholder="">
+                        <input type="email" asp-for="email" class="form-control" id="floatingPassword" placeholder="">
                     <label for="floatingPassword" class="comman">Your Email</label>
                 </div>
             </div>
 
             <div class="row mt-2">
                 <div class="form-floating mb-3 col-md-6">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" asp-for="businessName" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput" class="comman"> Business/Property Name</label>
                 </div>
                 <div class="form-floating mb-3 col-md-6">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" asp-for="caseNo" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput" class="comman"> Case Number (Optional)</label>
                 </div>
             </div>
@@ -103,22 +104,22 @@
             <h4>Patient Infromation</h4>
 
             <div class=" form-floating col-12 mb-4 ">
-                <textarea class="form-control" placeholder="Enter Brief Details of Symptoms(Optional)"
+                    <textarea class="form-control" asp-for="symptoms" placeholder="Enter Brief Details of Symptoms(Optional)"
                           id="floatingTextarea2" style="height: 100px"></textarea>
                 <label for="floatingTextarea2" id="textarea">Enter Brief Details of Symptoms(Optional)</label>
             </div>
             <div class="row mt-2">
 
                 <div class="form-floating mb-3  col-md-6 ">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input type="text" class="form-control" asp-for="patientFirstName" id="floatingInput" placeholder="">
                     <label for="floatingInput" class="comman">First Name</label>
                 </div>
                 <div class="form-floating col-md-6">
-                    <input type="text" class="form-control" id="floatingPassword" placeholder="">
+                        <input type="text" asp-for="patientLastName" class="form-control" id="floatingPassword" placeholder="">
                     <label for="floatingPassword" class="comman">Last Name</label>
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="date" asp-for="patientDob" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput" class="comman">Date of Birth</label>
                 </div>
             </div>
@@ -171,11 +172,12 @@
 
             <div class="d-flex justify-content-end gap-2">
 
-                <button type="button" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-outline-primary">Cancle</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-outline-primary">Cancel</button>
 
             </div>
 
+            </form>
 
 
         </div>

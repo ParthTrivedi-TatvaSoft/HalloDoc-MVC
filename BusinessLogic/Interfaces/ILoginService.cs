@@ -13,6 +13,10 @@ namespace BusinessLogic.Interfaces
     public interface ILoginService
     {
         public bool Login(LoginModel loginModel);
+
+
+        
+
     }
 }
 

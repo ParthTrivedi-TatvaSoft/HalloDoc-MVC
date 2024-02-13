@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\friendfamily_request.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
+      "PackagePath": "staticwebassets\\css\\patient_dashboard.css"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
       "PackagePath": "staticwebassets\\css\\patient_login.css"
     },

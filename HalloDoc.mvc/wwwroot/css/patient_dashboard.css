@@ -1,0 +1,48 @@
+﻿body {
+    background-color: aliceblue;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+#navbar {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+}
+
+#logo {
+    width: 9rem;
+    margin-left: 5rem;
+}
+
+.light {
+    width: 2rem;
+}
+
+#logout {
+    color: rgb(0, 183, 255);
+    background-color: white;
+    border: 1px solid rgb(0, 183, 255);
+    border-radius: 5px;
+    width: 5rem;
+    height: 2.5rem;
+}
+
+    #logout:hover {
+        background-color: rgb(0, 183, 255);
+        color: white;
+    }
+
+#new-req {
+    color: rgb(0, 183, 255);
+    background-color: white;
+    border: 1px solid rgb(0, 183, 255);
+    border-radius: 5px;
+    width: 11rem;
+    height: 3rem;
+}
+
+    #new-req:hover {
+        background-color: rgb(0, 183, 255);
+        color: white;
+    }

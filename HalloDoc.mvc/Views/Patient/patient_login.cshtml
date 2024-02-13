@@ -31,17 +31,22 @@
         <form method="post">
         <div class="  input-div form-floating mb-3">
             <input type="email" asp-for="Email"  class="icon1 form-control" id="floatingInput" placeholder="Username">
+                <span asp-validation-for="Email" class="text-danger"></span>
                 <label >Email </label>
-                <span class="text-danger">@TempData["Email"]</span>
+               
 
             <i class="icon bi bi-person "></i>
-
+              
         </div>
         <div class=" input-div form-floating mb-3">
                 <input type="password" asp-for="Password" class="icon2 form-control" id="floatingPassword" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
                 <label >Password</label>
+                
                 <i class="icon bi bi-eye" onclick="password()" id="icon_1"></i>
                 <i class="icon bi bi-eye-slash-fill" onclick="password()" id="icon_2"></i>
+                
+
 
         </div>
 

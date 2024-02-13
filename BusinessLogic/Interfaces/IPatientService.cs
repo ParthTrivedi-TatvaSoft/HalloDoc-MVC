@@ -10,5 +10,25 @@ namespace BusinessLogic.Interfaces
     public interface IPatientService
     {
          void AddPatientInfo(PatientInfoModel patientInfoModel);
+
+
+         void AddFamilyReq(FamilyReqModel familyReqModel);
+
+
+        void AddConciergeReq(ConciergeReqModel conciergeReqModel);
+
+        void AddBusinessReq(BusinessReqModel businessReqModel);
+
+        Task<bool> IsEmailExists(string email);
+
+        List<PatientDashboard> GetPatientInfos();
+
+
+
+
+
+
     }
+
+
 }

@@ -12,6 +12,7 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDbContex
 builder.Services.AddScoped<ILoginService,LoginService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

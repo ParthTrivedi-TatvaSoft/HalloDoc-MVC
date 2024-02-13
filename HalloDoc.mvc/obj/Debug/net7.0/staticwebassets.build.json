@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "H+QOu8/fxmAJOsZD996f3xVDROSS/nOtzWpOq54SjxQ=",
+  "Hash": "3MVVSm2BhD1L/0t2bjMct+kgjVnXdT0NFuEUAGizPpM=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\friendfamily_request.css"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "css/patient_dashboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\patient_dashboard.css"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
