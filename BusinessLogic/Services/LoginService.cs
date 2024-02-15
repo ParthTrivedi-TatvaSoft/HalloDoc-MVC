@@ -21,12 +21,14 @@ namespace BusinessLogic.Repository
      
 
         public bool Login(LoginModel loginModel)
-            {
+        {
 
 
             return _db.Aspnetusers.Any(x => x.Email == loginModel.Email && x.Passwordhash == loginModel.Password);
 
         }
+       
+     
         }
     
 

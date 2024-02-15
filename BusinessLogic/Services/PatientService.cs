@@ -40,7 +40,7 @@ namespace BusinessLogic.Services
             request.Isurgentemailsent = new BitArray(1);
             request.Firstname = patientInfoModel.firstName;
             request.Lastname = patientInfoModel.lastName;
-            request.Phonenumber = patientInfoModel.phoneNo;
+            request.Phonenumber = patientInfoModel.phNo;
             request.Email = patientInfoModel.email;
 
             _db.Requests.Add(request);
@@ -51,7 +51,7 @@ namespace BusinessLogic.Services
             info.Notes = patientInfoModel.symptoms;
             info.Firstname = patientInfoModel.firstName;
             info.Lastname = patientInfoModel.lastName;
-            info.Phonenumber = patientInfoModel.phoneNo;
+            info.Phonenumber = patientInfoModel.phNo;
             info.Email = patientInfoModel.email;
             info.Street = patientInfoModel.street;
             info.City = patientInfoModel.city;
@@ -66,14 +66,41 @@ namespace BusinessLogic.Services
             u.Firstname = patientInfoModel.firstName;
             u.Lastname = patientInfoModel.lastName;
             u.Email = patientInfoModel.email;
-            u.Mobile = patientInfoModel.phoneNo;
+            u.Mobile = patientInfoModel.phNo;
             u.Street = patientInfoModel.street;
             u.City = patientInfoModel.city;
             u.State = patientInfoModel.state;
             u.Zipcode = patientInfoModel.zipCode;
             u.Createdby = user.Username;
             u.Createddate = DateTime.Now;
-            
+
+
+
+            if (patientInfoModel.File != null && patientInfoModel.File.Length > 0)
+            {
+                //get file name
+                var fileName = Path.GetFileName(patientInfoModel.File.FileName);
+
+                //define path
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                // Copy the file to the desired location
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    patientInfoModel.File.CopyTo(stream);
+                }
+
+                Requestwisefile requestwisefile = new()
+                {
+                    Filename = fileName,
+                    Requestid = request.Requestid,
+                    Createddate = DateTime.Now
+                };
+
+                _db.Requestwisefiles.Add(requestwisefile);
+                _db.SaveChanges();
+            };
+
 
             _db.Users.Add(u);
             _db.SaveChanges();
@@ -114,8 +141,38 @@ namespace BusinessLogic.Services
             info.Zipcode = familyReqModel.zipCode;
 
 
+
+
+            if (familyReqModel.File != null && familyReqModel.File.Length > 0)
+            {
+                //get file name
+                var fileName = Path.GetFileName(familyReqModel.File.FileName);
+
+                //define path
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                // Copy the file to the desired location
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    familyReqModel.File.CopyTo(stream);
+                }
+
+                Requestwisefile requestwisefile = new()
+                {
+                    Filename = fileName,
+                    Requestid = request.Requestid,
+                    Createddate = DateTime.Now
+                };
+
+                _db.Requestwisefiles.Add(requestwisefile);
+                _db.SaveChanges();
+            };
+
+
             _db.Requestclients.Add(info);
             _db.SaveChanges();
+
+
         }
 
 
@@ -212,6 +269,8 @@ namespace BusinessLogic.Services
 
             _db.Requestbusinesses.Add(requestbusiness);
             _db.SaveChanges();
+
+
         }
 
 
@@ -228,6 +287,24 @@ namespace BusinessLogic.Services
         }
 
 
+        public List<MedicalHistory> GetMedicalHistory(string email)
+        {
+            var user = _db.Requests.Where(x => x.Email == email).FirstOrDefault();
 
+            var doc = _db.Requestwisefiles.Where(x => x.Requestid == 33).FirstOrDefault();
+            string file = doc.Filename;
+            return new List<MedicalHistory>
+            {
+                new MedicalHistory {createdDate = user.Createddate , currentStatus = "Test",document = file
+
+                }
+
+            };
+        }
     }
+
 }
+
+
+
+

@@ -55,7 +55,7 @@
         <div class="navbar navbar-light justify-content-end">
              <a asp-controller="Patient" asp-action="submit_request">
             <button class="back btn btn-outline-info m-2">
-                <span class="h6 p-0 m-0 text-center" style="color: #10bce9;">&#60; Back</span>
+                <span class="h6 p-0 m-0 text-center">&#60; Back</span>
                
             </button>
             </a>
@@ -92,6 +92,7 @@
             <div class="row mt-2">
                 <div class="form-floating mb-3 col-md-6">
                         <input type="text" asp-for="businessName" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <span asp-validation-for="businessName" class="text-danger"></span>
                     <label for="floatingInput" class="comman"> Business/Property Name</label>
                 </div>
                 <div class="form-floating mb-3 col-md-6">

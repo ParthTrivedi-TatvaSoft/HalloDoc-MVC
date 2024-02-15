@@ -19,9 +19,14 @@ namespace BusinessLogic.Interfaces
 
         void AddBusinessReq(BusinessReqModel businessReqModel);
 
+      
         Task<bool> IsEmailExists(string email);
 
         List<PatientDashboard> GetPatientInfos();
+
+        List<MedicalHistory> GetMedicalHistory(string email);
+
+
 
 
 

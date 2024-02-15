@@ -128,3 +128,13 @@ footer p {
     }
 }
 
+.call {
+    width: 100%;
+}
+
+span {
+    display: block;
+    overflow: hidden;
+    padding-right: 10px;
+}
+

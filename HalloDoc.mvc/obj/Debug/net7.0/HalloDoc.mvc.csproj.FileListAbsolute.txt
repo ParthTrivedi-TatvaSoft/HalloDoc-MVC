@@ -234,3 +234,6 @@ D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\BusinessLogic.dll
 D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\DataAccess.dll
 D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\BusinessLogic.pdb
 D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc\HalloDoc.mvc\obj\Debug\net7.0\HalloDoc.mvc.MvcApplicationPartsAssemblyInfo.cs
+D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.Views.dll
+D:\HalloDoc\HalloDoc.mvc\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.dll

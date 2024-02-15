@@ -57,14 +57,14 @@
         <div class="navbar navbar-light justify-content-end">
             <a asp-controller="Patient" asp-action="submit_request">
             <button class="back btn btn-outline-info m-2" >
-                <span class="h6 p-0 m-0 text-center" style="color: #10bce9;">&#60; Back</span>
+                <span class="h6 p-0 m-0 text-center">&#60; Back</span>
             </button>
             </a>
         </div>
     </div>
 
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
 
             <h4>Friend/Family Infromation</h4>
             <div class="row mt-2">
@@ -108,6 +108,7 @@
 
                 <div class="form-floating mb-3  col-md-6 ">
                     <input type="text" asp-for="patientFirstName" class="form-control" id="floatingInput" placeholder="">
+                    <span asp-validation-for="patientFirstName" class="text-danger"></span>
                     <label for="floatingInput" class="comman">First Name</label>
                 </div>
                 <div class="form-floating mb-3 col-md-6">
@@ -165,7 +166,7 @@
             <div class="form mb-3 col-lg-12 col-md-12 col-sm-12 d-flex">
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <input type="file" asp-for="File" class="form-control" id="inputGroupFile02">
                     <label class="input-group-text bg-primary text-white" for="inputGroupFile02">
                         <i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload
                     </label>
@@ -177,7 +178,7 @@
             <div class="d-flex justify-content-end gap-2">
 
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-outline-primary">Cancle</button>
+                <button type="reset" class="btn btn-outline-primary">Cancel</button>
 
             </div>
 

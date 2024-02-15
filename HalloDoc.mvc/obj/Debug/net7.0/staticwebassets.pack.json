@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\HalloDoc.mvc.bundle.scp.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
+      "PackagePath": "staticwebassets\\UploadedFiles\\back.png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
+      "PackagePath": "staticwebassets\\UploadedFiles\\dark.png"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
@@ -43,6 +51,10 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\submit_request.css",
       "PackagePath": "staticwebassets\\css\\submit_request.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\user_profile.css",
+      "PackagePath": "staticwebassets\\css\\user_profile.css"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\favicon.ico",

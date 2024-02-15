@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "someoneelse_newrequest";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<link rel="stylesheet" href="~/css/friendfamily_request.css" />
+<style>
+    .iti {
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+    <div class="navbar navbar-light justify-content-between">
+        <h3>Submit Information</h3>
+        <a asp-controller="patient" asp-action="patient_dashboard">
+            <button class="back btn btn-outline-info m-2">
+                <span class="h6 p-0 m-0 text-center" style="color: #10bce9;">&#60; Back</span>
+            </button>
+        </a>
+    </div>
+</div>
+
+<div class="container bg-light">
+    <form method="post">
+        <h4>Patient Information</h4>
+        <div class="form-floating col-12 ">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                      style="height: 100px"></textarea>
+            <label for="floatingTextarea2" class="first">Enter Brief Details of Symptoms(Optional)</label>
+        </div>  
+        <div class="row mt-3">
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class=" mx-2">Your First Name</label>
+               
+            </div>
+            <div class="form-floating col-lg-6 col-md-12 col-sm-12">
+                <input type="text"  class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" class=" mx-2">Your Last Name</label>
+             
+            </div>
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
+                <input type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class=" mx-2">Date of Birth</label>
+            </div>
+        </div>
+
+        <h4>Patient Contact Information</h4>
+        <div class="row mt-2">
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class=" mx-2">Email</label>
+            </div>
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
+                <input type="tel" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
+            </div>
+        </div>
+
+        <h4>Patient Location</h4>
+        <div class="row mt-2">
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class=" mx-2">Street</label>
+            </div>
+            <div class="form-floating col-lg-6 col-md-12 col-sm-12">
+                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" class=" mx-2">City</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+               <label for="floatingInput" class=" mx-2">State</label>
+            </div>
+            <div class="form-floating col-lg-6 col-md-12 col-sm-12">
+                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" class=" mx-2">Zip Code</label>
+            </div>
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class=" mx-2">Room # / Suite (optional)</label>
+            </div>
+            <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
+                <button type="button" class="btn btn-outline-primary" style="height:3.3rem ; width:6rem"> <i class="bi bi-geo-alt"></i> Map</button>
+            </div>
+        </div>
+
+        <h4>(Optional)Upload Photo Or Document</h4>
+        <div class="form mb-3 col-lg-12 col-md-12 col-sm-12 d-flex">
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02 ">
+                <label class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</label>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2  mb-3">
+            <button type="submit" class="btn btn-primary">submit</button>
+            <button type="reset" class="btn btn-outline-primary">cancel</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const phoneInputField = document.querySelectorAll("input[type='tel']");
+    for (var i = 0; i < phoneInputField.length; i++) {
+        const phoneInput = window.intlTelInput(phoneInputField[i], {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+</script>

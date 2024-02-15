@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -15,12 +17,17 @@ namespace HalloDoc.mvc.Controllers
         private readonly ILogger<PatientController> _logger;
         private readonly ILoginService _loginService;
         private readonly IPatientService _patientService;
+        private readonly IHttpContextAccessor _contx;
+        private readonly INotyfService _notyf;
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService)
+
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService,IHttpContextAccessor contx, INotyfService notyf)
         {
             _logger = logger;
             _loginService = loginService;
             _patientService = patientService;
+            _contx = _contx;
+            _notyf = notyf;
         }
 
 
@@ -32,51 +39,98 @@ namespace HalloDoc.mvc.Controllers
         {
             if (_loginService.Login(loginModel))
             {
-
+                _notyf.Success("Logged In Successfully !!");
                 return RedirectToAction("patient_dashboard", "Patient");
             }
-    
 
+            _notyf.Error("Invalid Credentials");
             return RedirectToAction("patient_login", "Patient");
         }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult patient_request(PatientInfoModel patientInfoModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                _patientService.AddPatientInfo(patientInfoModel);
+                _notyf.Success(" Successfully !!");
+                return RedirectToAction("submit_request", "Patient");
+            }
+            else
+            {
+                _notyf.Error("Please Fill The Required Details");
+                return View(patientInfoModel);
+            }
+
+
+
+
+        }
+
+
+
 
 
         [HttpPost]
         public IActionResult friendfamily_request(FamilyReqModel familyReqModel)
         {
+            if (ModelState.IsValid)
+            {
+                _patientService.AddFamilyReq(familyReqModel);
+                _notyf.Success(" Successfully !!");
+                return RedirectToAction("submit_request", "Patient");
 
-            _patientService.AddFamilyReq(familyReqModel);
+            }
+            else
+            {
+                _notyf.Error("Please Fill The Required Details");
+                return View(familyReqModel);
+            }
 
-            return RedirectToAction("submit_request", "Patient");
         }
 
 
-        [HttpPost]
-        public IActionResult patient_request(PatientInfoModel patientInfoModel)
-        {
-
-            _patientService.AddPatientInfo(patientInfoModel);
-
-            return RedirectToAction("submit_request", "Patient");
-        }
 
 
         [HttpPost]
         public IActionResult concierge_request(ConciergeReqModel conciergeReqModel)
         {
+            if (ModelState.IsValid)
+            {
 
-            _patientService.AddConciergeReq(conciergeReqModel);
+                _patientService.AddConciergeReq(conciergeReqModel);
+                _notyf.Success(" Successfully !!");
+                return RedirectToAction("submit_request", "Patient");
+            }
+            else
+            {
 
-            return RedirectToAction("submit_request", "Patient");
+                _notyf.Error("Please Fill The Required Details");
+                return View(conciergeReqModel);
+            }
+
         }
 
         [HttpPost]
         public IActionResult business_request(BusinessReqModel businessReqModel)
         {
+            if (ModelState.IsValid)
+            {
 
-            _patientService.AddBusinessReq(businessReqModel);
-
-            return RedirectToAction("submit_request", "Patient");
+                _patientService.AddBusinessReq(businessReqModel);
+                _notyf.Success(" Successfully !!");
+                return RedirectToAction("submit_request", "Patient");
+            }
+            else
+            {
+                _notyf.Error("Please Fill The Required Details");
+                return View(businessReqModel);
+            }
         }
 
         [HttpGet]
@@ -85,10 +139,6 @@ namespace HalloDoc.mvc.Controllers
             var emailExists = await _patientService.IsEmailExists(email);
             return Json(new { emailExists });
         }
-
-
-
-
 
 
 
@@ -133,6 +183,21 @@ namespace HalloDoc.mvc.Controllers
         {
             return View();
         }
+
+
+        public IActionResult patient_newrequest()
+        {
+            return View();
+        }
+
+
+        public IActionResult someoneelse_newrequest()
+        {
+            return View();
+        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
