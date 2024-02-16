@@ -22,8 +22,8 @@ namespace BusinessLogic.Interfaces
       
         Task<bool> IsEmailExists(string email);
 
-        List<PatientDashboard> GetPatientInfos();
 
+        List<PatientDashboard> GetPatientInfos();
         List<MedicalHistory> GetMedicalHistory(string email);
 
 

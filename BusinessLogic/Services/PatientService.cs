@@ -2,6 +2,7 @@
 using DataAccess.CustomModels;
 using DataAccess.Data;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -76,31 +77,34 @@ namespace BusinessLogic.Services
 
 
 
-            if (patientInfoModel.File != null && patientInfoModel.File.Length > 0)
+            foreach(IFormFile file in patientInfoModel.File)
             {
-                //get file name
-                var fileName = Path.GetFileName(patientInfoModel.File.FileName);
-
-                //define path
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-                // Copy the file to the desired location
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                if (patientInfoModel.File != null && file.Length > 0)
                 {
-                    patientInfoModel.File.CopyTo(stream);
-                }
+                    //get file name
+                    var fileName = Path.GetFileName(file.FileName);
 
-                Requestwisefile requestwisefile = new()
-                {
-                    Filename = fileName,
-                    Requestid = request.Requestid,
-                    Createddate = DateTime.Now
+                    //define path
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                    // Copy the file to the desired location
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    Requestwisefile requestwisefile = new()
+                    {
+                        Filename = fileName,
+                        Requestid = request.Requestid,
+                        Createddate = DateTime.Now
+                    };
+
+                    _db.Requestwisefiles.Add(requestwisefile);
+                    _db.SaveChanges();
                 };
 
-                _db.Requestwisefiles.Add(requestwisefile);
-                _db.SaveChanges();
-            };
-
+            }
 
             _db.Users.Add(u);
             _db.SaveChanges();
@@ -275,12 +279,29 @@ namespace BusinessLogic.Services
 
 
 
+        //public List<PatientDashboard> GetPatientInfos()
+        //{
+        //    var user = _db.Requests.Where(x => x.Requestid == 12).FirstOrDefault();
+        //    return new List<PatientDashboard>
+        //    {
+        //        new PatientDashboard {createdDate = user.Createddate , currentStatus = (user.Status == 1 ? "PENDING" : "ACTIVE"),document = "DOC.JPG"  },
+        //        new PatientDashboard {createdDate = DateTime.Now, currentStatus = "pending", document="myname.jpg"},
+        //        new PatientDashboard {createdDate = DateTime.Now, currentStatus = "active", document="hername.jpg"}
+        //    };
+        //}
+
+
         public List<PatientDashboard> GetPatientInfos()
         {
-            var user = _db.Requests.Where(x => x.Requestid == 12).FirstOrDefault();
+
+
+            var user = _db.Requests.Where(x => x.Email == "user@gmail.com").FirstOrDefault();
             return new List<PatientDashboard>
             {
-                new PatientDashboard {createdDate = user.Createddate , currentStatus = (user.Status == 1 ? "PENDING" : "ACTIVE"),document = "DOC.JPG"  },
+                new PatientDashboard {createdDate = user.Createddate , currentStatus = "Test",
+                    document = "test"
+
+                },
                 new PatientDashboard {createdDate = DateTime.Now, currentStatus = "pending", document="myname.jpg"},
                 new PatientDashboard {createdDate = DateTime.Now, currentStatus = "active", document="hername.jpg"}
             };
@@ -289,17 +310,40 @@ namespace BusinessLogic.Services
 
         public List<MedicalHistory> GetMedicalHistory(string email)
         {
-            var user = _db.Requests.Where(x => x.Email == email).FirstOrDefault();
+            //var user = _db.Requests.Where(x => x.Email == email).FirstOrDefault();
 
-            var doc = _db.Requestwisefiles.Where(x => x.Requestid == 33).FirstOrDefault();
-            string file = doc.Filename;
-            return new List<MedicalHistory>
-            {
-                new MedicalHistory {createdDate = user.Createddate , currentStatus = "Test",document = file
+            //var doc  = _db.Requestwisefiles.Where(x => x.Requestid == 33).FirstOrDefault();
+            //string file = doc.Filename;
+            //return new List<MedicalHistory>
+            //{
+            //    new MedicalHistory {createdDate = user.Createddate , currentStatus = "Test",document = file
 
-                }
+            //    }
 
-            };
+            //};
+
+            //var pmh = _db.Requests.Where(r => r.Email == email).Select(r => new MedicalHistory
+            //{
+            //    createdDate = r.Createddate,
+            //    currentStatus = "testing",
+            //    document = _db.Requestwisefiles.Where(x => x.Requestid == r.Requestid).Select(x => x.Filename)
+            //});.ToList();
+
+
+            var medicalhistory = (from request in _db.Requests
+                                  join requestfile in _db.Requestwisefiles
+                                  on request.Requestid equals requestfile.Requestid
+                                  where request.Email == email && request.Email != null
+                                  group requestfile by request.Requestid into groupedFiles
+                                  select new MedicalHistory
+                                  {
+                                      createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
+                                      currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault().ToString(),
+                                      document = groupedFiles.Select(x => x.Filename.ToString()).ToList()
+                                  }).ToList();
+
+
+            return medicalhistory;
         }
     }
 

@@ -1,6 +1,9 @@
-﻿@{
+﻿@using DataAccess.CustomModels;
+@{
     ViewData["Title"] = "patient_dashboard";
 }
+
+@model MedicalHistoryList;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,14 +13,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dashboard</title>
     <link rel="stylesheet" href="~/css/patient_dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 
 </head>
 
@@ -25,7 +31,7 @@
 
 
 
-    <nav class="navbr navbar navbar-expand w-100 ">
+    <nav class="bg-white navbr navbar navbar-expand w-100 ">
 
         <div class="container-fluid">
             <div class="d-flex align-items-center">
@@ -34,7 +40,7 @@
                         aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <img class="navbar-brand ms-3" id="logo" src="~/images/hallodoc.png" alt="logo">
+                <img class="navbar-brand ms-3" id="logo" src="/images/hallodoc.png" alt="logo">
 
             </div>
             <div>
@@ -45,25 +51,19 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>Parth</span>
-                            <span>Trivedi</span>
+                            <span>@TempData["username"]</span>
+                            <span>@TempData["id"]</span>
                         </span>
                     </li>
-                    
             </div>
             <li class="nav-item">
-                <a asp-controller="Patient" asp-action="patient_login">
                 <button id="logout" class="px-3">
-                    
-                    <span class=" d-none d-md-block" >Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
-                    
+                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
                 </button>
-                </a>
-                
 
             </li>
             <li class="nav-item">
-                <img onclick="myFunction()" class="light" src="~/images/dark.png" alt="">
+                <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
             </li>
             </ul>
         </div>
@@ -72,6 +72,8 @@
 
 
     </nav>
+
+
 
 
 
@@ -98,21 +100,19 @@
         </div>
     </nav>
 
-   
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
-            <div class=" tab-content container-fluid p-5" id="myTabContent">
+            <div class=" tab-content container-fluid p-5" id="medicalHistory">
                 <div class="tab-pane fade show active" id="dashboard-tab-pane" role="tabpanel"
                      aria-labelledby="dashboard-tab" tabindex="0">
                     <h3 class="mb-4">Medical History</h3>
                     <div class="container-fluid bg-white shadow p-3 rounded-3">
                         <div class="text-end py-3">
                             <button id="new-req" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <Span class="px-3 py-2 d-none d-md-block">
-                                    Create New
-                                    Request
+                                <Span class="py-2 d-none d-md-block">
+                                    Create New Request
                                 </Span><i class="p-2  bi bi-plus-lg d-block d-md-none"></i>
                             </button>
                         </div>
@@ -126,51 +126,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Accepted</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Processing</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Closed</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Clear</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Processing</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Closed</td>
-                                        <td>
-                                            <a href="#" class="btn btn-outline-info fw-bold">
-                                                <span><i class="bi bi-file-earmark fw-bold"></i></span>
-                                                <span>Documents</span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Clear</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Sep 27,2023</td>
-                                        <td>Processing</td>
-                                        <td></td>
-                                    </tr>
+                                    @foreach (var items in Model.medicalHistoriesList)
+                                    {
+                                        <tr>
+                                            <td>@items.createdDate</td>
+                                            <td>@items.currentStatus</td>
+                                            <td>
+                                                <a href="#" class="btn btn-outline-info fw-bold" onclick="swapDivs()">
+                                                    <span><i class="bi bi-file-earmark fw-bold"></i></span>
+                                                    <span>
+                                                        View Documents (@items.document.Count())
+                                                        @* @foreach (var docs in items.document)
+                                                    {
+                                                    @docs
+                                                    }*@
+                                                    </span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
                                 </tbody>
                             </table>
                         </div>
@@ -228,11 +203,142 @@
                 </div>
 
             </div>
+
+            <div class="container-fluid mt-5" style="background-color: aliceblue; display:none" id="viewdocs">
+
+                <div class="container bg-white p-4 ">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h3>Documents</h3>
+                        <button onclick="swapDivs()" id="backview">&lt; Back</button>
+                    </div>
+                    <div class="row">
+                        <p class="col-12">Patient Name</p>
+                        <p class="col-12">
+                            <span class="fw-bolder fs-4">Testing Test</span>
+                            <span>(F34R34T5GVR42)</span>
+                        </p>
+                        <p class="col-12 py-3">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
+                        <div class="col-12 mb-4">
+                            <input class="form-control form-control-lg " id="formFileLg" type="file" multiple>
+                        </div>
+                        <div class="col-12 d-flex justify-content-between">
+                            <h3>Documents</h3>
+                            <button>Download All</button>
+                        </div>
+                        <!-- row--- -->
+                    </div>
+
+                    <!-- ----container    -->
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="AddPatient" class="container my-5 p-4" id="main-cont">
+
+                <div class="row">
+                    <h5 class="col-12">General Information</h5>
+
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">First Name</label>
+
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Date Of Birth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Contact Information</h5>
+                    </div>
+
+
+
+                    <div class="col-2">
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>Type</option>
+                                <option value="1">Mobile</option>
+                                <option value="2">Landline</option>
+                            </select>
+                            <label for="floatingSelect">select</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-div form-floating mb-3">
+                            <input type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput">
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Patient Location</h5>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">City</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">State</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="input-div form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="form-floating mb-3">
+                            <button type="button" class="btn btn-outline-primary" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </form>
         </div>
 
 
     </div>
 
+    @*-------------------------model--------------------*@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -255,7 +361,7 @@
                     </div>
                     <div class="d-flex justify-content-end mb-3 me-3 gap-3">
 
-                        <button id="continue" class="px-3 modal-b"  onclick="redirect()" >
+                        <button id="continue" class="px-3 modal-b" onclick="redirect()">
                             <span class="">Continue</span>
                         </button>
                         <button type="reset" class="px-3 modal-b" data-bs-dismiss="modal">
@@ -267,15 +373,16 @@
         </div>
     </div>
 
-
 </body>
 
-
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('.modal').css('top', $(window).outerHeight() / 4 - ($(".modal-dialog").outerHeight()) / 2 + 'px');
 
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
     $(document).ready(function () {
         // Convert table rows to accordions in mobile view
         if ($(window).width() < 768) {
@@ -317,11 +424,23 @@
         }
     });
 
+
+    const phoneInputField = document.querySelectorAll("input[type='tel']");
+    for (var i = 0; i < phoneInputField.length; i++) {
+        const phoneInput = window.intlTelInput(phoneInputField[i], {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+
+    //----------model-----------
+    $('.modal').css('top', $(window).outerHeight() / 4 - ($(".modal-dialog").outerHeight()) / 2 + 'px');
+
     let buttonId = null;
 
     function passId(event) {
         buttonId = event.target.id;
-        
+
     }
 
     function redirect() {
@@ -334,5 +453,26 @@
             // Default redirection if buttonId is not set or unexpected
         }
     }
+
+    function viewDocs() {
+        var divToReplace = document.getElementById("medicalHistory");
+        var replacementDiv = document.getElementById("viewdocs");
+        divToReplace.innerHTML = replacementDiv.innerHTML;
+    };
+    function swapDivs() {
+        // Get references to the div elements
+        var div1 = document.getElementById("medicalHistory");
+        var div2 = document.getElementById("viewdocs");
+
+        // Toggle the visibility of the divs
+        if (div1.style.display === "none") {
+            div1.style.display = "block";
+            div2.style.display = "none";
+        } else {
+            div1.style.display = "none";
+            div2.style.display = "block";
+        }
+    }
+
 
 </script>

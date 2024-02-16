@@ -9,8 +9,16 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\back.png"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1.png",
+      "PackagePath": "staticwebassets\\UploadedFiles\\d1.png"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\dark.png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\doctor.jpg"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",

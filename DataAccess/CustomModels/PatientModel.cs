@@ -36,7 +36,7 @@ namespace DataAccess.CustomModels
 
         [Compare("password", ErrorMessage = "Password Missmatch")]
         public string? confirmPassword { get; set; }
-        public IFormFile? File { get; set; }
+        public List<IFormFile>? File { get; set; }
 
 
 
@@ -142,7 +142,7 @@ namespace DataAccess.CustomModels
     {
         public DateTime createdDate { get; set; }
         public string currentStatus { get; set; }
-        public string document { get; set; }
+        public List<string> document { get; set; }
     }
     public class MedicalHistoryList
     {

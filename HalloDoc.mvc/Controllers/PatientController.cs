@@ -197,21 +197,21 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
+
         public IActionResult patient_dashboard()
         {
-            var infos = _patientService.GetPatientInfos();
-            var viewmodel = new PatientDashboardInfo { patientDashboardItems = infos };
+
+            var infos = _patientService.GetMedicalHistory("user@gmail.com");
+            var viewmodel = new MedicalHistoryList { medicalHistoriesList = infos };
             return View(viewmodel);
         }
-
 
     }
 }
