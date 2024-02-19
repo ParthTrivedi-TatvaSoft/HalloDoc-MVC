@@ -12,13 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-
-builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
+
+
+builder.Services.AddDistributedMemoryCache();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDbContext"))); 
@@ -48,7 +51,6 @@ app.UseStaticFiles();
 
 app.UseSession();
 app.UseRouting();
-
 app.UseAuthorization();
 app.UseNotyf();
 app.MapControllerRoute(

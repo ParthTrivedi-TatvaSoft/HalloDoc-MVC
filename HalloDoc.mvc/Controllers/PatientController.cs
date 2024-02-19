@@ -7,6 +7,8 @@ using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using DataAccess.Data;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -21,13 +23,15 @@ namespace HalloDoc.mvc.Controllers
         private readonly INotyfService _notyf;
 
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService,IHttpContextAccessor contx, INotyfService notyf)
+
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf)
         {
             _logger = logger;
             _loginService = loginService;
             _patientService = patientService;
             _contx = _contx;
             _notyf = notyf;
+
         }
 
 
@@ -37,14 +41,27 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult patient_login(LoginModel loginModel)
         {
-            if (_loginService.Login(loginModel))
+            if (ModelState.IsValid)
             {
-                _notyf.Success("Logged In Successfully !!");
-                return RedirectToAction("patient_dashboard", "Patient");
-            }
+                //User user = _context.Users.FirstOrDefault(u => u.Aspnetuserid == item.Id);
+                var user = _loginService.Login(loginModel);
+                if (user != null)
+                {
+                    _notyf.Success("Logged In Successfully !!");
+                    return RedirectToAction("patient_dashboard", user);
+                }
+                else
+                {
+                    _notyf.Error("Invalid Credentials");
 
-            _notyf.Error("Invalid Credentials");
-            return RedirectToAction("patient_login", "Patient");
+                    //ViewBag.AuthFailedMessage = "Please enter valid username and password !!";
+                }
+                return View();
+            }
+            else
+            {
+                return View(loginModel);
+            }
         }
 
 
@@ -178,7 +195,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-       
+
         public IActionResult business_request()
         {
             return View();
@@ -200,18 +217,23 @@ namespace HalloDoc.mvc.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
 
 
-        public IActionResult patient_dashboard()
+        public IActionResult patient_dashboard(User user)
         {
 
-            var infos = _patientService.GetMedicalHistory("user@gmail.com");
-            var viewmodel = new MedicalHistoryList { medicalHistoriesList = infos };
-            return View(viewmodel);
+            var infos = _patientService.GetMedicalHistory(user);
+            //var viewmodel = new MedicalHistory { medicalHistoriesList = infos };
+            return View(infos);
         }
-
+        public IActionResult GetDcoumentsById(int requestId)
+        {
+            var list = _patientService.GetAllDocById(requestId);
+            return PartialView("_DocumentList", list.ToList());
+        }
     }
 }

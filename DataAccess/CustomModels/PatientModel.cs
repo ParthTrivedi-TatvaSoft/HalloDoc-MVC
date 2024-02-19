@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace DataAccess.CustomModels
 {
@@ -140,14 +140,31 @@ namespace DataAccess.CustomModels
 
     public class MedicalHistory
     {
+        public int reqId { get; set; }
         public DateTime createdDate { get; set; }
         public string currentStatus { get; set; }
         public List<string> document { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
+        public string PhoneNo { get; set; }
+
+        public string Street { get; set; }
+
+        public string City { get; set; }
+
+        public string ZipCode { get; set; }
+
+        public string State { get; set; }
+
+        public string Email { get; set; }
+
     }
-    public class MedicalHistoryList
-    {
-        public List<MedicalHistory> medicalHistoriesList { get; set; }
-    }
+    //public class MedicalHistoryList
+    //{
+    //    public List<MedicalHistory> medicalHistoriesList { get; set; }
+    //}
 
 
 

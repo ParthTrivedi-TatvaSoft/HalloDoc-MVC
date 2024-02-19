@@ -1,4 +1,5 @@
 ﻿using DataAccess.CustomModels;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace BusinessLogic.Interfaces
 {
     public interface ILoginService
     {
-        public bool Login(LoginModel loginModel);
-
+       
+        public User Login(LoginModel loginModel);
 
         
 
     }
+
+
 }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.CustomModels;
+using DataAccess.Models;
 
 namespace BusinessLogic.Interfaces
 {
@@ -23,12 +24,11 @@ namespace BusinessLogic.Interfaces
         Task<bool> IsEmailExists(string email);
 
 
-        List<PatientDashboard> GetPatientInfos();
-        List<MedicalHistory> GetMedicalHistory(string email);
+        List<MedicalHistory> GetMedicalHistory(User user);
 
 
 
-
+        IQueryable<Requestwisefile>? GetAllDocById(int requestId);
 
 
 

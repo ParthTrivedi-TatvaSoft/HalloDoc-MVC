@@ -60,7 +60,7 @@ namespace BusinessLogic.Services
             info.Zipcode = patientInfoModel.zipCode;
 
 
-            var user = _db.Aspnetusers.Where(x => x.Id == "1").FirstOrDefault();
+            var user = _db.Aspnetusers.Where(x => x.Email == patientInfoModel.email).FirstOrDefault();
 
             User u = new User();
             u.Aspnetuserid = user.Id;
@@ -278,65 +278,20 @@ namespace BusinessLogic.Services
         }
 
 
-
-        //public List<PatientDashboard> GetPatientInfos()
-        //{
-        //    var user = _db.Requests.Where(x => x.Requestid == 12).FirstOrDefault();
-        //    return new List<PatientDashboard>
-        //    {
-        //        new PatientDashboard {createdDate = user.Createddate , currentStatus = (user.Status == 1 ? "PENDING" : "ACTIVE"),document = "DOC.JPG"  },
-        //        new PatientDashboard {createdDate = DateTime.Now, currentStatus = "pending", document="myname.jpg"},
-        //        new PatientDashboard {createdDate = DateTime.Now, currentStatus = "active", document="hername.jpg"}
-        //    };
-        //}
-
-
-        public List<PatientDashboard> GetPatientInfos()
+        public List<MedicalHistory> GetMedicalHistory(User user)
         {
-
-
-            var user = _db.Requests.Where(x => x.Email == "user@gmail.com").FirstOrDefault();
-            return new List<PatientDashboard>
-            {
-                new PatientDashboard {createdDate = user.Createddate , currentStatus = "Test",
-                    document = "test"
-
-                },
-                new PatientDashboard {createdDate = DateTime.Now, currentStatus = "pending", document="myname.jpg"},
-                new PatientDashboard {createdDate = DateTime.Now, currentStatus = "active", document="hername.jpg"}
-            };
-        }
-
-
-        public List<MedicalHistory> GetMedicalHistory(string email)
-        {
-            //var user = _db.Requests.Where(x => x.Email == email).FirstOrDefault();
-
-            //var doc  = _db.Requestwisefiles.Where(x => x.Requestid == 33).FirstOrDefault();
-            //string file = doc.Filename;
-            //return new List<MedicalHistory>
-            //{
-            //    new MedicalHistory {createdDate = user.Createddate , currentStatus = "Test",document = file
-
-            //    }
-
-            //};
-
-            //var pmh = _db.Requests.Where(r => r.Email == email).Select(r => new MedicalHistory
-            //{
-            //    createdDate = r.Createddate,
-            //    currentStatus = "testing",
-            //    document = _db.Requestwisefiles.Where(x => x.Requestid == r.Requestid).Select(x => x.Filename)
-            //});.ToList();
+          
 
 
             var medicalhistory = (from request in _db.Requests
                                   join requestfile in _db.Requestwisefiles
                                   on request.Requestid equals requestfile.Requestid
-                                  where request.Email == email && request.Email != null
+                                  where request.Email == user.Email && request.Email != null
                                   group requestfile by request.Requestid into groupedFiles
                                   select new MedicalHistory
                                   {
+                                      FirstName = user.Firstname,
+                                      reqId = groupedFiles.Select(x => x.Request.Requestid).FirstOrDefault(),
                                       createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
                                       currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault().ToString(),
                                       document = groupedFiles.Select(x => x.Filename.ToString()).ToList()
@@ -344,6 +299,14 @@ namespace BusinessLogic.Services
 
 
             return medicalhistory;
+        }
+
+        public IQueryable<Requestwisefile>? GetAllDocById(int requestId)
+        {
+            var data = from request in _db.Requestwisefiles
+                       where request.Requestid == requestId
+                       select request;
+            return data;
         }
     }
 

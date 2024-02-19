@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor.jpg"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
+      "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },

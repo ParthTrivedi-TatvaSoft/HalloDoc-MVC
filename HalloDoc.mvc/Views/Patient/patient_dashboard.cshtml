@@ -3,9 +3,10 @@
     ViewData["Title"] = "patient_dashboard";
 }
 
-@model MedicalHistoryList;
 
-<!DOCTYPE html>
+@model IList<MedicalHistory>;
+
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -24,8 +25,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
+   
 
 </head>
+
 
 <body style="background-color: aliceblue;">
 
@@ -47,7 +50,7 @@
                 <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
                     <div class="d-none d-sm-flex  justify-content-center align-items-center ">
                     <li class="nav-item">
-                        <span>Welcome</span>
+                        <span>Welcome @Model.FirstOrDefault().FirstName</span>
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
@@ -57,13 +60,15 @@
                     </li>
             </div>
             <li class="nav-item">
+                <a asp-controller="Patient" asp-action="patient_login">
                 <button id="logout" class="px-3">
                     <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
                 </button>
+                </a>
 
             </li>
             <li class="nav-item">
-                <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
+                <img onclick="myfunction()" class="light" src="/images/dark.png" alt="">
             </li>
             </ul>
         </div>
@@ -126,13 +131,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var items in Model.medicalHistoriesList)
+                                    @foreach (var items in Model)
                                     {
                                         <tr>
                                             <td>@items.createdDate</td>
                                             <td>@items.currentStatus</td>
                                             <td>
-                                                <a href="#" class="btn btn-outline-info fw-bold" onclick="swapDivs()">
+                                                <a href="#" class="btn btn-outline-info fw-bold" onclick="showDocuments(@items.reqId)">
                                                     <span><i class="bi bi-file-earmark fw-bold"></i></span>
                                                     <span>
                                                         View Documents (@items.document.Count())
@@ -214,17 +219,21 @@
                     <div class="row">
                         <p class="col-12">Patient Name</p>
                         <p class="col-12">
-                            <span class="fw-bolder fs-4">Testing Test</span>
+                            <span class="fw-bolder fs-4">@Model.FirstOrDefault().FirstName @Model.FirstOrDefault().LastName </span>
                             <span>(F34R34T5GVR42)</span>
                         </p>
                         <p class="col-12 py-3">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
-                        <div class="col-12 mb-4">
-                            <input class="form-control form-control-lg " id="formFileLg" type="file" multiple>
+                        <div class="input-group ">
+                            <input type="file" class="form-control" id="formFileLg" type="file" multiple>
+                            <label class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</label>
+                            <br />
                         </div>
-                        <div class="col-12 d-flex justify-content-between">
-                            <h3>Documents</h3>
-                            <button>Download All</button>
+                       
+                        
+                        <div class="row" id="docList">
+                       
                         </div>
+
                         <!-- row--- -->
                     </div>
 
@@ -235,6 +244,23 @@
         </div>
 
 
+        <style>
+
+            .form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
+                color: #00b8e6;
+            }
+
+                .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after {
+                    background-color: transparent;
+                }
+
+            .form-control:focus {
+                border: 1px solid #00b8e6;
+            }
+
+        </style>
+
+
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="AddPatient" class="container my-5 p-4" id="main-cont">
 
@@ -243,7 +269,7 @@
 
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <input asp-for="@Model.FirstOrDefault().FirstName" type="text" class="form-control" id="floatingInput" disabled>
                             <label for="floatingInput">First Name</label>
 
                         </div>
@@ -251,13 +277,13 @@
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="@Model.FirstOrDefault().LastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Last Name</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="@Model.FirstOrDefault().DateOfBirth"  type="date" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Date Of Birth</label>
                         </div>
                     </div>
@@ -277,18 +303,18 @@
                                 <option value="1">Mobile</option>
                                 <option value="2">Landline</option>
                             </select>
-                            <label for="floatingSelect">select</label>
+                            <label for="floatingSelect">Select</label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="input-div form-floating mb-3">
-                            <input type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput">
+                            <input type="tel" asp-for="@Model.FirstOrDefault().PhoneNo" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
 
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+                            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
@@ -300,25 +326,26 @@
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <input type="text"
+                                   asp-for="@Model.FirstOrDefault().Street" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">Street</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <input type="text" asp-for="@Model.FirstOrDefault().City" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">City</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <input type="text" asp-for="@Model.FirstOrDefault().State" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">State</label>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="">
+                            <input type="text" asp-for="@Model.FirstOrDefault().ZipCode" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">Zip Code</label>
                         </div>
                     </div>
@@ -373,106 +400,123 @@
         </div>
     </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Convert table rows to accordions in mobile view
+            if ($(window).width() < 768) {
+                $('#dataTable tr').each(function (index) {
+                    var $accordionHeader = $('<div class="accordion-header">');
+                    $accordionHeader.text('Accordion Header ' + (index + 1));
+
+                    var $accordionContent = $('<div class="accordion-content">');
+                    $accordionContent.html($(this).html());
+
+                    $('#accordionWrapper').append($accordionHeader).append($accordionContent);
+                });
+
+                // Toggle accordion content on header click
+                $('.accordion-header').click(function () {
+                    $(this).next('.accordion-content').slideToggle();
+                });
+            }
+        });
+
+        // Resize event listener to update accordion on window resize
+        $(window).resize(function () {
+            $('#accordionWrapper').empty();
+            if ($(window).width() < 768) {
+                $('#dataTable tr').each(function (index) {
+                    var $accordionHeader = $('<div class="accordion-header">');
+                    $accordionHeader.text('Accordion Header ' + (index + 1));
+
+                    var $accordionContent = $('<div class="accordion-content">');
+                    $accordionContent.html($(this).html());
+
+                    $('#accordionWrapper').append($accordionHeader).append($accordionContent);
+                });
+
+                // Toggle accordion content on header click
+                $('.accordion-header').click(function () {
+                    $(this).next('.accordion-content').slideToggle();
+                });
+            }
+        });
+
+
+        const phoneInputField = document.querySelectorAll("input[type='tel']");
+        for (var i = 0; i < phoneInputField.length; i++) {
+            const phoneInput = window.intlTelInput(phoneInputField[i], {
+                utilsScript:
+                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+        }
+
+        //----------model-----------
+        $('.modal').css('top', $(window).outerHeight() / 4 - ($(".modal-dialog").outerHeight()) / 2 + 'px');
+
+        let buttonId = null;
+
+        function passId(event) {
+            buttonId = event.target.id;
+
+        }
+
+        function redirect() {
+            if (buttonId === 'button1') {
+                location.assign('patient_newrequest');
+            }
+            else if (buttonId === 'button2') {
+                location.assign('someoneelse_newrequest');
+            } else {
+                // Default redirection if buttonId is not set or unexpected
+            }
+        }
+
+        function viewDocs() {
+            var divToReplace = document.getElementById("medicalHistory");
+            var replacementDiv = document.getElementById("viewdocs");
+            divToReplace.innerHTML = replacementDiv.innerHTML;
+        };
+        function swapDivs() {
+            // Get references to the div elements
+            var div1 = document.getElementById("medicalHistory");
+            var div2 = document.getElementById("viewdocs");
+
+            // Toggle the visibility of the divs
+            if (div1.style.display === "none") {
+                div1.style.display = "block";
+                div2.style.display = "none";
+            } else {
+                div1.style.display = "none";
+                div2.style.display = "block";
+            }
+        }
+
+        function showDocuments(requestId) {
+           
+            $.ajax({
+                url: '/Patient/GetDcoumentsById',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (response) {
+
+                    $("#docList").html(response);
+                }
+            });
+
+
+
+
+            document.getElementById('medicalHistory').style.display = 'none';
+            document.getElementById('viewdocs').style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>
 
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-<script>
-    $(document).ready(function () {
-        // Convert table rows to accordions in mobile view
-        if ($(window).width() < 768) {
-            $('#dataTable tr').each(function (index) {
-                var $accordionHeader = $('<div class="accordion-header">');
-                $accordionHeader.text('Accordion Header ' + (index + 1));
-
-                var $accordionContent = $('<div class="accordion-content">');
-                $accordionContent.html($(this).html());
-
-                $('#accordionWrapper').append($accordionHeader).append($accordionContent);
-            });
-
-            // Toggle accordion content on header click
-            $('.accordion-header').click(function () {
-                $(this).next('.accordion-content').slideToggle();
-            });
-        }
-    });
-
-    // Resize event listener to update accordion on window resize
-    $(window).resize(function () {
-        $('#accordionWrapper').empty();
-        if ($(window).width() < 768) {
-            $('#dataTable tr').each(function (index) {
-                var $accordionHeader = $('<div class="accordion-header">');
-                $accordionHeader.text('Accordion Header ' + (index + 1));
-
-                var $accordionContent = $('<div class="accordion-content">');
-                $accordionContent.html($(this).html());
-
-                $('#accordionWrapper').append($accordionHeader).append($accordionContent);
-            });
-
-            // Toggle accordion content on header click
-            $('.accordion-header').click(function () {
-                $(this).next('.accordion-content').slideToggle();
-            });
-        }
-    });
-
-
-    const phoneInputField = document.querySelectorAll("input[type='tel']");
-    for (var i = 0; i < phoneInputField.length; i++) {
-        const phoneInput = window.intlTelInput(phoneInputField[i], {
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-    }
-
-    //----------model-----------
-    $('.modal').css('top', $(window).outerHeight() / 4 - ($(".modal-dialog").outerHeight()) / 2 + 'px');
-
-    let buttonId = null;
-
-    function passId(event) {
-        buttonId = event.target.id;
-
-    }
-
-    function redirect() {
-        if (buttonId === 'button1') {
-            location.assign('patient_newrequest');
-        }
-        else if (buttonId === 'button2') {
-            location.assign('someoneelse_newrequest');
-        } else {
-            // Default redirection if buttonId is not set or unexpected
-        }
-    }
-
-    function viewDocs() {
-        var divToReplace = document.getElementById("medicalHistory");
-        var replacementDiv = document.getElementById("viewdocs");
-        divToReplace.innerHTML = replacementDiv.innerHTML;
-    };
-    function swapDivs() {
-        // Get references to the div elements
-        var div1 = document.getElementById("medicalHistory");
-        var div2 = document.getElementById("viewdocs");
-
-        // Toggle the visibility of the divs
-        if (div1.style.display === "none") {
-            div1.style.display = "block";
-            div2.style.display = "none";
-        } else {
-            div1.style.display = "none";
-            div2.style.display = "block";
-        }
-    }
-
-
-</script>
