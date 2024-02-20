@@ -168,6 +168,10 @@ namespace BusinessLogic.Services
                     Createddate = DateTime.Now
                 };
 
+
+
+
+
                 _db.Requestwisefiles.Add(requestwisefile);
                 _db.SaveChanges();
             };
@@ -291,6 +295,7 @@ namespace BusinessLogic.Services
                                   select new MedicalHistory
                                   {
                                       FirstName = user.Firstname,
+                                      LastName = user.Lastname,
                                       reqId = groupedFiles.Select(x => x.Request.Requestid).FirstOrDefault(),
                                       createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
                                       currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault().ToString(),

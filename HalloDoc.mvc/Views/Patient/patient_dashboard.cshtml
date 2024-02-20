@@ -50,14 +50,9 @@
                 <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
                     <div class="d-none d-sm-flex  justify-content-center align-items-center ">
                     <li class="nav-item">
-                        <span>Welcome @Model.FirstOrDefault().FirstName</span>
+                        <span>Welcome @Model.FirstOrDefault().FirstName   @Model.FirstOrDefault().LastName</span>
                     </li>
-                    <li class="nav-item p-2 fw-bolder">
-                        <span class="d-flex gap-1">
-                            <span>@TempData["username"]</span>
-                            <span>@TempData["id"]</span>
-                        </span>
-                    </li>
+                
             </div>
             <li class="nav-item">
                 <a asp-controller="Patient" asp-action="patient_login">
@@ -225,13 +220,14 @@
                         <p class="col-12 py-3">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
                         <div class="input-group ">
                             <input type="file" class="form-control" id="formFileLg" type="file" multiple>
+
                             <label class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</label>
                             <br />
                         </div>
+                    
                        
                         
                         <div class="row" id="docList">
-                       
                         </div>
 
                         <!-- row--- -->
@@ -262,7 +258,8 @@
 
 
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="AddPatient" class="container my-5 p-4" id="main-cont">
+            <div class="container bg-white rounded-3">
+            <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="Edit" class="container my-5 p-4" id="main-cont">
 
                 <div class="row">
                     <h5 class="col-12">General Information</h5>
@@ -357,9 +354,20 @@
 
                 </div>
 
+                    <div class="col w-auto">
+                        <a role="button" class="back btn btn-outline-info" id="editButton">
+                            Edit
+                        </a>
+                    </div>
 
+                    <div class="col w-auto">
+                        <button class="back btn btn-outline-info" type="submit" id="saveButton" hidden>
+                            Save
+                        </button>
+                    </div>
 
             </form>
+            </div>
         </div>
 
 
@@ -514,6 +522,24 @@
             document.getElementById('medicalHistory').style.display = 'none';
             document.getElementById('viewdocs').style.display = 'block';
         }
+
+
+            $(document).ready(function () {
+                $('#editButton').click(function () {
+
+                    // Remove disabled attribute to make inputs editable
+                    // $('#name').prop('disabled', false);
+                    // $('#age').prop('disabled', false);
+                    $('input[type="text"]').removeAttr('disabled', false);
+                    $('input[type="date"]').removeAttr('disabled', false);
+                    $('input[type="tel"]').removeAttr('disabled', false);
+                    $('input[type="email"]').removeAttr('disabled', false);
+                    // Hide the edit button after clicking it
+                    $(this).hide();
+                    $('#saveButton').removeAttr('hidden', false);
+                });
+            });
+
     </script>
 </body>
 

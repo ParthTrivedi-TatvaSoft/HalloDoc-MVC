@@ -21,16 +21,18 @@ namespace HalloDoc.mvc.Controllers
         private readonly IPatientService _patientService;
         private readonly IHttpContextAccessor _contx;
         private readonly INotyfService _notyf;
+        private readonly ApplicationDbContext _db;
 
 
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf)
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf, ApplicationDbContext db)
         {
             _logger = logger;
             _loginService = loginService;
             _patientService = patientService;
             _contx = _contx;
             _notyf = notyf;
+            _db = db;
 
         }
 
@@ -38,14 +40,13 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-
         public IActionResult patient_login(LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
                 //User user = _context.Users.FirstOrDefault(u => u.Aspnetuserid == item.Id);
                 var user = _loginService.Login(loginModel);
-                if (user != null)
+                if (user.Firstname != null)
                 {
                     _notyf.Success("Logged In Successfully !!");
                     return RedirectToAction("patient_dashboard", user);
@@ -222,7 +223,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-
+        
         public IActionResult patient_dashboard(User user)
         {
 
@@ -230,6 +231,19 @@ namespace HalloDoc.mvc.Controllers
             //var viewmodel = new MedicalHistory { medicalHistoriesList = infos };
             return View(infos);
         }
+
+        public IActionResult Edit(MedicalHistory medicalHistory)
+        {
+            var existingUser = _db.Users.FirstOrDefault(x => x.Email == medicalHistory.Email);
+            existingUser.Firstname = medicalHistory.FirstName;
+
+
+            _db.Users.Update(existingUser);
+            _db.SaveChanges();
+            return RedirectToAction("patient_dashboard", "Patient", existingUser);
+        }
+
+
         public IActionResult GetDcoumentsById(int requestId)
         {
             var list = _patientService.GetAllDocById(requestId);

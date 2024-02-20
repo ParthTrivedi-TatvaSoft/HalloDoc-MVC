@@ -28,7 +28,7 @@
         <p><a asp-controller="Home" asp-action="Index" class="text-decoration-none">&lt; Back</a></p>
         <h2>Login To Your Account</h2>
         <br>
-        <form method="post">
+        <form method="post" asp-action="patient_login" asp-controller="Patient">
         <div class="  input-div form-floating mb-3">
             <input type="email" asp-for="Email"  class="icon1 form-control" id="floatingInput" placeholder="Username">
                 <span asp-validation-for="Email" class="text-danger"></span>

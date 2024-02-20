@@ -161,10 +161,6 @@ namespace DataAccess.CustomModels
         public string Email { get; set; }
 
     }
-    //public class MedicalHistoryList
-    //{
-    //    public List<MedicalHistory> medicalHistoriesList { get; set; }
-    //}
 
 
 
