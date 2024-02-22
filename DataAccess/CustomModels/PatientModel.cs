@@ -16,7 +16,7 @@ namespace DataAccess.CustomModels
         public string? symptoms { get; set; }
 
         [Required(ErrorMessage = "First Name Is Required")]
-        public string? firstName { get; set; }
+        public string firstName { get; set; }
         public string? lastName { get; set; } 
         public DateTime? dob { get; set; }
 
@@ -31,7 +31,7 @@ namespace DataAccess.CustomModels
         public string? roomNo { get; set; }
         public string? country { get; set; }
 
-        [StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
+        //[StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
         public string? password { get; set; }
 
         [Compare("password", ErrorMessage = "Password Missmatch")]
@@ -63,7 +63,7 @@ namespace DataAccess.CustomModels
         public string? city { get; set; }
         public string? state { get; set; }
         public string? zipCode { get; set; }
-        public int? roomNo { get; set; }
+        public string? roomNo { get; set; }
 
         public IFormFile? File { get; set; }
 
@@ -81,7 +81,7 @@ namespace DataAccess.CustomModels
         public string? hotelName { get; set; }
         public string? symptoms { get; set; }
         [Required(ErrorMessage = "Please Enter Patient's First Name")]
-        public string? patientFirstName { get; set; }
+        public string patientFirstName { get; set; }
         public string? patientLastName { get; set; }
         public DateTime? patientDob { get; set; }
         public string? patientEmail { get; set; } 
@@ -114,7 +114,7 @@ namespace DataAccess.CustomModels
         public string? symptoms { get; set; }
         public string? patientFirstName { get; set; }
         public string? patientLastName { get; set; }
-        public DateTime patientDob { get; set; }
+        public DateTime? patientDob { get; set; }
         public string? patientEmail { get; set; }
         public string? patientPhoneNo { get; set; }
         public string? street { get; set; }
@@ -159,9 +159,14 @@ namespace DataAccess.CustomModels
         public string State { get; set; }
 
         public string Email { get; set; }
-
+    }
+    public class MedicalHistoryList
+    {
+        public List<MedicalHistory> medicalHistoriesList { get; set; }
     }
 
-
-
+    
 }
+
+
+

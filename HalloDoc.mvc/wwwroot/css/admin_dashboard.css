@@ -1,0 +1,242 @@
+﻿body {
+    background-color: aliceblue;
+}
+
+.navbr {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+}
+
+#logo {
+    width: 9rem;
+}
+
+@media (max-width:375px) {
+    #logo {
+        width: 7rem;
+    }
+}
+
+.light {
+    width: 2rem;
+    float: right;
+}
+
+#logout {
+    color: rgb(0, 183, 255);
+    background-color: white;
+    border: 1px solid rgb(0, 183, 255);
+    border-radius: 5px;
+    width: auto;
+    height: 2.5rem;
+}
+
+    #logout:hover {
+        background-color: rgb(0, 183, 255);
+        color: white;
+    }
+
+
+.nav-link {
+    color: rgb(0, 183, 255);
+}
+
+
+.status-tab button {
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.statustablinks {
+    width: 100%;
+}
+
+.darkblue {
+    background-color: rgb(219, 225, 255);
+    color: darkblue;
+    border: 1px solid darkblue;
+}
+
+    .darkblue:hover {
+        background-color: darkblue;
+        color: white;
+    }
+
+.lightblue {
+    color: #2cc7f1;
+    background-color: #e5f2fa;
+    border: 1px solid #2cc7f1;
+}
+
+    .lightblue:hover {
+        background-color: #2cc7f1;
+        color: white;
+    }
+
+.green {
+    color: #77ad7d;
+    background-color: #e9f0e8;
+    border: 1px solid #77ad7d;
+}
+
+    .green:hover {
+        background-color: #77ad7d;
+        color: white;
+    }
+
+.pink {
+    color: #912261;
+    background-color: #ffdff1;
+    border: 1px solid #912261;
+}
+
+    .pink:hover {
+        background-color: #912261;
+        color: white;
+    }
+
+.blue {
+    color: #0181f8;
+    background-color: #e5f2fa;
+    border: 1px solid #0181f8;
+}
+
+    .blue:hover {
+        background-color: #0181f8;
+        color: white;
+    }
+
+.purple {
+    color: mediumslateblue;
+    background-color: #dce1ff;
+    border: 1px solid mediumslateblue;
+}
+
+    .purple:hover {
+        background-color: mediumslateblue;
+        color: white;
+    }
+
+
+.status-tab button.active.darkblue {
+    background-color: darkblue;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.lightblue {
+    background-color: #2cc7f1;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.green {
+    background-color: #77ad7d;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.pink {
+    background-color: #912261;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.blue {
+    background-color: #0181f8;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.purple {
+    background-color: mediumslateblue;
+    color: white;
+    position: relative;
+}
+
+.status-tab button.active.darkblue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: darkblue transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.lightblue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #2cc7f1 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.green::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #77ad7d transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.pink::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #912261 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.blue::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #0181f8 transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+.status-tab button.active.purple::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: mediumslateblue transparent transparent transparent;
+    transform: translateX(-50%);
+}
+
+/* / Style the tab content / */
+.statustabcontent {
+    display: none;
+    padding: 0 12px;
+}
+
+    /* / Show the tab content when click on the tablink / */
+    .statustabcontent.show {
+        display: block;
+    }
+
+.action-btn {
+    background-color: rgb(0, 183, 255);
+    color: white;
+    border: 1px solid rgb(0, 183, 255);
+    padding: 5px;
+    border-radius: 7px;
+}

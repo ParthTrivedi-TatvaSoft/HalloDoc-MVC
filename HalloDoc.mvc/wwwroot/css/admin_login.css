@@ -1,0 +1,86 @@
+﻿body {
+    background-color: aliceblue;
+    color: black;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 15rem;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.d-mode {
+    align-self: flex-end;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    width: 2.5rem;
+}
+
+.input-div {
+    border: 1px solid rgb(0, 183, 255);
+    color: rgb(0, 183, 255);
+    border-radius: 0.50rem;
+    width: 40%;
+}
+
+
+button {
+    background-color: rgb(0, 183, 255);
+    ;
+    border-color: rgb(0, 183, 255);
+    ;
+    color: #FFFFFF;
+    ;
+    padding: 0.75rem 1rem;
+    border-radius: 0.50rem;
+    width: 40%;
+}
+
+#forget-pass {
+    color: rgb(0, 183, 255);
+    ;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:768px) {
+    .left {
+        display: none;
+    }
+
+    .right {
+        background-image: url(/images/portrait.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .input-div {
+        width: 60%;
+    }
+
+    button {
+        width: 60%;
+    }
+}

@@ -1,0 +1,245 @@
+﻿@using DataAccess.CustomModels;
+@{
+    ViewData["Title"] = "admin_dashboard";
+}
+
+
+@model List<AdminDashTableModel>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+            integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="~/css/admin_dashboard.css">
+</head>
+
+
+<body>
+    <!-- navbar -->
+    <nav class="bg-white navbr navbar navbar-expand w-100 ">
+
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <img class="navbar-brand ms-3" id="logo" src="/images/hallodoc.png" alt="logo">
+
+            </div>
+            <div>
+                <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
+                    <div class="d-none d-sm-flex  justify-content-center align-items-center ">
+                    <li class="nav-item">
+                        <span>Welcome</span>
+                    </li>
+                    <li class="nav-item p-2 fw-bolder">
+                        <span class="d-flex gap-1">
+                            <span>@Model.FirstOrDefault().firstName</span>
+                            <span>@Model.FirstOrDefault().lastName</span>
+                        </span>
+                    </li>
+            </div>
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="index">
+                <button id="logout" class="px-2">
+                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
+                </button>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
+            </li>
+            </ul>
+        </div>
+        </div>
+
+
+        <!-- tabs -->
+    </nav>
+
+    <hr class="m-0 hr_line d-none d-lg-block">
+    <nav class="navbr navbar navbar-expand-lg py-0 pt-2 bg-body" style="z-index: 10;">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class=" bg-white ps-5 nav nav-underline" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                aria-selected="true">
+                            Dashboard
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="provider-location-tab" data-bs-toggle="tab"
+                                data-bs-target="#provider-location-tab-pane" type="button" role="tab"
+                                aria-controls="provider-location-tab-pane" aria-selected="false">
+                            Provider Location
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
+                                aria-selected="false">
+                            My Profile
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="provider-tab" data-bs-toggle="tab"
+                                data-bs-target="#provider-tab-pane" type="button" role="tab"
+                                aria-controls="provider-tab-pane" aria-selected="false">
+                            Providers
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="partner-tab" data-bs-toggle="tab"
+                                data-bs-target="#partner-tab-pane" type="button" role="tab" aria-controls="partner-tab-pane"
+                                aria-selected="false">
+                            Partners
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="access-tab" data-bs-toggle="tab" data-bs-target="#access-tab-pane"
+                                type="button" role="tab" aria-controls="access-tab-pane" aria-selected="false">
+                            Access
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="record-tab" data-bs-toggle="tab" data-bs-target="#record-tab-pane"
+                                type="button" role="tab" aria-controls="record-tab-pane" aria-selected="false">
+                            Records
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- tab content -->
+    <div class="tab-content" id="myTabContent">
+        <!-- tab1 dashboard-->
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+             tabindex="0">
+
+
+            <partial name="_allrequest"/>
+        </div>
+        <!-- tab2  pending -->
+        <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+             tabindex="0">
+            provider-location......
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            Profile......
+        </div>
+        <div class="tab-pane fade" id="provider-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            provider......
+        </div>
+        <div class="tab-pane fade" id="partner-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            partner......
+        </div>
+        <div class="tab-pane fade" id="access-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            access......
+        </div>
+        <div class="tab-pane fade" id="record-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            record......
+        </div>
+    </div>
+
+
+
+</body>
+
+
+
+</html>
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        // Hide all tab content
+        tabcontent = document.getElementsByClassName("statustabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Deactivate all tab links
+        tablinks = document.getElementsByClassName("statustablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the specific tab content
+        document.getElementById(tabName).style.display = "block";
+
+        // Activate the clicked tab link
+        evt.currentTarget.className += " active";
+    }
+
+    $(document).ready(function () {
+        // Convert table rows to accordions in mobile view
+        if ($(window).width() < 768) {
+            $('.data-table tbody tr').each(function () {
+                var name = $(this).find('td:eq(0)').text();
+                var address = $(this).find('td:eq(5)').text();
+                var requestor = $(this).find('td:eq(2)').text();
+
+                var accordionItem = `
+                            <div class="accordion-item">
+
+                                <div class="accordion-content">
+                                    <p><strong>Name:</strong> ${name}</p>
+                                    <p><strong>Address:</strong> ${address}</p>
+                                    <p><strong>Requestor:</strong> ${requestor}</p>
+                                </div>
+                            </div>
+                        `;
+
+                $('#accordionFlushExample').append(accordionItem);
+            });
+        }
+    });
+
+    // Resize event listener to update accordion on window resize
+    $(window).resize(function () {
+        $('#accordionFlushExample').empty();
+        if ($(window).width() < 768) {
+            $('.data-table tbody tr').each(function () {
+                var name = $(this).find('td:eq(0)').text();
+                var address = $(this).find('td:eq(5)').text();
+                var requestor = $(this).find('td:eq(2)').text();
+
+
+                var accordionItem = `
+                            <div class="accordion-item">
+
+                                <div class="accordion-content">
+                                    <p><strong>Name:</strong> ${name}</p>
+                                    <p><strong>Address:</strong> ${address}</p>
+                                    <p><strong>Requestor:</strong> ${requestor}</p>
+                                </div>
+                            </div>
+                        `;
+
+                $('#accordionFlushExample').append(accordionItem);
+            });
+        }
+    });
+
+</script>

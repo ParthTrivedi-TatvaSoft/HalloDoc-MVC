@@ -5,6 +5,7 @@ using AspNetCoreHero.ToastNotification.Extensions;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Repository;
 using BusinessLogic.Services;
+//using BusinessLogic.Utility;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDbContext"))); 
 builder.Services.AddScoped<ILoginService,LoginService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+
+//builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
+
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 5; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
 
 

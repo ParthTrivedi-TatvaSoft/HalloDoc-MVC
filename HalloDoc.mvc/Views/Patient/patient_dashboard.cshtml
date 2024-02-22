@@ -1,12 +1,13 @@
-﻿@using DataAccess.CustomModels;
+﻿@model DataAccess.CustomModels.MedicalHistoryList;
+
 @{
-    ViewData["Title"] = "patient_dashboard";
+    ViewData["Title"] = "Patient_dashboard";
+
 }
 
 
-@model IList<MedicalHistory>;
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,14 +22,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @*    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
-
 
 <body style="background-color: aliceblue;">
 
@@ -50,9 +50,15 @@
                 <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
                     <div class="d-none d-sm-flex  justify-content-center align-items-center ">
                     <li class="nav-item">
-                        <span>Welcome @Model.FirstOrDefault().FirstName   @Model.FirstOrDefault().LastName</span>
+                        <span>Welcome</span>
                     </li>
-                
+                    <li class="nav-item p-2 fw-bolder">
+                        <span class="d-flex gap-1">
+                            <span>@Model.medicalHistoriesList.FirstOrDefault().FirstName</span>
+                            <span>@Model.medicalHistoriesList.FirstOrDefault().LastName</span>
+                            
+                        </span>
+                    </li>
             </div>
             <li class="nav-item">
                 <a asp-controller="Patient" asp-action="patient_login">
@@ -63,7 +69,7 @@
 
             </li>
             <li class="nav-item">
-                <img onclick="myfunction()" class="light" src="/images/dark.png" alt="">
+                <img onclick="myFunc()" class="light" src="/images/dark.png" alt="">
             </li>
             </ul>
         </div>
@@ -117,86 +123,41 @@
                             </button>
                         </div>
                         <div class="d-none d-md-block">
-                            <table class="table">
+                            <table class="table data-table">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th scope="col">Created Date<i class="bi bi-arrow-down-short"></i></th>
                                         <th scope="col">Current Status</th>
                                         <th scope="col">Document</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var items in Model)
+                                    @foreach (var items in Model.medicalHistoriesList)
                                     {
+
                                         <tr>
-                                            <td>@items.createdDate</td>
+                                            <td>@items.createdDate.ToString("MMM dd, yyyy")</td>
                                             <td>@items.currentStatus</td>
                                             <td>
                                                 <a href="#" class="btn btn-outline-info fw-bold" onclick="showDocuments(@items.reqId)">
                                                     <span><i class="bi bi-file-earmark fw-bold"></i></span>
                                                     <span>
                                                         View Documents (@items.document.Count())
-                                                        @* @foreach (var docs in items.document)
-                                                    {
-                                                    @docs
-                                                    }*@
+
                                                     </span>
                                                 </a>
                                             </td>
+
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
+
                         </div>
 
                         <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                            aria-controls="flush-collapseOne">
-                                        Created Date: Dec 5, 2023
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        Placeholder content for this accordion, which is intended to demonstrate the
-                                        <code>.accordion-flush</code> class. This is the first item's accordion body.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                            aria-controls="flush-collapseTwo">
-                                        Created Date:
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                     aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        Placeholder
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                            aria-controls="flush-collapseThree">
-                                        Created Date:
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                     aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        Placeholder
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -208,28 +169,23 @@
 
                 <div class="container bg-white p-4 ">
                     <div class="d-flex justify-content-between mb-4">
-                        <h3>Documents</h3>
+                        <h2>Documents</h2>
                         <button onclick="swapDivs()" id="backview">&lt; Back</button>
                     </div>
                     <div class="row">
                         <p class="col-12">Patient Name</p>
                         <p class="col-12">
-                            <span class="fw-bolder fs-4">@Model.FirstOrDefault().FirstName @Model.FirstOrDefault().LastName </span>
-                            <span>(F34R34T5GVR42)</span>
+                            <span class="fw-bolder fs-4">@Model.medicalHistoriesList.FirstOrDefault().FirstName  @Model.medicalHistoriesList.FirstOrDefault().LastName </span>
+                            <span>(f34r34t5gvr44)</span>
                         </p>
-                        <p class="col-12 py-3">Check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
-                        <div class="input-group ">
-                            <input type="file" class="form-control" id="formFileLg" type="file" multiple>
-
-                            <label class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</label>
-                            <br />
+                        <p class="col-12 py-3">check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
+                        <div class="col-12 mb-4">
+                            <input class="form-control form-control-lg " id="formfilelg" type="file" multiple>
                         </div>
-                    
-                       
-                        
+
                         <div class="row" id="docList">
+                            @* @await Html.PartialAsync("_documentlist",Model);*@
                         </div>
-
                         <!-- row--- -->
                     </div>
 
@@ -241,7 +197,6 @@
 
 
         <style>
-
             .form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
                 color: #00b8e6;
             }
@@ -253,34 +208,30 @@
             .form-control:focus {
                 border: 1px solid #00b8e6;
             }
-
         </style>
 
-
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            <div class="container bg-white rounded-3">
             <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="Edit" class="container my-5 p-4" id="main-cont">
 
                 <div class="row">
                     <h5 class="col-12">General Information</h5>
 
                     <div class="col-6">
-                        <div class="input-div form-floating mb-3">
-                            <input asp-for="@Model.FirstOrDefault().FirstName" type="text" class="form-control" id="floatingInput" disabled>
-                            <label for="floatingInput">First Name</label>
-
+                        <div class="form-floating mb-3">
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().FirstName" type="text" class="form-control" id="floatingInputDisabled" placeholder="name" disabled>
+                            <label for="floatingInputDisabled">First Name</label>
                         </div>
 
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input asp-for="@Model.FirstOrDefault().LastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().LastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Last Name</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input asp-for="@Model.FirstOrDefault().DateOfBirth"  type="date" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().DateOfBirth" type="date" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Date Of Birth</label>
                         </div>
                     </div>
@@ -295,23 +246,22 @@
 
                     <div class="col-2">
                         <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                <option selected>Type</option>
+                            <select class="form-select" id="floatingSelect" type="tel" aria-label="Floating label select example" disabled>
                                 <option value="1">Mobile</option>
                                 <option value="2">Landline</option>
                             </select>
-                            <label for="floatingSelect">Select</label>
+                            <label for="floatingSelect">Works with selects</label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="input-div form-floating mb-3">
-                            <input type="tel" asp-for="@Model.FirstOrDefault().PhoneNo" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
+                            <input type="tel" asp-for="@Model.medicalHistoriesList.FirstOrDefault().PhoneNo" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
 
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
+                            <input name="email" asp-for="@Model.medicalHistoriesList.FirstOrDefault().Email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
@@ -323,26 +273,25 @@
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text"
-                                   asp-for="@Model.FirstOrDefault().Street" class="form-control" id="floatingInput" placeholder="" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().Street" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">Street</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" asp-for="@Model.FirstOrDefault().City" class="form-control" id="floatingInput" placeholder="" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().City" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">City</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" asp-for="@Model.FirstOrDefault().State" class="form-control" id="floatingInput" placeholder="" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().State" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">State</label>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="input-div form-floating mb-3">
-                            <input type="text" asp-for="@Model.FirstOrDefault().ZipCode" class="form-control" id="floatingInput" placeholder="" disabled>
+                            <input asp-for="@Model.medicalHistoriesList.FirstOrDefault().ZipCode" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
                             <label for="floatingInput">Zip Code</label>
                         </div>
                     </div>
@@ -354,20 +303,19 @@
 
                 </div>
 
-                    <div class="col w-auto">
-                        <a role="button" class="back btn btn-outline-info" id="editButton">
-                            Edit
-                        </a>
-                    </div>
+                <div class="col w-auto">
+                    <a role="button" class="back btn btn-outline-info" id="editButton">
+                        Edit
+                    </a>
+                </div>
 
-                    <div class="col w-auto">
-                        <button class="back btn btn-outline-info" type="submit" id="saveButton" hidden>
-                            Save
-                        </button>
-                    </div>
+                <div class="col w-auto">
+                    <button class="back btn btn-outline-info" type="submit" id="saveButton" hidden>
+                        Save
+                    </button>
+                </div>
 
             </form>
-            </div>
         </div>
 
 
@@ -407,49 +355,79 @@
             </div>
         </div>
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function () {
             // Convert table rows to accordions in mobile view
             if ($(window).width() < 768) {
-                $('#dataTable tr').each(function (index) {
-                    var $accordionHeader = $('<div class="accordion-header">');
-                    $accordionHeader.text('Accordion Header ' + (index + 1));
+                $('.data-table tbody tr').each(function (index) {
+                    var $accordionItem = $('<div class="accordion-item">');
+                    var $accordionHeader = $('<h2 class="accordion-header">');
+                    var $accordionButton = $('<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse">');
+                    var $accordionCollapse = $('<div class="accordion-collapse collapse">');
+                    var $accordionBody = $('<div class="accordion-body">');
 
-                    var $accordionContent = $('<div class="accordion-content">');
-                    $accordionContent.html($(this).html());
+                    // Extract data from table row
+                    var createdDate = $(this).find('td:eq(0)').text();
+                    var currentStatus = $(this).find('td:eq(1)').text();
+                    var documentLink = $(this).find('td:eq(2)').html();
 
-                    $('#accordionWrapper').append($accordionHeader).append($accordionContent);
+                    // Set accordion header text
+                    $accordionButton.text('Created Date: ' + createdDate);
+
+                    // Set accordion body content
+                    $accordionBody.append('<p><strong>Current Status:</strong> ' + currentStatus + '</p>');
+                    $accordionBody.append('<p><strong>Document:</strong> ' + documentLink + '</p>');
+
+                    // Append elements to accordion item
+                    $accordionHeader.append($accordionButton);
+                    $accordionCollapse.append($accordionBody);
+                    $accordionItem.append($accordionHeader).append($accordionCollapse);
+
+                    $('#accordionFlushExample').append($accordionItem);
                 });
 
                 // Toggle accordion content on header click
-                $('.accordion-header').click(function () {
-                    $(this).next('.accordion-content').slideToggle();
+                $('.accordion-button').click(function () {
+                    $(this).closest('.accordion-item').find('.accordion-collapse').collapse('toggle');
                 });
             }
         });
 
         // Resize event listener to update accordion on window resize
         $(window).resize(function () {
-            $('#accordionWrapper').empty();
+            $('#accordionFlushExample').empty();
             if ($(window).width() < 768) {
-                $('#dataTable tr').each(function (index) {
-                    var $accordionHeader = $('<div class="accordion-header">');
-                    $accordionHeader.text('Accordion Header ' + (index + 1));
+                $('.data-table tbody tr').each(function (index) {
+                    var $accordionItem = $('<div class="accordion-item">');
+                    var $accordionHeader = $('<h2 class="accordion-header">');
+                    var $accordionButton = $('<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse">');
+                    var $accordionCollapse = $('<div class="accordion-collapse collapse">');
+                    var $accordionBody = $('<div class="accordion-body">');
 
-                    var $accordionContent = $('<div class="accordion-content">');
-                    $accordionContent.html($(this).html());
+                    // Extract data from table row
+                    var createdDate = $(this).find('td:eq(0)').text();
+                    var currentStatus = $(this).find('td:eq(1)').text();
+                    var documentLink = $(this).find('td:eq(2)').html();
 
-                    $('#accordionWrapper').append($accordionHeader).append($accordionContent);
+                    // Set accordion header text
+                    $accordionButton.text('Created Date: ' + createdDate);
+
+                    // Set accordion body content
+                    $accordionBody.append('<p><strong>Current Status:</strong> ' + currentStatus + '</p>');
+                    $accordionBody.append('<p><strong>Document:</strong> ' + documentLink + '</p>');
+
+                    // Append elements to accordion item
+                    $accordionHeader.append($accordionButton);
+                    $accordionCollapse.append($accordionBody);
+                    $accordionItem.append($accordionHeader).append($accordionCollapse);
+
+                    $('#accordionFlushExample').append($accordionItem);
                 });
 
                 // Toggle accordion content on header click
-                $('.accordion-header').click(function () {
-                    $(this).next('.accordion-content').slideToggle();
+                $('.accordion-button').click(function () {
+                    $(this).closest('.accordion-item').find('.accordion-collapse').collapse('toggle');
                 });
             }
         });
@@ -474,38 +452,26 @@
         }
 
         function redirect() {
-            if (buttonId === 'button1') {
+            if (buttonId == 'button1') {
                 location.assign('patient_newrequest');
             }
-            else if (buttonId === 'button2') {
+            else if (buttonId == 'button2') {
                 location.assign('someoneelse_newrequest');
             } else {
                 // Default redirection if buttonId is not set or unexpected
             }
         }
 
-        function viewDocs() {
-            var divToReplace = document.getElementById("medicalHistory");
-            var replacementDiv = document.getElementById("viewdocs");
-            divToReplace.innerHTML = replacementDiv.innerHTML;
-        };
-        function swapDivs() {
-            // Get references to the div elements
-            var div1 = document.getElementById("medicalHistory");
-            var div2 = document.getElementById("viewdocs");
 
-            // Toggle the visibility of the divs
-            if (div1.style.display === "none") {
-                div1.style.display = "block";
-                div2.style.display = "none";
-            } else {
-                div1.style.display = "none";
-                div2.style.display = "block";
-            }
+        function swapDivs() {
+
+            // Get references to the div elements
+            document.getElementById("medicalHistory").style.display = "block";
+            document.getElementById("viewdocs").style.display = "none";
         }
 
         function showDocuments(requestId) {
-           
+
             $.ajax({
                 url: '/Patient/GetDcoumentsById',
                 type: 'GET',
@@ -523,7 +489,6 @@
             document.getElementById('viewdocs').style.display = 'block';
         }
 
-
             $(document).ready(function () {
                 $('#editButton').click(function () {
 
@@ -532,17 +497,23 @@
                     // $('#age').prop('disabled', false);
                     $('input[type="text"]').removeAttr('disabled', false);
                     $('input[type="date"]').removeAttr('disabled', false);
-                    $('input[type="tel"]').removeAttr('disabled', false);
+                    $('input[id="tel"]').removeAttr('disabled', false);
                     $('input[type="email"]').removeAttr('disabled', false);
+                    $('input[type="select"]').removeAttr('disabled', false);
                     // Hide the edit button after clicking it
                     $(this).hide();
                     $('#saveButton').removeAttr('hidden', false);
                 });
             });
 
+
+
     </script>
+
+
+
 </body>
 
+
+
 </html>
-
-

@@ -9,6 +9,8 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using DataAccess.Data;
+using System.Net.Mail;
+using System.Net;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -22,10 +24,11 @@ namespace HalloDoc.mvc.Controllers
         private readonly IHttpContextAccessor _contx;
         private readonly INotyfService _notyf;
         private readonly ApplicationDbContext _db;
+        
 
 
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf, ApplicationDbContext db)
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf, ApplicationDbContext db )
         {
             _logger = logger;
             _loginService = loginService;
@@ -33,6 +36,7 @@ namespace HalloDoc.mvc.Controllers
             _contx = _contx;
             _notyf = notyf;
             _db = db;
+            
 
         }
 
@@ -46,7 +50,7 @@ namespace HalloDoc.mvc.Controllers
             {
                 //User user = _context.Users.FirstOrDefault(u => u.Aspnetuserid == item.Id);
                 var user = _loginService.Login(loginModel);
-                if (user.Firstname != null)
+                if (user!=null)
                 {
                     _notyf.Success("Logged In Successfully !!");
                     return RedirectToAction("patient_dashboard", user);
@@ -169,6 +173,8 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult submit_request()
         {
+
+            //_emailSender.SendEmailAsync("hello", "hello", "hello");
             return View();
         }
 
@@ -214,6 +220,25 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        public IActionResult Edit(MedicalHistory medicalHistory)
+        {
+
+            var existingUser = _db.Users.FirstOrDefault(x => x.Email == medicalHistory.Email);
+            existingUser.Firstname = medicalHistory.FirstName;
+            existingUser.Lastname = medicalHistory.LastName;
+            //existingUser.dob = medicalHistory.DateOfBirth;
+            existingUser.Email = medicalHistory.Email;
+            //existingUser. = medicalHistory.ContactType;
+            existingUser.Mobile = medicalHistory.PhoneNo;
+            existingUser.Street = medicalHistory.Street;
+            existingUser.City = medicalHistory.City;
+            existingUser.State = medicalHistory.State;
+            existingUser.Zipcode = medicalHistory.ZipCode;
+
+            _db.Users.Update(existingUser);
+            _db.SaveChanges();
+            return RedirectToAction("patient_dashboard", "Patient", existingUser);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -228,26 +253,73 @@ namespace HalloDoc.mvc.Controllers
         {
 
             var infos = _patientService.GetMedicalHistory(user);
-            //var viewmodel = new MedicalHistory { medicalHistoriesList = infos };
-            return View(infos);
+            var viewmodel = new MedicalHistoryList { medicalHistoriesList = infos };
+            return View(viewmodel);
         }
-
-        public IActionResult Edit(MedicalHistory medicalHistory)
-        {
-            var existingUser = _db.Users.FirstOrDefault(x => x.Email == medicalHistory.Email);
-            existingUser.Firstname = medicalHistory.FirstName;
-
-
-            _db.Users.Update(existingUser);
-            _db.SaveChanges();
-            return RedirectToAction("patient_dashboard", "Patient", existingUser);
-        }
-
 
         public IActionResult GetDcoumentsById(int requestId)
         {
             var list = _patientService.GetAllDocById(requestId);
             return PartialView("_DocumentList", list.ToList());
+        }
+
+
+        public IActionResult PatientResetPasswordEmail(Aspnetuser user)
+
+        {
+
+            var usr =_db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email);
+            if (usr != null)
+            {
+                string Id = _db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email).Id;
+                string resetPasswordUrl = GenerateResetPasswordUrl(Id);
+                SendEmail(user.Email, "Reset Your Password", $"Hello, reset your password using this link: {resetPasswordUrl}");
+            }
+            else
+            {
+                _notyf.Error("Email Id Not Registered");
+                return RedirectToAction("forgot_password", "Patient");
+            }
+           
+
+            return RedirectToAction("patient_login");
+        }
+
+        private string GenerateResetPasswordUrl(string userId)
+        {
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string resetPasswordPath = Url.Action("patient_resetpassword", new { id = userId });
+            return baseUrl + resetPasswordPath;
+        }
+
+        private Task SendEmail(string email, string subject, string message)
+        {
+            var mail = "tatva.dotnet.parthtrivedi@outlook.com";
+            var password = "Parth@70160";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+        }
+
+        // Handle the reset password URL in the same controller or in a separate one
+        public IActionResult patient_resetpassword(string id)
+        {
+            var aspuser = _db.Aspnetusers.FirstOrDefault(x => x.Id == id);
+            return View(aspuser);
+        }
+
+        [HttpPost]
+        public IActionResult patient_resetpassword(Aspnetuser aspnetuser)
+        {
+            var aspuser = _db.Aspnetusers.FirstOrDefault(x => x.Id == aspnetuser.Id);
+            aspuser.Passwordhash = aspnetuser.Passwordhash;
+            _db.Aspnetusers.Update(aspuser);
+            _db.SaveChanges();
+            return RedirectToAction("patient_login");
         }
     }
 }

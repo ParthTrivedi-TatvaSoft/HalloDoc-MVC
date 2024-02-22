@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\HalloDoc.mvc.bundle.scp.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
+      "PackagePath": "staticwebassets\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back.png"
     },
@@ -23,6 +27,14 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",
+      "PackagePath": "staticwebassets\\css\\admin_dashboard.css"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\admin_login.css",
+      "PackagePath": "staticwebassets\\css\\admin_login.css"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",

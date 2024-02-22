@@ -34,6 +34,9 @@ namespace BusinessLogic.Services
 
         public void AddPatientInfo(PatientInfoModel patientInfoModel)
         {
+
+            Guid id = Guid.NewGuid();
+
             Request request = new Request();
             request.Requesttypeid = 2;
             request.Status = 1;
@@ -59,8 +62,33 @@ namespace BusinessLogic.Services
             info.State = patientInfoModel.state;
             info.Zipcode = patientInfoModel.zipCode;
 
+            _db.Requestclients.Add(info)
+;
+            _db.SaveChanges();
 
             var user = _db.Aspnetusers.Where(x => x.Email == patientInfoModel.email).FirstOrDefault();
+
+            Aspnetuser obj = _db.Aspnetusers.FirstOrDefault(rq => rq.Email == patientInfoModel.email);
+            if (obj == null)
+            {
+                if (patientInfoModel.password== patientInfoModel.confirmPassword)
+                {
+                    Aspnetuser aspnetuser = new()
+                    {
+                        Id = id.ToString(),
+                        Username = patientInfoModel.firstName,
+                        Passwordhash = patientInfoModel.password,
+                        Createddate = DateTime.Now,
+                        Email=patientInfoModel.email,
+                        Phonenumber=patientInfoModel.phNo,
+
+                    };
+                    _db.Aspnetusers.Add(aspnetuser);
+                    _db.SaveChanges();
+                    user = aspnetuser;
+                }
+
+            }
 
             User u = new User();
             u.Aspnetuserid = user.Id;
@@ -72,48 +100,50 @@ namespace BusinessLogic.Services
             u.City = patientInfoModel.city;
             u.State = patientInfoModel.state;
             u.Zipcode = patientInfoModel.zipCode;
-            u.Createdby = user.Username;
+            u.Createdby = patientInfoModel.firstName;
             u.Createddate = DateTime.Now;
-
-
-
-            foreach(IFormFile file in patientInfoModel.File)
-            {
-                if (patientInfoModel.File != null && file.Length > 0)
-                {
-                    //get file name
-                    var fileName = Path.GetFileName(file.FileName);
-
-                    //define path
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-                    // Copy the file to the desired location
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    Requestwisefile requestwisefile = new()
-                    {
-                        Filename = fileName,
-                        Requestid = request.Requestid,
-                        Createddate = DateTime.Now
-                    };
-
-                    _db.Requestwisefiles.Add(requestwisefile);
-                    _db.SaveChanges();
-                };
-
-            }
 
             _db.Users.Add(u);
             _db.SaveChanges();
 
 
 
-            _db.Requestclients.Add(info)
-;
-            _db.SaveChanges();
+            if (patientInfoModel.File != null)
+            {
+
+
+                foreach (IFormFile file in patientInfoModel.File)
+                {
+                    if (patientInfoModel.File != null && file.Length > 0)
+                    {
+                        //get file name
+                        var fileName = Path.GetFileName(file.FileName);
+
+                        //define path
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                        // Copy the file to the desired location
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+
+                        Requestwisefile requestwisefile = new()
+                        {
+
+                            Filename = fileName,
+                            Requestid = request.Requestid,
+                            Createddate = DateTime.Now
+                        };
+
+                        _db.Requestwisefiles.Add(requestwisefile);
+                        _db.SaveChanges();
+                    };
+
+                }
+            }
+
+
         }
 
         public void AddFamilyReq(FamilyReqModel familyReqModel)
@@ -284,9 +314,6 @@ namespace BusinessLogic.Services
 
         public List<MedicalHistory> GetMedicalHistory(User user)
         {
-          
-
-
             var medicalhistory = (from request in _db.Requests
                                   join requestfile in _db.Requestwisefiles
                                   on request.Requestid equals requestfile.Requestid
@@ -296,6 +323,12 @@ namespace BusinessLogic.Services
                                   {
                                       FirstName = user.Firstname,
                                       LastName = user.Lastname,
+                                      PhoneNo = user.Mobile,
+                                      Email = user.Email,
+                                      Street = user.Street,
+                                      City = user.City,
+                                      State = user.State,
+                                      ZipCode = user.Zipcode,
                                       reqId = groupedFiles.Select(x => x.Request.Requestid).FirstOrDefault(),
                                       createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
                                       currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault().ToString(),

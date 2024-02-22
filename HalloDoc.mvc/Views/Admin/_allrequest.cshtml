@@ -1,0 +1,361 @@
+﻿﻿<div class="status-tab row mt-3 mx-0  mx-md-3">
+    <div class="col-4 col-md-2 p-1 p-md-3 ">
+        <button class=" statustablinks darkblue " onclick="openTab(event, 'tab1')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-plus-circle-dotted"></i> New
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks lightblue" onclick="openTab(event, 'tab2')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-person-exclamation"></i> Pending
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2  p-1 p-md-3">
+        <button class="col-md-2 statustablinks green" onclick="openTab(event, 'tab3')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-check2-circle"></i> Active
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks pink" onclick="openTab(event, 'tab4')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-arrow-clockwise"></i> Conclude
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks blue" onclick="openTab(event, 'tab5')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-person-lock"></i> To Close
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks purple" onclick="openTab(event, 'tab6')">
+            <div class="d-flex flex-column align-items-start">
+                <span>
+                    <i class="d-none d-md-block bi bi-currency-dollar"></i> Unpaid
+                </span>
+                <span class="fs-5">1432</span>
+
+            </div>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="container-fluid p-4 pb-0">
+    <div class="d-flex justify-content-between">
+        <span class="fw-bold">
+            <span class="fs-4">Patients</span>
+            <span style="color: darkblue;">(New)</span>
+        </span>
+        <span class="d-flex gap-1 gap-md-3">
+            <button class="action-btn">
+                <i class="bi bi-send"></i> <span class="d-none d-md-block">
+                    Send
+                    Link
+                </span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-person"></i> <span class="d-none d-md-block">
+                    Request
+                    DTY Support
+                </span>
+            </button>
+        </span>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Search">
+                <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option selected>Regions</option>
+                    <option value="1">new york</option>
+                    <option value="2">usa</option>
+                </select>
+                <label for="floatingSelect"><i class="bi bi-search"></i> All Regions</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
+
+            <div class="d-none d-md-block">
+                <div>All</div>
+            </div>
+            <div><i class="bi bi-dot"></i><span>Patient</span></div>
+            <div><i class="bi bi-dot"></i><span>Friend/Family</span></div>
+            <div><i class="bi bi-dot"></i><span> Business</span></div>
+            <div><i class="bi bi-dot"></i><span> Concierge</span></div>
+            <div><i class="bi bi-dot"></i><span> VIP</span></div>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="tab1" class="statustabcontent">
+    <!-- table -->
+    <div class="d-none d-md-block">
+        <table class="table table-hover data-table">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Requestor</th>
+                    <th scope="col">Requested Date</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Chats With</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Vatsal Gadoya</td>
+                    <td>Sep 10, 2001</td>
+                    <td>Patient</td>
+                    <td>Aug 02, 2022</td>
+                    <td>+91932329432</td>
+                    <td>Main road,NewYork</td>
+                    <td>fever</td>
+                    <td>Patient Provider</td>
+                    <td>Actions</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    var bgColor = "He";
+
+                    @if (item.requestTypeId == 1)
+                    {
+                        bgColor = "#60be5e";
+                    }
+                    else if (item.requestTypeId == 2)
+                    {
+                        bgColor = "#e69232";
+                    }
+                    else if (item.requestTypeId == 3)
+                    {
+                        bgColor = "#d76879";
+                    }
+                    else if (item.requestTypeId == 4)
+                    {
+                        bgColor = "#0b7ebf";
+                    }
+
+                    <tr class="tablerows ">
+                        @*1*@
+                        <td style="background:@bgColor">
+                            <div class="table_name_email">
+
+                                @item.firstName, @item.lastName
+                                <a href="">
+                                    <img src="images/email.svg">
+                                </a>
+                            </div>
+                        </td>
+                        @*2*@
+                        <td style="background:@bgColor">Jun 16, 2023(0)</td>
+                        @*3*@
+                        <td style="background:@bgColor"> , @item.requestorLname</td>
+                        @*4*@
+                        <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                        @*5*@
+                        <td style="background:@bgColor">
+                            <div class="table_phone">
+                                <a href="">
+                                    <i class="bi bi-telephone-fill"></i>
+                                    @item.mobileNo
+                                </a>
+                            </div>
+                            (patients)
+
+
+                        </td>
+                        @*6*@
+                        <td style="background:@bgColor">Room Location:101</td>
+                        @*7*@
+                        <td style="background:@bgColor">-</td>
+                        @*8*@
+                        <td style="background:@bgColor">
+
+                            <div>
+                                <div class="dropdown mb-1">
+                                    <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <img src="images/admin_dashboard_Provider.svg">
+                                        <span>
+                                            Dropdown button
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu table_dropdowns">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="dropdown">
+                                    <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <img src="images/admin_dashboard_Provider.svg">
+                                        <span>
+                                            Dropdown button
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu table_dropdowns">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        @*9*@
+                        <td style="background:@bgColor">
+                            <div>
+                                <div class="dropdown">
+                                    <button class="btn text-white border border-white py-1 "
+                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <span>
+                                            @item.requestTypeId
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu table_dropdowns">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <img src="images/coin.svg">
+                                                Action
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+
+    <!-- accordions -->
+    <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
+    </div>
+
+</div>
+
+<div id="tab2" class="statustabcontent">
+    <h3>Tab 2 Content</h3>
+    <p>This is the content of tab 2.</p>
+</div>
+
+<div id="tab3" class="statustabcontent">
+    <h3>Tab 3 Content</h3>
+    <p>This is the content of tab 3.</p>
+</div>
+<div id="tab4" class="statustabcontent">
+    <h3>Tab 3 Content</h3>
+    <p>This is the content of tab 3.</p>
+</div>
+<div id="tab5" class="statustabcontent">
+    <h3>Tab 3 Content</h3>
+    <p>This is the content of tab 3.</p>
+</div>
+<div id="tab6" class="statustabcontent">
+    <h3>Tab 3 Content</h3>
+    <p>This is the content of tab 3.</p>
+</div>
