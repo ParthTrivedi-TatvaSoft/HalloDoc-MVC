@@ -1,7 +1,7 @@
 ﻿@model DataAccess.CustomModels.MedicalHistoryList;
 
 @{
-    ViewData["Title"] = "Patient_dashboard";
+    ViewData["Title"] = "patient_dashboard";
 
 }
 
@@ -56,15 +56,14 @@
                         <span class="d-flex gap-1">
                             <span>@Model.medicalHistoriesList.FirstOrDefault().FirstName</span>
                             <span>@Model.medicalHistoriesList.FirstOrDefault().LastName</span>
-                            
                         </span>
                     </li>
             </div>
             <li class="nav-item">
                 <a asp-controller="Patient" asp-action="patient_login">
-                <button id="logout" class="px-3">
-                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
-                </button>
+                    <button id="logout" class="px-3">
+                        <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
+                    </button>
                 </a>
 
             </li>
@@ -179,10 +178,11 @@
                             <span>(f34r34t5gvr44)</span>
                         </p>
                         <p class="col-12 py-3">check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
-                        <div class="col-12 mb-4">
-                            <input class="form-control form-control-lg " id="formfilelg" type="file" multiple>
-                        </div>
-
+                        <form class="input-group " method="post">
+                            <input  type="file" class="form-control" id="formFileLg" multiple>
+                            <button type="submit" class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</button>
+                            <br />
+                        </form>
                         <div class="row" id="docList">
                             @* @await Html.PartialAsync("_documentlist",Model);*@
                         </div>
@@ -489,22 +489,22 @@
             document.getElementById('viewdocs').style.display = 'block';
         }
 
-            $(document).ready(function () {
-                $('#editButton').click(function () {
+        $(document).ready(function () {
+            $('#editButton').click(function () {
 
-                    // Remove disabled attribute to make inputs editable
-                    // $('#name').prop('disabled', false);
-                    // $('#age').prop('disabled', false);
-                    $('input[type="text"]').removeAttr('disabled', false);
-                    $('input[type="date"]').removeAttr('disabled', false);
-                    $('input[id="tel"]').removeAttr('disabled', false);
-                    $('input[type="email"]').removeAttr('disabled', false);
-                    $('input[type="select"]').removeAttr('disabled', false);
-                    // Hide the edit button after clicking it
-                    $(this).hide();
-                    $('#saveButton').removeAttr('hidden', false);
-                });
+                // Remove disabled attribute to make inputs editable
+                // $('#name').prop('disabled', false);
+                // $('#age').prop('disabled', false);
+                $('input[type="text"]').removeAttr('disabled', false);
+                $('input[type="date"]').removeAttr('disabled', false);
+                $('input[id="tel"]').removeAttr('disabled', false);
+                $('input[type="email"]').removeAttr('disabled', false);
+                $('input[type="select"]').removeAttr('disabled', false);
+                // Hide the edit button after clicking it
+                $(this).hide();
+                $('#saveButton').removeAttr('hidden', false);
             });
+        });
 
 
 

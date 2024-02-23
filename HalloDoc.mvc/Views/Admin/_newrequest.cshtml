@@ -1,0 +1,179 @@
+﻿<!-- table -->
+<div class="d-none d-md-block">
+    <table class="table table-hover data-table w-100" id="new_table">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Requestor</th>
+                <th scope="col">Requested Date</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Chats With</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                var bgColor = "He";
+
+                @if (item.requestTypeId == 1)
+                {
+                    bgColor = "#60be5e";
+                }
+                else if (item.requestTypeId == 2)
+                {
+                    bgColor = "#e69232";
+                }
+                else if (item.requestTypeId == 3)
+                {
+                    bgColor = "#d76879";
+                }
+                else if (item.requestTypeId == 4)
+                {
+                    bgColor = "#0b7ebf";
+                }
+
+                <tr class="tablerows ">
+                    @*1*@
+                    <td style="background:@bgColor">
+                        <div class="table_name_email">
+
+                            @item.firstName, @item.lastName
+                            <a href="">
+                                <img src="images/email.svg">
+                            </a>
+                        </div>
+                    </td>
+                    @*2*@
+                    <td style="background:@bgColor">Jun 16, 2023(0)</td>
+                    @*3*@
+                    <td style="background:@bgColor">@item.requestorFname , @item.requestorLname</td>
+                    @*4*@
+                    <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                    @*5*@
+                    <td style="background:@bgColor">
+                        <div class="table_phone">
+                            <a href="">
+                                <i class="bi bi-telephone-fill"></i>
+                                @item.mobileNo
+                            </a>
+                        </div>
+                        (patients)
+
+
+                    </td>
+                    @if ((item.street != null || item.city != null) || item.state != null)
+                    {
+                        <td style="background:@bgColor">@item.street, @item.city, @item.state </td>
+                    }
+                    else
+                    {
+                        <td style="background:@bgColor"> - </td>
+
+                    }
+
+                    @*7*@
+                    <td style="background:@bgColor">-</td>
+                    @*8*@
+                    <td style="background:@bgColor">
+
+                        <div class="d-flex">
+                            <div class="dropdown mb-1 w-75">
+                                <button class="btn text-white border border-white py-1"
+                                        type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="bi bi-person-fill"></i>
+                                    <span>
+                                        Patient
+                                    </span>
+                                </button>
+
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="dropdown w-75">
+                                <button class="btn text-white border border-white py-1"
+                                        type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="bi bi-person-badge-fill"></i>
+                                    <span>
+                                        Provider
+                                    </span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </td>
+                    @*9*@
+                    <td style="background:@bgColor">
+                        <div>
+                            <div class="dropdown mt-3">
+                                <button class="btn text-white border border-white py-1  dropdown-toggle w-50 d-flex justify-content-around align-items-center"
+                                        id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <span>
+                                        Actions
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu table_dropdowns">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            ViewCase
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            ViewUploads
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            ViewNotes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            Orders
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            Doctor Notes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            Encounter
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- accordions -->
+<div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#new_table').DataTable({ "searching": false, "lengthChange": false, "pageLength": 7 });
+    });
+</script>

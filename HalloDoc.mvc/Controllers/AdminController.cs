@@ -23,6 +23,13 @@ namespace HalloDoc.mvc.Controllers
         {
             return View();
         }
+        public IActionResult admin_login()
+        {
+            return View(); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult admin_login(AdminLoginModel adminLoginModel)
         {
             if (ModelState.IsValid)

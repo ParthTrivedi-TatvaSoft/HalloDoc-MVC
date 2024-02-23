@@ -10,9 +10,10 @@ namespace DataAccess.CustomModels
     public class AdminLoginModel
     {
         [Required(ErrorMessage = "Email is required")]
-        public string email { get; set; }
+        public string email { get; set; } = null;
+
         [Required(ErrorMessage = "Password is required")]
-        public string password { get; set; }
+        public string password { get; set; } = null;
     }
 
     public class AdminDashTableModel

@@ -165,6 +165,26 @@ namespace DataAccess.CustomModels
         public List<MedicalHistory> medicalHistoriesList { get; set; }
     }
 
+    public class Profile
+    {
+
+
+        public string firstName { get; set; }
+        public string? lastName { get; set; }
+        public DateTime? dob { get; set; }
+
+        //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
+        public string email { get; set; }
+        public string? MobileNo { get; set; }
+        public string? street { get; set; }
+        public string? city { get; set; }
+        public string? state { get; set; }
+        public string? zipCode { get; set; }
+      
+        
+
+    }
+
     
 }
 

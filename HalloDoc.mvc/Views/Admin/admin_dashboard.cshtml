@@ -2,9 +2,7 @@
 @{
     ViewData["Title"] = "admin_dashboard";
 }
-
-
-@model List<AdminDashTableModel>
+@model List<AdminDashTableModel>;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +47,13 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>@Model.FirstOrDefault().firstName</span>
-                            <span>@Model.FirstOrDefault().lastName</span>
+                            <span>First</span>
+                            <span>Last</span>
                         </span>
                     </li>
             </div>
             <li class="nav-item">
-                <a asp-controller="Home" asp-action="index">
+                <a asp-controller="Admin" asp-action="admin_login">
                 <button id="logout" class="px-2">
                     <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
                 </button>
@@ -63,7 +61,7 @@
 
             </li>
             <li class="nav-item">
-                <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
+                <img onclick="myFunction()" class="light" src="/images/dark.png" alt="">
             </li>
             </ul>
         </div>
@@ -138,7 +136,7 @@
              tabindex="0">
 
 
-            <partial name="_allrequest"/>
+            <partial name="_allrequest" />
         </div>
         <!-- tab2  pending -->
         <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
@@ -162,6 +160,84 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("statustabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Deactivate all tab links
+            tablinks = document.getElementsByClassName("statustablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the specific tab content
+            document.getElementById(tabName).style.display = "block";
+
+            // Activate the clicked tab link
+            evt.currentTarget.className += " active";
+        }
+
+        $(document).ready(function () {
+            // Convert table rows to accordions in mobile view
+            if ($(window).width() < 768) {
+                $('.data-table tbody tr').each(function () {
+                    var name = $(this).find('td:eq(0)').text();
+                    var address = $(this).find('td:eq(5)').text();
+                    var requestor = $(this).find('td:eq(2)').text();
+
+                    var accordionItem = `
+                                            <div class="accordion-item">
+
+                                                <div class="accordion-content">
+                                                    <p><strong>Name:</strong> ${name}</p>
+                                                    <p><strong>Address:</strong> ${address}</p>
+                                                    <p><strong>Requestor:</strong> ${requestor}</p>
+                                                </div>
+                                            </div>
+                                        `;
+
+                    $('#accordionFlushExample').append(accordionItem);
+                });
+            }
+        });
+
+        // Resize event listener to update accordion on window resize
+        $(window).resize(function () {
+            $('#accordionFlushExample').empty();
+            if ($(window).width() < 768) {
+                $('.data-table tbody tr').each(function () {
+                    var name = $(this).find('td:eq(0)').text();
+                    var address = $(this).find('td:eq(5)').text();
+                    var requestor = $(this).find('td:eq(2)').text();
+
+
+                    var accordionItem = `
+                                            <div class="accordion-item">
+
+                                                <div class="accordion-content">
+                                                    <p><strong>Name:</strong> ${name}</p>
+                                                    <p><strong>Address:</strong> ${address}</p>
+                                                    <p><strong>Requestor:</strong> ${requestor}</p>
+                                                </div>
+                                            </div>
+                                        `;
+
+                    $('#accordionFlushExample').append(accordionItem);
+                });
+            }
+        });
+
+
+    </script>
 
 
 </body>
@@ -169,77 +245,3 @@
 
 
 </html>
-<script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-
-        // Hide all tab content
-        tabcontent = document.getElementsByClassName("statustabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        // Deactivate all tab links
-        tablinks = document.getElementsByClassName("statustablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        // Show the specific tab content
-        document.getElementById(tabName).style.display = "block";
-
-        // Activate the clicked tab link
-        evt.currentTarget.className += " active";
-    }
-
-    $(document).ready(function () {
-        // Convert table rows to accordions in mobile view
-        if ($(window).width() < 768) {
-            $('.data-table tbody tr').each(function () {
-                var name = $(this).find('td:eq(0)').text();
-                var address = $(this).find('td:eq(5)').text();
-                var requestor = $(this).find('td:eq(2)').text();
-
-                var accordionItem = `
-                            <div class="accordion-item">
-
-                                <div class="accordion-content">
-                                    <p><strong>Name:</strong> ${name}</p>
-                                    <p><strong>Address:</strong> ${address}</p>
-                                    <p><strong>Requestor:</strong> ${requestor}</p>
-                                </div>
-                            </div>
-                        `;
-
-                $('#accordionFlushExample').append(accordionItem);
-            });
-        }
-    });
-
-    // Resize event listener to update accordion on window resize
-    $(window).resize(function () {
-        $('#accordionFlushExample').empty();
-        if ($(window).width() < 768) {
-            $('.data-table tbody tr').each(function () {
-                var name = $(this).find('td:eq(0)').text();
-                var address = $(this).find('td:eq(5)').text();
-                var requestor = $(this).find('td:eq(2)').text();
-
-
-                var accordionItem = `
-                            <div class="accordion-item">
-
-                                <div class="accordion-content">
-                                    <p><strong>Name:</strong> ${name}</p>
-                                    <p><strong>Address:</strong> ${address}</p>
-                                    <p><strong>Requestor:</strong> ${requestor}</p>
-                                </div>
-                            </div>
-                        `;
-
-                $('#accordionFlushExample').append(accordionItem);
-            });
-        }
-    });
-
-</script>

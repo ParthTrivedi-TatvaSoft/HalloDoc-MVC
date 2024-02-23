@@ -1,4 +1,7 @@
-﻿﻿<div class="status-tab row mt-3 mx-0  mx-md-3">
+﻿
+
+
+<div class="status-tab row mt-3 mx-0  mx-md-3">
     <div class="col-4 col-md-2 p-1 p-md-3 ">
         <button class=" statustablinks darkblue " onclick="openTab(event, 'tab1')">
             <div class="d-flex flex-column align-items-start">
@@ -98,8 +101,7 @@
             </button>
             <button class="action-btn">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
-                    Request
-                    DTY Support
+                    Request DTY Support
                 </span>
             </button>
         </span>
@@ -115,8 +117,8 @@
             <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                     <option selected>Regions</option>
-                    <option value="1">new york</option>
-                    <option value="2">usa</option>
+                    <option value="1">New York</option>
+                    <option value="2">USA</option>
                 </select>
                 <label for="floatingSelect"><i class="bi bi-search"></i> All Regions</label>
             </div>
@@ -128,11 +130,11 @@
             <div class="d-none d-md-block">
                 <div>All</div>
             </div>
-            <div><i class="bi bi-dot"></i><span>Patient</span></div>
-            <div><i class="bi bi-dot"></i><span>Friend/Family</span></div>
-            <div><i class="bi bi-dot"></i><span> Business</span></div>
-            <div><i class="bi bi-dot"></i><span> Concierge</span></div>
-            <div><i class="bi bi-dot"></i><span> VIP</span></div>
+            <div><span class="patient_circle"></span><span>Patient</span></div>
+            <div><span class="family_circle"></span><span>Friend/Family</span></div>
+            <div><span class="business_circle"></span><span> Business</span></div>
+            <div><span class="concierge_circle"></span><span> Concierge</span></div>
+            <div><span class="vip_circle"></span><span> VIP</span></div>
 
         </div>
     </div>
@@ -140,201 +142,7 @@
 </div>
 
 <div id="tab1" class="statustabcontent">
-    <!-- table -->
-    <div class="d-none d-md-block">
-        <table class="table table-hover data-table">
-            <thead class="table-secondary">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date Of Birth</th>
-                    <th scope="col">Requestor</th>
-                    <th scope="col">Requested Date</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Notes</th>
-                    <th scope="col">Chats With</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Vatsal Gadoya</td>
-                    <td>Sep 10, 2001</td>
-                    <td>Patient</td>
-                    <td>Aug 02, 2022</td>
-                    <td>+91932329432</td>
-                    <td>Main road,NewYork</td>
-                    <td>fever</td>
-                    <td>Patient Provider</td>
-                    <td>Actions</td>
-                </tr>
-                @foreach (var item in Model)
-                {
-                    var bgColor = "He";
-
-                    @if (item.requestTypeId == 1)
-                    {
-                        bgColor = "#60be5e";
-                    }
-                    else if (item.requestTypeId == 2)
-                    {
-                        bgColor = "#e69232";
-                    }
-                    else if (item.requestTypeId == 3)
-                    {
-                        bgColor = "#d76879";
-                    }
-                    else if (item.requestTypeId == 4)
-                    {
-                        bgColor = "#0b7ebf";
-                    }
-
-                    <tr class="tablerows ">
-                        @*1*@
-                        <td style="background:@bgColor">
-                            <div class="table_name_email">
-
-                                @item.firstName, @item.lastName
-                                <a href="">
-                                    <img src="images/email.svg">
-                                </a>
-                            </div>
-                        </td>
-                        @*2*@
-                        <td style="background:@bgColor">Jun 16, 2023(0)</td>
-                        @*3*@
-                        <td style="background:@bgColor"> , @item.requestorLname</td>
-                        @*4*@
-                        <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
-                        @*5*@
-                        <td style="background:@bgColor">
-                            <div class="table_phone">
-                                <a href="">
-                                    <i class="bi bi-telephone-fill"></i>
-                                    @item.mobileNo
-                                </a>
-                            </div>
-                            (patients)
-
-
-                        </td>
-                        @*6*@
-                        <td style="background:@bgColor">Room Location:101</td>
-                        @*7*@
-                        <td style="background:@bgColor">-</td>
-                        @*8*@
-                        <td style="background:@bgColor">
-
-                            <div>
-                                <div class="dropdown mb-1">
-                                    <button class="btn text-white border border-white py-1 "
-                                            id="chat_with_dropdown1" type="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <img src="images/admin_dashboard_Provider.svg">
-                                        <span>
-                                            Dropdown button
-                                        </span>
-                                    </button>
-                                    <ul class="dropdown-menu table_dropdowns">
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="dropdown">
-                                    <button class="btn text-white border border-white py-1 "
-                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <img src="images/admin_dashboard_Provider.svg">
-                                        <span>
-                                            Dropdown button
-                                        </span>
-                                    </button>
-                                    <ul class="dropdown-menu table_dropdowns">
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                        @*9*@
-                        <td style="background:@bgColor">
-                            <div>
-                                <div class="dropdown">
-                                    <button class="btn text-white border border-white py-1 "
-                                            id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <span>
-                                            @item.requestTypeId
-                                        </span>
-                                    </button>
-                                    <ul class="dropdown-menu table_dropdowns">
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="images/coin.svg">
-                                                Action
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-
-        </table>
-    </div>
-
-    <!-- accordions -->
-    <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
-    </div>
+    <partial name="_newrequest" />
 
 </div>
 
@@ -359,3 +167,7 @@
     <h3>Tab 3 Content</h3>
     <p>This is the content of tab 3.</p>
 </div>
+
+
+
+
