@@ -14,6 +14,8 @@
     }
 </style>
 
+<partial name="_navbar" />
+
 <div class="container">
     <div class="navbar navbar-light justify-content-between">
         <h3>Submit Information</h3>
@@ -25,28 +27,28 @@
     </div>
 </div>
 
-<div class="container bg-light">
+<div class="container ">
     <form method="post">
         <h4>Patient Information</h4>
         <div class="form-floating col-12 ">
             <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                       style="height: 100px"></textarea>
-            <label for="floatingTextarea2" class="first">Enter Brief Details of Symptoms(Optional)</label>
+            <label for="floatingTextarea2" class="comman">Enter Brief Details of Symptoms(Optional)</label>
         </div>  
         <div class="row mt-3">
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" class=" mx-2">Your First Name</label>
+                <label for="floatingInput" class="comman mx-2">Your First Name</label>
                
             </div>
             <div class="form-floating col-lg-6 col-md-12 col-sm-12">
                 <input type="text"  class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword" class=" mx-2">Your Last Name</label>
+                <label for="floatingPassword" class="comman mx-2">Your Last Name</label>
              
             </div>
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
                 <input type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" class=" mx-2">Date of Birth</label>
+                <label for="floatingInput" class="comman mx-2">Date of Birth</label>
             </div>
         </div>
 
@@ -54,7 +56,7 @@
         <div class="row mt-2">
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" class=" mx-2">Email</label>
+                <label for="floatingInput" class="comman mx-2">Email</label>
             </div>
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                 <input type="tel" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
@@ -65,25 +67,25 @@
         <div class="row mt-2">
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" class=" mx-2">Street</label>
+                <label for="floatingInput" class="comman mx-2">Street</label>
             </div>
             <div class="form-floating col-lg-6 col-md-12 col-sm-12">
                 <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword" class=" mx-2">City</label>
+                <label for="floatingPassword" class="comman mx-2">City</label>
             </div>
         </div>
         <div class="row mt-2">
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-               <label for="floatingInput" class=" mx-2">State</label>
+                <label for="floatingInput" class="comman mx-2">State</label>
             </div>
             <div class="form-floating col-lg-6 col-md-12 col-sm-12">
                 <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword" class=" mx-2">Zip Code</label>
+                <label for="floatingPassword" class="comman mx-2">Zip Code</label>
             </div>
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput" class=" mx-2">Room # / Suite (optional)</label>
+                <label for="floatingInput" class="comman mx-2">Room # / Suite (optional)</label>
             </div>
             <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
                 <button type="button" class="btn btn-outline-primary" style="height:3.3rem ; width:6rem"> <i class="bi bi-geo-alt"></i> Map</button>
@@ -99,11 +101,13 @@
         </div>
 
         <div class="d-flex justify-content-end gap-2  mb-3">
-            <button type="submit" class="btn btn-primary">submit</button>
-            <button type="reset" class="btn btn-outline-primary">cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-outline-primary">Cancel</button>
         </div>
     </form>
 </div>
+
+<partial name="_footer" />
 
 <script>
     const phoneInputField = document.querySelectorAll("input[type='tel']");
@@ -113,4 +117,5 @@
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
     }
+    <script src="~/js/site.js" ></script>
 </script>

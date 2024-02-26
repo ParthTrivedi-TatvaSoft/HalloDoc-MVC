@@ -28,6 +28,18 @@ namespace HalloDoc.mvc.Controllers
             return View(); 
         }
 
+        public IActionResult viewcase()
+        {
+            return View();
+        }
+
+        public IActionResult admin_resetpassword()
+        {
+            return View();
+        }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult admin_login(AdminLoginModel adminLoginModel)

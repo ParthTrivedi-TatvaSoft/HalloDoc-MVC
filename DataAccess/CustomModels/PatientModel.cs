@@ -17,8 +17,10 @@ namespace DataAccess.CustomModels
 
         [Required(ErrorMessage = "First Name Is Required")]
         public string firstName { get; set; }
-        public string? lastName { get; set; } 
-        public DateTime? dob { get; set; }
+        public string? lastName { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Date")]
+        public DateOnly dob { get; set; }
 
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
         //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
@@ -37,10 +39,7 @@ namespace DataAccess.CustomModels
         [Compare("password", ErrorMessage = "Password Missmatch")]
         public string? confirmPassword { get; set; }
         public List<IFormFile>? File { get; set; }
-
-
-
-
+        public int requestId { get; set; }
     }
     
 
@@ -143,7 +142,7 @@ namespace DataAccess.CustomModels
         public int reqId { get; set; }
         public DateTime createdDate { get; set; }
         public string currentStatus { get; set; }
-        public List<string> document { get; set; }
+        public List<string>? document { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -168,7 +167,7 @@ namespace DataAccess.CustomModels
     public class Profile
     {
 
-
+        [Required(ErrorMessage = "Please Enter The First Name")]
         public string firstName { get; set; }
         public string? lastName { get; set; }
         public DateTime? dob { get; set; }

@@ -47,8 +47,8 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>First</span>
-                            <span>Last</span>
+                            <span>@Model.FirstOrDefault().firstName</span>
+                            <span>@Model.FirstOrDefault().lastName</span>
                         </span>
                     </li>
             </div>

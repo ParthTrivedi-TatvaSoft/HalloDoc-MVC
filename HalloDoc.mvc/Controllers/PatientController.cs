@@ -237,6 +237,7 @@ namespace HalloDoc.mvc.Controllers
 
             _db.Users.Update(existingUser);
             _db.SaveChanges();
+            //var id = HttpContext.Session.GetInt32("existingUser");
             return RedirectToAction("patient_dashboard", "Patient", existingUser);
         }
 

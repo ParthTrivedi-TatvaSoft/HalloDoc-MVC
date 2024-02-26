@@ -33,8 +33,7 @@ namespace BusinessLogic.Repository
             //}
             //return user;
             var obj = _db.Aspnetusers.ToList();
-            User user = new User();
-
+            User user = null;
             //string hashPassword = GenerateSHA256(patient.Password);
             //match the email and pw with database entry
             foreach (var item in obj)
