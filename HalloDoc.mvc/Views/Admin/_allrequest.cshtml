@@ -5,10 +5,10 @@
     <div class="col-4 col-md-2 p-1 p-md-3 ">
         <button class=" statustablinks darkblue " onclick="openTab(event, 'tab1')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-plus-circle-dotted"></i> New
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -18,7 +18,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if ((item.status == 1))
+                            if (item.status == 1)
                             {
                                 count++;
                             }
@@ -33,10 +33,10 @@
     <div class="col-4 col-md-2 p-1 p-md-3">
         <button class="col-md-2 statustablinks lightblue" onclick="openTab(event, 'tab2')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-person-exclamation"></i> Pending
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -46,7 +46,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if ((item.status == 2))
+                            if (item.status == 2)
                             {
                                 count++;
                             }
@@ -62,10 +62,10 @@
     <div class="col-4 col-md-2  p-1 p-md-3">
         <button class="col-md-2 statustablinks green" onclick="openTab(event, 'tab3')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-check2-circle"></i> Active
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -75,7 +75,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if ((item.status == 4 || item.status == 5))
+                            if (item.status == 4 || item.status == 5)
                             {
                                 count++;
                             }
@@ -91,10 +91,10 @@
     <div class="col-4 col-md-2 p-1 p-md-3">
         <button class="col-md-2 statustablinks pink" onclick="openTab(event, 'tab4')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-arrow-clockwise"></i> Conclude
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -104,7 +104,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if ((item.status == 6))
+                            if (item.status == 6)
                             {
                                 count++;
                             }
@@ -120,10 +120,10 @@
     <div class="col-4 col-md-2 p-1 p-md-3">
         <button class="col-md-2 statustablinks blue" onclick="openTab(event, 'tab5')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-person-lock"></i> To Close
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -149,10 +149,10 @@
     <div class="col-4 col-md-2 p-1 p-md-3">
         <button class="col-md-2 statustablinks purple" onclick="openTab(event, 'tab6')">
             <div class="d-flex flex-column align-items-start">
-                <span>
+                <span class="d-flex gap-2">
                     <i class="d-none d-md-block bi bi-currency-dollar"></i> Unpaid
                 </span>
-                <span class="fs-5">
+                <span class="fs-5 fw-bolder">
                     @if (Model == null)
                     {
                         <span>-</span>
@@ -162,7 +162,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if ((item.status == 9))
+                            if (item.status == 9)
                             {
                                 count++;
                             }
@@ -178,35 +178,37 @@
 
 </div>
 
-<div class="d-flex justify-content-between">
-    <span class="fw-bold">
-        <span class="fs-4">Patients</span>
-        <span style="color: darkblue;">(New)</span>
-    </span>
-    <span class="d-flex gap-1 gap-md-2">
-        <button class="action-btn my-3 d-flex gap-2">
-            <i class="bi bi-send"></i> <span class="d-none d-md-block">
-                Send
-                Link
-            </span>
-        </button>
-        <button class="action-btn my-3 d-flex gap-2">
-            <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
-        </button>
-        <button class="action-btn my-3 d-flex gap-2">
-            <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
-        </button>
-        <button class="action-btn my-3 d-flex gap-2">
-            <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
-        </button>
-        <button class="action-btn my-3 d-flex gap-2">
-            <i class="bi bi-person"></i> <span class="d-none d-md-block">
-                Request
-                DTY Support
-            </span>
-        </button>
-    </span>
-</div>
+
+<div class="container-fluid p-4 pb-0">
+    <div class="d-flex justify-content-between">
+        <span class="fw-bold">
+            <span class="fs-4">Patients</span>
+            <span style="color: darkblue;">(New)</span>
+        </span>
+        <span class="d-flex gap-1 gap-md-3">
+            <button class="action-btn my-3 d-flex gap-2">
+                <i class="bi bi-send"></i> <span class="d-none d-md-block">
+                    Send
+                    Link
+                </span>
+            </button>
+            <button class="action-btn my-3 d-flex gap-2">
+                <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
+            </button>
+            <button class="action-btn my-3 d-flex gap-2">
+                <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
+            </button>
+            <button class="action-btn my-3 d-flex gap-2">
+                <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
+            </button>
+            <button class="action-btn my-3 d-flex gap-2">
+                <i class="bi bi-person"></i> <span class="d-none d-md-block">
+                    Request
+                    DTY Support
+                </span>
+            </button>
+        </span>
+    </div>
     <div class="row mt-3 bg-white">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
@@ -235,19 +237,17 @@
             <div><span class="family_circle"></span><span>Friend/Family</span></div>
             <div><span class="business_circle"></span><span> Business</span></div>
             <div><span class="concierge_circle"></span><span> Concierge</span></div>
-            <div><span class="vip_circle"></span><span> VIP</span></div>
+
 
         </div>
     </div>
 
 </div>
 
-
 <div id="tab1" class="statustabcontent">
     <partial name="_newrequest" />
 
 </div>
-
 
 <div id="tab2" class="statustabcontent">
     <partial name="_pendingrequest" />
@@ -260,7 +260,7 @@
     <partial name="_concluderequest" />
 </div>
 <div id="tab5" class="statustabcontent">
-    <partial name="_toCloserequest" />
+    <partial name="_tocloserequest" />
 </div>
 <div id="tab6" class="statustabcontent">
     <partial name="_unpaidrequest" />

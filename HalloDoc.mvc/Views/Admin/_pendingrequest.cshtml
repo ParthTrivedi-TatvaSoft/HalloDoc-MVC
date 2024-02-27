@@ -125,7 +125,7 @@
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" onclick="location.href='@Url.Action("viewcase", "Admin", new{reqClientId=item.reqClientId})'">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewCase
                                             </a>

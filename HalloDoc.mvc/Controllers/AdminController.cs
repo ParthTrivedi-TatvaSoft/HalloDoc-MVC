@@ -28,12 +28,18 @@ namespace HalloDoc.mvc.Controllers
             return View(); 
         }
 
-        public IActionResult viewcase()
+        public IActionResult viewcase(int reqClientId)
+        {
+            var obj = _adminService.ViewCase(reqClientId);
+            return View(obj);
+        }
+
+        public IActionResult admin_resetpassword()
         {
             return View();
         }
 
-        public IActionResult admin_resetpassword()
+        public IActionResult viewnotes()
         {
             return View();
         }

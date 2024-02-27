@@ -12,8 +12,6 @@ namespace BusinessLogic.Interfaces
     {
         List<AdminDashTableModel> GetRequestsByStatus();
 
-
-
-
+        ViewCaseViewModel ViewCase(int reqClientId);
     }
 }

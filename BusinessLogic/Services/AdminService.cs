@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Interfaces;
 using DataAccess.CustomModels;
 using DataAccess.Data;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace BusinessLogic.Services
                             zipCode = rc.Zipcode,
                             requestTypeId = r.Requesttypeid,
                             status = r.Status,
+                            reqClientId=rc.Requestclientid,
 
                         };
 
@@ -49,5 +51,34 @@ namespace BusinessLogic.Services
 
             return result;
         }
+        public ViewCaseViewModel ViewCase(int reqClientId)
+        {
+            var data = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == reqClientId);
+            var cNumber = _db.Requests.FirstOrDefault(x => x.Requestid == data.Requestid);
+            var confirm = cNumber.Confirmationnumber;
+
+            var viewdata = new ViewCaseViewModel
+            {
+                Requestclientid = reqClientId,
+                Firstname = data.Firstname,
+                Lastname = data.Lastname,
+                Strmonth = data.Strmonth,
+                ConfirmationNumber = confirm,
+                Notes = data.Notes,
+                Address = data.Address,
+                Email = data.Email,
+                Phonenumber = data.Phonenumber,
+                City = data.City,
+                State = data.State,
+                Street = data.Street,
+                Zipcode = data.Zipcode,
+                Regionid = data.Regionid,
+            };
+
+            return viewdata;
+        }
+
+
+
     }
 }
