@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "admin_dashboard";
 }
-@model List<AdminDashTableModel>;
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,13 +47,13 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>@Model.FirstOrDefault().firstName</span>
-                            <span>@Model.FirstOrDefault().lastName</span>
+                            <span>First</span>
+                            <span>Last</span>
                         </span>
                     </li>
             </div>
             <li class="nav-item">
-                <a asp-controller="Admin" asp-action="admin_login">
+                <a asp-action="admin_login" asp-controller="Admin">
                 <button id="logout" class="px-2">
                     <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
                 </button>
@@ -163,6 +163,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
@@ -184,7 +185,30 @@
 
             // Activate the clicked tab link
             evt.currentTarget.className += " active";
+
+            if (tabName == 'tab1') {
+                showNewRequests(1);
+            }
+            if (tabName == 'tab2') {
+                showNewRequests(2);
+            }
+            if (tabName == 'tab3') {
+                showNewRequests(3);
+            }
+            if (tabName == 'tab4') {
+                showNewRequests(4);
+            }
+            if (tabName == 'tab5') {
+                showNewRequests(5);
+            }
+            if (tabName == 'tab6') {
+                showNewRequests(6);
+            }
+
+
         }
+
+
 
         $(document).ready(function () {
             // Convert table rows to accordions in mobile view
@@ -237,7 +261,45 @@
         });
 
 
+        function showNewRequests(status) {
+            $.ajax({
+                url: '/Admin/GetRequestsByStatus',
+                type: 'GET',
+                data: { tabNo: status },
+                success: function (response) {
+                    if (status == 1) {
+                        $("#tab1").html(response);
+                    }
+                    if (status == 2) {
+                        $("#tab2").html(response);
+                    }
+                    if (status == 3) {
+                        $("#tab3").html(response);
+                    }
+                    if (status == 4) {
+                        $("#tab4").html(response);
+                    }
+                    if (status == 5) {
+                        $("#tab5").html(response);
+                    }
+                    if (status == 6) {
+                        $("#tab6").html(response);
+                    }
+                }
+            });
+        }
+
+
+
+
     </script>
+
+
+
+
+
+
+
 
 
 </body>

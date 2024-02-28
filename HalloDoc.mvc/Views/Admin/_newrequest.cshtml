@@ -1,6 +1,8 @@
-﻿<!-- table -->
+﻿@using DataAccess.CustomModels;
+@model List<AdminDashTableModel>;
+<!-- table -->
 <div class="d-none d-md-block">
-    <table class="table table-hover data-table w-100">
+    <table class="table table-hover data-table w-100" id="dtBasicExample">
         <thead class="table-secondary">
             <tr>
                 <th scope="col">Name</th>
@@ -40,7 +42,7 @@
                     }
 
                     <tr class="tablerows ">
-                        
+                        @*1*@
                         <td style="background:@bgColor">
                             <div class="d-flex justify-content-between">
 
@@ -50,13 +52,14 @@
                                 </a>
                             </div>
                         </td>
-                        
+                        @*2*@
                         <td style="background:@bgColor">Jun 16, 2023(0)</td>
-                        
+                        @*3*@
                         <td style="background:@bgColor">@item.requestorFname @item.requestorLname</td>
-                        
+                        @*4*@
                         <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
-                        
+                        @*@item.strMonth @item.intDate , @item.intYear*@
+                        @*5*@
                         <td style="background:@bgColor">
                             <div class="table_phone">
                                 <a href="">
@@ -64,7 +67,7 @@
                                     @item.mobileNo
                                 </a>
                             </div>
-                            (Patients)
+                            (patients)
 
 
                         </td>
@@ -124,39 +127,33 @@
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns">
                                         <li>
-                                            <a class="dropdown-item" onclick="location.href='@Url.Action("viewcase", "Admin", new{reqClientId=item.reqClientId})'">
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-card-checklist"></i>
+                                                Assign Case
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-x-circle"></i>
+                                                Cancel Case
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewCase
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                ViewUploads
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" onclick="location.href='@Url.Action("viewnotes", "Admin")'">
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="viewnotes">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewNotes
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                Orders
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                Doctor Notes
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                Encounter
+                                                <i class="bi bi-ban"></i>
+                                                Block Patient
                                             </a>
                                         </li>
                                     </ul>
@@ -177,6 +174,27 @@
 
 <script>
     $(document).ready(function () {
-        $('.data-table').DataTable({ "searching": false, "lengthChange": false, "pageLength": 7 });
+
+        $('#dtBasicExample').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+                }
+            }
+        });
+        $('.dataTables_filter').hide();
     });
 </script>

@@ -18,7 +18,7 @@
 
             @foreach (var item in Model)
             {
-                if (item.status == 3 || item.status == 7 || item.status == 8)
+                if ((item.status == 3 || item.status == 7) || item.status == 8)
                 {
                     var bgColor = "He";
 
@@ -53,7 +53,7 @@
                         @*2*@
                         <td style="background:@bgColor">Jun 16, 2023(0)</td>
                         @*3*@
-                        <td style="background:@bgColor"> @item.requestorLname</td>
+                        <td style="background:@bgColor">@item.requestorFname @item.requestorLname</td>
                         @*4*@
                         <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
                         @*@item.strMonth @item.intDate , @item.intYear*@
@@ -71,7 +71,7 @@
                         </td>
                         @if ((item.street != null || item.city != null) || item.state != null)
                         {
-                            <td style="background:@bgColor">, @item.city, @item.state </td>
+                            <td style="background:@bgColor">@item.street, @item.city, @item.state </td>
                         }
                         else
                         {
@@ -125,7 +125,7 @@
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns">
                                         <li>
-                                            <a class="dropdown-item" onclick="location.href='@Url.Action("viewcase", "Admin", new{reqClientId=item.reqClientId})'">
+                                            <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewCase
                                             </a>

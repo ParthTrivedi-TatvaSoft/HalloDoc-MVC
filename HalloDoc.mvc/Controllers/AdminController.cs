@@ -23,14 +23,75 @@ namespace HalloDoc.mvc.Controllers
         {
             return View();
         }
-        public IActionResult admin_login()
+        public IActionResult admin_login(AdminLoginModel adminLoginModel)
         {
-            return View(); 
+            if (ModelState.IsValid)
+            {
+                var aspnetuser = _adminService.GetAspnetuser(adminLoginModel.email);
+                if (aspnetuser != null)
+                {
+                    adminLoginModel.password = adminLoginModel.password;
+                    if (aspnetuser.Passwordhash == adminLoginModel.password)
+                    {
+                        _notyf.Success("Logged In Successfully");
+                        return RedirectToAction("admin_dashboard", "Admin");
+                    }
+                    else
+                    {
+                        _notyf.Error("Password is incorrect");
+
+                        return View(adminLoginModel);
+                    }
+                }
+                _notyf.Error("Email is incorrect");
+                return View(adminLoginModel);
+            }
+            return View(adminLoginModel);
+
         }
 
-        public IActionResult viewcase(int reqClientId)
+
+        public IActionResult GetRequestsByStatus(int tabNo)
         {
-            var obj = _adminService.ViewCase(reqClientId);
+            var list = _adminService.GetRequestsByStatus(tabNo);
+            if (tabNo == 1)
+            {
+                return PartialView("_newrequest", list);
+            }
+            else if (tabNo == 2)
+            {
+                return PartialView("_pendingrequest", list);
+            }
+            else if (tabNo == 3)
+            {
+                return PartialView("_activerequest", list);
+            }
+            else if (tabNo == 4)
+            {
+                return PartialView("_concluderequest", list);
+            }
+            else if (tabNo == 5)
+            {
+                return PartialView("_tocloserequest", list);
+            }
+            else if (tabNo == 6)
+            {
+                return PartialView("_unpaidrequest", list);
+            }
+            return View();
+        }
+
+        public IActionResult admin_dashboard()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult viewcase(int Requestclientid, int RequestTypeId)
+        {
+            var obj = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
+
             return View(obj);
         }
 
@@ -44,24 +105,9 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult admin_login(AdminLoginModel adminLoginModel)
-        {
-            if (ModelState.IsValid)
-            {
-
-                return RedirectToAction("admin_dashboard", "Admin");
-            }
-            return View(adminLoginModel);
-
-        }
-        public IActionResult admin_dashboard()
-        {
-            var list = _adminService.GetRequestsByStatus();
-            return View(list);
-        }
+       
+       
     }
 }

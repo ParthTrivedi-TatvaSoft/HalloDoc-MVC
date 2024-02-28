@@ -93,6 +93,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
+      "PackagePath": "staticwebassets\\images\\admin.svg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\back.png",
       "PackagePath": "staticwebassets\\images\\back.png"
     },
@@ -109,6 +113,10 @@
       "PackagePath": "staticwebassets\\images\\doctor.jpg"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
+      "PackagePath": "staticwebassets\\images\\doctor.svg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
       "PackagePath": "staticwebassets\\images\\hallodoc.png"
     },
@@ -119,6 +127,10 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\light.png",
       "PackagePath": "staticwebassets\\images\\light.png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
+      "PackagePath": "staticwebassets\\images\\transfer.svg"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",

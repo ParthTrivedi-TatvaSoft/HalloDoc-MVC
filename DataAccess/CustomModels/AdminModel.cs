@@ -49,14 +49,17 @@ namespace DataAccess.CustomModels
 
         public int? status { get; set; }
 
+        public int? requestClientId { get; set; }
+
     }
     public class ViewCaseViewModel
     {
         public int Requestclientid { get; set; }
+        public int? RequestTypeId { get; set; }
         public int? Requestid { get; set; }
         public string Firstname { get; set; } = null!;
         public string? Lastname { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string? Phonenumber { get; set; }
         public string? Address { get; set; }
         public int? Regionid { get; set; }

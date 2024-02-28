@@ -9,22 +9,7 @@
                     <i class="d-none d-md-block bi bi-plus-circle-dotted"></i> New
                 </span>
                 <span class="fs-5 fw-bolder">
-                    @if (Model == null)
-                    {
-                        <span>-</span>
-                    }
-                    else
-                    {
-                        int count = 0;
-                        foreach (var item in Model)
-                        {
-                            if (item.status == 1)
-                            {
-                                count++;
-                            }
-                        }
-                        <span>@count</span>
-                    }
+                    -
                 </span>
 
             </div>
@@ -212,7 +197,7 @@
     <div class="row mt-3 bg-white">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Search">
+                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
                 <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
             </div>
         </div>
@@ -233,11 +218,11 @@
             <div class="d-none d-md-block">
                 <div>All</div>
             </div>
-            <div><span class="patient_circle"></span><span>Patient</span></div>
-            <div><span class="family_circle"></span><span>Friend/Family</span></div>
-            <div><span class="business_circle"></span><span> Business</span></div>
-            <div><span class="concierge_circle"></span><span> Concierge</span></div>
-
+            <div><span class="patient_circle" onclick="patientElements()"></span><span>Patient</span></div>
+            <div><span class="family_circle" onclick=" familyFriendElements()"></span><span>Friend/Family</span></div>
+            <div><span class="business_circle" onclick="businessElements()"></span><span> Business</span></div>
+            <div><span class="concierge_circle" onclick="conciergeElements()"></span><span> Concierge</span></div>
+      
 
         </div>
     </div>
@@ -245,26 +230,28 @@
 </div>
 
 <div id="tab1" class="statustabcontent">
-    <partial name="_newrequest" />
-
 </div>
 
 <div id="tab2" class="statustabcontent">
-    <partial name="_pendingrequest" />
+    @*<partial name="_PendingRequest" />*@
 </div>
 
 <div id="tab3" class="statustabcontent">
-    <partial name="_activerequest" />
+    @*<partial name="_ActiveRequest" />*@
 </div>
 <div id="tab4" class="statustabcontent">
-    <partial name="_concluderequest" />
+    @*<partial name="_ConcludeRequest" />*@
 </div>
 <div id="tab5" class="statustabcontent">
-    <partial name="_tocloserequest" />
+    @*<partial name="_ToCloseRequest" />*@
 </div>
 <div id="tab6" class="statustabcontent">
-    <partial name="_unpaidrequest" />
+    @*<partial name="_UnpaidRequest" />*@
 </div>
+
+
+
+
 
 
 

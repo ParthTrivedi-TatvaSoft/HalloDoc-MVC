@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3Mtpl3Wa3qPjHP38JMcw98wRbMBDhzg2zQfmFiQKxwM=",
+  "Hash": "QKad+Hhaf687gjP0IPlaAlCBZnlcC5vaVJ0oiu5Xffc=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -391,6 +391,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "images/admin.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\admin.svg"
+    },
+    {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\back.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
@@ -459,6 +476,23 @@
       "OriginalItemSpec": "wwwroot\\images\\doctor.jpg"
     },
     {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "images/doctor.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\doctor.svg"
+    },
+    {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
@@ -508,6 +542,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\light.png"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "images/transfer.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\transfer.svg"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",

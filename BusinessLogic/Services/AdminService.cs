@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Interfaces;
 using DataAccess.CustomModels;
 using DataAccess.Data;
+using DataAccess.Enums;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,11 +21,17 @@ namespace BusinessLogic.Services
             _db = db;
         }
 
-       
-        public List<AdminDashTableModel> GetRequestsByStatus()
+
+        public Aspnetuser GetAspnetuser(string email)
+        {
+            var aspNetUser = _db.Aspnetusers.FirstOrDefault(x => x.Email == email);
+            return aspNetUser;
+        }
+        public List<AdminDashTableModel> GetRequestsByStatus(int tabNo)
         {
             var query = from r in _db.Requests
                         join rc in _db.Requestclients on r.Requestid equals rc.Requestid
+                        //where r.Status == status
                         select new AdminDashTableModel
                         {
                             firstName = rc.Firstname,
@@ -42,41 +49,70 @@ namespace BusinessLogic.Services
                             zipCode = rc.Zipcode,
                             requestTypeId = r.Requesttypeid,
                             status = r.Status,
-                            reqClientId=rc.Requestclientid,
-
+                            requestClientId = rc.Requestclientid
                         };
+
+
+            if (tabNo == 1)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unassigned);
+            }
+
+            else if (tabNo == 2)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Accepted);
+            }
+            else if (tabNo == 3)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.MDEnRoute || x.status == (int)StatusEnum.MDOnSite);
+            }
+            else if (tabNo == 4)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Conclude);
+            }
+            else if (tabNo == 5)
+            {
+
+                query = query.Where(x => (x.status == (int)StatusEnum.Cancelled || x.status == (int)StatusEnum.CancelledByPatient) || x.status == (int)StatusEnum.Closed);
+            }
+            else if (tabNo == 6)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unpaid);
+            }
+
+
 
             var result = query.ToList();
 
 
             return result;
         }
-        public ViewCaseViewModel ViewCase(int reqClientId)
+        public ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId)
         {
-            var data = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == reqClientId);
-            var cNumber = _db.Requests.FirstOrDefault(x => x.Requestid == data.Requestid);
-            var confirm = cNumber.Confirmationnumber;
-
-            var viewdata = new ViewCaseViewModel
+            Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
+            ViewCaseViewModel viewCaseViewModel = new()
             {
-                Requestclientid = reqClientId,
-                Firstname = data.Firstname,
-                Lastname = data.Lastname,
-                Strmonth = data.Strmonth,
-                ConfirmationNumber = confirm,
-                Notes = data.Notes,
-                Address = data.Address,
-                Email = data.Email,
-                Phonenumber = data.Phonenumber,
-                City = data.City,
-                State = data.State,
-                Street = data.Street,
-                Zipcode = data.Zipcode,
-                Regionid = data.Regionid,
+                Requestclientid = obj.Requestclientid,
+                Firstname = obj.Firstname,
+                Lastname = obj.Lastname,
+                Email = obj.Email,
+                Phonenumber = obj.Phonenumber,
+                City = obj.City,
+                Street = obj.Street,
+                State = obj.State,
+                Zipcode = obj.Zipcode,
+                Room = obj.Address,
+                Notes = obj.Notes,
+                RequestTypeId = RequestTypeId
             };
-
-            return viewdata;
+            return viewCaseViewModel;
         }
+
 
 
 
