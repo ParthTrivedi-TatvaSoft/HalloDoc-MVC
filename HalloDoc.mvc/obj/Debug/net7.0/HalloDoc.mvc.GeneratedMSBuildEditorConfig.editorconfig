@@ -44,6 +44,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2FsbHJlcXVlc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_assigncase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2Fzc2lnbmNhc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_blockcase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2Jsb2NrY2FzZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_canclecase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2NhbmNsZWNhc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_concluderequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2NvbmNsdWRlcmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

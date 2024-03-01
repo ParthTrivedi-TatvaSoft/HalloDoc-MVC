@@ -1,4 +1,5 @@
-﻿
+﻿@using DataAccess.CustomModels;
+@model ViewNotesModel;
 <style>
     .svg {
         height: 30px;
@@ -20,6 +21,16 @@
         .notes:hover {
             cursor: pointer;
         }
+
+    #footr {
+        position : fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        height: 3rem;
+    }
+
 
 </style>
 
@@ -43,7 +54,7 @@
 
         </div>
 
-        <form method="post">
+        <form method="post" asp-action="UpdateNotes" asp-controller="Admin">
 
             <div class="shadow p-3 dashboard-card mt-4">
 
@@ -55,7 +66,8 @@
                     <div class="col-md-6 col-12">
                         <div class="form-floating mt-3 notes">
                             <img src="~/images/transfer.svg" class="svg mx-2" />
-                            Transfer Notes
+                            Transfer Notes :
+                            <span>@Model.TransferNotes</span>
                         </div>
                     </div>
 
@@ -63,19 +75,25 @@
                         <div class="form-floating mt-3 notes">
                             <img src="~/images/doctor.svg" class="svg mx-2" />
                             Physician Notes
+                            <span>
+                                @Model.PhysicianNotes
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="form-floating mt-3 notes">
                             <img src="~/images/admin.svg" class="svg mx-2" />
                             Admin Notes
+                            <span>
+                                @Model.AdminNotes
+                            </span>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12">
                             <div class="form-floating mt-3">
-                                <textarea style="height:100px" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                                <textarea style="height:100px" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" asp-for="AdditionalNotes"></textarea>
                                 <label for="floatingTextarea2">Admin Notes</label>
                             </div>
 
@@ -93,6 +111,9 @@
    
 
     </div>
-  
 </div>
-<partial name="_footer" />
+    <footer id="footr" >
+        <p>Terms of Conditions | Privacy Policy</p>
+    </footer>
+    
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,15 +10,28 @@ namespace DataAccess.CustomModels
 {
     public class AdminLoginModel
     {
-        [Required(ErrorMessage = "Email is required")]
-        public string email { get; set; } = null;
+        [Required(ErrorMessage = "Email Is Required")]
+        public string email { get; set; } 
 
-        [Required(ErrorMessage = "Password is required")]
-        public string password { get; set; } = null;
+        [Required(ErrorMessage = "Password Is Required")]
+        public string password { get; set; } 
     }
+
+    public class StatusCountModel
+    {
+        public int NewCount { get; set; }
+        public int PendingCount { get; set; }
+        public int ActiveCount { get; set; }
+        public int ConcludeCount { get; set; }
+        public int ToCloseCount { get; set; }
+        public int UnpaidCount { get; set; }
+
+    }
+
 
     public class AdminDashTableModel
     {
+        public int Reqid { get; set; }
         public int reqClientId { get; set; }
         public string? firstName { get; set; }
 
@@ -74,4 +88,29 @@ namespace DataAccess.CustomModels
         public string? ConfirmationNumber { get; set; }
     }
 
+
+
+    public class ViewNotesModel
+    {
+        public string? TransferNotes { get; set; }
+        public string? PhysicianNotes { get; set; }
+
+        public string? AdminNotes { get; set; }
+        public string? AdditionalNotes { get; set; }
+
+        public int ReqId { get; set; }
+    }
+
+
+    public class CancelCaseModel
+    {
+        public string? PatientFName { get; set; }
+        public string? PatientLName { get; set; }
+        public List<Casetag>? casetaglist { get; set; }
+
+
+        public int? casetag { get; set; }
+        public int? reqId { get; set; }
+        public string? notes { get; set; }
+    }
 }

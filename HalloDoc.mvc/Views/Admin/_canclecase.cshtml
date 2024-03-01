@@ -1,0 +1,41 @@
+﻿@using DataAccess.CustomModels;
+@model CancelCaseModel;
+
+@*cancel case model *@
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form method="post" asp-action="SubmitCancelCase" asp-controller="Admin" class="modal-content">
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title text-light" id="exampleModalLabel">Confirm Cancellation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <h5>Patient Name:@Model.PatientFName @Model.PatientLName</h5>
+                </div>
+                <div class="mb-3 ">
+
+                    <select class="form-select" aria-label="Default select example" asp-for="casetag">
+                        <option selected>Reasons for Cancellation</option>
+
+                        @foreach (var item in Model.casetaglist)
+                        {
+                            <option value="@item.Casetagid">@item.Name</option>
+                        }
+
+
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <textarea asp-for="notes" class="form-control" id="message-text" placeholder="Provide Additional Notes"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
+                <button type="button" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

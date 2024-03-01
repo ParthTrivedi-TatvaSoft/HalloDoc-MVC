@@ -50,6 +50,12 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
+        public IActionResult GetCount()
+        {
+            var statusCountModel = _adminService.GetStatusCount();
+            return PartialView("_allrequest", statusCountModel);
+        }
+
 
         public IActionResult GetRequestsByStatus(int tabNo)
         {
@@ -100,14 +106,53 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        public IActionResult viewnotes()
+        
+
+
+        [HttpPost]
+        public IActionResult UpdateNotes(ViewNotesModel model)
         {
+            int? reqId = HttpContext.Session.GetInt32("RNId");
+            bool isUpdated = _adminService.UpdateAdminNotes(model.AdditionalNotes, (int)reqId);
+            if (isUpdated)
+            {
+                _notyf.Success("Saved Changes !!");
+                return RedirectToAction("viewnotes", "Admin", new { ReqId = reqId });
+
+            }
             return View();
         }
 
-        
+        public IActionResult viewnotes(int ReqId)
+        {
+            HttpContext.Session.SetInt32("RNId", ReqId);
+            ViewNotesModel data = _adminService.ViewNotes(ReqId);
+            return View(data);
+        }
 
-       
-       
+
+        public IActionResult CancelCase(int reqId)
+        {
+            HttpContext.Session.SetInt32("CancelReqId", reqId);
+            var model = _adminService.CancelCase(reqId);
+            return PartialView("_canclecase", model);
+        }
+
+        public IActionResult SubmitCancelCase(CancelCaseModel cancelCaseModel)
+        {
+            cancelCaseModel.reqId = HttpContext.Session.GetInt32("CancelReqId");
+            bool isCancelled = _adminService.SubmitCancelCase(cancelCaseModel);
+            if (isCancelled)
+            {
+                _notyf.Success("Cancelled successfully");
+                return RedirectToAction("admin_dashboard", "Admin");
+            }
+            return View();
+        }
+
+
+
+
+
     }
 }

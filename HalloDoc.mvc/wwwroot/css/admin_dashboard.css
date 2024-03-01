@@ -240,3 +240,43 @@
     padding: 5px;
     border-radius: 7px;
 }
+
+.patient_circle {
+    position: relative;
+    margin-right: 8px;
+    width: 1rem;
+    height: 1rem;
+    background-color: #60be5e;
+    border: 1px solid #60be5e;
+    border-radius: 100%;
+}
+
+.family_circle {
+    position: relative;
+    margin-right: 8px;
+    width: 11px;
+    height: 11px;
+    background-color: #e69232;
+    border: 1px solid #e69232;
+    border-radius: 25px;
+}
+
+.business_circle {
+    position: relative;
+    margin-right: 8px;
+    width: 11px;
+    height: 11px;
+    background-color: #d76879;
+    border: 1px solid #d76879;
+    border-radius: 25px;
+}
+
+.concierge_circle {
+    position: relative;
+    margin-right: 8px;
+    width: 11px;
+    height: 11px;
+    background-color: #0b7ebf;
+    border: 1px solid #0b7ebf;
+    border-radius: 25px;
+}

@@ -30,23 +30,27 @@
             <!-- right  -->
             <div class="col-lg-6 col-md-6 col-sm-12 right">
                 <img onclick="darkMode()" class="d-mode" src="/images/dark.png" alt="dark">
-                <form asp-controller="Admin" asp-action="admin_login" class="login">
+                <form method="post" asp-controller="Admin" asp-action="admin_login" class="login">
                     <img id="logo" src="/images/hallodoc.png" alt="logo">
                     <h3>Login to your account</h3>
+
                     <div class="input-div form-floating mb-3">
                         <input asp-for="email" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        
                         <label for="floatingInput">Email</label>
+                      
+   
 
                     </div>
                     <span asp-validation-for="email" class="text-danger"></span>
+              
                     <div class="input-div form-floating">
                         <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        
                         <label for="floatingPassword">Password</label>
+                        
 
                     </div>
                     <span asp-validation-for="password" class="text-danger"></span>
+                 
                     <button>Log In</button>
 
                     <a asp-action="admin_resetpassword" asp-controller="Admin" id="forget-pass">Forget Password?</a>

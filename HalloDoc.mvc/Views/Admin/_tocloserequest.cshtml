@@ -1,4 +1,9 @@
-﻿<!-- table -->
+﻿@using DataAccess.CustomModels;
+@model List<AdminDashTableModel>;
+@using DataAccess.Enums;
+
+
+<!-- table -->
 <div class="d-none d-md-block">
     <table class="table table-hover data-table w-100">
         <thead class="table-secondary">
@@ -21,24 +26,31 @@
                 if ((item.status == 3 || item.status == 7) || item.status == 8)
                 {
                     var bgColor = "He";
+                    var role = "hello";
 
-                    @if (item.requestTypeId == 1)
-                    {
-                        bgColor = "#60be5e";
-                    }
-                    else if (item.requestTypeId == 2)
-                    {
-                        bgColor = "#e69232";
-                    }
-                    else if (item.requestTypeId == 3)
+                    @if (item.requestTypeId == (int)RequestTypeEnum.Business)
                     {
                         bgColor = "#d76879";
+                        role = "Business";
                     }
-                    else if (item.requestTypeId == 4)
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Patient)
+                    {
+                        bgColor = "#60be5e";
+                        role = "Patient";
+
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Family)
+                    {
+                        bgColor = "#e69232";
+                        role = "FamilyFriend";
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Concierge)
                     {
                         bgColor = "#0b7ebf";
+                        role = "Concierge";
                     }
-
                     <tr class="tablerows ">
                         @*1*@
                         <td style="background:@bgColor">
@@ -137,7 +149,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="@Url.Action("viewnotes", new {ReqId = item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewNotes
                                             </a>
@@ -150,8 +162,20 @@
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
+                                                <i class="bi bi-x-circle"></i>
+                                                Close Case
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Doctor Notes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-x-circle"></i>
+                                                Clear Case
                                             </a>
                                         </li>
                                         <li>

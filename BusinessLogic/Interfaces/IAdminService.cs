@@ -14,6 +14,19 @@ namespace BusinessLogic.Interfaces
         Aspnetuser GetAspnetuser(string email);
         List<AdminDashTableModel> GetRequestsByStatus(int status);
 
+
+        StatusCountModel GetStatusCount();
+
         ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId);
+
+        ViewNotesModel ViewNotes(int ReqId);
+
+        bool UpdateAdminNotes(string additionalNotes, int reqId);
+
+
+
+        CancelCaseModel CancelCase(int reqId);
+
+        bool SubmitCancelCase(CancelCaseModel cancelCaseModel);
     }
 }

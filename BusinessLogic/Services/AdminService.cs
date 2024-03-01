@@ -49,7 +49,8 @@ namespace BusinessLogic.Services
                             zipCode = rc.Zipcode,
                             requestTypeId = r.Requesttypeid,
                             status = r.Status,
-                            requestClientId = rc.Requestclientid
+                            requestClientId = rc.Requestclientid,
+                            Reqid = r.Requestid
                         };
 
 
@@ -92,6 +93,95 @@ namespace BusinessLogic.Services
 
             return result;
         }
+
+        public StatusCountModel GetStatusCount()
+        {
+            var requestsWithClients = _db.Requests
+     .Join(_db.Requestclients,
+         r => r.Requestid,
+         rc => rc.Requestid,
+         (r, rc) => new { Request = r, RequestClient = rc })
+     .ToList();
+
+            StatusCountModel statusCount = new StatusCountModel
+            {
+                NewCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.Unassigned),
+                PendingCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.Accepted),
+                ActiveCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.MDEnRoute || x.Request.Status == (int)StatusEnum.MDOnSite),
+                ConcludeCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.Conclude),
+                ToCloseCount = requestsWithClients.Count(x => (x.Request.Status == (int)StatusEnum.Cancelled || x.Request.Status == (int)StatusEnum.CancelledByPatient) || x.Request.Status == (int)StatusEnum.Closed),
+                UnpaidCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.Unpaid)
+            };
+
+            return statusCount;
+
+
+        }
+
+
+        public ViewNotesModel ViewNotes(int ReqId)
+        {
+
+            var requestNotes = _db.Requestnotes.Where(x => x.Requestid == ReqId).FirstOrDefault();
+            var requeststatuslog = _db.Requeststatuslogs.Where(x => x.Requestid == ReqId).FirstOrDefault();
+            ViewNotesModel model = new ViewNotesModel();
+            if (model == null)
+            {
+                model.TransferNotes = null;
+                model.PhysicianNotes = null;
+                model.AdminNotes = null;
+            }
+
+
+            if (requestNotes != null)
+            {
+                model.PhysicianNotes = requestNotes.Physiciannotes;
+                model.AdminNotes = requestNotes.Adminnotes;
+            }
+            if (requeststatuslog != null)
+            {
+                model.TransferNotes = requeststatuslog.Notes;
+            }
+
+            return model;
+        }
+
+
+        public bool UpdateAdminNotes(string additionalNotes, int reqId)
+        {
+            var reqNotes = _db.Requestnotes.FirstOrDefault(x => x.Requestid == reqId);
+            try
+            {
+
+                if (reqNotes == null)
+                {
+                    Requestnote rn = new Requestnote();
+                    rn.Requestid = reqId;
+                    rn.Adminnotes = additionalNotes;
+                    rn.Createdby = "admin";
+                    //here instead of admin , add id of the admin through which admin is loggedIn 
+                    rn.Createddate = DateTime.Now;
+                    _db.Requestnotes.Add(rn);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    reqNotes.Adminnotes = additionalNotes;
+                    reqNotes.Modifieddate = DateTime.Now;
+                    reqNotes.Modifiedby = "admin";
+                    //here instead of admin , add id of the admin through which admin is loggedIn 
+                    _db.Requestnotes.Update(reqNotes);
+                    _db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
         public ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId)
         {
             Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
@@ -114,7 +204,61 @@ namespace BusinessLogic.Services
         }
 
 
+        public CancelCaseModel CancelCase(int reqId)
+        {
+            var casetags = _db.Casetags.ToList();
+            var request = _db.Requests.Where(x => x.Requestid == reqId).FirstOrDefault();
+            CancelCaseModel model = new()
+            {
+                PatientFName = request.Firstname,
+                PatientLName = request.Lastname,
+                casetaglist = casetags
+
+            };
+            return model;
+        }
+
+        public bool SubmitCancelCase(CancelCaseModel cancelCaseModel)
+        {
+            try
+            {
+                var req = _db.Requests.Where(x => x.Requestid == cancelCaseModel.reqId).FirstOrDefault();
+                req.Status = (int)StatusEnum.Cancelled;
+                req.Casetag = cancelCaseModel.casetag.ToString();
+                var reqStatusLog = _db.Requeststatuslogs.Where(x => x.Requestid == cancelCaseModel.reqId).FirstOrDefault();
+                if (reqStatusLog == null)
+                {
+                    Requeststatuslog rsl = new Requeststatuslog();
+                    rsl.Requestid = (int)cancelCaseModel.reqId;
+                    rsl.Status = (int)StatusEnum.Cancelled;
+                    rsl.Notes = cancelCaseModel.notes;
+                    rsl.Createddate = DateTime.Now;
+                    _db.Requeststatuslogs.Add(rsl);
+                    _db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    reqStatusLog.Status = (int)StatusEnum.Cancelled;
+                    reqStatusLog.Notes = cancelCaseModel.notes;
+                    _db.Requeststatuslogs.Update(reqStatusLog);
+                    _db.SaveChanges();
+                    return true;
+                }
 
 
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+
+
+
+        }
     }
+
 }
