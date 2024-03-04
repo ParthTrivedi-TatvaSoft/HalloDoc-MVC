@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\admin.svg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back.png"
     },
@@ -27,6 +31,10 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\transfer.svg"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",

@@ -316,6 +316,38 @@
             });
         }
 
+        function showAssignCase(Reqid) {
+
+            $.ajax({
+                url: '/Admin/AssignCase',
+                type: 'GET',
+                data: {ReqId: Reqid },
+                success: function (response) {
+
+                    $("#modelContent").html(response);
+
+                    $('#assignModal').modal('show');
+
+                }
+            });
+        }
+
+        function showBlockCase(reqId) {
+            $.ajax({
+                url: '/Admin/BlockCase',
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+
+                    $("#modelContent").html(response);
+
+                    $('#blockModal').modal('show');
+
+                }
+            });
+        }
+
+
 
 
 

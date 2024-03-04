@@ -1,4 +1,74 @@
-﻿<!-- table -->
+﻿@using DataAccess.CustomModels;
+@using DataAccess.Enums;
+@model List<AdminDashTableModel>;
+
+
+<div class="container-fluid pt-4">
+    <div class="d-flex justify-content-between">
+        <span class="fw-bold">
+            <span class="fs-4">Patients</span>
+            <span style="color: darkblue;">(Conclude)</span>
+        </span>
+        <span class="d-flex gap-1 gap-md-3">
+            <button class="action-btn">
+                <i class="bi bi-send"></i> <span class="d-none d-md-block">
+                    Send
+                    Link
+                </span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-person"></i> <span class="d-none d-md-block">
+                    Request
+                    DTY Support
+                </span>
+            </button>
+        </span>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
+                <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option selected>Regions</option>
+                    <option value="1">new york</option>
+                    <option value="2">usa</option>
+                </select>
+                <label for="floatingSelect"><i class="bi bi-search"></i> All Regions</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
+
+            <div class="d-none d-md-block">
+                <div onclick="allElements()" style="cursor:pointer" class="border-2">All</div>
+            </div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="patientElements()"><div class="patient_circle"></div><span>Patient</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer"><div class="vip_circle"></div><span> VIP</span></div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- table -->
 <div class="d-none d-md-block">
     <table class="table table-hover data-table w-100">
         <thead class="table-secondary">
@@ -21,25 +91,33 @@
                 if (item.status == 6)
                 {
                     var bgColor = "He";
+                    var role = "hello";
 
-                    @if (item.requestTypeId == 1)
-                    {
-                        bgColor = "#60be5e";
-                    }
-                    else if (item.requestTypeId == 2)
-                    {
-                        bgColor = "#e69232";
-                    }
-                    else if (item.requestTypeId == 3)
+                    @if (item.requestTypeId == (int)RequestTypeEnum.Business)
                     {
                         bgColor = "#d76879";
+                        role = "Business";
                     }
-                    else if (item.requestTypeId == 4)
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Patient)
+                    {
+                        bgColor = "#60be5e";
+                        role = "Patient";
+
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Family)
+                    {
+                        bgColor = "#e69232";
+                        role = "FamilyFriend";
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Concierge)
                     {
                         bgColor = "#0b7ebf";
+                        role = "Concierge";
                     }
 
-                    <tr class="tablerows ">
+                    <tr class="tablerows  @role">
                         @*1*@
                         <td style="background:@bgColor">
                             <div class="d-flex justify-content-between">
@@ -65,7 +143,7 @@
                                     @item.mobileNo
                                 </a>
                             </div>
-                            (patients)
+                            (@role)
 
 
                         </td>

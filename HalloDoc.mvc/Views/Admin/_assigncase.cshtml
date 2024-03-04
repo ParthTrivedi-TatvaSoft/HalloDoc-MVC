@@ -1,49 +1,82 @@
-﻿
+﻿@using DataAccess.CustomModels;
+@model AssignCaseModel;
+
+@*Assign case model *@
 <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <form method="post" asp-action="SubmitAssignCase" asp-controller="Admin" class="modal-content">
             <div class="modal-header" style="background-color:#00B7FF">
                 <h5 class="modal-title text-light" id="exampleModalLabel">Assign Request</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-3 text-secondary">
-                        <p>To assign this request, search and select another Physician</p>
-                    </div>
+
+                <div class="mb-3 text-secondary">
+                    <p>To assign this request, search and select another Physician</p>
+                </div>
 
 
-                    <div class="mb-3 ">
+                <div class="mb-3 ">
 
-                        <select class="form-select text-secondary" aria-label="Default select example">
-                            <option selected>Select Physician</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                    <select class="form-select text-secondary" id="selectRegion" asp-for="selectRegionId" aria-label="Default select example">
+                        <option disabled selected>Select Region</option>
+                        @if (Model.regionList != null)
+                        {
+                            foreach (var item in Model.regionList)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3 text-secondary">
+                    <div class="form-floating mb-3">
+                        <select class="form-select text-secondary" id="selectPhysician" asp-for="selectPhysicianId" aria-label="Default select example">
                         </select>
+                        <label for="floatingInput">Physicians</label>
                     </div>
+                </div>
 
-                    <div class="mb-3 text-secondary">
-                        <div class="form-floating mb-3">
-                            <select class="form-select text-secondary" aria-label="Default select example">
-                                <option selected>Maryland</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            <label for="floatingInput">Email address</label>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <textarea class="form-control" asp-for="description" id="message-text" placeholder="Description"></textarea>
+                </div>
 
-                    <div class="mb-3">
-                        <textarea class="form-control" id="message-text" placeholder="Description"></textarea>
-                    </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn text-light" style="background-color:#00B7FF" data-bs-dismiss="modal">Confirm</button>
-                <button type="button" class="btn border border-info" style="color:#00B7FF">Cancel</button>
+                <button type="submit" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
+                <button type="button" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+
+<script>
+    function hello() {
+        alert("dsdfd");
+    }
+    $("#selectRegion").on("change", function () {
+
+        showPhysicians($(this).val());
+
+    });
+    function showPhysicians(regionId) {
+
+        $.ajax({
+            url: '/Admin/GetPhysician',
+            type: 'GET',
+
+            data: { selectRegion: regionId },
+            success: function (response) {
+
+                $('#selectPhysician').html("<option>" + "Select Physician" + "</option>");
+                console.log(response.physicianlist.length);
+                for (var i = 0; i < response.physicianlist.length; i++) {
+                    console.log("hello");
+                    $("#selectPhysician").append('<option value = "' + response.physicianlist[i].physicianid + '" >' + response.physicianlist[i].firstname + '</option>')
+
+                }
+            }
+        });
+    }
+</script>

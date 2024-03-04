@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.CustomModels;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace BusinessLogic.Interfaces
 {
@@ -26,9 +27,13 @@ namespace BusinessLogic.Interfaces
 
         List<MedicalHistory> GetMedicalHistory(User user);
 
+        void AddFile(IFormFile file, int reqId);
+
 
 
         IQueryable<Requestwisefile>? GetAllDocById(int requestId);
+
+
 
 
 

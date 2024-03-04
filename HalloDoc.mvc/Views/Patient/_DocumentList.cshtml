@@ -24,11 +24,8 @@
 
 </style>
 
-<br />
-
 <div class="row my-3">
     <div class="col-12 d-flex justify-content-between">
-        
         <h3>Documents</h3>
         <button class="px-3" id="downloadSelected" onclick="downloadSelectedFiles()">Download All</button>
     </div>
@@ -47,7 +44,7 @@
                     Uploader
                 </th>
                 <th>
-                    Upload Date<i class="bi bi-arrow-up-short"></i>
+                    Upload Date
                 </th>
                 <th>
                     Actions
@@ -112,7 +109,7 @@
 
         // If no files are selected, return
         if (selectedFiles.length === 0) {
-            alert('Please Select At Least One File To Download.');
+            alert('Please select at least one file to download.');
             return;
         }
 
@@ -128,4 +125,5 @@
 
     }
 </script>
+
 

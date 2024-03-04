@@ -464,6 +464,32 @@ namespace BusinessLogic.Services
                        select request;
             return data;
         }
+
+
+        public void AddFile(IFormFile file, int reqId)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+
+            //define path
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+            // Copy the file to the desired location
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream)
+     ;
+            }
+            Requestwisefile requestwisefile = new()
+            {
+                Filename = fileName,
+                Requestid = reqId,
+                Createddate = DateTime.Now
+            };
+            _db.Requestwisefiles.Add(requestwisefile);
+            _db.SaveChanges();
+        }
+
+
     }
 
 }

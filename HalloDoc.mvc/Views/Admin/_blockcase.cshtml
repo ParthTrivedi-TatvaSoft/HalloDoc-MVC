@@ -1,25 +1,30 @@
-﻿@*Block Case Model*@
+﻿@using DataAccess.CustomModels;
+@model BlockCaseModel;
+
+
+@*Block Case Model*@
 <div class="modal fade" id="blockModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <form method="post" asp-controller="Admin" asp-action="SubmitBlockCase" class="modal-content">
             <div class="modal-header" style="background-color:#00B7FF">
                 <h5 class="modal-title text-light" id="exampleModalLabel">Confirm Block</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+   
                     <div class="mb-3">
-                        <h5>Patient Name:Yash Variya</h5>
+                        <h5>Patient Name:@Model.firstName @Model.lastName </h5>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="message-text" placeholder="Provide Additional Notes"></textarea>
+                        <textarea asp-for="reason" class="form-control" id="message-text" placeholder="Provide Additional Notes"></textarea>
                     </div>
-                </form>
+            
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn text-light" style="background-color:#00B7FF" data-bs-dismiss="modal">Confirm</button>
+                <button type="submit" class="btn text-light" style="background-color:#00B7FF" data-bs-dismiss="modal">Confirm</button>
                 <button type="button" class="btn border border-info" style="color:#00B7FF">Cancel</button>
             </div>
-        </div>
+        
+         </form>
     </div>
 </div>
