@@ -41,19 +41,45 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> CheckEmailExists(string email)
+        {
+            var emailExists = await _patientService.IsEmailExists(email);
+            return Json(new { emailExists });
+        }
+
+
+
+
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
 
         [HttpPost]
         public IActionResult patient_login(LoginModel loginModel)
         {
+
+
             if (ModelState.IsValid)
             {
-                //User user = _context.Users.FirstOrDefault(u => u.Aspnetuserid == item.Id);
+                string passwordhash = loginModel.Password;
+                loginModel.Password = passwordhash;
                 var user = _loginService.Login(loginModel);
-                if (user!=null)
+
+                //var userId = user.Userid;
+                HttpContext.Session.SetInt32("UserId", user.Userid);
+
+                //the above data is coming from user table and storing in user object
+                if (user != null)
                 {
+                    TempData["username"] = user.Firstname;
+                    TempData["id"] = user.Lastname;
                     _notyf.Success("Logged In Successfully !!");
-                    return RedirectToAction("patient_dashboard", user);
+                    return RedirectToAction("patient_dashboard", "Patient");
                 }
                 else
                 {
@@ -72,7 +98,7 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+     
         public IActionResult patient_request(PatientInfoModel patientInfoModel)
         {
 
@@ -155,21 +181,7 @@ namespace HalloDoc.mvc.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CheckEmailExists(string email)
-        {
-            var emailExists = await _patientService.IsEmailExists(email);
-            return Json(new { emailExists });
-        }
-
-
-
-
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+    
 
         public IActionResult submit_request()
         {
@@ -186,28 +198,26 @@ namespace HalloDoc.mvc.Controllers
         {
             return View();
         }
+
+
         public IActionResult patient_request()
         {
             return View();
         }
-
         public IActionResult friendfamily_request()
         {
             return View();
         }
-
-
         public IActionResult concierge_request()
         {
             return View();
         }
-
-
         public IActionResult business_request()
         {
             return View();
         }
 
+       
 
         public IActionResult patient_newrequest()
         {
@@ -220,43 +230,11 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        public IActionResult Edit(MedicalHistory medicalHistory)
-        {
+       
 
-            var existingUser = _db.Users.FirstOrDefault(x => x.Email == medicalHistory.Email);
-            existingUser.Firstname = medicalHistory.FirstName;
-            existingUser.Lastname = medicalHistory.LastName;
-            //existingUser.dob = medicalHistory.DateOfBirth;
-            existingUser.Email = medicalHistory.Email;
-            //existingUser. = medicalHistory.ContactType;
-            existingUser.Mobile = medicalHistory.PhoneNo;
-            existingUser.Street = medicalHistory.Street;
-            existingUser.City = medicalHistory.City;
-            existingUser.State = medicalHistory.State;
-            existingUser.Zipcode = medicalHistory.ZipCode;
-
-            _db.Users.Update(existingUser);
-            _db.SaveChanges();
-            //var id = HttpContext.Session.GetInt32("existingUser");
-            return RedirectToAction("patient_dashboard", "Patient", existingUser);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-
+      
         
-        public IActionResult patient_dashboard(User user)
-        {
-
-            var infos = _patientService.GetMedicalHistory(user);
-            var viewmodel = new MedicalHistoryList { medicalHistoriesList = infos };
-            return View(viewmodel);
-        }
+       
 
         public IActionResult GetDcoumentsById(int requestId)
         {
@@ -322,5 +300,61 @@ namespace HalloDoc.mvc.Controllers
             _db.SaveChanges();
             return RedirectToAction("patient_login");
         }
+
+
+
+
+        public IActionResult patient_dashboard()
+        {
+            int? userid = HttpContext.Session.GetInt32("UserId");
+
+            var infos = _patientService.GetMedicalHistory((int)userid);
+
+            return View(infos);
+        }
+
+        public IActionResult document_list(int reqId)
+        {
+            HttpContext.Session.SetInt32("rid", reqId);
+            var y = _patientService.GetAllDocById(reqId);
+            return View(y)
+     ;
+        }
+
+        [HttpPost]
+        public IActionResult document_list()
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            var file = HttpContext.Request.Form.Files.FirstOrDefault();
+            _patientService.AddFile(file, rid);
+            return RedirectToAction("document_list", "Patient", new { reqId = rid });
+        }
+
+
+
+        public IActionResult ShowProfile(int userid)
+        {
+            HttpContext.Session.SetInt32("EditUserId", userid);
+            var profile = _patientService.GetProfile(userid);
+            return PartialView("_profile", profile);
+        }
+
+        public IActionResult SaveEditProfile(Profile profile)
+        {
+            int EditUserId = (int)HttpContext.Session.GetInt32("EditUserId");
+            profile.userId = EditUserId;
+            bool isEdited = _patientService.EditProfile(profile);
+            if (isEdited)
+            {
+                _notyf.Success("Profile Edited Successfully");
+                return RedirectToAction("patient_dashboard");
+            }
+            else
+            {
+                _notyf.Error("Profile Edited Failed");
+                return RedirectToAction("patient_dashboard");
+            }
+        }
+       
     }
 }

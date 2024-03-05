@@ -202,20 +202,55 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("admin_dashboard", "Admin");
         }
 
-        public IActionResult ViewUploads(int reqId)
+       
+
+     
+        public IActionResult viewuploads(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);
-            var y = _patientService.GetAllDocById(reqId);
-            return View(y);
+            var model = _adminService.GetAllDocById(reqId);
+            return View(model);
         }
 
+        
+
+
+
         [HttpPost]
-        public IActionResult ViewUploads()
+        public IActionResult UploadFiles(ViewUploadModel model)
         {
             var rid = (int)HttpContext.Session.GetInt32("rid");
-            var file = HttpContext.Request.Form.Files.FirstOrDefault();
-            _patientService.AddFile(file, rid);
-            return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            if (model.uploadedFiles == null)
+            {
+                _notyf.Error("First Upload Files");
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            }
+            bool isUploaded = _adminService.UploadFiles(model.uploadedFiles, rid);
+            if (isUploaded)
+            {
+                _notyf.Success("Uploaded Successfully");
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            }
+            else
+            {
+                _notyf.Error("Upload Failed");
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            }
+        }
+
+        public IActionResult DeleteFileById(int id)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            bool isDeleted = _adminService.DeleteFileById(id);
+            if (isDeleted)
+            {
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            }
+            else
+            {
+                _notyf.Error("SomeThing Went Wrong");
+                return RedirectToAction("viewploads", "Admin", new { reqId = rid });
+            }
         }
 
 

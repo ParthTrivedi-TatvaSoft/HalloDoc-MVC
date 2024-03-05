@@ -1,0 +1,128 @@
+﻿@using DataAccess.CustomModels
+@model Profile;
+<form method="post" asp-action="SaveEditProfile" asp-controller="Patient" enctype="multipart/form-data" class="container my-5 p-4" id="main-cont">
+
+    <div class="row">
+        <h5 class="col-12">General Information</h5>
+
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input asp-for="FirstName" type="text" class="form-control" id="floatingInputDisabled" placeholder="name" disabled>
+
+
+                <label for="floatingInputDisabled">First Name</label>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="LastName" type="text" class="form-control" id="floatingInput" disabled>
+                <label for="floatingInput">Last Name</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="DateOfBirth" type="date" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
+                <label for="floatingInput">Date Of Birth</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h5>Contact Information</h5>
+        </div>
+
+
+
+        <div class="col-2">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" type="select" aria-label="Floating label select example" disabled>
+                    <option value="1">Mobile</option>
+                    <option value="2">Landline</option>
+                </select>
+                <label for="floatingSelect">Works With Selects</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-div form-floating mb-3">
+                <input type="tel" asp-for="PhoneNo" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
+
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input name="email" asp-for="Email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
+                <label for="floatingInput">Email</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5>Patient Location</h5>
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="Street" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <label for="floatingInput">Street</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="City" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <label for="floatingInput">City</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="State" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <label for="floatingInput">State</label>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="input-div form-floating mb-3">
+                <input asp-for="ZipCode" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <label for="floatingInput">Zip Code</label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-floating mb-3">
+                <button type="button" class="btn btn-outline-primary" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col w-auto">
+        <a role="button" class="back btn btn-outline-info" id="editButton">
+            Edit
+        </a>
+    </div>
+
+    <div class="col w-auto">
+        <button class="back btn btn-outline-info" type="submit" id="saveButton" hidden>
+            Save
+        </button>
+    </div>
+
+</form>
+
+<script>
+
+    //script for edit and save button
+    $(document).ready(function () {
+        $('#editButton').click(function () {
+
+
+            $('input[type="text"]').removeAttr('disabled', false);
+
+            $('input[type="date"]').removeAttr('disabled', false);
+            $('input[type="tel"]').removeAttr('disabled', false);
+
+            // Hide the edit button after clicking it
+            $(this).hide();
+            $('#saveButton').removeAttr('hidden', false);
+        });
+    });
+</script>

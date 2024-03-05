@@ -9,8 +9,20 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1).svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\admin (1) (1).svg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1).svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\admin (1).svg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin.svg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (6).png",
+      "PackagePath": "staticwebassets\\UploadedFiles\\back (6).png"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
@@ -29,8 +41,16 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor.jpg"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\doctor.svg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer (1).svg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\transfer (1).svg"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",

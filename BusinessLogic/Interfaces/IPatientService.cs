@@ -11,6 +11,7 @@ namespace BusinessLogic.Interfaces
 {
     public interface IPatientService
     {
+        Task<bool> IsEmailExists(string email);
          void AddPatientInfo(PatientInfoModel patientInfoModel);
 
 
@@ -22,16 +23,16 @@ namespace BusinessLogic.Interfaces
         void AddBusinessReq(BusinessReqModel businessReqModel);
 
       
-        Task<bool> IsEmailExists(string email);
 
 
-        List<MedicalHistory> GetMedicalHistory(User user);
+
+        MedicalHistoryList GetMedicalHistory(int userid);
+        IQueryable<Requestwisefile>? GetAllDocById(int requestId);
+        Profile GetProfile(int userid);
+        bool EditProfile(Profile profile);
 
         void AddFile(IFormFile file, int reqId);
 
-
-
-        IQueryable<Requestwisefile>? GetAllDocById(int requestId);
 
 
 

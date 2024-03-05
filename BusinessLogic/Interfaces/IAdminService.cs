@@ -1,6 +1,7 @@
 ﻿
 using DataAccess.CustomModels;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,5 +37,9 @@ namespace BusinessLogic.Interfaces
 
         BlockCaseModel BlockCase(int reqId);
         bool SubmitBlockCase(BlockCaseModel blockCaseModel);
+
+        ViewUploadModel GetAllDocById(int requestId);
+        bool UploadFiles(List<IFormFile> uploadedFiles, int rid);
+        bool DeleteFileById(int id);
     }
 }

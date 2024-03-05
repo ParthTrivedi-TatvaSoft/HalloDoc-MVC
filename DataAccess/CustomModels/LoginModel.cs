@@ -12,10 +12,10 @@ namespace DataAccess.CustomModels
         {
         [Required(ErrorMessage = "Email Is Required.")]
    
-        public string? Email { get; set; } = null;
+        public string Email { get; set; } = null;
 
         [Required(ErrorMessage = "Password Is Required.")]
-        public string? Password { get; set; } = null;
+        public string Password { get; set; } = null;
 
         }
 

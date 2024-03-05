@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -132,5 +133,16 @@ namespace DataAccess.CustomModels
         public string? reason { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+    }
+
+    public class ViewUploadModel
+    {
+        public List<Requestwisefile>? files { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
+        public int? ReqId { get; set; }
+
+        public List<IFormFile>? uploadedFiles { get; set; }
+
     }
 }

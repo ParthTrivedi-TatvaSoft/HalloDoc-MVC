@@ -1,0 +1,166 @@
+﻿@using DataAccess.Models
+@model IQueryable<Requestwisefile>;
+
+<style>
+    #downloadSelected {
+        color: rgb(0, 183, 255);
+        background-color: white;
+        border: 1px solid rgb(0, 183, 255);
+        border-radius: 5px;
+    }
+
+        #downloadSelected:hover {
+            background-color: rgb(0, 183, 255);
+            color: white;
+        }
+</style>
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/dark-mode.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<link rel="stylesheet" href="~/css/patient_dashboard.css">
+
+
+
+<div class="container my-5 bg-white">
+
+
+
+    <div class="container bg-white p-4 ">
+        <div class="d-flex justify-content-between mb-4">
+            <h2>Documents</h2>
+            <a asp-action="patient_dashboard" asp-controller="Patient">
+            <button onclick="swapDivs()" id="backview">&lt; Back</button>
+            </a>
+        </div>
+        <div class="row">
+            <p class="col-12">Patient Name</p>
+            <p class="col-12">
+                <span class="fw-bolder fs-4">First Last </span>
+                <span>(f34r34t5gvr44)</span>
+            </p>
+            <p class="col-12 py-3">check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
+
+            <!-- row--- -->
+        </div>
+
+        <!-- ----container    -->
+    </div>
+
+    <form class="input-group my-5 mt-3" method="post" enctype="multipart/form-data">
+        <input    name="file" type="file" class="form-control" id="formFileLg" multiple>
+        <button type="submit" class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</button>
+        <br />
+    </form>
+    <div class="row my-3">
+        <div class="col-12 d-flex justify-content-between">
+
+            <h3>Documents</h3>
+            <button class="px-3" id="downloadSelected" onclick="downloadSelectedFiles()">Download All</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table dataTable table-hover" id="data-table" aria-describedby="data-table_info">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll" onclick="toggleCheckboxes()">
+                    </th>
+                    <th class="sorting" data-value="Description">
+                        File
+                    </th>
+                    <th>
+                        Uploader
+                    </th>
+                    <th>
+                        Upload Date<i class="bi bi-arrow-up-short"></i>
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count() > 0)
+                {
+                    @foreach (Requestwisefile rwf in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selectedFiles" value="@rwf.Filename">
+                            </td>
+
+                            <td>
+                                <i class="bi bi-file-earmark-fill" style="color:red"></i>
+                                @rwf.Filename
+                            </td>
+                            <td>@rwf.Requestid</td>
+                            <td>@rwf.Createddate.ToString("MMM dd, yyyy")</td>
+                            <td>
+
+                                <a href="~/UploadedFiles/@rwf.Filename" class="btn px-2 py-1 btn-outline-info shadow-none night-mode-btn" download>
+                                    <i class="bi bi-cloud-download"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" style="text-align: center;">No records found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function toggleCheckboxes() {
+        var checkboxes = document.getElementsByName('selectedFiles');
+        var selectAllCheckbox = document.getElementById('selectAll');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = selectAllCheckbox.checked;
+        }
+    }
+
+    function downloadSelectedFiles() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please select at least one file to download.');
+            return;
+        }
+
+        // Construct URLs for all selected files and initiate download
+        for (var j = 0; j < selectedFiles.length; j++) {
+
+            var fileUrl = '/UploadedFiles/' + selectedFiles[j];
+            var link = document.createElement('a');
+            link.href = fileUrl;
+            link.setAttribute('download', ''); // This attribute triggers the download
+            link.click(); // Simulate a click event to initiate the download
+        }
+
+    }
+</script>

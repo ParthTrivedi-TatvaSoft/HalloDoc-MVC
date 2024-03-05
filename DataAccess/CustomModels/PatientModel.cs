@@ -19,11 +19,11 @@ namespace DataAccess.CustomModels
         public string firstName { get; set; }
         public string? lastName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Date")]
+        [Required(ErrorMessage = "Please Enter Date Of Birth")]
         public DateOnly dob { get; set; }
 
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
-        //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string email { get; set; }
         public string? phNo  { get; set; }
         public string? street { get; set; } 
@@ -56,7 +56,9 @@ namespace DataAccess.CustomModels
         public string patientFirstName { get; set; }
         public string? patientLastName { get; set; }
         public DateTime? patientDob { get; set; }
-        public string? patientEmail { get; set; }
+        [Required(ErrorMessage = "Please enter the patient's email address.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
+        public string patientEmail { get; set; }
         public string? patientPhoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
@@ -125,64 +127,44 @@ namespace DataAccess.CustomModels
     }
 
 
-    public class PatientDashboard
-    {
-        public DateTime createdDate { get; set; }
-        public string currentStatus { get; set; }
-        public string document { get; set; }
-    }
-
-    public class PatientDashboardInfo
-    {
-        public List<PatientDashboard> patientDashboardItems { get; set; }
-    }
-
     public class MedicalHistory
     {
+
         public int reqId { get; set; }
         public DateTime createdDate { get; set; }
-        public string currentStatus { get; set; }
-        public List<string>? document { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int currentStatus { get; set; }
+        public List<string> document { get; set; }
 
-        public string PhoneNo { get; set; }
 
-        public string Street { get; set; }
-
-        public string City { get; set; }
-
-        public string ZipCode { get; set; }
-
-        public string State { get; set; }
-
-        public string Email { get; set; }
     }
     public class MedicalHistoryList
     {
-        public List<MedicalHistory> medicalHistoriesList { get; set; }
+        public List<MedicalHistory>? medicalHistoriesList { get; set; }
+        public int? id { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
     }
 
     public class Profile
     {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
-        [Required(ErrorMessage = "Please Enter The First Name")]
-        public string firstName { get; set; }
-        public string? lastName { get; set; }
-        public DateTime? dob { get; set; }
+        public string? PhoneNo { get; set; }
 
-        //[RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
-        public string email { get; set; }
-        public string? MobileNo { get; set; }
-        public string? street { get; set; }
-        public string? city { get; set; }
-        public string? state { get; set; }
-        public string? zipCode { get; set; }
-      
-        
+        public string? Street { get; set; }
 
+        public string? City { get; set; }
+
+        public string? ZipCode { get; set; }
+
+        public string? State { get; set; }
+
+        public string? Email { get; set; }
+        public int? userId { get; set; }
     }
+    
 
     
 }
