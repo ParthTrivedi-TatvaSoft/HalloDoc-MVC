@@ -40,7 +40,7 @@
     <div class="container bg-white p-4 ">
         <div class="d-flex justify-content-between mb-4">
             <h2>Documents</h2>
-            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+            <button class="px-3" id="downloadSelected" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
         </div>
         <div class="row">
             <p class="col-12">Patient Name</p>
@@ -68,7 +68,7 @@
             <h3>Documents</h3>
             <div class="d-flex gap-2">
                 <button class="px-3" id="downloadSelected" onclick="downloadSelectedFiles()">Download All</button>
-                <button class="px-3" id="downloadSelected">Delete All</button>
+                <button class="px-3" id="downloadSelected" onclick="deleteAllFiles()">Delete All</button>
                 <button class="px-3" id="downloadSelected">Send Mail</button>
 
             </div>
@@ -157,7 +157,7 @@
 
         // If no files are selected, return
         if (selectedFiles.length === 0) {
-            alert('Please select at least one file to download.');
+            alert('Please Select At Least One File To Download.');
             return;
         }
 
@@ -171,6 +171,44 @@
             link.click(); // Simulate a click event to initiate the download
         }
 
+    }
+
+
+    function deleteAllFiles() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please Select At Least One File To Delete.');
+            return;
+        }
+
+        var confirmDelete = confirm("Are You Sure You Want To Delete All Selected Files?");
+        if (!confirmDelete) {
+            return;
+        }
+        deleteSelectedFiles(selectedFiles);
+
+    }
+
+    function deleteSelectedFiles(selectedFiles) {
+        $.ajax({
+            url: '/Admin/DeleteAllFiles',
+            type: 'POST',
+            data: { selectedFiles: selectedFiles },
+            success: function (response) {
+
+                window.location.reload();
+
+            }
+        });
     }
 
 

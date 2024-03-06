@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8DokF3ov6JaqhRpAJsxtnAQN6UzIGRPyxildm6bT2hw=",
+  "Hash": "jlQk4Wz1+dTGu2pj3ihfMRwk/AA0MzTLztixFsuoYmc=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -1598,6 +1598,23 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (1).svg"
     },
     {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (2).svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "UploadedFiles/admin (2).svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (2).svg"
+    },
+    {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
@@ -1681,6 +1698,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\dark.png"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (1).svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "UploadedFiles/doctor (1).svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor (1).svg"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",

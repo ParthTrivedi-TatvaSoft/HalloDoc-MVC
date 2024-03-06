@@ -404,6 +404,11 @@ namespace BusinessLogic.Services
             return result;
 
         }
+
+
+
+
+
         public bool UploadFiles(List<IFormFile> files, int reqId)
         {
 
@@ -451,6 +456,7 @@ namespace BusinessLogic.Services
             }
         }
 
+
         public bool DeleteFileById(int reqFileId)
         {
             try
@@ -472,8 +478,34 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
-    
 
-}
+
+
+        public bool DeleteAllFiles(List<string> filenames, int reqId)
+        {
+            try
+            {
+                var list = _db.Requestwisefiles.Where(x => x.Requestid == reqId).ToList();
+
+                foreach (var filename in filenames)
+                {
+                    var existFile = list.Where(x => x.Filename == filename && x.Requestid == reqId).FirstOrDefault();
+                    if (existFile != null)
+                    {
+                        list.Remove(existFile);
+                        _db.Requestwisefiles.Remove(existFile);
+                    }
+                }
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+    }
 
 }

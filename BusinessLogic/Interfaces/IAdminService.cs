@@ -39,7 +39,10 @@ namespace BusinessLogic.Interfaces
         bool SubmitBlockCase(BlockCaseModel blockCaseModel);
 
         ViewUploadModel GetAllDocById(int requestId);
-        bool UploadFiles(List<IFormFile> uploadedFiles, int rid);
-        bool DeleteFileById(int id);
+        bool UploadFiles(List<IFormFile> files, int reqId);
+
+        bool DeleteFileById(int reqFileId);
+
+        bool DeleteAllFiles(List<string> filename, int reqId);
     }
 }

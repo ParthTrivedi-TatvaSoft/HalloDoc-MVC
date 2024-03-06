@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Models;
+using BusinessLogic.Services;
 
 namespace BusinessLogic.Repository
 {
@@ -32,6 +33,8 @@ namespace BusinessLogic.Repository
             //    var user = _db.Users.FirstOrDefault(x => x.Aspnetuserid ==  )
             //}
             //return user;
+
+            
             var obj = _db.Aspnetusers.ToList();
             User user = null;
             //string hashPassword = GenerateSHA256(patient.Password);

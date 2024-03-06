@@ -3,6 +3,7 @@ using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using DataAccess.CustomModels;
 using DataAccess.Models;
+using HalloDoc.mvc.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HalloDoc.mvc.Controllers
@@ -13,20 +14,23 @@ namespace HalloDoc.mvc.Controllers
         private readonly INotyfService _notyf;
         private readonly IAdminService _adminService;
         private readonly IPatientService _patientService;
+        private readonly IJwtService _jwtService;
 
-
-        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService)
+        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService,IJwtService jwtService)
         {
             _logger = logger;
             _notyf = notyfService;
             _adminService = adminService;
             _patientService = patientService;
+            _jwtService = jwtService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+
+        //[CustomAuthorize]
         public IActionResult admin_login(AdminLoginModel adminLoginModel)
         {
             if (ModelState.IsValid)
@@ -37,6 +41,8 @@ namespace HalloDoc.mvc.Controllers
                     adminLoginModel.password = adminLoginModel.password;
                     if (aspnetuser.Passwordhash == adminLoginModel.password)
                     {
+                        var jwtToken = _jwtService.GetJwtToken(aspnetuser);
+                        Response.Cookies.Append("jwt", jwtToken);
                         _notyf.Success("Logged In Successfully");
                         return RedirectToAction("admin_dashboard", "Admin");
                     }
@@ -91,20 +97,21 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        [CustomAuthorize("Admin")]
         public IActionResult admin_dashboard()
         {
 
             return View();
         }
 
-
+        [CustomAuthorize("User")]
         public IActionResult viewcase(int Requestclientid, int RequestTypeId)
         {
             var obj = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
 
             return View(obj);
         }
-
+      
         public IActionResult admin_resetpassword()
         {
             return View();
@@ -114,6 +121,7 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
+
         public IActionResult UpdateNotes(ViewNotesModel model)
         {
             int? reqId = HttpContext.Session.GetInt32("RNId");
@@ -127,13 +135,13 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        [CustomAuthorize("User")]
         public IActionResult viewnotes(int ReqId)
         {
             HttpContext.Session.SetInt32("RNId", ReqId);
             ViewNotesModel data = _adminService.ViewNotes(ReqId);
             return View(data);
         }
-
 
         public IActionResult CancelCase(int reqId)
         {
@@ -249,8 +257,22 @@ namespace HalloDoc.mvc.Controllers
             else
             {
                 _notyf.Error("SomeThing Went Wrong");
-                return RedirectToAction("viewploads", "Admin", new { reqId = rid });
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
             }
+        }
+
+        public IActionResult DeleteAllFiles(List<string> selectedFiles)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            bool isDeleted = _adminService.DeleteAllFiles(selectedFiles, rid);
+            if (isDeleted)
+            {
+                _notyf.Success("Deleted Successfully");
+                return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+            }
+            _notyf.Error("SomeThing Went Wrong");
+            return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+
         }
 
 

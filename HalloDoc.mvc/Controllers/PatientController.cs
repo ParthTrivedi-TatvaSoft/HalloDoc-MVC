@@ -98,7 +98,7 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-     
+        
         public IActionResult patient_request(PatientInfoModel patientInfoModel)
         {
 
@@ -125,6 +125,7 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
+  
         public IActionResult friendfamily_request(FamilyReqModel familyReqModel)
         {
             if (ModelState.IsValid)
@@ -146,6 +147,7 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
+ 
         public IActionResult concierge_request(ConciergeReqModel conciergeReqModel)
         {
             if (ModelState.IsValid)
@@ -181,7 +183,7 @@ namespace HalloDoc.mvc.Controllers
             }
         }
 
-    
+
 
         public IActionResult submit_request()
         {
@@ -303,7 +305,7 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-
+        
         public IActionResult patient_dashboard()
         {
             int? userid = HttpContext.Session.GetInt32("UserId");
