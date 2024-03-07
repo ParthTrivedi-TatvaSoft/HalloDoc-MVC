@@ -5,9 +5,15 @@ using DataAccess.CustomModels;
 using DataAccess.Models;
 using HalloDoc.mvc.Auth;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
 
 namespace HalloDoc.mvc.Controllers
 {
+
+
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
@@ -16,7 +22,7 @@ namespace HalloDoc.mvc.Controllers
         private readonly IPatientService _patientService;
         private readonly IJwtService _jwtService;
 
-        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService,IJwtService jwtService)
+        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService, IJwtService jwtService)
         {
             _logger = logger;
             _notyf = notyfService;
@@ -60,6 +66,12 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("jwt");
+            return RedirectToAction("admin_login", "Admin");
+        }
+
         public IActionResult GetCount()
         {
             var statusCountModel = _adminService.GetStatusCount();
@@ -100,24 +112,23 @@ namespace HalloDoc.mvc.Controllers
         [CustomAuthorize("Admin")]
         public IActionResult admin_dashboard()
         {
-
             return View();
         }
 
-        [CustomAuthorize("User")]
+        [CustomAuthorize("Admin")]
         public IActionResult viewcase(int Requestclientid, int RequestTypeId)
         {
             var obj = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
 
             return View(obj);
         }
-      
+
         public IActionResult admin_resetpassword()
         {
             return View();
         }
 
-        
+
 
 
         [HttpPost]
@@ -135,7 +146,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        [CustomAuthorize("User")]
+        [CustomAuthorize("Admin")]
         public IActionResult viewnotes(int ReqId)
         {
             HttpContext.Session.SetInt32("RNId", ReqId);
@@ -210,9 +221,9 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("admin_dashboard", "Admin");
         }
 
-       
 
-     
+
+
         public IActionResult viewuploads(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);
@@ -220,7 +231,7 @@ namespace HalloDoc.mvc.Controllers
             return View(model);
         }
 
-        
+
 
 
 
@@ -274,6 +285,76 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
 
         }
+
+
+        public IActionResult orders()
+        {
+            return View();
+        }
+
+
+
+        //public IActionResult SendAllFiles(List<string> selectedFiles)
+        //{
+        //    var rid = (int)HttpContext.Session.GetInt32("rid");
+        //    BodyBuilder builder = new BodyBuilder();
+        //    string path = "D:/HalloDoc/HalloDoc.mvc/wwwrootUploadedFiles";
+        //    foreach (string item in selectedFiles)
+        //    {
+        //        string fullpath = Path.Combine(path, item);
+        //        builder.Attachments.Add(fullpath);
+        //    }
+        //    var message = string.Join(", ", selectedFiles);
+        //    SendEmail("yashvariya23@gmail.com", "Documents", message);
+        //    _notyf.Success("Send Mail Successfully");
+        //    return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+        //}
+
+        //public Task SendEmail(string email, string subject, string message)
+        //{
+        //    var mail = "tatva.dotnet.parthtrivedi@outlook.com";
+        //    var password = "Parth@70160";
+
+        //    var client = new SmtpClient("smtp.office365.com", 587)
+        //    {
+        //        EnableSsl = true,
+        //        Credentials = new NetworkCredential(mail, password)
+        //    };
+
+
+
+        //    return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+        //}
+        //public Task SendEmailAsync(string email, string subject, string message, List<string>? files)
+        //{
+        //    var temp = _config.GetSection("Email").Value;
+        //    var emailToSend = new MimeMessage();
+        //    emailToSend.From.Add(MailboxAddress.Parse("vivek.baldha@etatvasoft.com"));
+        //    emailToSend.To.Add(MailboxAddress.Parse(email));
+        //    emailToSend.Subject = subject;
+        //    BodyBuilder builder = new BodyBuilder();
+        //    builder.TextBody = message;
+        //    string path = "D:\\New folder\\HalloDoc\\HalloDoc\\wwwroot\\content\\";
+        //    foreach (string item in files)
+        //    {
+        //        string fullpath = Path.Combine(path, item);
+        //        builder.Attachments.Add(fullpath);
+        //    }
+        //    //builder.Attachments.Add(fullpath);
+
+        //    emailToSend.Body = builder.ToMessageBody();
+        //    //emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message };
+
+
+        //    using (var emailClient = new MailKit.Net.Smtp.SmtpClient())
+        //    {
+        //        emailClient.Connect("mail.etatvasoft.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+        //        emailClient.Authenticate(_config.GetValue<string>("Email:EmailID"), _config.GetValue<string>("Email:Password"));
+        //        emailClient.Send(emailToSend);
+        //        emailClient.Disconnect(true);
+        //    }
+        //    return Task.CompletedTask;
+        //}
 
 
 

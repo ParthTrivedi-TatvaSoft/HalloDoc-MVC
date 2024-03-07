@@ -145,4 +145,18 @@ namespace DataAccess.CustomModels
         public List<IFormFile>? uploadedFiles { get; set; }
 
     }
+
+    //public class OrderModel
+    //{
+    //    public List<Healthprofessionaltype>? healthprofessionaltypes { get; set; }
+
+    //    public int? types { get; set; }
+    //    public string? BusinessContact { get; set; }
+    //    public string? Email { get; set; }
+
+
+    //    public int? FaxNumber { get; set; }
+    //    public int? OrderDetails { get; set; }
+    //    public string? Refils { get; set; }
+    //}
 }

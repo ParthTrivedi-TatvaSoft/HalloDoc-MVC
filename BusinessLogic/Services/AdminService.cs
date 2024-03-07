@@ -26,7 +26,7 @@ namespace BusinessLogic.Services
 
         public Aspnetuser GetAspnetuser(string email)
         {
-            var aspNetUser = _db.Aspnetusers.FirstOrDefault(x => x.Email == email);
+            var aspNetUser = _db.Aspnetusers.Include(x=>x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
             return aspNetUser;
         }
         public List<AdminDashTableModel> GetRequestsByStatus(int tabNo)

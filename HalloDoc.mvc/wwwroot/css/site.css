@@ -81,4 +81,16 @@ footer p {
 }
 
 
+.form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
+    color: #00b8e6;
+}
+
+    .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after {
+        background-color: transparent;
+    }
+
+.form-control:focus {
+    border: 1px solid #00b8e6;
+}
+
 

@@ -19,15 +19,20 @@ namespace BusinessLogic.Services
         {
             this._configuration = configuration;
         }
+        string[] Role = { "Admin", "User", "Physician" };
         public string GetJwtToken(Aspnetuser aspnetuser)
         {
+            var role = aspnetuser.Aspnetuserroles.FirstOrDefault(x => x.Userid == aspnetuser.Id);
+            int roleid = role.Roleid;
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, aspnetuser.Email),
-                new Claim(ClaimTypes.Role,"Admin"),
+                new Claim(ClaimTypes.Role,Role[roleid-1]),
                  //aspnetuser.Aspnetuserroles.ToString()
                 new Claim("aspNetUserId",aspnetuser.Id)
             };
+
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.UtcNow.AddMinutes(20);
@@ -73,7 +78,6 @@ namespace BusinessLogic.Services
                 jwtSecurityToken = (JwtSecurityToken)validatedToken;
 
                 if (jwtSecurityToken != null)
-
                     return true;
 
                 return false;
