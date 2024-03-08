@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Interfaces
@@ -44,5 +45,11 @@ namespace BusinessLogic.Interfaces
         bool DeleteFileById(int reqFileId);
 
         bool DeleteAllFiles(List<string> filename, int reqId);
+
+        Order FetchProfession();
+        JsonArray FetchVendors(int selectedValue);
+        Healthprofessional VendorDetails(int selectedValue);
+
+
     }
 }

@@ -146,17 +146,15 @@ namespace DataAccess.CustomModels
 
     }
 
-    //public class OrderModel
-    //{
-    //    public List<Healthprofessionaltype>? healthprofessionaltypes { get; set; }
+    public class Order
+    {
+        public int? ReqId { get; set; }
+        public List<Healthprofessionaltype> Profession { get; set; }
+        public List<Healthprofessional> Business { get; set; }
+        public string BusineesContact { get; set; }
+        public string email { get; set; }
+        public string faxnumber { get; set; }
+        public string orderdetail { get; set; }
 
-    //    public int? types { get; set; }
-    //    public string? BusinessContact { get; set; }
-    //    public string? Email { get; set; }
-
-
-    //    public int? FaxNumber { get; set; }
-    //    public int? OrderDetails { get; set; }
-    //    public string? Refils { get; set; }
-    //}
+    }
 }

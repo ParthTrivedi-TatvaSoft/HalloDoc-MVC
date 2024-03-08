@@ -219,7 +219,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" asp-action="orders" asp-controller="Admin">
+                                            <a class="dropdown-item" href="@Url.Action("orders", new {ReqId = item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Orders
                                             </a>

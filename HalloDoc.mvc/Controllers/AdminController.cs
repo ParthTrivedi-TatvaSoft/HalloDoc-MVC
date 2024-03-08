@@ -9,6 +9,7 @@ using MimeKit;
 using System.Net.Mail;
 using System.Net;
 using System.IO;
+using System.Text.Json.Nodes;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -286,11 +287,29 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
-
-        public IActionResult orders()
+        public IActionResult orders(int reqId)
         {
-            return View();
+            var order = _adminService.FetchProfession();
+            order.ReqId = reqId;
+            return View(order);
         }
+
+        [HttpGet]
+        public JsonArray FetchBusiness(int proffesionId)
+        {
+            var result = _adminService.FetchVendors(proffesionId);
+            return result;
+        }
+
+        [HttpGet]
+        public Healthprofessional VendorDetails(int selectedValue)
+        {
+            var result = _adminService.VendorDetails(selectedValue);
+            return result;
+        }
+
+
+        
 
 
 
