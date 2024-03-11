@@ -1,16 +1,12 @@
 ﻿@using DataAccess.CustomModels;
 @model Order;
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
 <div class="container">
     <div class="d-flex justify-content-between pt-3">
-        <h2>Documents</h2>
-        <a asp-action="admin_dashboard" asp-controller="Admin">
-        <button class="back btn btn-outline-info m-2" >
-            <span class="h6 p-0 m-0 text-center">&#60; Back</span>
-        </button>
-        </a>
-
-
+        <h3>Send Order</h3>
+        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
 
     </div>
     <div class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white">
@@ -34,6 +30,8 @@
             <div class="col-md-6">
                 <div class="form-floating mb-3">
                     <select class="form-select text-secondary py-0" id="Vendorid" aria-label="Floating label select example">
+                        <option disabled selected>Select Business</option>
+
                     </select>
                     <label for="floatingSelect"></label>
                 </div>
@@ -41,25 +39,25 @@
 
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="businessContact" />
+                    <input asp-for="BusineesContact" type="text" class="form-control" id="businessContact" disabled />
                     <label for="floatingInput" class="">Business Contact</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input asp-for="email" type="email" class="form-control" id="businessEmail" />
+                    <input asp-for="email" type="email" class="form-control" id="businessEmail" disabled />
                     <label for="floatingInput">Email</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input asp-for="faxnumber" type="text" class="form-control" id="businessFaxNumber" />
+                    <input type="text" asp-for="faxnumber" class="form-control" id="businessFaxNumber" disabled />
                     <label for="floatingInput" class="">Fax Number</label>
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="order details" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="order details" id="orderDetail" style="height: 100px"></textarea>
                     <label for="floatingTextarea2" class="">
                         Prescription or Order details
                     </label>
@@ -67,8 +65,8 @@
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Not Required</option>
+                    <select class="form-select" id="RefilNo" aria-label="Floating label select example">
+                        <option disabled selected>Not Required</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -78,7 +76,7 @@
             </div>
         </div>
         <div class="footer mt-5 mb-4 text-end">
-            <button type="submit" class="btn bg-info text-white">Submit</button>
+            <button type="button" id="submit" class="btn bg-info text-white">Submit</button>
             <button type="button" class="btn border border-info text-info" data-bs-dismiss="modal">Cancel</button>
         </div>
     </div>
@@ -87,6 +85,7 @@
     <br />
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -98,15 +97,13 @@
             method: 'GET',
             data: { proffesionId: selectedValue },
             success: function (response) {
-                $('#Vendorid').empty();
 
-                $('#businessContact').val("");
+                $('#businessContact').val(null);
                 $('#businessFaxNumber').val("");
                 $('#businessEmail').val("");
-                console.log(response.length);
 
-                $('#Vendorid').html("<option disabled selected value>" + "Select Business" + "</option>");
-                console.log(response.length);
+                $('#Vendorid').html("<option disabled selected value >" + "Select Business" + "</option>");
+
                 for (var i = 0; i < response.length; i++) {
                     $("#Vendorid").append('<option value = "' + response[i].businessId + '" >' + response[i].businessName + '</option>');
 
@@ -131,7 +128,6 @@
                 selectedValue: selectedValue,
             },
             success: function (result) {
-                console.log(result);
                 $('#businessFaxNumber').val(result["faxnumber"]);
                 $('#businessContact').val(result["businesscontact"]);
                 $('#businessEmail').val(result["email"]);
@@ -141,6 +137,42 @@
                 console.error(err);
             }
         });
+    });
+
+    $("#submit").on('click', function () {
+        var payload = {
+            ReqId: @Model.ReqId,
+            ProfessionId: $('#Healthprofessionalid').val(),
+            BusinessId: $('#Vendorid').val(),
+            BusineesContact: $('#businessContact').val(),
+            faxnumber: $('#businessFaxNumber').val(),
+            email: $('#businessEmail').val(),
+            orderDetail: $('#orderDetail').val(),
+            RefilNo: $('#RefilNo').val()
+        }
+        console.log(payload);
+        var url = '@Url.Action("orders","Admin")';
+        var redirectUrl = '@Url.Action("admin_dashboard","Admin")';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: payload,
+            success: function (response) {
+                if (response.isSend) {
+                    //toastr.success("Order Send SuccessFully");
+                    window.location.href = redirectUrl;
+                }
+                else {
+                    //toastr.error("Order Failed");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                //toastr.error("Something went wrong");
+            }
+
+
+        })
     });
 
 </script>

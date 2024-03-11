@@ -423,8 +423,31 @@ namespace BusinessLogic.Services
             return business;
         }
 
+        public bool SendOrder(Order order)
+        {
+            try
+            {
+                Orderdetail od = new Orderdetail();
+                od.Vendorid = order.BusinessId;
+                od.Requestid = order.ReqId;
+                od.Faxnumber = order.faxnumber;
+                od.Email = order.email;
+                od.Businesscontact = order.BusineesContact;
+                od.Prescription = order.orderDetail;
+                od.Noofrefill = order.RefilNo;
+                od.Createddate = DateTime.Now;
+                od.Createdby = "Admin";
 
+                _db.Orderdetails.Add(od);
+                _db.SaveChanges();
 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
 
 
@@ -521,6 +544,10 @@ namespace BusinessLogic.Services
         }
 
 
+    
+      
+
+
 
         public bool DeleteAllFiles(List<string> filenames, int reqId)
         {
@@ -545,6 +572,29 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
+
+
+        //public Order order(int Reqid)
+        //{
+        //    Orderdetail order=_db.Orderdetails.FirstOrDefault(x=>x.)
+        //    Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
+        //    ViewCaseViewModel viewCaseViewModel = new()
+        //    {
+        //        Requestclientid = obj.Requestclientid,
+        //        Firstname = obj.Firstname,
+        //        Lastname = obj.Lastname,
+        //        Email = obj.Email,
+        //        Phonenumber = obj.Phonenumber,
+        //        City = obj.City,
+        //        Street = obj.Street,
+        //        State = obj.State,
+        //        Zipcode = obj.Zipcode,
+        //        Room = obj.Address,
+        //        Notes = obj.Notes,
+        //        RequestTypeId = RequestTypeId
+        //    };
+        //    return viewCaseViewModel;
+        //}
 
 
     }

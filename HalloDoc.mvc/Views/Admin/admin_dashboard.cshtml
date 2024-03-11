@@ -347,6 +347,22 @@
             });
         }
 
+        function showTransferCase(Reqid) {
+
+            $.ajax({
+                url: '/Admin/TransferCase',
+                type: 'GET',
+                data: { ReqId: Reqid },
+                success: function (response) {
+
+                    $("#modelContent").html(response);
+
+                    $('#transferModal').modal('show');
+
+                }
+            });
+        }
+
 
 
 

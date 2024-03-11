@@ -220,16 +220,16 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" onclick="showAssignCase(@item.Reqid)">
+                                            <button class="dropdown-item" onclick="showTransferCase(@item.Reqid)">
                                                 <i class="bi bi-card-checklist"></i>
                                                 Transfer
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <button class="dropdown-item" onclick="showCancelCase(@item.Reqid)">
                                                 <i class="bi bi-x-circle"></i>
                                                 Cancel Case
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
@@ -248,6 +248,8 @@
         </tbody>
     </table>
 </div>
+
+<div id="modelContent"></div>
 
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">

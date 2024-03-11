@@ -50,6 +50,8 @@ namespace BusinessLogic.Interfaces
         JsonArray FetchVendors(int selectedValue);
         Healthprofessional VendorDetails(int selectedValue);
 
+        public bool SendOrder(Order order);
+
 
     }
 }

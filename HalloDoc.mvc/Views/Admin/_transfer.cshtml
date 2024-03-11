@@ -1,10 +1,10 @@
 ﻿@using DataAccess.CustomModels;
 @model AssignCaseModel;
 
-
-<div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@*Transfer case model *@
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form method="post" asp-action="SubmitAssignCase" asp-controller="Admin" class="modal-content">
+        <form class="modal-content">
             <div class="modal-header" style="background-color:#00B7FF">
                 <h5 class="modal-title text-light" id="exampleModalLabel">Transfer Request</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -12,7 +12,7 @@
             <div class="modal-body">
 
                 <div class="mb-3 text-secondary">
-                    <p>To transfer this request, search and select another Physician</p>
+                    <p>To assign this request, search and select another Physician</p>
                 </div>
 
 
@@ -28,6 +28,8 @@
                             }
                         }
                     </select>
+                    <small id="regionRequired" class="d-none" style="color:red">Region Is Required</small>
+
                 </div>
 
                 <div class="mb-3 text-secondary">
@@ -36,15 +38,19 @@
                         </select>
                         <label for="floatingInput">Physicians</label>
                     </div>
+                    <small id="physicianRequired" class="d-none" style="color:red">Physician Is Required</small>
+
                 </div>
 
                 <div class="mb-3">
-                    <textarea class="form-control" asp-for="description" id="message-text" placeholder="Description"></textarea>
+                    <textarea class="form-control" asp-for="description" id="description" placeholder="Description"></textarea>
+                    <small id="descriptionRequired" class="d-none" style="color:red">Description Is Required</small>
+
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
+                <button type="submit" id="submitCase" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
                 <button type="reset" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
             </div>
         </form>
@@ -52,9 +58,37 @@
 </div>
 
 <script>
-    function hello() {
-        alert("dsdfd");
-    }
+    $('#selectRegion').on('change', function () {
+        let selectRegion = $("#selectRegion").val();
+        if (selectRegion != null) {
+            $("#regionRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#regionRequired").addClass('d-block').removeClass('d-none');
+        }
+    });
+
+    $('#selectPhysician').on('change', function () {
+        let selectPhysician = $("#selectPhysician").val();
+        if (selectPhysician != null) {
+            $("#physicianRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#physicianRequired").addClass('d-block').removeClass('d-none');
+        }
+    });
+
+    $('#description').on('input', function () {
+        let description = $("#description").val();
+        if (description != "") {
+            $("#descriptionRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#descriptionRequired").addClass('d-block').removeClass('d-none');
+
+        }
+    });
+
     $("#selectRegion").on("change", function () {
 
         showPhysicians($(this).val());
@@ -69,7 +103,7 @@
             data: { selectRegion: regionId },
             success: function (response) {
 
-                $('#selectPhysician').html("<option selected disabled>" + "Select Physician" + "</option>");
+                $('#selectPhysician').html("<option disabled selected value>" + "Select Physician" + "</option>");
                 console.log(response.physicianlist.length);
                 for (var i = 0; i < response.physicianlist.length; i++) {
                     console.log("hello");
@@ -79,4 +113,68 @@
             }
         });
     }
+
+    $("#submitCase").on('click', function () {
+
+
+        var selectRegion = $("#selectRegion").val();
+
+        if (selectRegion == null) {
+            $("#regionRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#regionRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        var selectPhysician = $("#selectPhysician").val();
+
+        if (selectPhysician == null) {
+            $("#physicianRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#physicianRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        var description = $("#description").val();
+
+        if (description == "") {
+            $("#descriptionRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#descriptionRequired").addClass('d-none').removeClass('d-block');
+        }
+
+
+
+
+        if ((selectRegion != null && selectPhysician != null) && description != '') {
+
+            var payload = {
+                selectRegionId: selectRegion,
+                selectPhysicianId: selectPhysician,
+                description: description,
+                ReqId: @Model.ReqId
+                };
+            console.log(payload);
+            var url = '@Url.Action("SubmitTransferCase","Admin")';
+            $.ajax({
+                url: url,
+                type: 'POST',
+
+                data: payload,
+                success: function (response) {
+                    if (response.isTransferred) {
+                        console.log("Transferred");
+                        toastr.success("Transfer Case");
+                        window.location.reload();
+
+                    }
+                    else {
+                        console.log("Failed");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+
+
+    });
 </script>

@@ -154,7 +154,10 @@ namespace DataAccess.CustomModels
         public string BusineesContact { get; set; }
         public string email { get; set; }
         public string faxnumber { get; set; }
-        public string orderdetail { get; set; }
+        public string orderDetail { get; set; }
+        public int? ProfessionId { get; set; }
+        public int? BusinessId { get; set; }
+        public int? RefilNo { get; set; }
 
     }
 }

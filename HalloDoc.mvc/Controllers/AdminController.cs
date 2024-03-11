@@ -116,7 +116,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        [CustomAuthorize("Admin")]
+        //[CustomAuthorize("Admin")]
         public IActionResult viewcase(int Requestclientid, int RequestTypeId)
         {
             var obj = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
@@ -182,12 +182,6 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_assigncase", model);
         }
 
-        public IActionResult GetPhysician(int selectRegion)
-        {
-            List<Physician> physicianlist = _adminService.GetPhysicianByRegion(selectRegion);
-            return Json(new { physicianlist });
-        }
-
         public IActionResult SubmitAssignCase(AssignCaseModel assignCaseModel)
         {
             assignCaseModel.ReqId = HttpContext.Session.GetInt32("AssignReqId");
@@ -199,6 +193,17 @@ namespace HalloDoc.mvc.Controllers
             }
             return View();
         }
+
+
+        
+
+        public IActionResult GetPhysician(int selectRegion)
+        {
+            List<Physician> physicianlist = _adminService.GetPhysicianByRegion(selectRegion);
+            return Json(new { physicianlist });
+        }
+
+   
 
 
         public IActionResult BlockCase(int reqId)
@@ -220,6 +225,38 @@ namespace HalloDoc.mvc.Controllers
             }
             _notyf.Error("BlockCase Failed");
             return RedirectToAction("admin_dashboard", "Admin");
+        }
+
+        [HttpGet]
+        public IActionResult TransferCase(int reqId)
+        {
+            var model = _adminService.AssignCase(reqId);
+            model.ReqId = reqId;
+            return PartialView("_transfer", model);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitTransferCase(AssignCaseModel transferCaseModel)
+        {
+            bool isTransferred = _adminService.SubmitAssignCase(transferCaseModel);
+            return Json(new { isTransferred = isTransferred });
+        }
+
+
+        [HttpPost]
+        public IActionResult orders(Order order)
+        {
+            bool isSend = _adminService.SendOrder(order);
+            return Json(new { isSend = isSend });
+        }
+
+
+        [HttpGet]
+        public IActionResult orders(int reqId)
+        {
+            var order = _adminService.FetchProfession();
+            order.ReqId = reqId;
+            return View(order);
         }
 
 
@@ -287,12 +324,7 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
-        public IActionResult orders(int reqId)
-        {
-            var order = _adminService.FetchProfession();
-            order.ReqId = reqId;
-            return View(order);
-        }
+      
 
         [HttpGet]
         public JsonArray FetchBusiness(int proffesionId)
@@ -308,8 +340,9 @@ namespace HalloDoc.mvc.Controllers
             return result;
         }
 
+     
 
-        
+
 
 
 
