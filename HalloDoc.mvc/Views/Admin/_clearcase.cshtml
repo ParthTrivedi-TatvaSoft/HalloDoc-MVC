@@ -1,17 +1,26 @@
-﻿<div id="clearcaseModal" class="modal">
+﻿@{
+    var requestId = ViewBag.ClearCaseId;
+}
+<!-- Modal -->
+<div class="modal fade " id="clearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" method="post" asp-action="SubmitClearCase" asp-controller="Admin" asp-route-reqId=@requestId>
 
+            <div class="modal-body ">
+                <div class="d-flex flex-column justify-content-evenly align-items-center gap-3">
 
-    <div class="modal-content d-flex flex-column justify-content-evenly align-items-center">
-        <div></div>
-        <img class="alert" id="info-icon" src="/images/info.png" alt="info">
-        <h5>Confirmation For Clear Case</h5>
-        <p class="" id="info">
-            When submitting a request, you must provide the correct contact information
-            for the patient or the responsibility party. Failure to provide the correct email and phone
-            number will delay service or be declined.
-        </p>
-        <span class="submit"><button class="btn btn-primary">Clear</button></span>
-        <span class="reset"><button class="btn btn-primary">Cancle</button></span>
+                    <img style="width:5rem" id="info-icon" src="/images/info.png" alt="info">
+                    <h5>Confirmation for Clear Case</h5>
+                    <p>
+                        Are you sure want to clear this request? Once clear this request then you are not able to see this request.
+                    </p>
+
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Clear</button>
+                <button type="reset" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </form>
     </div>
-
 </div>

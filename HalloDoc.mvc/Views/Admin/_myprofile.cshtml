@@ -1,0 +1,204 @@
+﻿
+<style>
+    #back-btn {
+        color: rgb(0, 183, 255);
+        background-color: white;
+        border: 1px solid rgb(0, 183, 255);
+        border-radius: 5px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class=" mt-2 d-flex justify-content-between align-items-center">
+            <h3 class="fw-bold">My Profile</h3>
+            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn" class="px-2 py-2">&lt; Back</button>
+
+        </div>
+        <form action="" class="shadow border rounded my-3 bg-white" method="post">
+            <div class="mx-3 my-4 ">
+                <form method="post" asp-action="myProfile" asp-controller="Admin">
+                    <div class="mt-3">
+                        <h4 class="my-4 pt-4 fw-bold">Account Information</h4>
+
+                        <div class="row">
+                            <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating  ">
+                                <input type="text" class="form-control " id="floatingInputFirst" placeholder="User Name" >
+                                <label class="ms-2 " for="floatingInputUsername">User Name</label>
+                            </div>
+                            <div style="position: relative;"
+                                 class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
+                                <input type="password" class="form-control inputs" placeholder="Password"
+                                       id="floatingPassword2" />
+                                <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
+                                <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
+                                        type="button">
+                                    <i class="fa-regular fa-eye" onclick="passwordVisible2()"
+                                       id="passHide2"></i>
+                                </button>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                                <select class="form-select form-control " disabled id="Status">
+                                    <option value="1" selected>Active</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <label for="Status" class="ms-2 text-wrap small text-secondary">Status</label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                                <select class="form-select form-control" disabled id="Role">
+
+                                    <option value="1" disabled selected>Master Admin</option>
+
+                                </select>
+                                <label for="Role" class="ms-2 text-wrap small text-secondary">Role</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button onclick="resetPass()" type="button" id="ResetPassword"
+                                    class="btn btn-outline-secondary border-info text-info">
+                                Reset Password
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <form method="post" asp-action="myProfile" asp-controller="adminDashboard">
+                    <div class="pt-4">
+                        <h4 class="mb-4 fw-bold">Administrator Information</h4>
+                        <div class="row mb-3">
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                                <input type="text" class="d1class form-control " id="floatingInputFirstAdmin"
+                                       placeholder="First Name" aria-label="First Name">
+                                <label class="ms-2 " for="floatingInputFirstAdmin">First Name</label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                                <input type="text" class="d1class form-control " id="floatingInputLastAdmin"
+                                       placeholder="Last Name" aria-label="Last Name">
+                                <label class="ms-2  " for="floatingInputLastAdmin">Last Name</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="email" class="d1class form-control " id="floatingInputemailAdmin"
+                                       placeholder="Email" aria-label="Email">
+                                <label class="ms-2 " for="floatingInputemailAdmin">Email</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="email" class="d1class form-control " id="floatingInputConfirmEmailAdmin"
+                                       placeholder="ConfirmEmail" aria-label="ConfirmEmail">
+                                <label class="ms-2 " for="floatingInputConfirmEmailAdmin">Confirm Email</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input style="height:56px" id="phone"
+                                       class="d1class form-control contact"
+                                       aria-label="Contact"
+                                       type="number" />
+                            </div>
+                            <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <div class="row">
+                                    <div class="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input d1class" type="checkbox" value="" id="DisOfCol"
+                                                   checked>
+                                            <label class="form-check-label me-4" for="DisOfCol">
+                                                District Of Columbia
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input d1class" type="checkbox" value="" id="NewYork"
+                                                   checked>
+                                            <label class="form-check-label me-4" for="NewYork">
+                                                NewYork
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input d1class" type="checkbox" value="" id="Verginia"
+                                                   checked>
+                                            <label class="form-check-label me-4" for="Verginia">
+                                                Verginia
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating">
+                                        <div class="form-check">
+                                            <input class="form-check-input d1class" type="checkbox" value="" id="MaryLand"
+                                                   checked>
+                                            <label class="form-check-label" for="MaryLand">
+                                                MaryLand
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-3 mb-3">
+                            <button type="button" id="editBtn" class="btn btn-info text-white EditBtn"
+                                    onclick="enableFields()">
+                                Edit
+                            </button>
+
+                            <button type="button" id="submitBtn" class="btn btn-info text-white EditBtn">Save</button>
+
+                            <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn"
+                                    onclick="disableFields()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <form method="post" asp-action="myProfile" asp-controller="adminDashboard">
+                    <div class="pt-4">
+                        <h4 class="mb-4 fw-bold">Mailing And Billing Information</h4>
+                        <div class="row mb-3">
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="text" class="dclass form-control " id="floatingInputAddress1"
+                                       placeholder="Address1" aria-label="Address1">
+                                <label class="ms-2 " for="floatingInputAddress1">Address1</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="text" class="dclass form-control " id="floatingInputAddress2"
+                                       placeholder="Address2" aria-label="Address2">
+                                <label class="ms-2 " for="floatingInputAddress2">Address2</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="text" class="dclass form-control " id="floatingInputCity"
+                                       placeholder="City" aria-label="City">
+                                <label class="ms-2 " for="floatingInputCity">City</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="text" class="dclass form-control " id="floatingInputState"
+                                       placeholder="State" aria-label="State">
+                                <label class="ms-2 " for="floatingInputState">State</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input type="text" class="dclass form-control " id="floatingInputZipCode"
+                                       placeholder="Zip Code" aria-label="Zip Code">
+                                <label class="ms-2  " for="floatingInputZipCode">Zip</label>
+                            </div>
+                            <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                                <input style="height:56px" id="phone2"
+                                       class="d1class form-control contact"
+                                       aria-label="Contact"
+                                       type="number" />
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mb-3">
+                            <button type="button" id="editBtn2" class="btn btn-info text-white EditBtn"
+                                    onclick="enableFields2()">
+                                Edit
+                            </button>
+
+                            <button type="button" id="submitBtn2" class="btn btn-info text-white EditBtn">Save</button>
+
+                            <button type="button" id="cancelBtn2" class="btn btn-outline-info EditBtn"
+                                    onclick="disableFields2()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+</div>

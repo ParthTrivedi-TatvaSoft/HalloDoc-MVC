@@ -10,6 +10,8 @@ using System.Net.Mail;
 using System.Net;
 using System.IO;
 using System.Text.Json.Nodes;
+using Org.BouncyCastle.Crypto.Macs;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -157,21 +159,32 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult CancelCase(int reqId)
         {
-            HttpContext.Session.SetInt32("CancelReqId", reqId);
+
             var model = _adminService.CancelCase(reqId);
+            model.reqId = reqId;
             return PartialView("_canclecase", model);
         }
 
-        public IActionResult SubmitCancelCase(CancelCaseModel cancelCaseModel)
+
+        [HttpPost]
+        public IActionResult SubmitCancelCase(int casetag, string notes, int reqId)
         {
-            cancelCaseModel.reqId = HttpContext.Session.GetInt32("CancelReqId");
-            bool isCancelled = _adminService.SubmitCancelCase(cancelCaseModel);
-            if (isCancelled)
+            CancelCaseModel cancelCaseModel = new()
             {
-                _notyf.Success("Cancelled successfully");
-                return RedirectToAction("admin_dashboard", "Admin");
-            }
-            return View();
+                casetag = casetag,
+                notes = notes,
+                reqId = reqId
+            };
+
+
+
+            bool isCancelled = _adminService.SubmitCancelCase(cancelCaseModel);
+
+           
+            return Json(new { isCancelled = isCancelled });
+
+
+
         }
 
 
@@ -223,6 +236,7 @@ namespace HalloDoc.mvc.Controllers
                 _notyf.Success("Blocked Successfully");
                 return RedirectToAction("admin_dashboard", "Admin");
             }
+
             _notyf.Error("BlockCase Failed");
             return RedirectToAction("admin_dashboard", "Admin");
         }
@@ -258,6 +272,120 @@ namespace HalloDoc.mvc.Controllers
             order.ReqId = reqId;
             return View(order);
         }
+
+
+        [HttpGet]
+        public IActionResult ClearCase(int reqId)
+        {
+            ViewBag.ClearCaseId = reqId;
+            return PartialView("_clearcase");
+        }
+
+        [HttpPost]
+        public IActionResult SubmitClearCase(int reqId)
+        {
+            bool isClear = _adminService.ClearCase(reqId);
+            if (isClear)
+            {
+                _notyf.Success("Cleared Successfully");
+                return RedirectToAction("admin_dashboard");
+            }
+            _notyf.Error("Failed");
+            return RedirectToAction("admin_dashboard");
+        }
+
+        [HttpGet]
+        public IActionResult SendAgreement(int reqId, int reqType)
+        {
+            var model = _adminService.SendAgreementCase(reqId);
+            model.reqType = reqType;
+            return PartialView("_sendagreement", model);
+        }
+
+
+        public IActionResult SendAllFiles(List<string> selectedFiles)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            
+
+            var message = string.Join(", ", selectedFiles);
+           
+            _notyf.Success("Send Mail Successfully");
+            
+
+            var mail = "tatva.dotnet.parthtrivedi@outlook.com";
+            var password = "Parth@70160";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress("tatva.dotnet.parthtrivedi@outlook.com"),
+                Subject = "Document List",
+                IsBodyHtml = true,
+               
+            };
+            foreach (var item in selectedFiles)
+            {
+                
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UploadedFiles");
+                path = Path.Combine(path, item);
+                Attachment attachment = new Attachment(path);
+                mailMessage.Attachments.Add(attachment);
+            }
+            //RequestClient requestClient = _requestClientRepository.GetRequestClientByRequestId(requestId);
+            //mailMessage.To.Add(requestClient.Email);
+            mailMessage.To.Add("parthtrivedi0710@gmail.com");
+
+            client.SendMailAsync(mailMessage);
+
+            return RedirectToAction("viewuploads", "Admin", new { reqId = rid });
+        }
+
+        public Task SendEmail(string email, string subject, string message)
+        {
+            var mail = "tatva.dotnet.parthtrivedi@outlook.com";
+            var password = "Parth@70160";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+
+
+            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+        }
+
+
+        [HttpPost]
+        public IActionResult SendAgreement(string email)
+        {
+            try
+            {
+                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                string reviewPathLink = baseUrl + Url.Action("ReviewAgreement", "Home");
+
+                SendEmail(email, "Review Agreement", $"Hello, Review the agreement properly: {reviewPathLink}");
+                return Json(new { isSend = true });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSend = false });
+            }
+        }
+
+        //[HttpPost]
+        //public IActionResult SubmitSendAgreement(SendAgreementCase sendAgreementCase)
+        //{
+        //    bool isTransferred = _adminService.SubmitAssignCase(sendAgreementCase);
+
+        //}
 
 
 

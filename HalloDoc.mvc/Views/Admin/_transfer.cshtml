@@ -1,6 +1,10 @@
 ﻿@using DataAccess.CustomModels;
 @model AssignCaseModel;
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
 @*Transfer case model *@
 <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -50,13 +54,13 @@
 
             </div>
             <div class="modal-footer">
-                <button type="submit" id="submitCase" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
+                <button type="button" id="submitCase" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
                 <button type="reset" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
             </div>
         </form>
     </div>
 </div>
-
+<div id="modelcontent2"></div>
 <script>
     $('#selectRegion').on('change', function () {
         let selectRegion = $("#selectRegion").val();
@@ -177,4 +181,5 @@
 
 
     });
+
 </script>

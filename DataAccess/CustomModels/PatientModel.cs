@@ -34,6 +34,7 @@ namespace DataAccess.CustomModels
         public string? country { get; set; }
 
         //[StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
+
         public string? password { get; set; }
 
         [Compare("password", ErrorMessage = "Password Missmatch")]

@@ -1,0 +1,55 @@
+﻿@using DataAccess.CustomModels;
+@model BlockCaseModel;
+
+
+@*Block Case Model*@
+<div class="modal fade" id="cancleagreementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form method="post" asp-controller="Admin" asp-action="SubmitBlockCase" class="modal-content">
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title text-light" id="exampleModalLabel">Cancel Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <h5>Patient Name:@Model.firstName @Model.lastName </h5>
+                </div>
+                <div class="mb-3">
+                    <textarea asp-for="reason" class="form-control" id="message-text" placeholder="Please provide a brief explanation for your Cancelation"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn text-light" id="submitbutton" style="background-color:#00B7FF" data-bs-dismiss="modal">Confirm</button>
+                <button type="reset" class="btn border border-info" style="color:#00B7FF">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    $('#submitbutton').click(function () {
+        var description = $("#message-text").val();
+        var reqClientId = $("#ReqClientid").val();
+
+        $.ajax({
+            url: "/Home/CancelAgreementSubmit",
+            data: {
+                ReqClientid: reqClientId,
+                Description: description
+            },
+            type: 'POST',
+            success: function (result) {
+                $('#display').html(result);
+                $('#cancelAgreementModal').modal('show');
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    });
+</script>

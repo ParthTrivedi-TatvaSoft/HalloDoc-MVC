@@ -122,7 +122,7 @@
                             <div class="d-flex justify-content-between">
 
                                 <span>@item.firstName @item.lastName</span>
-                                <a href="">
+                                <a href="mailto:parthtrivedi0710@gmail.com.">
                                     <i class="bi bi-envelope text-white "></i>
                                 </a>
                             </div>
@@ -137,7 +137,7 @@
                         @*5*@
                         <td style="background:@bgColor">
                             <div class="table_phone">
-                                <a href="">
+                                <a href="tel:@item.mobileNo">
                                     <i class="bi bi-telephone-fill text-white"></i>
                                     @item.mobileNo
                                 </a>
@@ -232,10 +232,10 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <button class="dropdown-item" style="cursor:pointer" onclick="showSendAgreement(@item.Reqid,@item.requestTypeId)">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Send Agreement
-                                            </a>
+                                            </button>
                                         </li>
 
                                     </ul>

@@ -121,7 +121,7 @@
                             <div class="d-flex justify-content-between">
 
                                 <span>@item.firstName @item.lastName</span>
-                                <a href="">
+                                <a href="mailto:parthtrivedi0710@gmail.com.">
                                     <i class="bi bi-envelope text-white "></i>
                                 </a>
                             </div>
@@ -136,7 +136,7 @@
                         @*5*@
                         <td style="background:@bgColor">
                             <div class="table_phone">
-                                <a href="">
+                                <a href="tel:@item.mobileNo">
                                     <i class="bi bi-telephone-fill text-white"></i>
                                     @item.mobileNo
                                 </a>
@@ -237,10 +237,10 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" onclick=("new {ReqId= item.Reqid} )">
+                                            <button class="dropdown-item" onclick="clearCase(@item.Reqid)">
                                                 <i class="bi bi-x-circle"></i>
                                                 Clear Case
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
@@ -259,7 +259,25 @@
         </tbody>
     </table>
 </div>
-
+<div id="modelContent3"></div>
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
+
+<script>
+    function clearCase(reqId) {
+        var url = '@Url.Action("ClearCase","Admin")';
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { reqId: reqId },
+            success: function (response) {
+                console.log(response);
+                $("#modelContent3").html(response);
+
+                $('#clearModal').modal('show');
+            }
+        });
+    }
+</script>

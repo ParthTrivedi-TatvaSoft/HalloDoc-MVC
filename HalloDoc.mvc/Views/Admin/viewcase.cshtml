@@ -4,6 +4,14 @@
 }
 
 @model ViewCaseViewModel;
+<style>
+    #back-btn {
+        color: rgb(0, 183, 255);
+        background-color: white;
+        border: 1px solid rgb(0, 183, 255);
+        border-radius: 5px;
+    }
+</style>
 
 <link rel="stylesheet" href="~/css/admin_dashboard.css">
 <nav class="bg-white navbr navbar navbar-expand w-100 ">
@@ -32,7 +40,7 @@
                 </li>
         </div>
         <li class="nav-item">
-            <button id="logout" class="px-2">
+            <button id="logout" class="px-2" onclick="location.href='@Url.Action("admin_login", "Admin")'">
                 <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
             </button>
 
@@ -90,9 +98,9 @@
             </div>
             <div class="col-6 d-flex justify-content-end">
                 <div class="col-6 d-flex justify-content-end">
-                    <div class="d-none  d-md-flex align-self-end  text-info fw-bold border rounded border-2 border-info p-2 my-2 ">
-                        <i class="bi bi-chevron-left"></i>
-                        <a asp-controller="Admin" asp-action="admin_dashboard" class="text-info">Back</a>
+                    <div class="">
+                       
+                        <button class="px-2 py-2" id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
                     </div>
                 </div>
 
@@ -111,7 +119,7 @@
                     <h5 class="text-info">MD123523PASA0002</h5>
                     <!-- text-area  -->
                     <div class="form-floating">
-                        <textarea class="form-control h-75 " id="floatingTextarea" disabled></textarea>
+                        <textarea class="form-control h-75 " id="floatingTextarea" ></textarea>
                         <label for="floatingTextarea" value="Fever">
                             <span class="text-tertiary"> Enter brief details symptoms(optional)</span>
                         </label>
@@ -159,7 +167,7 @@
                             <label for="floatingInput"><span class="text-tertiary ">Region</span></label>
                         </div>
                         <div class="form-floating mb-3 col-10 col-md-5 ">
-                            <input asp-for="Address" type="tel" class=" form-control bg-transparent " id="floatingInput" disabled>
+                            <input asp-for="Address" type="tel" class=" form-control bg-transparent " id="floatingInput" >
                             <label for="floatingInput" class="ms-2 ">Business name / Address</label>
 
                         </div>

@@ -10,9 +10,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace BusinessLogic.Services
 {
@@ -247,6 +250,7 @@ namespace BusinessLogic.Services
                 {
                     reqStatusLog.Status = (int)StatusEnum.Cancelled;
                     reqStatusLog.Notes = cancelCaseModel.notes;
+
                     _db.Requeststatuslogs.Update(reqStatusLog);
                     _db.Requests.Update(req);
                     _db.SaveChanges();
@@ -261,9 +265,6 @@ namespace BusinessLogic.Services
             {
                 return false;
             }
-
-
-
 
         }
 
@@ -309,6 +310,7 @@ namespace BusinessLogic.Services
                     rsl.Requestid = (int)assignCaseModel.ReqId;
                     rsl.Status = (int)StatusEnum.Accepted;
                     rsl.Notes = assignCaseModel.description;
+                    rsl.Physicianid = assignCaseModel.selectPhysicianId;
                     rsl.Createddate = DateTime.Now;
                     _db.Requeststatuslogs.Add(rsl);
                     _db.Requests.Update(req);
@@ -319,6 +321,8 @@ namespace BusinessLogic.Services
                 {
                     reqStatusLog.Status = (int)StatusEnum.Accepted;
                     reqStatusLog.Notes = assignCaseModel.description;
+                    reqStatusLog.Physicianid = assignCaseModel.selectPhysicianId;
+
                     _db.Requeststatuslogs.Update(reqStatusLog);
                     _db.Requests.Update(req);
                     _db.SaveChanges();
@@ -449,6 +453,28 @@ namespace BusinessLogic.Services
             }
         }
 
+        public bool ClearCase(int reqId)
+        {
+            try
+            {
+                var request = _db.Requests.FirstOrDefault(x => x.Requestid == reqId);
+                if (request != null)
+                {
+                    request.Status = (int)StatusEnum.Clear;
+                    _db.Requests.Update(request);
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
+
+        
 
 
         public ViewUploadModel GetAllDocById(int requestId)
@@ -470,6 +496,17 @@ namespace BusinessLogic.Services
         }
 
 
+        public SendAgreementModel SendAgreementCase(int reqId)
+        {
+            var requestClient = _db.Requestclients.Where(x => x.Requestid == reqId).FirstOrDefault();
+            SendAgreementModel obj = new();
+            obj.Reqid = reqId;
+            obj.PhoneNumber = requestClient.Phonenumber;
+            obj.Email = requestClient.Email;
+
+            return obj;
+        }
+
 
 
 
@@ -482,8 +519,7 @@ namespace BusinessLogic.Services
                 {
                     foreach (IFormFile file in files)
                     {
-                        if (file != null && file.Length > 0)
-                        {
+                        
                             //get file name
                             var fileName = Path.GetFileName(file.FileName);
 
@@ -506,7 +542,7 @@ namespace BusinessLogic.Services
 
                             _db.Requestwisefiles.Add(requestwisefile);
 
-                        }
+                        
                     }
                     _db.SaveChanges();
                     return true;
@@ -574,28 +610,7 @@ namespace BusinessLogic.Services
         }
 
 
-        //public Order order(int Reqid)
-        //{
-        //    Orderdetail order=_db.Orderdetails.FirstOrDefault(x=>x.)
-        //    Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
-        //    ViewCaseViewModel viewCaseViewModel = new()
-        //    {
-        //        Requestclientid = obj.Requestclientid,
-        //        Firstname = obj.Firstname,
-        //        Lastname = obj.Lastname,
-        //        Email = obj.Email,
-        //        Phonenumber = obj.Phonenumber,
-        //        City = obj.City,
-        //        Street = obj.Street,
-        //        State = obj.State,
-        //        Zipcode = obj.Zipcode,
-        //        Room = obj.Address,
-        //        Notes = obj.Notes,
-        //        RequestTypeId = RequestTypeId
-        //    };
-        //    return viewCaseViewModel;
-        //}
-
+       
 
     }
 

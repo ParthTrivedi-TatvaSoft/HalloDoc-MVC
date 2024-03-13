@@ -69,7 +69,7 @@
             <div class="d-flex gap-2">
                 <button class="px-3" id="downloadSelected" onclick="downloadSelectedFiles()">Download All</button>
                 <button class="px-3" id="downloadSelected" onclick="deleteAllFiles()">Delete All</button>
-                <button class="px-3" id="downloadSelected">Send Mail</button>
+                <button class="px-3" id="downloadSelected" onclick="sendMail()">Send Mail</button>
 
             </div>
         </div>
@@ -201,6 +201,43 @@
     function deleteSelectedFiles(selectedFiles) {
         $.ajax({
             url: '/Admin/DeleteAllFiles',
+            type: 'POST',
+            data: { selectedFiles: selectedFiles },
+            success: function (response) {
+
+                window.location.reload();
+
+            }
+        });
+    }
+
+
+    function sendMail() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please select at least one file to Send.');
+            return;
+        }
+
+        var confirmDelete = confirm("Are you sure you want to send all selected files?");
+        if (!confirmDelete) {
+            return;
+        }
+
+        sendSelectedFiles(selectedFiles);
+    }
+    function sendSelectedFiles(selectedFiles) {
+        $.ajax({
+            url: '/Admin/SendAllFiles',
             type: 'POST',
             data: { selectedFiles: selectedFiles },
             success: function (response) {

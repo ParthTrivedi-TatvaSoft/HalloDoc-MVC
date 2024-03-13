@@ -1,12 +1,29 @@
 ﻿@using DataAccess.CustomModels;
 @model Order;
 
+
+
+ <style >
+    #downloadSelected {
+        color: rgb(0, 183, 255);
+        background-color: white;
+        border: 1px solid rgb(0, 183, 255);
+        border-radius: 5px;
+    }
+
+    #downloadSelected:hover {
+        background-color: rgb(0, 183, 255);
+        color: white;
+    }
+</style>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
 <div class="container">
     <div class="d-flex justify-content-between pt-3">
-        <h3>Send Order</h3>
-        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+        <h3 class="fw-bold">Send Order</h3>
+        <button class="px-3" id="downloadSelected" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
+      
 
     </div>
     <div class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white">

@@ -244,8 +244,8 @@
 .patient_circle {
     position: relative;
     margin-right: 8px;
-    width: 1rem;
-    height: 1rem;
+    width: 11px;
+    height: 11px;
     background-color: #60be5e;
     border: 1px solid #60be5e;
     border-radius: 100%;
