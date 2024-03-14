@@ -187,8 +187,6 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult submit_request()
         {
-
-            //_emailSender.SendEmailAsync("hello", "hello", "hello");
             return View();
         }
 
@@ -232,17 +230,14 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+
+
+
+
+
+
        
 
-      
-        
-       
-
-        public IActionResult GetDcoumentsById(int requestId)
-        {
-            var list = _patientService.GetAllDocById(requestId);
-            return PartialView("_DocumentList", list.ToList());
-        }
 
 
         public IActionResult PatientResetPasswordEmail(Aspnetuser user)
@@ -323,14 +318,37 @@ namespace HalloDoc.mvc.Controllers
      ;
         }
 
+
         [HttpPost]
-        public IActionResult document_list()
+        public IActionResult UploadDocuments(DocumentModel model)
         {
             var rid = (int)HttpContext.Session.GetInt32("rid");
-            var file = HttpContext.Request.Form.Files.FirstOrDefault();
-            _patientService.AddFile(file, rid);
-            return RedirectToAction("document_list", "Patient", new { reqId = rid });
-        }
+            if (model.uploadedFiles == null)
+            {
+                _notyf.Error("First Upload Files");
+                return RedirectToAction("document_list", "Patient", new { reqId = rid });
+            }
+            bool isUploaded = _patientService.UploadDocuments(model.uploadedFiles, rid);
+            if (isUploaded)
+            {
+                _notyf.Success("Uploaded Successfully");
+                return RedirectToAction("document_list", "Patient", new { reqId = rid });
+            }
+            else
+            {
+                _notyf.Error("Upload Failed");
+                return RedirectToAction("document_list", "Patient", new { reqId = rid });
+            }
+            }
+
+        //[HttpPost]
+        //public IActionResult document_list()
+        //{
+        //    var rid = (int)HttpContext.Session.GetInt32("rid");
+        //    var file = HttpContext.Request.Form.Files.FirstOrDefault();
+        //    _patientService.AddFile(file, rid);
+        //    return RedirectToAction("document_list", "Patient", new { reqId = rid });
+        //}
 
 
 

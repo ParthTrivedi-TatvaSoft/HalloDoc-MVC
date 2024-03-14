@@ -20,7 +20,7 @@ namespace DataAccess.CustomModels
         public string? lastName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Date Of Birth")]
-        public DateOnly dob { get; set; }
+        public DateTime dob { get; set; }
 
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
@@ -135,6 +135,10 @@ namespace DataAccess.CustomModels
         public DateTime createdDate { get; set; }
         public int currentStatus { get; set; }
         public List<string> document { get; set; }
+        public int? IntDate { get; set; }
+        public string StrMonth { get; set; }
+        public int? IntYear { get; set; }
+        public string ConfirmationNumber { get; set; }
 
 
     }
@@ -144,13 +148,32 @@ namespace DataAccess.CustomModels
         public int? id { get; set; }
         public string? firstName { get; set; }
         public string? lastName { get; set; }
+
     }
+
+    public class DocumentModel
+    {
+        public List<Requestwisefile>? files { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
+        public int? ReqId { get; set; }
+        public List<IFormFile>? uploadedFiles { get; set; }
+        public string? ConfirmationNumber { get; set; }
+    }
+
 
     public class Profile
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
+        public int? IntDate { get; set; }
+        public string StrMonth { get; set; }
+        public int? IntYear { get; set; }
+
+        public int isMobileCheck { get; set; }
+
 
         public string? PhoneNo { get; set; }
 

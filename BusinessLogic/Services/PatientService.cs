@@ -11,7 +11,8 @@ using System.Linq;
 using DataAccess.Enums;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace BusinessLogic.Services
 {
@@ -67,8 +68,8 @@ namespace BusinessLogic.Services
                 u.State = patientInfoModel.state;
                 u.Zipcode = patientInfoModel.zipCode;
                 u.Createdby = patientInfoModel.firstName + patientInfoModel.lastName;
-                u.Intyear = int.Parse(patientInfoModel.dob.ToString("yyyy"));
-                u.Intdate = int.Parse(patientInfoModel.dob.ToString("dd"));
+                u.Intyear = patientInfoModel.dob.Year;
+                u.Intdate = patientInfoModel.dob.Day;
                 u.Strmonth = patientInfoModel.dob.ToString("MMM");
                 u.Createddate = DateTime.Now;
                 u.Modifieddate = DateTime.Now;
@@ -99,6 +100,16 @@ namespace BusinessLogic.Services
             _db.Requests.Add(request);
             _db.SaveChanges();
 
+            var regionData = _db.Regions.Where(x => x.Regionid == u.Regionid).FirstOrDefault();
+
+
+            var count = (from req in _db.Requests where req.Userid == u.Userid && req.Createddate.Date == DateTime.Now.Date select req).Count();
+            request.Confirmationnumber = $"{regionData.Abbreviation.Substring(0, 2)}{request.Createddate.Day.ToString().PadLeft(2, '0')}{request.Createddate.Month.ToString().PadLeft(2, '0')}{(request.Createddate.Year % 100).ToString().PadLeft(2, '0')}{u.Lastname.ToUpper().Substring(0, 2)}{u.Firstname.ToUpper().Substring(0, 2)}{count.ToString().PadLeft(4, '0')}";
+
+            _db.Requests.Update(request);
+            _db.SaveChanges();
+
+
             Requestclient info = new Requestclient();
             info.Request = request;
             info.Requestid = request.Requestid;
@@ -111,9 +122,10 @@ namespace BusinessLogic.Services
             info.City = patientInfoModel.city;
             info.State = patientInfoModel.state;
             info.Zipcode = patientInfoModel.zipCode;
-            info.Intyear = int.Parse(patientInfoModel.dob.ToString("yyyy"));
-            info.Intdate = int.Parse(patientInfoModel.dob.ToString("dd"));
+            info.Intyear = patientInfoModel.dob.Year;
+            info.Intdate = patientInfoModel.dob.Day;
             info.Strmonth = patientInfoModel.dob.ToString("MMM");
+     
             info.Regionid = 1;
 
             _db.Requestclients.Add(info)
@@ -156,116 +168,6 @@ namespace BusinessLogic.Services
         }
 
 
-        //        Guid id = Guid.NewGuid();
-
-        //            Request request = new Request();
-        //            request.Requesttypeid = 2;
-        //            request.Status = 1;
-        //            request.Createddate = DateTime.Now;
-        //            request.Isurgentemailsent = new BitArray(1);
-        //            request.Firstname = patientInfoModel.firstName;
-        //            request.Lastname = patientInfoModel.lastName;
-        //            request.Phonenumber = patientInfoModel.phNo;
-        //            request.Email = patientInfoModel.email;
-
-        //            _db.Requests.Add(request);
-        //            _db.SaveChanges();
-
-        //            Requestclient info = new Requestclient();
-        //            info.Requestid = request.Requestid;
-        //            info.Notes = patientInfoModel.symptoms;
-        //            info.Firstname = patientInfoModel.firstName;
-        //            info.Lastname = patientInfoModel.lastName;
-        //            info.Phonenumber = patientInfoModel.phNo;
-        //            info.Email = patientInfoModel.email;
-        //            info.Street = patientInfoModel.street;
-        //            info.City = patientInfoModel.city;
-        //            info.State = patientInfoModel.state;
-        //            info.Zipcode = patientInfoModel.zipCode;
-
-        //            _db.Requestclients.Add(info)
-        //;
-        //            _db.SaveChanges();
-
-        //            var user = _db.Aspnetusers.Where(x => x.Email == patientInfoModel.email).FirstOrDefault();
-
-        //            Aspnetuser obj = _db.Aspnetusers.FirstOrDefault(rq => rq.Email == patientInfoModel.email);
-        //            if (obj == null)
-        //            {
-        //                if (patientInfoModel.password== patientInfoModel.confirmPassword)
-        //                {
-        //                    Aspnetuser aspnetuser = new()
-        //                    {
-        //                        Id = id.ToString(),
-        //                        Username = patientInfoModel.firstName,
-        //                        Passwordhash = patientInfoModel.password,
-        //                        Createddate = DateTime.Now,
-        //                        Email=patientInfoModel.email,
-        //                        Phonenumber=patientInfoModel.phNo,
-
-        //                    };
-        //                    _db.Aspnetusers.Add(aspnetuser);
-        //                    _db.SaveChanges();
-        //                    user = aspnetuser;
-        //                }
-
-        //            }
-
-        //            User u = new User();
-        //            u.Aspnetuserid = user.Id;
-        //            u.Firstname = patientInfoModel.firstName;
-        //            u.Lastname = patientInfoModel.lastName;
-        //            u.Email = patientInfoModel.email;
-        //            u.Mobile = patientInfoModel.phNo;
-        //            u.Street = patientInfoModel.street;
-        //            u.City = patientInfoModel.city;
-        //            u.State = patientInfoModel.state;
-        //            u.Zipcode = patientInfoModel.zipCode;
-        //            u.Createdby = patientInfoModel.firstName;
-        //            u.Createddate = DateTime.Now;
-
-        //            _db.Users.Add(u);
-        //            _db.SaveChanges();
-
-
-
-        //            if (patientInfoModel.File != null)
-        //            {
-
-
-        //                foreach (IFormFile file in patientInfoModel.File)
-        //                {
-        //                    if (patientInfoModel.File != null && file.Length > 0)
-        //                    {
-        //                        //get file name
-        //                        var fileName = Path.GetFileName(file.FileName);
-
-        //                        //define path
-        //                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-        //                        // Copy the file to the desired location
-        //                        using (var stream = new FileStream(filePath, FileMode.Create))
-        //                        {
-        //                            file.CopyTo(stream);
-        //                        }
-
-        //                        Requestwisefile requestwisefile = new()
-        //                        {
-
-        //                            Filename = fileName,
-        //                            Requestid = request.Requestid,
-        //                            Createddate = DateTime.Now
-        //                        };
-
-        //                        _db.Requestwisefiles.Add(requestwisefile);
-        //                        _db.SaveChanges();
-        //                    };
-
-        //                }
-        //            }
-
-
-        //        }
 
         public void AddFamilyReq(FamilyReqModel familyReqModel)
         {
@@ -449,7 +351,8 @@ namespace BusinessLogic.Services
                                       reqId = groupedFiles.Select(x => x.Request.Requestid).FirstOrDefault(),
                                       createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
                                       currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault(),
-                                      document = groupedFiles.Select(x => x.Filename.ToString()).ToList()
+                                      document = groupedFiles.Select(x => x.Filename.ToString()).ToList(),
+                                      ConfirmationNumber = groupedFiles.Select(x => x.Request.Confirmationnumber).FirstOrDefault(),
                                   }).ToList();
 
             MedicalHistoryList medicalHistoryList = new()
@@ -463,41 +366,92 @@ namespace BusinessLogic.Services
             return medicalHistoryList;
         }
 
-        public IQueryable<Requestwisefile>? GetAllDocById(int requestId)
+        public DocumentModel GetAllDocById(int requestId)
         {
-            //var x = _db.Requests.FirstOrDefault(m => m.Requestid == requestId);
-            var data = from request in _db.Requestwisefiles
-                       where request.Requestid == requestId
-                       select request;
-            return data;
-        }
-
-
-        public void AddFile(IFormFile file, int reqId)
-        {
-            var fileName = Path.GetFileName(file.FileName);
-
-            //define path
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-            // Copy the file to the desired location
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            var list = _db.Requestwisefiles.Where(x => x.Requestid == requestId).ToList();
+            var reqClient = _db.Requestclients.Where(x => x.Requestid == requestId).FirstOrDefault();
+            var req = _db.Requests.Where(x => x.Requestid == requestId).FirstOrDefault();
+            DocumentModel result = new()
             {
-                file.CopyTo(stream)
-     ;
-            }
-            Requestwisefile requestwisefile = new()
-            {
-                Filename = fileName,
-                Requestid = reqId,
-                Createddate = DateTime.Now
+                files = list,
+                firstName = reqClient.Firstname,
+                lastName = reqClient.Lastname,
+                ConfirmationNumber = req.Confirmationnumber,
             };
-            _db.Requestwisefiles.Add(requestwisefile);
-            _db.SaveChanges();
+            return result;
         }
+
+
+     //   public void AddFile(IFormFile file, int reqId)
+     //   {
+     //       var fileName = Path.GetFileName(file.FileName);
+
+     //       //define path
+     //       var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+     //       // Copy the file to the desired location
+     //       using (var stream = new FileStream(filePath, FileMode.Create))
+     //       {
+     //           file.CopyTo(stream)
+     //;
+     //       }
+     //       Requestwisefile requestwisefile = new()
+     //       {
+     //           Filename = fileName,
+     //           Requestid = reqId,
+     //           Createddate = DateTime.Now
+     //       };
+     //       _db.Requestwisefiles.Add(requestwisefile);
+     //       _db.SaveChanges();
+     //   }
+
+        public bool UploadDocuments(List<IFormFile> files, int reqId)
+        {
+            try
+            {
+                if (files != null)
+                {
+                    foreach (IFormFile file in files)
+                    {
+                        if (file != null && file.Length > 0)
+                        {
+                            //get file name
+                            var fileName = Path.GetFileName(file.FileName);
+
+                            //define path
+                            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                            // Copy the file to the desired location
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                file.CopyTo(stream);
+                            }
+
+                            Requestwisefile requestwisefile = new()
+                            {
+                                Filename = fileName,
+                                Requestid = reqId,
+                                Createddate = DateTime.Now
+                            };
+                            _db.Requestwisefiles.Add(requestwisefile);
+                        }
+                    }
+                    _db.SaveChanges();
+                    return true;
+                }
+                else { return false; }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
 
         public Profile GetProfile(int userid)
         {
+
             var user = _db.Users.FirstOrDefault(x => x.Userid == userid);
             Profile profile = new()
             {
@@ -507,8 +461,10 @@ namespace BusinessLogic.Services
                 PhoneNo = user.Mobile,
                 State = user.State,
                 City = user.City,
+                isMobileCheck = user.Ismobile[0] ? 1 : 0,
                 Street = user.Street,
                 ZipCode = user.Zipcode,
+                DateOfBirth = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
 
 
             };
@@ -531,6 +487,10 @@ namespace BusinessLogic.Services
                     existingUser.City = profile.City;
                     existingUser.State = profile.State;
                     existingUser.Zipcode = profile.ZipCode;
+                    existingUser.Intdate = profile.DateOfBirth.Day;
+                    existingUser.Strmonth = profile.DateOfBirth.ToString("MMM");
+                    existingUser.Intyear = profile.DateOfBirth.Year;
+                    existingUser.Ismobile[0] = profile.isMobileCheck == 1 ? true : false;
                     _db.Users.Update(existingUser);
                     _db.SaveChanges();
 

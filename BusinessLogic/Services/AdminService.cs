@@ -130,11 +130,11 @@ namespace BusinessLogic.Services
         {
 
             var requestNotes = _db.Requestnotes.Where(x => x.Requestid == ReqId).FirstOrDefault();
-            var requeststatuslog = _db.Requeststatuslogs.Where(x => x.Requestid == ReqId).FirstOrDefault();
+            var statuslogs = _db.Requeststatuslogs.Where(x => x.Requestid == ReqId).ToList();
             ViewNotesModel model = new ViewNotesModel();
             if (model == null)
             {
-                model.TransferNotes = null;
+                model.TransferNotesList = null;
                 model.PhysicianNotes = null;
                 model.AdminNotes = null;
             }
@@ -145,9 +145,9 @@ namespace BusinessLogic.Services
                 model.PhysicianNotes = requestNotes.Physiciannotes;
                 model.AdminNotes = requestNotes.Adminnotes;
             }
-            if (requeststatuslog != null)
+            if (statuslogs != null)
             {
-                model.TransferNotes = requeststatuslog.Notes;
+                model.TransferNotesList = statuslogs;
             }
 
             return model;
@@ -507,6 +507,27 @@ namespace BusinessLogic.Services
             return obj;
         }
 
+
+
+        public CloseCaseModel ShowCloseCase(int reqId)
+        {
+            var requestClient = _db.Requestclients.FirstOrDefault(x => x.Requestid == reqId);
+            var list = _db.Requestwisefiles.Where(x => x.Requestid == reqId).ToList();
+            CloseCaseModel model = new()
+            {
+                reqid = reqId,
+                fname = requestClient.Firstname,
+                lname = requestClient.Lastname,
+                email = requestClient.Email,
+                phoneNo = requestClient.Phonenumber,
+                files = list
+
+
+
+            };
+
+            return model;
+        }
 
 
 

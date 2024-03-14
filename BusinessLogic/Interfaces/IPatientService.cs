@@ -22,16 +22,14 @@ namespace BusinessLogic.Interfaces
 
         void AddBusinessReq(BusinessReqModel businessReqModel);
 
-      
-
-
-
         MedicalHistoryList GetMedicalHistory(int userid);
-        IQueryable<Requestwisefile>? GetAllDocById(int requestId);
         Profile GetProfile(int userid);
         bool EditProfile(Profile profile);
 
-        void AddFile(IFormFile file, int reqId);
+        bool UploadDocuments(List<IFormFile> files, int reqId);
+    
+
+    public DocumentModel GetAllDocById(int requestId);
 
 
 

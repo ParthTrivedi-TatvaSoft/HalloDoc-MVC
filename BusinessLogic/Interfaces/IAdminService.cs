@@ -56,5 +56,7 @@ namespace BusinessLogic.Interfaces
         
 
         SendAgreementModel SendAgreementCase(int reqId);
+
+        CloseCaseModel ShowCloseCase(int reqId);
     }
 }

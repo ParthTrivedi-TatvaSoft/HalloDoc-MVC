@@ -28,28 +28,8 @@
         </form>
     </div>
 </div>
+<div id="modelContent" />
 
 <script>
-    $('#submitbutton').click(function () {
-        var description = $("#message-text").val();
-        var reqClientId = $("#ReqClientid").val();
-
-        $.ajax({
-            url: "/Home/CancelAgreementSubmit",
-            data: {
-                ReqClientid: reqClientId,
-                Description: description
-            },
-            type: 'POST',
-            success: function (result) {
-                $('#display').html(result);
-                $('#cancelAgreementModal').modal('show');
-                location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-                alert('Error Fetching Request')
-            },
-        });
-    });
+    
 </script>

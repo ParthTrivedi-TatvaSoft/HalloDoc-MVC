@@ -1,6 +1,5 @@
-﻿@using DataAccess.Models
-@model IQueryable<Requestwisefile>;
-
+﻿@using DataAccess.CustomModels;
+@model DocumentModel;
 <style>
     #downloadSelected {
         color: rgb(0, 183, 255);
@@ -43,8 +42,8 @@
         <div class="row">
             <p class="col-12">Patient Name</p>
             <p class="col-12">
-                <span class="fw-bolder fs-4">First Last </span>
-                <span>(f34r34t5gvr44)</span>
+                <span class="fw-bolder fs-4">@Model.firstName @Model.lastName </span>
+                <span>(@Model.ConfirmationNumber)</span>
             </p>
             <p class="col-12 py-3">check here for any files that you or the doctors of your subsequents requestors have attached for you to review</p>
 
@@ -54,8 +53,8 @@
         <!-- ----container    -->
     </div>
 
-    <form class="input-group my-5 mt-3" method="post" enctype="multipart/form-data">
-        <input    name="file" type="file" class="form-control" id="formFileLg" multiple>
+    <form class="input-group my-5 mt-3" method="post" asp-action="UploadDocuments" asp-controller="Patient" enctype="multipart/form-data">
+        <input asp-for="uploadedFiles" type="file" class="form-control" id="formFileLg" multiple>
         <button type="submit" class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</button>
         <br />
     </form>
@@ -89,24 +88,24 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model != null && Model.Count() > 0)
+                @if (Model != null && Model.files.Count() > 0)
                 {
-                    @foreach (Requestwisefile rwf in Model)
+                    @foreach (var item in Model.files)
                     {
                         <tr>
                             <td>
-                                <input type="checkbox" name="selectedFiles" value="@rwf.Filename">
+                                <input type="checkbox" name="selectedFiles" value="@item.Filename">
                             </td>
 
                             <td>
                                 <i class="bi bi-file-earmark-fill" style="color:red"></i>
-                                @rwf.Filename
+                                @item.Filename
                             </td>
-                            <td>@rwf.Requestid</td>
-                            <td>@rwf.Createddate.ToString("MMM dd, yyyy")</td>
+                            <td>@item.Requestid</td>
+                            <td>@item.Createddate.ToString("MMM dd, yyyy")</td>
                             <td>
 
-                                <a href="~/UploadedFiles/@rwf.Filename" class="btn px-2 py-1 btn-outline-info shadow-none night-mode-btn" download>
+                                <a href="~/UploadedFiles/@item.Filename" class="btn px-2 py-1 btn-outline-info shadow-none night-mode-btn" download>
                                     <i class="bi bi-cloud-download"></i>
                                 </a>
 

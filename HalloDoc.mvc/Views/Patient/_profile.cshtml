@@ -37,16 +37,16 @@
 
         <div class="col-2">
             <div class="form-floating">
-                <select class="form-select" id="floatingSelect" type="select" aria-label="Floating label select example" disabled>
+                <select class="form-select" asp-for="isMobileCheck" id="floatingSelect" type="select" aria-label="Floating label select example" disabled>
                     <option value="1">Mobile</option>
-                    <option value="2">Landline</option>
+                    <option value="0">Landline</option>
                 </select>
                 <label for="floatingSelect">Works With Selects</label>
             </div>
         </div>
         <div class="col-4">
             <div class="input-div form-floating mb-3">
-                <input type="tel" asp-for="PhoneNo" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
+                <input type="tel" asp-for="PhoneNo" class="form-control p-3 ps-5" id="floatingInput" disabled>
 
             </div>
         </div>

@@ -18,7 +18,7 @@ public partial class User
 
     public string? Mobile { get; set; }
 
-    public BitArray? Ismobile { get; set; }
+    public BitArray? Ismobile { get; set; } = new BitArray(1) { [0] = true };
 
     public string? Street { get; set; }
 

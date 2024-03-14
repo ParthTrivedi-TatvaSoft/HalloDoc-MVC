@@ -8,3 +8,21 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
+
+
+<script>
+    function showCancleAgreement(reqId) {
+        $.ajax({
+            url: '/Home/CancelAgreementModal',
+            type: 'GET',
+            data: { reqId: reqId },
+            success: function (response) {
+
+                $("#modelContent").html(response);
+
+                $('#cancleagreementModal').modal('show');
+
+            }
+        });
+    }
+</script>

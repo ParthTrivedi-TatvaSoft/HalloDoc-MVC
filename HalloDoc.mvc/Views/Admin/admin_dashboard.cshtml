@@ -380,7 +380,7 @@
             if (reqType == 4) {
                 role = 'Concierge';
             }
-            console.log(reqType);
+           
             $.ajax({
                 url: '/Admin/SendAgreement',
                 type: 'GET',
@@ -395,7 +395,21 @@
             });
         }
         
+        function clearCase(reqId) {
+            var url = '@Url.Action("ClearCase","Admin")';
 
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+                    console.log(response);
+                    $("#modelContent").html(response);
+
+                    $('#clearModal').modal('show');
+                }
+            });
+        }
 
 
 
