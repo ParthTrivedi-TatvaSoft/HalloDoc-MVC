@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Math.EC.ECCurve;
+using System.Globalization;
 
 namespace BusinessLogic.Services
 {
@@ -31,7 +32,7 @@ namespace BusinessLogic.Services
 
         public Aspnetuser GetAspnetuser(string email)
         {
-            var aspNetUser = _db.Aspnetusers.Include(x=>x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
+            var aspNetUser = _db.Aspnetusers.Include(x => x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
             return aspNetUser;
         }
         public List<AdminDashTableModel> GetRequestsByStatus(int tabNo)
@@ -472,9 +473,9 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
-        
 
-        
+
+
 
 
         public ViewUploadModel GetAllDocById(int requestId)
@@ -511,22 +512,72 @@ namespace BusinessLogic.Services
 
         public CloseCaseModel ShowCloseCase(int reqId)
         {
-            var requestClient = _db.Requestclients.FirstOrDefault(x => x.Requestid == reqId);
+            var rc = _db.Requestclients.FirstOrDefault(x => x.Requestid == reqId);
+
             var list = _db.Requestwisefiles.Where(x => x.Requestid == reqId).ToList();
-            CloseCaseModel model = new()
+
+            CloseCaseModel model = new CloseCaseModel();
+
+            model.reqid = reqId;
+            model.fname = rc.Firstname;
+            model.lname = rc.Lastname;
+            model.email = rc.Email;
+            model.phoneNo = rc.Phonenumber;
+            model.files = list;
+            if (rc.Intdate == null || rc.Intyear == null || rc.Strmonth == null)
             {
-                reqid = reqId,
-                fname = requestClient.Firstname,
-                lname = requestClient.Lastname,
-                email = requestClient.Email,
-                phoneNo = requestClient.Phonenumber,
-                files = list
+                model.DateOfBirth = new DateTime(Convert.ToInt32(2000), DateTime.ParseExact("Jan", "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(1));
+            }
+            else
+            {
+                model.DateOfBirth = new DateTime(Convert.ToInt32(rc.Intyear), DateTime.ParseExact(rc.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(rc.Intdate));
+            }
 
 
-
-            };
 
             return model;
+        }
+
+        public bool SaveCloseCase(CloseCaseModel model)
+        {
+            try
+            {
+                var reqClient = _db.Requestclients.FirstOrDefault(x => x.Requestid == model.reqid);
+                reqClient.Phonenumber = model.phoneNo;
+                reqClient.Email = model.email;
+                _db.Requestclients.Update(reqClient);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        public bool SubmitCloseCase(int ReqId)
+        {
+            try
+            {
+                var request = _db.Requests.FirstOrDefault(x => x.Requestid == ReqId);
+                request.Status = (int)StatusEnum.Unpaid;
+                _db.Requests.Update(request);
+                _db.Requeststatuslogs.Add(new Requeststatuslog()
+                {
+                    Requestid = ReqId,
+                    Status = (int)StatusEnum.Unpaid,
+                    Notes = "Case closed and unpaid",
+                    Createddate = DateTime.Now,
+                });
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
         }
 
 
@@ -540,30 +591,30 @@ namespace BusinessLogic.Services
                 {
                     foreach (IFormFile file in files)
                     {
-                        
-                            //get file name
-                            var fileName = Path.GetFileName(file.FileName);
 
-                            //define path
-                            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+                        //get file name
+                        var fileName = Path.GetFileName(file.FileName);
 
-                            // Copy the file to the desired location
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                file.CopyTo(stream)
-                       ;
-                            }
+                        //define path
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
 
-                            Requestwisefile requestwisefile = new()
-                            {
-                                Filename = fileName,
-                                Requestid = reqId,
-                                Createddate = DateTime.Now
-                            };
+                        // Copy the file to the desired location
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            file.CopyTo(stream)
+                   ;
+                        }
 
-                            _db.Requestwisefiles.Add(requestwisefile);
+                        Requestwisefile requestwisefile = new()
+                        {
+                            Filename = fileName,
+                            Requestid = reqId,
+                            Createddate = DateTime.Now
+                        };
 
-                        
+                        _db.Requestwisefiles.Add(requestwisefile);
+
+
                     }
                     _db.SaveChanges();
                     return true;
@@ -601,8 +652,8 @@ namespace BusinessLogic.Services
         }
 
 
-    
-      
+
+
 
 
 
@@ -631,7 +682,7 @@ namespace BusinessLogic.Services
         }
 
 
-       
+
 
     }
 

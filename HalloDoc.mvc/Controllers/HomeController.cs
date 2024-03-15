@@ -38,7 +38,11 @@ namespace HalloDoc.mvc.Controllers
         { 
             return View();
         }
+        public IActionResult AgreeAgreement(CancelAgreementModal model)
+        {
 
+            return View();
+        }
 
         public IActionResult CancelAgreementModal(int requestClientId)
         {

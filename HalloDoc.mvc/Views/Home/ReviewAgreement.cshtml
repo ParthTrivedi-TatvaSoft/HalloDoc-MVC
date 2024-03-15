@@ -1,10 +1,17 @@
-﻿<body class="d-flex justify-content-center align-items-center vh-100">
+﻿
+@using DataAccess.CustomModels;
+@model CancelAgreementModal;
+
+<body class="d-flex justify-content-center align-items-center vh-100">
     <div class="container text-center mt-5">
+        <form method="post" asp-controller="Home" asp-action="AgreeAgreement">
         <p class="text-start fs-5 pb-5">To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up until all care is completed. So with these points, if you would like us to provide care to you, Click on "Agree" and we'll get started immediately, if you do not agree simply click "Cancel".</p>
         <div class="d-flex justify-content-around">
-            <button type="button" class="btn btn-lg btn-success ">I Agree</button>
+            <button type="submit" class="btn btn-lg btn-success ">I Agree</button>
             <button type="button" class="btn btn-lg btn-danger ">Cancel</button>
         </div>
+
+        </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
@@ -14,6 +21,20 @@
     function showCancleAgreement(reqId) {
         $.ajax({
             url: '/Home/CancelAgreementModal',
+            type: 'GET',
+            data: { reqId: reqId },
+            success: function (response) {
+
+                $("#modelContent").html(response);
+
+                $('#cancleagreementModal').modal('show');
+
+            }
+        });
+    }
+    function showIAgreeAgreement(reqId) {
+        $.ajax({
+            url: '/Home/AgreeAgreement',
             type: 'GET',
             data: { reqId: reqId },
             success: function (response) {

@@ -1,0 +1,214 @@
+﻿<div class="container">
+    <div class=" mt-4 d-flex justify-content-between align-items-center">
+        <h4>Encounter Form</h4>
+        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+
+    </div>
+    <form action="" class="shadow border rounded my-3 bg-white" method="post">
+        <input type="hidden" value="" id="encounterReqId" />
+        <div class="mx-3 my-4 mt-3">
+            <h3 class="mb-3 text-center text-info">Medical Report-Confidential</h3>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input name="first_name" type="text" value="" class="form-control "
+                           id="exampleFormControlInput1" placeholder="Firstname" disabled>
+                    <label for="exampleFormControlInput1" class="form-label ms-2">Firstname</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input name="last_name" type="text" value="" class="form-control "
+                           id="exampleFormControlInput2" placeholder="Lastname" disabled>
+                    <label for="exampleFormControlInput2" class="form-label ms-2">Lastname</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-12 form-floating mb-3 text-muted">
+                    <input name="Location" type="text" value="" class="form-control "
+                           id="exampleFormControlInput3" placeholder="Location" disabled>
+                    <label for="exampleFormControlInput3" class="form-label ms-2">Location</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input type="date" asp-format="{0:yyyy-MM-dd}" name="DOB" class="form-control " id="dob"
+                           placeholder="Date Of Birth" disabled>
+                    <label for="dob" class="form-label ms-2">Date Of Birth</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input type="date" class="form-control dclass" id="Date" placeholder="Date" disabled>
+                    <label for="Date" class="form-label ms-2">Date</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input disabled style="height:58px" id="phoneEncounter"
+                           class=" form-control contact"
+                           aria-label="Contact"
+                           type="number" />
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <input name="email" type="email" class="form-control " id="email"
+                           placeholder="Email" disabled>
+                    <label for="email" class="form-label ms-2">Email</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_hl" disabled
+                              style="height: 100px"></textarea>
+                    <label for="encounter_hl" class="ms-2">History Of present illness or Injury</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_mh" disabled
+                              style="height: 100px"></textarea>
+                    <label for="encounter_mh" class="ms-2">Medical History</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_medications" disabled
+                              style="height: 100px"></textarea>
+                    <label for="encounter_medications" class="ms-2">Medications</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_al" disabled
+                              style="height: 100px"></textarea>
+                    <label for="encounter_al" class="ms-2">Allergies</label>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="temp"
+                           placeholder="Temp" disabled>
+                    <label for="temp" class="form-label ms-2">Temp</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="hr"
+                           placeholder="HR" disabled>
+                    <label for="hr" class="form-label ms-2">HR</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="rr"
+                           placeholder="RR" disabled>
+                    <label for="rr" class="form-label ms-2">RR</label>
+                    <span class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="bps"
+                           placeholder="FirsBlood pressuretname" disabled>
+                    <label for="bps" class="form-label ms-2">
+                        Blood pressure
+                        (Systolic)
+                    </label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="bpd"
+                           placeholder="Blood pressure" disabled>
+                    <label for="bpd" class="form-label ms-2">
+                        Blood pressure
+                        (Diastolic)
+                    </label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                    <input type="number" class="form-control dclass" id="o2"
+                           placeholder="O2" disabled>
+                    <label for="o2" class="form-label ms-2">O2</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
+                    <input type="text" class="form-control dclass" id="pain"
+                           placeholder="Pain" disabled>
+                    <label for="pain" class="form-label ms-2">Pain</label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="heent" disabled
+                              style="height: 100px"></textarea>
+                    <label for="heent" class="ms-2">Heent</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="cv" disabled
+                              style="height: 100px"></textarea>
+                    <label for="cv" class="ms-2">CV</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="chest" disabled
+                              style="height: 100px"></textarea>
+                    <label for="chest" class="ms-2">Chest</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="abd" disabled
+                              style="height: 100px"></textarea>
+                    <label for="abd" class="ms-2">ABD</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="extr" disabled
+                              style="height: 100px"></textarea>
+                    <label for="extr" class="ms-2">Extr</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="skin" disabled
+                              style="height: 100px"></textarea>
+                    <label for="skin" class="ms-2">Skin</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="neuro" disabled
+                              style="height: 100px"></textarea>
+                    <label for="neuro" class="ms-2">Neuro</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="other" disabled
+                              style="height: 100px"></textarea>
+                    <label for="other" class="ms-2">Other</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="daignosis" disabled
+                              style="height: 100px"></textarea>
+                    <label for="daignosis" class="ms-2">Diagnosis</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="treatmentplan" disabled
+                              style="height: 100px"></textarea>
+                    <label for="treatmentplan" class="ms-2">Treatment Plan</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_md" disabled
+                              style="height: 100px"></textarea>
+                    <label for="encounter_md" class="ms-2">Medications Dispensed</label>
+                </div>
+                <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="procedures" disabled
+                              style="height: 100px"></textarea>
+                    <label for="procedures" class="ms-2">Procedures</label>
+                </div>
+                <div class="form-floating mb-3 text-muted">
+                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="followup" disabled
+                              style="height: 100px"></textarea>
+                    <label for="followup" class="ms-2">Followup</label>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
+                <button type="button" id="editBtn" class="btn btn-info text-white EditBtn" onclick="enableFields()">Edit </button>
+
+                <button type="button" onclick="encounterBtn()" id="submitBtn" class="btn btn-info text-white EditBtn" style="display:none">Save</button>
+
+                <button type="button" id="cancelEncounterBtn" class="btn btn-outline-info EditBtn" onclick="disableFields()" style="display:none">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function disableFields() {
+        document.querySelectorAll('.dclass').forEach(function (element) {
+            element.disabled = true;
+        });
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('cancelEncounterBtn').style.display = 'none';
+        document.getElementById('editBtn').style.display = 'block';
+    }
+
+    function enableFields() {
+        document.querySelectorAll('.dclass').forEach(function (element) {
+            element.disabled = false;
+        });
+        document.getElementById('submitBtn').style.display = 'block';
+        document.getElementById('cancelEncounterBtn').style.display = 'block';
+        document.getElementById('editBtn').style.display = 'none';
+    }
+    disableFields();
+</script>

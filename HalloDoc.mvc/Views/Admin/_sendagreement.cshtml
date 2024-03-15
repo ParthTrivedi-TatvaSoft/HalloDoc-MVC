@@ -1,8 +1,6 @@
 ﻿@using DataAccess.CustomModels;
 @using DataAccess.Enums;
-<style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" / >
-</style>
+
 @model SendAgreementModel;
 
 @{
@@ -56,13 +54,13 @@
 
                     <input asp-for="PhoneNumber" type="tel" class="form-control border border-dark" id="phoneNumber">
                     <label for="exampleFormControlInput1">Phone Number</label>
-                    <small id="phoneRequired" class="d-none" style="color:red">Phone Number Is Required</small>
+                    <small id="phoneRequired" class="d-none" style="color:red">Phone Number is required</small>
 
                 </div>
                 <div class="col-12 form-group mt-3 form-floating">
                     <input asp-for="Email" type="email" class="form-control border border-dark" id="email">
                     <label for="exampleFormControlInput1">Email</label>
-                    <small id="emailRequired" class="d-none" style="color:red">Email Is Required</small>
+                    <small id="emailRequired" class="d-none" style="color:red">Email is required</small>
 
                 </div>
             </div>
@@ -83,7 +81,6 @@
 </style>
 
 <script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
 
     $('#phoneNumber').on('input', function () {
         let phoneNumber = $("#phoneNumber").val();
