@@ -682,8 +682,135 @@ namespace BusinessLogic.Services
         }
 
 
+        public bool IAgreeAgreement(AgreementModal model)
+        {
+            try
+            {
+                var req = _db.Requests.FirstOrDefault(x => x.Requestid == model.Reqid);
+                var requestclient = _db.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid);
+
+                req.Status = (int)StatusEnum.MDEnRoute;
+
+                Requeststatuslog rsl = new Requeststatuslog();
+                rsl.Requestid = req.Requestid;
+                rsl.Status = req.Status;
+                rsl.Createddate = DateTime.Now;
+
+                _db.Requests.Update(req);
+                _db.Requeststatuslogs.Add(rsl);
+                _db.SaveChanges();
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                return false;
+            }
+           
+        }
 
 
-    }
+        public AgreementModal ICancelAgreement(AgreementModal agreementModal)
+        {
+            //var req = _db.Requests.FirstOrDefault(x => x.Requestid == agreementModal.Reqid);
+                var requestclient = _db.Requestclients.FirstOrDefault(x => x.Requestid == agreementModal.Reqid);
+                AgreementModal model = new()
+                {
+                    Reqid=agreementModal.Reqid,
+                    fname = requestclient.Firstname,
+                    lname=requestclient.Lastname,
+                    ReqClientId=requestclient.Requestclientid
+
+    
+                };
+                return model;
+          
+           
+        }
+
+        public bool SubmitCancelAgreement(AgreementModal model)
+        {
+            try
+            {
+                var reqclientid = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == model.ReqClientId);
+                
+
+                if(model.ReqClientId != null)
+                {
+                    var request = _db.Requests.FirstOrDefault(x => x.Requestid == reqclientid.Requestid);
+
+                    request.Status = (int)StatusEnum.Closed;
+
+                    Requeststatuslog rsl = new Requeststatuslog();
+                    rsl.Requestid = request.Requestid;
+                    rsl.Status = request.Status;
+                    rsl.Notes = model.Reason;
+                    rsl.Createddate = DateTime.Now;
+
+                    _db.Requests.Update(request);
+                    _db.Requeststatuslogs.Add(rsl);
+                    _db.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public EncounterFormModel EncounterForm(int reqId)
+        {
+            var reqClient = _db.Requestclients.FirstOrDefault(x => x.Requestid == reqId);
+            var encForm = _db.Encounterforms.FirstOrDefault(x => x.Requestid == reqId);
+            EncounterFormModel ef = new EncounterFormModel();
+            ef.reqid = reqId;
+            ef.FirstName = reqClient.Firstname;
+            ef.LastName = reqClient.Lastname;
+            ef.Location = reqClient.Street + reqClient.City + reqClient.State + reqClient.Zipcode;
+            //ef.BirthDate = new DateTime((int)(reqClient.Intyear), Convert.ToInt16(reqClient.Strmonth), (int)(reqClient.Intdate)).ToString("yyyy-MM-dd");
+            ef.PhoneNumber = reqClient.Phonenumber;
+            ef.Email = reqClient.Email;
+            if (encForm != null)
+            {
+                ef.HistoryIllness = encForm.Illnesshistory;
+                ef.MedicalHistory = encForm.Medicalhistory;
+                //ef.Date = encForm.Intdate;
+                ef.Medications = encForm.Medications;
+                ef.Allergies = encForm.Allergies;
+                ef.Temp = encForm.Temperature;
+                ef.Hr = encForm.Heartrate;
+                ef.Rr = encForm.Respirationrate;
+                ef.BpS = encForm.Bloodpressuresystolic;
+                ef.BpD = encForm.Bloodpressurediastolic;
+                ef.O2 = encForm.Oxygenlevel;
+                ef.Pain = encForm.Pain;
+                ef.Heent = encForm.Heent;
+                ef.Cv = encForm.Cardiovascular;
+                ef.Chest = encForm.Chest;
+                ef.Abd = encForm.Abdomen;
+                ef.Extr = encForm.Extremities;
+                ef.Skin = encForm.Skin;
+                ef.Neuro = encForm.Neuro;
+                ef.Other = encForm.Other;
+                ef.Diagnosis = encForm.Diagnosis;
+                ef.TreatmentPlan = encForm.Treatmentplan;
+                ef.MedicationDispensed = encForm.Medicationsdispensed;
+                ef.Procedures = encForm.Procedures;
+                ef.FollowUp = encForm.Followup;
+            }
+            return ef;
+        }
+    
+
+
+
+
+}
 
 }

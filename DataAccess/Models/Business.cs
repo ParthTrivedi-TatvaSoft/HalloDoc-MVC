@@ -26,7 +26,7 @@ public partial class Business
 
     public BitArray? Isregistered { get; set; }
 
-    public string Createdby { get; set; } = null!;
+    public string? Createdby { get; set; }
 
     public DateTime Createddate { get; set; }
 
@@ -40,7 +40,7 @@ public partial class Business
 
     public string? Ip { get; set; }
 
-    public virtual Aspnetuser CreatedbyNavigation { get; set; } = null!;
+    public virtual Aspnetuser? CreatedbyNavigation { get; set; }
 
     public virtual Aspnetuser? ModifiedbyNavigation { get; set; }
 

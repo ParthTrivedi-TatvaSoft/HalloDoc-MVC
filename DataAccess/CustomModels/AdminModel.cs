@@ -170,10 +170,13 @@ namespace DataAccess.CustomModels
         public int? reqType { get; set; }
     }
 
-    public class CancelAgreementModal
+    public class AgreementModal
     {
+        public int? Reqid { get; set; }
         public int ReqClientId { get; set; }
-        public string? PatientName { get; set; }
+        public string? fname { get; set; }
+        public string? lname { get; set; }
+        public string? Reason { get; set; }
     }
 
     public class CloseCaseModel

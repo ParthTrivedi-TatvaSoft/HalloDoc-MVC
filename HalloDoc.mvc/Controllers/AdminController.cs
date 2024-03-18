@@ -361,14 +361,14 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-        public IActionResult SendAgreement(string email,CancelAgreementModal  model)
+        public IActionResult SendAgreement(SendAgreementModel model)
         {
             try
             {
                 string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-                string reviewPathLink = baseUrl + Url.Action("ReviewAgreement", "Home");
+                string reviewPathLink = baseUrl + Url.Action("ReviewAgreement", "Home",new {reqId=model.Reqid});
 
-                SendEmail(email, "Review Agreement", $"Hello, Review the agreement properly: {reviewPathLink}");
+                SendEmail(model.Email, "Review Agreement", $"Hello, Review the agreement properly: {reviewPathLink}");
                 return Json(new { isSend = true });
 
             }
@@ -497,9 +497,10 @@ namespace HalloDoc.mvc.Controllers
         }
 
      
-        public IActionResult Encounter()
+        public IActionResult Encounter(int reqId)
         {
-            return View();
+            var model = _adminService.EncounterForm(reqId);
+            return View(model);
         }
 
 

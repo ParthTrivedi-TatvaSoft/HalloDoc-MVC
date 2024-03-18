@@ -136,7 +136,7 @@
             $.ajax({
                 url: "/Admin/SendAgreement",
                 type: "POST",
-                data: { email: email },
+                data:payload,
                 success: function (response) {
                     if (response.isSend) {
                         toastr.success("Agreement Sent");
