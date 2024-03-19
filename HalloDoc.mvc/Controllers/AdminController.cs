@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.Json.Nodes;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Text;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -85,6 +86,10 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult GetRequestsByStatus(int tabNo)
         {
             var list = _adminService.GetRequestsByStatus(tabNo);
+            if (tabNo == 0)
+            {
+                return Json(list);
+            }
             if (tabNo == 1)
             {
                 return PartialView("_newrequest", list);
@@ -110,6 +115,37 @@ namespace HalloDoc.mvc.Controllers
                 return PartialView("_unpaidrequest", list);
             }
             return View();
+        }
+
+
+        [HttpPost]
+        public string ExportReq(List<AdminDashTableModel> reqList)
+        {
+            StringBuilder stringbuild = new StringBuilder();
+
+            string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
+                "\"RequestDate\"," + "\"Phone\"," + "\"Notes\"," + "\"Address\","
+                 + "\"Physician\"," + "\"DateOfService\"," + "\"Region\"," +
+                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + "\"RequestId\"," + Environment.NewLine + Environment.NewLine;
+
+            stringbuild.Append(header);
+            int count = 1;
+
+            foreach (var item in reqList)
+            {
+                string content = $"\"{count}\"," + $"\"{item.firstName}\"," + $"\"{item.intDate}\"," + $"\"{item.requestorFname}\"," +
+                    $"\"{item.intDate}\"," + $"\"{item.mobileNo}\"," + $"\"{item.notes}\"," + $"\"{item.street}\"," +
+                    $"\"{item.lastName}\"," + $"\"{item.intDate}\"," + $"\"{item.street}\"," +
+                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + $"\"{item.Reqid}\"," + Environment.NewLine;
+
+                count++;
+                stringbuild.Append(content);
+            }
+
+            string finaldata = stringbuild.ToString();
+
+            return finaldata;
+
         }
 
         [CustomAuthorize("Admin")]
@@ -165,24 +201,18 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-        public IActionResult SubmitCancelCase(int casetag, string notes, int reqId)
+        public IActionResult SubmitCancelCase(CancelCaseModel cancelCaseModel, int reqId)
         {
-            CancelCaseModel cancelCaseModel = new()
-            {
-                casetag = casetag,
-                notes = notes,
-                reqId = reqId
-            };
-
-
-
+            cancelCaseModel.reqId = reqId;
             bool isCancelled = _adminService.SubmitCancelCase(cancelCaseModel);
 
-           
-            return Json(new { isCancelled = isCancelled });
-
-
-
+            if (isCancelled)
+            {
+                _notyf.Success("Cancelled successfully");
+                return RedirectToAction("admin_dashboard");
+            }
+            _notyf.Error("Cancellation Failed");
+            return RedirectToAction("admin_dashboard");
         }
 
 
@@ -193,6 +223,7 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_assigncase", model);
         }
 
+        [HttpPost]
         public IActionResult SubmitAssignCase(AssignCaseModel assignCaseModel)
         {
             assignCaseModel.ReqId = HttpContext.Session.GetInt32("AssignReqId");
@@ -206,7 +237,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        
+
 
         public IActionResult GetPhysician(int selectRegion)
         {
@@ -496,14 +527,31 @@ namespace HalloDoc.mvc.Controllers
             return result;
         }
 
-     
-        public IActionResult Encounter(int reqId)
+
+        [HttpGet]
+        public IActionResult Encounter(int ReqId)
         {
-            var model = _adminService.EncounterForm(reqId);
+            var model = _adminService.EncounterForm(ReqId);
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Encounter(EncounterFormModel model)
+        {
+            bool isSaved = _adminService.SubmitEncounterForm(model);
+            if (isSaved)
+            {
+                _notyf.Success("Saved!!");
+            }
+            else
+            {
+                _notyf.Error("Failed");
+            }
+            return RedirectToAction("Encounter", new { ReqId = model.reqid });
+        }
 
+
+       
 
 
 

@@ -1,17 +1,10 @@
 ﻿@using DataAccess.CustomModels;
+@using DataAccess.Enums;
 @{
     ViewData["Title"] = "viewcase";
 }
 
 @model ViewCaseViewModel;
-<style>
-    #back-btn {
-        color: rgb(0, 183, 255);
-        background-color: white;
-        border: 1px solid rgb(0, 183, 255);
-        border-radius: 5px;
-    }
-</style>
 
 <link rel="stylesheet" href="~/css/admin_dashboard.css">
 <nav class="bg-white navbr navbar navbar-expand w-100 ">
@@ -40,13 +33,15 @@
                 </li>
         </div>
         <li class="nav-item">
-            <button id="logout" class="px-2" onclick="location.href='@Url.Action("admin_login", "Admin")'">
+            <a asp-action="admin_dashboard" asp-controller="Admin">
+            <button id="logout" class="px-2">
                 <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
             </button>
+            </a>
 
         </li>
         <li class="nav-item">
-            <img onclick="myFunction()" class="light" src="/images/dark.png" alt="">
+            <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
         </li>
         </ul>
     </div>
@@ -60,27 +55,30 @@
 
 
     var bgColor = "He";
-    var requestType = "VIP";
+    var role = "hello";
 
-    @if (Model.RequestTypeId == 1)
-    {
-        bgColor = "#60be5e";
-        requestType = "Patient";
-    }
-    else if (Model.RequestTypeId == 2)
-    {
-        bgColor = "#e69232";
-        requestType = "Family";
-    }
-    else if (Model.RequestTypeId == 3)
+    @if (Model.RequestTypeId == (int)RequestTypeEnum.Business)
     {
         bgColor = "#d76879";
-        requestType = "Business";
+        role = "Business";
     }
-    else if (Model.RequestTypeId == 4)
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Patient)
+    {
+        bgColor = "#60be5e";
+        role = "Patient";
+
+
+    }
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Family)
+    {
+        bgColor = "#e69232";
+        role = "FamilyFriend";
+
+    }
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Concierge)
     {
         bgColor = "#0b7ebf";
-        requestType = "Concierge";
+        role = "Concierge";
     }
 }
 <div class=" container-fluid    ">
@@ -93,14 +91,14 @@
             <div class="col-6 d-flex justify-content-start">
                 <p class="d-flex">
                     <span class="fw-bold fs-4"> New Request</span>
-                    <span class=" text-white boder rounded p-1 mx-2" style="background:@bgColor">@requestType</span>
+                    <span class=" text-white boder rounded p-1 mx-2" style="background:@bgColor">@role</span>
                 </p>
             </div>
             <div class="col-6 d-flex justify-content-end">
                 <div class="col-6 d-flex justify-content-end">
-                    <div class="">
-                       
-                        <button class="px-2 py-2" id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
+                    <div class="d-none  d-md-flex align-self-end  text-info fw-bold border rounded border-2 border-info p-2 my-2 ">
+                        <i class="bi bi-chevron-left"></i>
+                        <a asp-controller="Admin" asp-action="admin_dashboard" class="text-info">Back</a>
                     </div>
                 </div>
 
@@ -116,10 +114,10 @@
                     <h3>Patient Information</h3>
 
                     <p>Confirmation Number</p>
-                    <h5 class="text-info">MD123523PASA0002</h5>
+                    <h5 class="text-info">@Model.ConfirmationNumber</h5>
                     <!-- text-area  -->
                     <div class="form-floating">
-                        <textarea class="form-control h-75 " id="floatingTextarea" ></textarea>
+                        <textarea class="form-control h-75 " id="floatingTextarea" disabled></textarea>
                         <label for="floatingTextarea" value="Fever">
                             <span class="text-tertiary"> Enter brief details symptoms(optional)</span>
                         </label>
@@ -147,7 +145,7 @@
 
                         </div>
                         <div class="form-floating col-2 col-md-1">
-                            <a class="btn btn-outline border border-info p-3"><i class="bi bi-telephone text-info"></i></a>
+                            <a class="btn btn-outline-info p-3"><i class="bi bi-telephone text-info"></i></a>
                         </div>
 
                         <div class="form-floating mb-3 col-12 col-sm-6">
@@ -167,12 +165,12 @@
                             <label for="floatingInput"><span class="text-tertiary ">Region</span></label>
                         </div>
                         <div class="form-floating mb-3 col-10 col-md-5 ">
-                            <input asp-for="Address" type="tel" class=" form-control bg-transparent " id="floatingInput" >
+                            <input asp-for="Address" type="tel" class=" form-control bg-transparent " id="floatingInput" disabled>
                             <label for="floatingInput" class="ms-2 ">Business name / Address</label>
 
                         </div>
                         <div class="form-floating col-2 col-md-1">
-                            <a class="btn btn-outline border border-info p-3"><i class="bi bi-map text-info "></i></a>
+                            <a class="btn btn-outline-info p-3"><i class="bi bi-map text-info "></i></a>
                         </div>
                         <div class="form-floating mb-3 col-12 col-sm-6">
                             <input asp-for="Room" type="text" class="form-control bg-transparent emailInp" id="floatingInput1" value="3" disabled>

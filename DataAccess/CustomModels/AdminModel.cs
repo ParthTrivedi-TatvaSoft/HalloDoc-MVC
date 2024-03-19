@@ -109,11 +109,11 @@ namespace DataAccess.CustomModels
         public string? PatientLName { get; set; }
         public List<Casetag>? casetaglist { get; set; }
 
-
         public int? casetag { get; set; }
         public int? reqId { get; set; }
         public string? notes { get; set; }
     }
+
 
 
     public class AssignCaseModel
@@ -166,7 +166,6 @@ namespace DataAccess.CustomModels
         public int? Reqid { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
-
         public int? reqType { get; set; }
     }
 
@@ -187,7 +186,6 @@ namespace DataAccess.CustomModels
         public string? fname { get; set; }
         public string? lname { get; set; }
         public DateTime? DateOfBirth { get; set; }
-
         public int? IntDate { get; set; }
         public string StrMonth { get; set; }
         public int? IntYear { get; set; }
@@ -234,7 +232,6 @@ namespace DataAccess.CustomModels
         public string? MedicationDispensed { get; set; }
         public string? Procedures { get; set; }
         public string? FollowUp { get; set; }
-
         public bool? indicate { get; set; }
     }
 

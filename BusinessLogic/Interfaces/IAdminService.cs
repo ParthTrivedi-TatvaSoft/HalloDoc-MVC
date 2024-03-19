@@ -64,6 +64,8 @@ namespace BusinessLogic.Interfaces
 
         EncounterFormModel EncounterForm(int reqId);
 
+        bool SubmitEncounterForm(EncounterFormModel model);
+
         bool IAgreeAgreement(AgreementModal model);
 
         AgreementModal ICancelAgreement(AgreementModal agreementModal);

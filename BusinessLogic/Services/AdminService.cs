@@ -304,31 +304,18 @@ namespace BusinessLogic.Services
                 req.Physicianid = assignCaseModel.selectPhysicianId;
                 req.Modifieddate = DateTime.Now;
 
-                var reqStatusLog = _db.Requeststatuslogs.Where(x => x.Requestid == assignCaseModel.ReqId).FirstOrDefault();
-                if (reqStatusLog == null)
-                {
-                    Requeststatuslog rsl = new Requeststatuslog();
-                    rsl.Requestid = (int)assignCaseModel.ReqId;
-                    rsl.Status = (int)StatusEnum.Accepted;
-                    rsl.Notes = assignCaseModel.description;
-                    rsl.Physicianid = assignCaseModel.selectPhysicianId;
-                    rsl.Createddate = DateTime.Now;
-                    _db.Requeststatuslogs.Add(rsl);
-                    _db.Requests.Update(req);
-                    _db.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    reqStatusLog.Status = (int)StatusEnum.Accepted;
-                    reqStatusLog.Notes = assignCaseModel.description;
-                    reqStatusLog.Physicianid = assignCaseModel.selectPhysicianId;
-
-                    _db.Requeststatuslogs.Update(reqStatusLog);
-                    _db.Requests.Update(req);
-                    _db.SaveChanges();
-                    return true;
-                }
+               
+                Requeststatuslog rsl = new Requeststatuslog();
+                rsl.Requestid = (int)assignCaseModel.ReqId;
+                rsl.Status = (int)StatusEnum.Accepted;
+                rsl.Notes = assignCaseModel.description;
+                rsl.Physicianid = assignCaseModel.selectPhysicianId;
+                rsl.Createddate = DateTime.Now;
+                _db.Requeststatuslogs.Add(rsl);
+                _db.Requests.Update(req);
+                _db.SaveChanges();
+                return true;
+                
 
 
             }
@@ -772,7 +759,7 @@ namespace BusinessLogic.Services
             ef.reqid = reqId;
             ef.FirstName = reqClient.Firstname;
             ef.LastName = reqClient.Lastname;
-            ef.Location = reqClient.Street + reqClient.City + reqClient.State + reqClient.Zipcode;
+            ef.Location = reqClient.Street + " " + reqClient.City + " " + reqClient.State + " " + reqClient.Zipcode;
             //ef.BirthDate = new DateTime((int)(reqClient.Intyear), Convert.ToInt16(reqClient.Strmonth), (int)(reqClient.Intdate)).ToString("yyyy-MM-dd");
             ef.PhoneNumber = reqClient.Phonenumber;
             ef.Email = reqClient.Email;
@@ -780,7 +767,7 @@ namespace BusinessLogic.Services
             {
                 ef.HistoryIllness = encForm.Illnesshistory;
                 ef.MedicalHistory = encForm.Medicalhistory;
-                //ef.Date = encForm.Intdate;
+                //ef.Date = new DateTime((int)(encForm.Intyear), Convert.ToInt16(encForm.Strmonth), (int)(encForm.Intdate)).ToString("yyyy-MM-dd");
                 ef.Medications = encForm.Medications;
                 ef.Allergies = encForm.Allergies;
                 ef.Temp = encForm.Temperature;
@@ -806,11 +793,108 @@ namespace BusinessLogic.Services
             }
             return ef;
         }
-    
+
+        public bool SubmitEncounterForm(EncounterFormModel model)
+        {
+            try
+            {
+                //concludeEncounter _obj = new concludeEncounter();
+
+                var ef = _db.Encounterforms.FirstOrDefault(r => r.Requestid == model.reqid);
+
+                if (ef == null)
+                {
+                    Encounterform _encounter = new Encounterform()
+                    {
+                        Requestid = model.reqid,
+                        Firstname = model.FirstName,
+                        Lastname = model.LastName,
+                        Location = model.Location,
+                        Phonenumber = model.PhoneNumber,
+                        Email = model.Email,
+                        Illnesshistory = model.HistoryIllness,
+                        Medicalhistory = model.MedicalHistory,
+                        //date = model.Date,
+                        Medications = model.Medications,
+                        Allergies = model.Allergies,
+                        Temperature = model.Temp,
+                        Heartrate = model.Hr,
+                        Respirationrate = model.Rr,
+                        Bloodpressuresystolic = model.BpS,
+                        Bloodpressurediastolic = model.BpD,
+                        Oxygenlevel = model.O2,
+                        Pain = model.Pain,
+                        Heent = model.Heent,
+                        Cardiovascular = model.Cv,
+                        Chest = model.Chest,
+                        Abdomen = model.Abd,
+                        Extremities = model.Extr,
+                        Skin = model.Skin,
+                        Neuro = model.Neuro,
+                        Other = model.Other,
+                        Diagnosis = model.Diagnosis,
+                        Treatmentplan = model.TreatmentPlan,
+                        Medicationsdispensed = model.MedicationDispensed,
+                        Procedures = model.Procedures,
+                        Followup = model.FollowUp,
+                        Isfinalized = false
+                    };
+
+                    _db.Encounterforms.Add(_encounter);
+
+                    //_obj.indicate = true;
+                }
+                else
+                {
+                    var efdetail = _db.Encounterforms.FirstOrDefault(x => x.Requestid == model.reqid);
+
+                    efdetail.Requestid = model.reqid;
+                    efdetail.Illnesshistory = model.HistoryIllness;
+                    efdetail.Medicalhistory = model.MedicalHistory;
+                    //efdetail.Date = model.Date;
+                    efdetail.Medications = model.Medications;
+                    efdetail.Allergies = model.Allergies;
+                    efdetail.Temperature = model.Temp;
+                    efdetail.Heartrate = model.Hr;
+                    efdetail.Respirationrate = model.Rr;
+                    efdetail.Bloodpressuresystolic = model.BpS;
+                    efdetail.Bloodpressurediastolic = model.BpD;
+                    efdetail.Oxygenlevel = model.O2;
+                    efdetail.Pain = model.Pain;
+                    efdetail.Heent = model.Heent;
+                    efdetail.Cardiovascular = model.Cv;
+                    efdetail.Chest = model.Chest;
+                    efdetail.Abdomen = model.Abd;
+                    efdetail.Extremities = model.Extr;
+                    efdetail.Skin = model.Skin;
+                    efdetail.Neuro = model.Neuro;
+                    efdetail.Other = model.Other;
+                    efdetail.Diagnosis = model.Diagnosis;
+                    efdetail.Treatmentplan = model.TreatmentPlan;
+                    efdetail.Medicationsdispensed = model.MedicationDispensed;
+                    efdetail.Procedures = model.Procedures;
+                    efdetail.Followup = model.FollowUp;
+                    efdetail.Modifieddate = DateTime.Now;
+                    ef.Isfinalized = false;
+                    _db.Encounterforms.Update(efdetail);
+                    // _obj.indicate = true;
+                };
+
+
+                _db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+    }
 
 
 
 
 }
 
-}

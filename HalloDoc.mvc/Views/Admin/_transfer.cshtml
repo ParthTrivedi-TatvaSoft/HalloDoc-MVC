@@ -1,10 +1,6 @@
 ﻿@using DataAccess.CustomModels;
 @model AssignCaseModel;
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-
 @*Transfer case model *@
 <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -55,12 +51,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="submitCase" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
-                <button type="reset" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
             </div>
         </form>
     </div>
 </div>
-<div id="modelcontent2"></div>
+
 <script>
     $('#selectRegion').on('change', function () {
         let selectRegion = $("#selectRegion").val();
@@ -110,7 +106,7 @@
                 $('#selectPhysician').html("<option disabled selected value>" + "Select Physician" + "</option>");
                 console.log(response.physicianlist.length);
                 for (var i = 0; i < response.physicianlist.length; i++) {
-                    console.log("hello");
+
                     $("#selectPhysician").append('<option value = "' + response.physicianlist[i].physicianid + '" >' + response.physicianlist[i].firstname + '</option>')
 
                 }
@@ -167,7 +163,9 @@
                     if (response.isTransferred) {
                         console.log("Transferred");
                         toastr.success("Transfer Case");
-                        window.location.reload();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
 
                     }
                     else {
@@ -181,5 +179,4 @@
 
 
     });
-
 </script>

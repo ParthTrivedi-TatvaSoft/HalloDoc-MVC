@@ -1,7 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Encounter";
-}
-@using DataAccess.CustomModels;
+﻿@using DataAccess.CustomModels;
+
 @model EncounterFormModel;
 
 <div class="container">
@@ -11,179 +9,177 @@
 
     </div>
     <form action="" class="shadow border rounded my-3 bg-white" method="post">
-        <input asp-for="reqid" hidden />
+        <input type="hidden" value="" id="encounterReqId" />
         <div class="mx-3 my-4 mt-3">
             <h3 class="mb-3 text-center text-info fw-bold">Medical Report-Confidential</h3>
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input asp-for="FirstName" name="first_name" type="text" value="" class="form-control "
-                           id="exampleFormControlInput1" placeholder="Firstname" disabled>
+                    <input asp-for="FirstName" type="text" class="form-control "
+                           id="exampleFormControlInput1" placeholder="Firstname" readonly>
                     <label for="exampleFormControlInput1" class="form-label ms-2">Firstname</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input name="last_name" asp-for="LastName" type="text" value="" class="form-control "
-                           id="exampleFormControlInput2" placeholder="Lastname" disabled>
+                    <input asp-for="LastName" type="text" class="form-control "
+                           id="exampleFormControlInput2" placeholder="Lastname" readonly>
                     <label for="exampleFormControlInput2" class="form-label ms-2">Lastname</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-12 form-floating mb-3 text-muted">
-                    <input name="Location" asp-for="Location" type="text" value="" class="form-control "
-                           id="exampleFormControlInput3" placeholder="Location" disabled>
+                    <input asp-for="Location" type="text" class="form-control "
+                           id="exampleFormControlInput3" placeholder="Location" readonly>
                     <label for="exampleFormControlInput3" class="form-label ms-2">Location</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
                     <input type="date" asp-format="{0:yyyy-MM-dd}" name="DOB" class="form-control " id="dob"
-                           placeholder="Date Of Birth" disabled>
+                           placeholder="Date Of Birth" readonly>
                     <label for="dob" class="form-label ms-2">Date Of Birth</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input asp-for="Date" type="date" class="form-control dclass" id="Date" placeholder="Date" disabled>
+                    <input asp-for="Date" type="date" class="form-control dclass" id="Date" placeholder="Date" readonly>
                     <label for="Date" class="form-label ms-2">Date</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input disabled style="height:58px" id="phoneEncounter"
+                    <input disabled asp-for="PhoneNumber" style="height:58px" id="phoneEncounter"
                            class=" form-control contact"
                            aria-label="Contact"
                            type="number" />
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <input name="email" type="email" class="form-control " id="email"
-                           placeholder="Email" disabled>
+                    <input name="email" type="email" asp-for="Email" class="form-control " id="email"
+                           placeholder="Email" readonly>
                     <label for="email" class="form-label ms-2">Email</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_hl" disabled
+                    <textarea asp-for="HistoryIllness" class="form-control dclass" placeholder="Leave a comment here" id="encounter_hl" disabled
                               style="height: 100px"></textarea>
                     <label for="encounter_hl" class="ms-2">History Of present illness or Injury</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_mh" disabled
+                    <textarea asp-for="MedicalHistory" class="form-control dclass" placeholder="Leave a comment here" id="encounter_mh" disabled
                               style="height: 100px"></textarea>
                     <label for="encounter_mh" class="ms-2">Medical History</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_medications" disabled
+                    <textarea asp-for="Medications" class="form-control dclass" placeholder="Leave a comment here" id="encounter_medications" disabled
                               style="height: 100px"></textarea>
                     <label for="encounter_medications" class="ms-2">Medications</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_al" disabled
+                    <textarea asp-for="Allergies" class="form-control dclass" placeholder="Leave a comment here" id="encounter_al" disabled
                               style="height: 100px"></textarea>
                     <label for="encounter_al" class="ms-2">Allergies</label>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="temp"
+                    <input asp-for="Temp" type="number" class="form-control dclass" id="temp"
                            placeholder="Temp" disabled>
                     <label for="temp" class="form-label ms-2">Temp</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-4 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="hr"
+                    <input asp-for="Hr" type="number" class="form-control dclass" id="hr"
                            placeholder="HR" disabled>
                     <label for="hr" class="form-label ms-2">HR</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="rr"
+                    <input asp-for="Rr" type="number" class="form-control dclass" id="rr"
                            placeholder="RR" disabled>
                     <label for="rr" class="form-label ms-2">RR</label>
                     <span class="text-danger"></span>
                 </div>
 
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="bps"
+                    <input asp-for="BpS" type="number" class="form-control dclass" id="bps"
                            placeholder="FirsBlood pressuretname" disabled>
                     <label for="bps" class="form-label ms-2">
-                        Blood pressure
-                        (Systolic)
+                        Blood pressure(Systolic)
                     </label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-2 col-xl-2 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="bpd"
+                    <input asp-for="BpD" type="number" class="form-control dclass" id="bpd"
                            placeholder="Blood pressure" disabled>
                     <label for="bpd" class="form-label ms-2">
-                        Blood pressure
-                        (Diastolic)
+                        Blood pressure(Diastolic)
                     </label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input type="number" class="form-control dclass" id="o2"
+                    <input asp-for="O2" type="number" class="form-control dclass" id="o2"
                            placeholder="O2" disabled>
                     <label for="o2" class="form-label ms-2">O2</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 col-md-4 col-xl-4 col-6 form-floating mb-3 text-muted">
-                    <input type="text" class="form-control dclass" id="pain"
+                    <input asp-for="Pain" type="text" class="form-control dclass" id="pain"
                            placeholder="Pain" disabled>
                     <label for="pain" class="form-label ms-2">Pain</label>
                     <span class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6  form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="heent" disabled
+                    <textarea asp-for="Heent" class="form-control dclass" placeholder="Leave a comment here" id="heent" disabled
                               style="height: 100px"></textarea>
                     <label for="heent" class="ms-2">Heent</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="cv" disabled
+                    <textarea asp-for="Cv" class="form-control dclass" placeholder="Leave a comment here" id="cv" disabled
                               style="height: 100px"></textarea>
                     <label for="cv" class="ms-2">CV</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="chest" disabled
+                    <textarea asp-for="Chest" class="form-control dclass" placeholder="Leave a comment here" id="chest" disabled
                               style="height: 100px"></textarea>
                     <label for="chest" class="ms-2">Chest</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="abd" disabled
+                    <textarea asp-for="Abd" class="form-control dclass" placeholder="Leave a comment here" id="abd" disabled
                               style="height: 100px"></textarea>
                     <label for="abd" class="ms-2">ABD</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="extr" disabled
+                    <textarea asp-for="Extr" class="form-control dclass" placeholder="Leave a comment here" id="extr" disabled
                               style="height: 100px"></textarea>
                     <label for="extr" class="ms-2">Extr</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="skin" disabled
+                    <textarea asp-for="Skin" class="form-control dclass" placeholder="Leave a comment here" id="skin" disabled
                               style="height: 100px"></textarea>
                     <label for="skin" class="ms-2">Skin</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="neuro" disabled
+                    <textarea asp-for="Neuro" class="form-control dclass" placeholder="Leave a comment here" id="neuro" disabled
                               style="height: 100px"></textarea>
                     <label for="neuro" class="ms-2">Neuro</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="other" disabled
+                    <textarea asp-for="Other" class="form-control dclass" placeholder="Leave a comment here" id="other" disabled
                               style="height: 100px"></textarea>
                     <label for="other" class="ms-2">Other</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="daignosis" disabled
+                    <textarea asp-for="Diagnosis" class="form-control dclass" placeholder="Leave a comment here" id="daignosis" disabled
                               style="height: 100px"></textarea>
                     <label for="daignosis" class="ms-2">Diagnosis</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating  mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="treatmentplan" disabled
+                    <textarea asp-for="TreatmentPlan" class="form-control dclass" placeholder="Leave a comment here" id="treatmentplan" disabled
                               style="height: 100px"></textarea>
                     <label for="treatmentplan" class="ms-2">Treatment Plan</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="encounter_md" disabled
+                    <textarea asp-for="MedicationDispensed" class="form-control dclass" placeholder="Leave a comment here" id="encounter_md" disabled
                               style="height: 100px"></textarea>
                     <label for="encounter_md" class="ms-2">Medications Dispensed</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-xl-6 form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="procedures" disabled
+                    <textarea asp-for="Procedures" class="form-control dclass" placeholder="Leave a comment here" id="procedures" disabled
                               style="height: 100px"></textarea>
                     <label for="procedures" class="ms-2">Procedures</label>
                 </div>
                 <div class="form-floating mb-3 text-muted">
-                    <textarea class="form-control dclass" placeholder="Leave a comment here" id="followup" disabled
+                    <textarea asp-for="FollowUp" class="form-control dclass" placeholder="Leave a comment here" id="followup" disabled
                               style="height: 100px"></textarea>
                     <label for="followup" class="ms-2">Followup</label>
                 </div>
@@ -191,7 +187,7 @@
             <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
                 <button type="button" id="editBtn" class="btn btn-info text-white EditBtn" onclick="enableFields()">Edit </button>
 
-                <button type="button" onclick="encounterBtn()" id="submitBtn" class="btn btn-info text-white EditBtn" style="display:none">Save</button>
+                <button type="submit" onclick="encounterBtn()" id="submitBtn" class="btn btn-info text-white EditBtn" style="display:none">Save</button>
 
                 <button type="button" id="cancelEncounterBtn" class="btn btn-outline-info EditBtn" onclick="disableFields()" style="display:none">Cancel</button>
             </div>

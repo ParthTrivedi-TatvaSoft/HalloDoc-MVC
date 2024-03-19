@@ -461,10 +461,10 @@ namespace BusinessLogic.Services
                 PhoneNo = user.Mobile,
                 State = user.State,
                 City = user.City,
-                isMobileCheck = user.Ismobile[0] ? 1 : 0,
+                //isMobileCheck = user.Ismobile[0] ? 1 : 0,
                 Street = user.Street,
                 ZipCode = user.Zipcode,
-                DateOfBirth = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
+                //DateOfBirth = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
 
 
             };

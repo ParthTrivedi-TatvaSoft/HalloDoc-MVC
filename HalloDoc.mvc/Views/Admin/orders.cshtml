@@ -1,37 +1,19 @@
 ﻿@using DataAccess.CustomModels;
 @model Order;
-
-
-
- <style >
-    #downloadSelected {
-        color: rgb(0, 183, 255);
-        background-color: white;
-        border: 1px solid rgb(0, 183, 255);
-        border-radius: 5px;
-    }
-
-    #downloadSelected:hover {
-        background-color: rgb(0, 183, 255);
-        color: white;
-    }
-</style>
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <div class="container">
     <div class="d-flex justify-content-between pt-3">
-        <h3 class="fw-bold">Send Order</h3>
-        <button class="px-3" id="downloadSelected" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
-      
+        <h2>Documents</h2>
+        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
 
     </div>
-    <div class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white">
+    <form class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white" >
         <div class="row">
             <div class="col-md-6">
                 <div class="form-floating mb-3">
                     <select class="form-select text-secondary py-0" aria-label="Floating label select example" id="Healthprofessionalid">
-                        <option disabled selected>Select Profession</option>
+                        <option disabled selected>Select Profession*</option>
                         @if (Model.Profession != null)
                         {
                             @foreach (var items in Model.Profession)
@@ -42,15 +24,17 @@
                         }
                     </select>
                     <label for="floatingSelect"></label>
+                    <small id="professionRequired" class="d-none" style="color:red">Profession Is Required</small>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
                     <select class="form-select text-secondary py-0" id="Vendorid" aria-label="Floating label select example">
-                        <option disabled selected>Select Business</option>
+                        <option disabled selected>Select Business*</option>
 
                     </select>
                     <label for="floatingSelect"></label>
+                    <small id="businessRequired" class="d-none" style="color:red">Business Is Required</small>
                 </div>
             </div>
 
@@ -76,8 +60,10 @@
                 <div class="form-floating mb-3">
                     <textarea class="form-control" placeholder="order details" id="orderDetail" style="height: 100px"></textarea>
                     <label for="floatingTextarea2" class="">
-                        Prescription or Order details
+                        Prescription or Order details*
                     </label>
+                    <small id="prescriptionRequired" class="d-none" style="color:red">Prescription Is Required</small>
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -94,20 +80,25 @@
         </div>
         <div class="footer mt-5 mb-4 text-end">
             <button type="button" id="submit" class="btn bg-info text-white">Submit</button>
-            <button type="button" class="btn border border-info text-info" data-bs-dismiss="modal">Cancel</button>
+            <button type="reset" class="btn border border-info text-info" data-bs-dismiss="modal">Cancel</button>
         </div>
-    </div>
+    </form>
     <br />
     <br />
     <br />
 
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $('#Healthprofessionalid').on('change', function () {
         let selectedValue = $('option:selected', this).val();
+        if (selectedValue != null) {
+            $("#professionRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#professionRequired").addClass('d-block').removeClass('d-none');
+        }
         $.ajax({
 
             url: '/Admin/FetchBusiness',
@@ -137,6 +128,12 @@
     $('#Vendorid').change(function () {
         var selectedValue = $('option:selected', this).val();
 
+        if (selectedValue != null) {
+            $("#businessRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#businessRequired").addClass('d-block').removeClass('d-none');
+        }
 
         $.ajax({
             url: '/Admin/VendorDetails',
@@ -156,40 +153,88 @@
         });
     });
 
-    $("#submit").on('click', function () {
-        var payload = {
-            ReqId: @Model.ReqId,
-            ProfessionId: $('#Healthprofessionalid').val(),
-            BusinessId: $('#Vendorid').val(),
-            BusineesContact: $('#businessContact').val(),
-            faxnumber: $('#businessFaxNumber').val(),
-            email: $('#businessEmail').val(),
-            orderDetail: $('#orderDetail').val(),
-            RefilNo: $('#RefilNo').val()
+
+    $('#orderDetail').on('input', function () {
+        let prescription = $("#orderDetail").val();
+        if (prescription != "") {
+            $("#prescriptionRequired").addClass('d-none').removeClass('d-block');
+
         }
-        console.log(payload);
-        var url = '@Url.Action("orders","Admin")';
-        var redirectUrl = '@Url.Action("admin_dashboard","Admin")';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: payload,
-            success: function (response) {
-                if (response.isSend) {
-                    //toastr.success("Order Send SuccessFully");
-                    window.location.href = redirectUrl;
-                }
-                else {
-                    //toastr.error("Order Failed");
-                }
-            },
-            error: function (error) {
-                console.log(error);
-                //toastr.error("Something went wrong");
+        else {
+            $("#prescriptionRequired").addClass('d-block').removeClass('d-none');
+
+        }
+    });
+
+
+    $("#submit").on('click', function () {
+
+        var selectProfession = $("#Healthprofessionalid").val();
+
+        if (selectProfession == null) {
+            $("#professionRequired").addClass('d-block').removeClass('d-none');
+
+        } else {
+            $("#professionRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        var selectBusiness = $("#Vendorid").val();
+
+        if (selectBusiness == null) {
+            $("#businessRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#businessRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        var prescription = $("#orderDetail").val();
+        if (prescription != "") {
+            $("#prescriptionRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#prescriptionRequired").addClass('d-block').removeClass('d-none');
+
+        }
+
+
+        if ((selectProfession != null && selectBusiness != null) && prescription != "") {
+            var payload = {
+                ReqId: @Model.ReqId,
+                ProfessionId: selectProfession,
+                BusinessId: selectBusiness,
+                BusineesContact: $('#businessContact').val(),
+                faxnumber: $('#businessFaxNumber').val(),
+                email: $('#businessEmail').val(),
+                orderDetail: prescription,
+                RefilNo: $('#RefilNo').val()
             }
+      
+            var url = '@Url.Action("orders","Admin")';
+            var redirectUrl = '@Url.Action("admin_dashboard","Admin")';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: payload,
+                success: function (response) {
+                    if (response.isSend) {
+                        toastr.success("Order Send SuccessFully");
+                        setTimeout(function () {
+                            window.location.href = redirectUrl;
+                        }, 1500);
+                    }
+                    else {
+                        toastr.error("Order Failed");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    toastr.error("Something went wrong");
+                }
 
 
-        })
+            });
+        }
+
+
     });
 
 </script>

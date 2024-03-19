@@ -414,6 +414,54 @@
 
 
 
+        function Export(reqList) {
+            $.ajax({
+                method: "POST",
+                url: "/Admin/ExportReq",
+                data: { reqList: reqList },
+
+                success: function (resp) {
+
+                    const blob = new Blob([resp], { type: 'text/csv' });
+
+                    var url = window.URL.createObjectURL(blob);
+
+                    var anchor = document.createElement('a');
+
+                    anchor.style.display = 'none';
+                    anchor.href = url;
+                    anchor.download = 'Exported-Requests.csv';
+
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(anchor);
+                },
+
+                error: function () {
+                    alert("in error");
+                }
+
+            });
+
+        }
+
+
+        function ExportAll() {
+            $.ajax({
+                url: '/Admin/GetRequestsByStatus',
+                type: 'GET',
+                data: { tabNo: 0 },
+                success: function (response) {
+                    console.log(response);
+                    Export(response);
+                }
+            });
+        }
+
+
+
+
 
 
 
