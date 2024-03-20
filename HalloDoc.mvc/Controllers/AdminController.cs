@@ -550,7 +550,15 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("Encounter", new { ReqId = model.reqid });
         }
 
+        public IActionResult RequestSupport()
+        {
+            return PartialView("_requestsupport");
+        }
 
+        public IActionResult SendLink()
+        {
+            return PartialView("_sendlink");
+        }
        
 
 

@@ -669,20 +669,26 @@ namespace BusinessLogic.Services
         }
 
 
-        public bool IAgreeAgreement(AgreementModal model)
+        public int GetStatusForReviewAgreement(int reqId)
+        {
+            var status = (int)_db.Requests.Where(x => x.Requestid == reqId).Select(x => x.Status).FirstOrDefault();
+            return status;
+        }
+
+        public bool AgreeAgreement(AgreementModel model)
         {
             try
             {
-                var req = _db.Requests.FirstOrDefault(x => x.Requestid == model.Reqid);
-                var requestclient = _db.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid);
+                var req = _db.Requests.FirstOrDefault(x => x.Requestid == model.reqId);
+
 
                 req.Status = (int)StatusEnum.MDEnRoute;
-
+                req.Modifieddate = DateTime.Now;
                 Requeststatuslog rsl = new Requeststatuslog();
                 rsl.Requestid = req.Requestid;
-                rsl.Status = req.Status;
+                rsl.Status = (int)StatusEnum.MDEnRoute;
                 rsl.Createddate = DateTime.Now;
-
+                rsl.Notes = "Agreement accepted by patient";
                 _db.Requests.Update(req);
                 _db.Requeststatuslogs.Add(rsl);
                 _db.SaveChanges();
@@ -693,45 +699,37 @@ namespace BusinessLogic.Services
             {
                 return false;
             }
-           
+
         }
 
 
-        public AgreementModal ICancelAgreement(AgreementModal agreementModal)
+        public AgreementModel CancelAgreement(int reqId)
         {
-            //var req = _db.Requests.FirstOrDefault(x => x.Requestid == agreementModal.Reqid);
-                var requestclient = _db.Requestclients.FirstOrDefault(x => x.Requestid == agreementModal.Reqid);
-                AgreementModal model = new()
-                {
-                    Reqid=agreementModal.Reqid,
-                    fname = requestclient.Firstname,
-                    lname=requestclient.Lastname,
-                    ReqClientId=requestclient.Requestclientid
-
-    
-                };
-                return model;
-          
-           
+            var requestclient = _db.Requestclients.FirstOrDefault(x => x.Requestid == reqId);
+            AgreementModel model = new()
+            {
+                reqId = reqId,
+                fName = requestclient.Firstname,
+                lName = requestclient.Lastname,
+            };
+            return model;
         }
 
-        public bool SubmitCancelAgreement(AgreementModal model)
+        public bool SubmitCancelAgreement(AgreementModel model)
         {
             try
             {
-                var reqclientid = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == model.ReqClientId);
-                
+                var request = _db.Requests.FirstOrDefault(x => x.Requestid == model.reqId);
 
-                if(model.ReqClientId != null)
+
+                if (request != null)
                 {
-                    var request = _db.Requests.FirstOrDefault(x => x.Requestid == reqclientid.Requestid);
-
-                    request.Status = (int)StatusEnum.Closed;
-
+                    request.Status = (int)StatusEnum.CancelledByPatient;
+                    request.Modifieddate = DateTime.Now;
                     Requeststatuslog rsl = new Requeststatuslog();
                     rsl.Requestid = request.Requestid;
-                    rsl.Status = request.Status;
-                    rsl.Notes = model.Reason;
+                    rsl.Status = (int)StatusEnum.CancelledByPatient;
+                    rsl.Notes = model.reason;
                     rsl.Createddate = DateTime.Now;
 
                     _db.Requests.Update(request);

@@ -460,6 +460,37 @@
         }
 
 
+        function ShowRequestSupport() {
+            $.ajax({
+                url: '/Admin/RequestSupport',
+                type: 'GET',
+               
+                success: function (response) {
+
+                    $("#modelContent").html(response);
+
+                    $('#RequestSupportModel').modal('show');
+
+                }
+            });
+        }
+
+
+        function ShowSendLink() {
+            $.ajax({
+                url: '/Admin/SendLink',
+                type: 'GET',
+                
+                success: function (response) {
+                    
+                    $("#modelContent").html(response);
+
+                    $('#SendLinkModal').modal('show');
+
+                }
+               
+            });
+        }
 
 
 

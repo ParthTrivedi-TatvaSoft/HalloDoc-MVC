@@ -9,7 +9,7 @@
             <span style="color: darkblue;">(Active)</span>
         </span>
         <span class="d-flex gap-1 gap-md-3">
-            <button class="action-btn">
+            <button class="action-btn" onclick="ShowSendLink()">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
@@ -24,10 +24,10 @@
             <button class="action-btn">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
-                    DTY Support
+                     Support
                 </span>
             </button>
         </span>
@@ -247,7 +247,7 @@
         </tbody>
     </table>
 </div>
-
+<div id="modelContent"></div>
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>

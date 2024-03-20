@@ -66,10 +66,11 @@ namespace BusinessLogic.Interfaces
 
         bool SubmitEncounterForm(EncounterFormModel model);
 
-        bool IAgreeAgreement(AgreementModal model);
+        bool AgreeAgreement(AgreementModel model);
 
-        AgreementModal ICancelAgreement(AgreementModal agreementModal);
+        AgreementModel CancelAgreement(int reqId);
 
-        bool SubmitCancelAgreement(AgreementModal model);
+        bool SubmitCancelAgreement(AgreementModel model);
+        int GetStatusForReviewAgreement(int reqId);
     }
 }

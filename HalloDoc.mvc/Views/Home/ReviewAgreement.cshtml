@@ -1,24 +1,20 @@
 ﻿@using DataAccess.CustomModels;
-@model AgreementModal;
+@model AgreementModel;
+
 
 <body class="d-flex justify-content-center align-items-center vh-100">
-    <div class="container text-center mt-5">
-        <form method="post" asp-controller="Home" asp-action="AgreeAgreement">
-            <input asp-for="Reqid" hidden />
-            <input asp-for="ReqClientId" hidden />
-            <p class="text-start fs-5 pb-5">To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up until all care is completed. So with these points, if you would like us to provide care to you, Click on "Agree" and we'll get started immediately, if you do not agree simply click "Cancel".</p>
-            <div class="d-flex justify-content-around">
-                <button type="submit" class="btn btn-lg btn-success ">I Agree</button>
-                <button type="button" onclick="showCancelAgreement(@Model.Reqid)" class="btn btn-lg btn-danger ">Cancel</button>
-            </div>
-
-        </form>
-    </div>
-
+    <form method="post" class="container text-center mt-5">
+        <input asp-for="reqId" hidden />
+        <p class="text-start fs-5 pb-5">To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up until all care is completed. So with these points, if you would like us to provide care to you, Click on "Agree" and we'll get started immediately, if you do not agree simply click "Cancel".</p>
+        <div class="d-flex justify-content-around">
+            <button type="submit" class="btn btn-lg btn-success ">I Agree</button>
+            <button type="button" onclick="showCancelAgreement(@Model.reqId)" class="btn btn-lg btn-danger ">Cancel</button>
+        </div>
+    </form>
     <div id="rendermodel"></div>
 </body>
-
 <script>
+
     function showCancelAgreement(reqId) {
         $.ajax({
             url: '/Home/CancelAgreement',
@@ -28,9 +24,11 @@
 
                 $("#rendermodel").html(response);
 
-                $('#cancleagreementModal').modal('show');
+                $('#cancelAgreementModal').modal('show');
 
             }
         });
     }
 </script>
+
+
