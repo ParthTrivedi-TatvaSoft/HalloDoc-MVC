@@ -13,6 +13,8 @@ using System.Text.Json.Nodes;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -126,7 +128,7 @@ namespace HalloDoc.mvc.Controllers
             string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
                 "\"RequestDate\"," + "\"Phone\"," + "\"Notes\"," + "\"Address\","
                  + "\"Physician\"," + "\"DateOfService\"," + "\"Region\"," +
-                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + "\"RequestId\"," + Environment.NewLine + Environment.NewLine;
+                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + Environment.NewLine + Environment.NewLine;
 
             stringbuild.Append(header);
             int count = 1;
@@ -136,7 +138,7 @@ namespace HalloDoc.mvc.Controllers
                 string content = $"\"{count}\"," + $"\"{item.firstName}\"," + $"\"{item.intDate}\"," + $"\"{item.requestorFname}\"," +
                     $"\"{item.intDate}\"," + $"\"{item.mobileNo}\"," + $"\"{item.notes}\"," + $"\"{item.street}\"," +
                     $"\"{item.lastName}\"," + $"\"{item.intDate}\"," + $"\"{item.street}\"," +
-                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + $"\"{item.Reqid}\"," + Environment.NewLine;
+                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + Environment.NewLine;
 
                 count++;
                 stringbuild.Append(content);
@@ -154,13 +156,8 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        //[CustomAuthorize("Admin")]
-        public IActionResult viewcase(int Requestclientid, int RequestTypeId)
-        {
-            var obj = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
+        
 
-            return View(obj);
-        }
 
         public IActionResult admin_resetpassword()
         {
@@ -550,15 +547,105 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("Encounter", new { ReqId = model.reqid });
         }
 
+
+        [HttpGet]
+        public IActionResult ShowMyProfile()
+        {
+            var request = HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return Json("ok");
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+
+            var model = _adminService.MyProfile(emailClaim.Value);
+            return PartialView("_myprofile", model);
+        }
+
+        [HttpGet]
+        public IActionResult createrequest()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult VerifyState(string stateMain)
+        {
+            if (stateMain.Trim() == null || stateMain == null)
+            {
+                return Json(new { isSend = false });
+            }
+            var isSend = _adminService.VerifyState(stateMain);
+            return Json(new { isSend = isSend });
+        }
+
+
+        [HttpPost]
+        public IActionResult createrequest(CreateRequestModel model)
+        {
+            var request = HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                _notyf.Error("Token Expired");
+                return View(model);
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            var isSaved = _adminService.CreateRequest(model, emailClaim.Value);
+            if (isSaved)
+            {
+                _notyf.Success("Request Created");
+                return RedirectToAction("admin_dashboard");
+            }
+            else
+            {
+                _notyf.Error("Failed to Create");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult SendLink()
+        {
+            return PartialView("_sendlink");
+        }
+        [HttpPost]
+        public IActionResult SendLink(SendLinkModel model)
+        {
+            bool isSend = false;
+            try
+            {
+                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                string reviewPathLink = baseUrl + Url.Action("submit_request", "Patient");
+
+                SendEmail(model.email, "Create Patient Request", $"Hello, please create patient request from this link: {reviewPathLink}");
+                _notyf.Success("Link Sent");
+                isSend = true;
+            }
+            catch (Exception ex)
+            {
+                _notyf.Error("Failed to sent");
+            }
+            return Json(new { isSend = isSend });
+
+        }
+        public IActionResult viewcase(int Requestclientid, int RequestTypeId)
+        {
+            var model = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
+
+            return View(model);
+        }
+
+
+
         public IActionResult RequestSupport()
         {
             return PartialView("_requestsupport");
         }
 
-        public IActionResult SendLink()
-        {
-            return PartialView("_sendlink");
-        }
+      
+
        
 
 

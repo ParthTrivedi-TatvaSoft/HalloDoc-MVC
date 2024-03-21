@@ -490,7 +490,7 @@ namespace BusinessLogic.Services
                     existingUser.Intdate = profile.DateOfBirth.Day;
                     existingUser.Strmonth = profile.DateOfBirth.ToString("MMM");
                     existingUser.Intyear = profile.DateOfBirth.Year;
-                    existingUser.Ismobile[0] = profile.isMobileCheck == 1 ? true : false;
+                    //existingUser.Ismobile[0] = profile.isMobileCheck == 1 ? true : false;
                     _db.Users.Update(existingUser);
                     _db.SaveChanges();
 

@@ -11,13 +11,13 @@
             <span style="color: darkblue;">(New)</span>
         </span>
         <span class="d-flex gap-1 gap-md-3">
-            <button class="action-btn" onclick="ShowSendLink()">
+            <button class="action-btn" onclick="sendLink()">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
                 </span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="location.href='@Url.Action("createrequest", "Admin")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
             <button class="action-btn" id="exportnew">

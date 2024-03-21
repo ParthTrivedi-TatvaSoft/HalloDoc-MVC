@@ -1,47 +1,41 @@
-﻿
-<style>
-    #back-btn {
-        color: rgb(0, 183, 255);
-        background-color: white;
-        border: 1px solid rgb(0, 183, 255);
-        border-radius: 5px;
-    }
-</style>
-
+﻿@using DataAccess.CustomModels;
+@model MyProfileModel;
 <div class="container-fluid">
     <div class="container">
         <div class=" mt-2 d-flex justify-content-between align-items-center">
-            <h3 class="fw-bold">My Profile</h3>
-            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn" class="px-2 py-2">&lt; Back</button>
+            <h4>My Profile</h4>
+            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
 
         </div>
         <form action="" class="shadow border rounded my-3 bg-white" method="post">
             <div class="mx-3 my-4 ">
-                <form method="post" asp-action="myProfile" asp-controller="Admin">
+                <form method="post">
                     <div class="mt-3">
-                        <h4 class="my-4 pt-4 fw-bold">Account Information</h4>
+                        <h4 class="my-4 pt-4">Account Information</h4>
 
                         <div class="row">
                             <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating  ">
-                                <input type="text" class="form-control " id="floatingInputFirst" placeholder="User Name" >
+                                <input asp-for="username" type="text" class="form-control " id="floatingInputFirst" placeholder="User Name" disabled aria-label="User Name">
                                 <label class="ms-2 " for="floatingInputUsername">User Name</label>
                             </div>
                             <div style="position: relative;"
                                  class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
-                                <input type="password" class="form-control inputs" placeholder="Password"
+                                <input asp-for="password" type="text" class="form-control inputs" placeholder="Password"
                                        id="floatingPassword2" />
                                 <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                                 <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
                                         type="button">
-                                    <i class="fa-regular fa-eye" onclick="passwordVisible2()"
+                                    <i class="bi bi-eye-fill" onclick="passwordVisible2()"
                                        id="passHide2"></i>
                                 </button>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
                                 <select class="form-select form-control " disabled id="Status">
                                     <option value="1" selected>Active</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                  @*   @foreach (var item in Model.roles)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    } *@
                                 </select>
                                 <label for="Status" class="ms-2 text-wrap small text-secondary">Status</label>
                             </div>
@@ -56,7 +50,7 @@
                         </div>
                         <div class="d-flex justify-content-end mt-3">
                             <button onclick="resetPass()" type="button" id="ResetPassword"
-                                    class="btn btn-outline-secondary border-info text-info">
+                                    class="btn  border-info text-info">
                                 Reset Password
                             </button>
                         </div>
@@ -64,56 +58,57 @@
                     </div>
                 </form>
 
-                <form method="post" asp-action="myProfile" asp-controller="adminDashboard">
+                <form method="post" >
                     <div class="pt-4">
-                        <h4 class="mb-4 fw-bold">Administrator Information</h4>
+                        <h4 class="mb-4">Administrator Information</h4>
                         <div class="row mb-3">
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                                <input type="text" class="d1class form-control " id="floatingInputFirstAdmin"
-                                       placeholder="First Name" aria-label="First Name">
+                                <input asp-for="fname" type="text" class="d1class form-control " id="floatingInputFirstAdmin"
+                                       placeholder="First Name" aria-label="First Name" disabled>
                                 <label class="ms-2 " for="floatingInputFirstAdmin">First Name</label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                                <input type="text" class="d1class form-control " id="floatingInputLastAdmin"
-                                       placeholder="Last Name" aria-label="Last Name">
+                                <input asp-for="lname" type="text" class="d1class form-control " id="floatingInputLastAdmin"
+                                       placeholder="Last Name" aria-label="Last Name" disabled>
                                 <label class="ms-2  " for="floatingInputLastAdmin">Last Name</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="email" class="d1class form-control " id="floatingInputemailAdmin"
-                                       placeholder="Email" aria-label="Email">
+                                <input asp-for="email" type="email" class="d1class form-control " id="floatingInputemailAdmin"
+                                       placeholder="Email" aria-label="Email" disabled>
                                 <label class="ms-2 " for="floatingInputemailAdmin">Email</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                                 <input type="email" class="d1class form-control " id="floatingInputConfirmEmailAdmin"
-                                       placeholder="ConfirmEmail" aria-label="ConfirmEmail">
+                                       placeholder="ConfirmEmail" aria-label="ConfirmEmail" disabled>
                                 <label class="ms-2 " for="floatingInputConfirmEmailAdmin">Confirm Email</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input style="height:56px" id="phone"
+                                <input asp-for="altphone" style="height:56px" id="phone"
                                        class="d1class form-control contact"
                                        aria-label="Contact"
-                                       type="number" />
+                                       type="number" disabled />
+
                             </div>
                             <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                                 <div class="row">
                                     <div class="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating mb-2">
                                         <div class="form-check">
                                             <input class="form-check-input d1class" type="checkbox" value="" id="DisOfCol"
-                                                   checked>
+                                                   checked disabled>
                                             <label class="form-check-label me-4" for="DisOfCol">
                                                 District Of Columbia
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input d1class" type="checkbox" value="" id="NewYork"
-                                                   checked>
+                                                   checked disabled>
                                             <label class="form-check-label me-4" for="NewYork">
                                                 NewYork
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input d1class" type="checkbox" value="" id="Verginia"
-                                                   checked>
+                                                   checked disabled>
                                             <label class="form-check-label me-4" for="Verginia">
                                                 Verginia
                                             </label>
@@ -122,7 +117,7 @@
                                     <div class="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating">
                                         <div class="form-check">
                                             <input class="form-check-input d1class" type="checkbox" value="" id="MaryLand"
-                                                   checked>
+                                                   checked disabled>
                                             <label class="form-check-label" for="MaryLand">
                                                 MaryLand
                                             </label>
@@ -137,9 +132,9 @@
                                 Edit
                             </button>
 
-                            <button type="button" id="submitBtn" class="btn btn-info text-white EditBtn">Save</button>
+                            <button type="button" id="submitBtn" class="btn btn-info text-white EditBtn" style="display:none">Save</button>
 
-                            <button type="button" id="cancelBtn" class="btn btn-outline-info EditBtn"
+                            <button type="reset" id="cancelBtn" class="btn btn-outline-info EditBtn" style="display:none"
                                     onclick="disableFields()">
                                 Cancel
                             </button>
@@ -147,40 +142,40 @@
                     </div>
                 </form>
 
-                <form method="post" asp-action="myProfile" asp-controller="adminDashboard">
+                <form method="post">
                     <div class="pt-4">
-                        <h4 class="mb-4 fw-bold">Mailing And Billing Information</h4>
+                        <h4 class="mb-4">Mailing And Billing Information</h4>
                         <div class="row mb-3">
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="text" class="dclass form-control " id="floatingInputAddress1"
-                                       placeholder="Address1" aria-label="Address1">
+                                <input asp-for="addr1" type="text" class="dclass form-control " id="floatingInputAddress1"
+                                       placeholder="Address1" aria-label="Address1" disabled>
                                 <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="text" class="dclass form-control " id="floatingInputAddress2"
-                                       placeholder="Address2" aria-label="Address2">
+                                <input asp-for="addr2" type="text" class="dclass form-control " id="floatingInputAddress2"
+                                       placeholder="Address2" aria-label="Address2" disabled>
                                 <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="text" class="dclass form-control " id="floatingInputCity"
-                                       placeholder="City" aria-label="City">
+                                <input asp-for="city" type="text" class="dclass form-control " id="floatingInputCity"
+                                       placeholder="City" aria-label="City" disabled>
                                 <label class="ms-2 " for="floatingInputCity">City</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="text" class="dclass form-control " id="floatingInputState"
-                                       placeholder="State" aria-label="State">
+                                <input asp-for="state" type="text" class="dclass form-control " id="floatingInputState"
+                                       placeholder="State" aria-label="State" disabled>
                                 <label class="ms-2 " for="floatingInputState">State</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input type="text" class="dclass form-control " id="floatingInputZipCode"
-                                       placeholder="Zip Code" aria-label="Zip Code">
+                                <input asp-for="zip" type="text" class="dclass form-control " id="floatingInputZipCode"
+                                       placeholder="Zip Code" aria-label="Zip Code" disabled>
                                 <label class="ms-2  " for="floatingInputZipCode">Zip</label>
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                                 <input style="height:56px" id="phone2"
                                        class="d1class form-control contact"
                                        aria-label="Contact"
-                                       type="number" />
+                                       type="number" disabled />
                             </div>
                         </div>
                         <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mb-3">
@@ -189,9 +184,9 @@
                                 Edit
                             </button>
 
-                            <button type="button" id="submitBtn2" class="btn btn-info text-white EditBtn">Save</button>
+                            <button type="button" id="submitBtn2" class="btn btn-info text-white EditBtn" style="display:none">Save</button>
 
-                            <button type="button" id="cancelBtn2" class="btn btn-outline-info EditBtn"
+                            <button type="reset" id="cancelBtn2" class="btn btn-outline-info EditBtn" style="display:none"
                                     onclick="disableFields2()">
                                 Cancel
                             </button>
@@ -202,3 +197,86 @@
         </form>
     </div>
 </div>
+<script>
+    const phoneInputPatient = document.querySelector("#phone");
+    const phoneInputP = window.intlTelInput(phoneInputPatient, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    //const phoneInputPatientTwo = document.querySelector("#phone2");
+    //const phoneInputPTwo = window.intlTelInput(phoneInputPatientTwo, {
+    //    utilsScript:
+    //        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    //});
+
+    function disableFields() {
+        document.querySelectorAll('.d1class').forEach(function (element) {
+            element.disabled = true;
+        });
+        // Hide the submit and cancel buttons, show the edit button
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('cancelBtn').style.display = 'none';
+        document.getElementById('editBtn').style.display = 'block';
+    }
+
+    function enableFields() {
+        document.querySelectorAll('.d1class').forEach(function (element) {
+            element.disabled = false;
+        });
+        // Show the submit and cancel buttons, hide the edit button
+        document.getElementById('submitBtn').style.display = 'block';
+        document.getElementById('cancelBtn').style.display = 'block';
+        document.getElementById('editBtn').style.display = 'none';
+    }
+    disableFields();
+
+    function disableFields2() {
+        document.querySelectorAll('.dclass').forEach(function (element) {
+            element.disabled = true;
+        });
+        // Hide the submit and cancel buttons, show the edit button
+        document.getElementById('submitBtn2').style.display = 'none';
+        document.getElementById('cancelBtn2').style.display = 'none';
+        document.getElementById('editBtn2').style.display = 'block';
+    }
+
+    function enableFields2() {
+        document.querySelectorAll('.dclass').forEach(function (element) {
+            element.disabled = false;
+        });
+        // Show the submit and cancel buttons, hide the edit button
+        document.getElementById('submitBtn2').style.display = 'block';
+        document.getElementById('cancelBtn2').style.display = 'block';
+        document.getElementById('editBtn2').style.display = 'none';
+    }
+    disableFields2();
+
+    function passwordVisible2() {
+        let a = document.getElementById("passHide2")
+        console.log(a)
+        if (a.classList.contains("bi-eye-fill")) {
+            a.classList.remove("bi-eye-fill")
+            a.classList.add("bi-eye-slash-fill")
+        } else {
+            a.classList.remove("bi-eye-slash-fill")
+            a.classList.add("bi-eye-fill")
+        }
+
+        var x = document.getElementById("floatingPassword2");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+
+
+    function resetPass() {
+        var payload = {
+
+        }
+    }
+</script>

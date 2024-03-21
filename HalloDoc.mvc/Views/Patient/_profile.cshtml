@@ -64,31 +64,31 @@
         </div>
         <div class="col-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="Street" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <input asp-for="Street" type="text" class="form-control" id="floatingInputStreet" placeholder="" disabled>
                 <label for="floatingInput">Street</label>
             </div>
         </div>
         <div class="col-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="City" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <input asp-for="City" type="text" class="form-control" id="floatingInputCity" placeholder="" disabled>
                 <label for="floatingInput">City</label>
             </div>
         </div>
         <div class="col-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="State" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <input asp-for="State" type="text" class="form-control" id="floatingInputState" placeholder="" disabled>
                 <label for="floatingInput">State</label>
             </div>
         </div>
         <div class="col-5">
             <div class="input-div form-floating mb-3">
-                <input asp-for="ZipCode" type="text" class="form-control" id="floatingInput" placeholder="" disabled>
+                <input asp-for="ZipCode" type="text" class="form-control" id="floatingInputZipcode" placeholder="" disabled>
                 <label for="floatingInput">Zip Code</label>
             </div>
         </div>
         <div class="col-1">
             <div class="form-floating mb-3">
-                <button type="button" class="btn btn-outline-primary" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</button>
+                <a type="button" class="btn btn-outline-primary" href="#" onclick="createReqMap()" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</a>
             </div>
         </div>
 
@@ -126,4 +126,13 @@
             $('#saveButton').removeAttr('hidden', false);
         });
     });
+
+    function createReqMap() {
+        var street = $("#floatingInputStreet").val();
+        var city = $("#floatingInputCity").val();
+        var state = $("#floatingInputState").val();
+        var zipcode = $("#floatingInputZipcode").val();
+
+        window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+    }
 </script>

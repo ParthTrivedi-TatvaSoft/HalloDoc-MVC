@@ -93,7 +93,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
-                                aria-selected="false">
+                                aria-selected="false" onClick="showMyProfile()">
                             My Profile
                         </button>
                     </li>
@@ -211,6 +211,7 @@
 
 
         $(document).ready(function () {
+            ShowAllRequests();
             // Convert table rows to accordions in mobile view
             if ($(window).width() < 768) {
                 $('.data-table tbody tr').each(function () {
@@ -296,6 +297,9 @@
 
                 success: function (response) {
                     $("#home-tab-pane").html(response);
+
+                    openTab(event, 'tab1');
+                    $('#hometab').addClass("active");
                 }
             });
         }
@@ -459,6 +463,16 @@
             });
         }
 
+        function showMyProfile() {
+            $.ajax({
+                url: '/Admin/ShowMyProfile',
+                type: 'GET',
+                success: function (response) {
+                    $("#profile-tab-pane").html(response);
+                }
+            });
+        }
+
 
         function ShowRequestSupport() {
             $.ajax({
@@ -476,20 +490,15 @@
         }
 
 
-        function ShowSendLink() {
+        function sendLink() {
             $.ajax({
                 url: '/Admin/SendLink',
                 type: 'GET',
-                
                 success: function (response) {
-                    
-                    $("#modelContent").html(response);
-
-                    $('#SendLinkModal').modal('show');
-
+                    $('#modelContent').html(response);
+                    $('#sendLinkPopUpOne').modal('show');
                 }
-               
-            });
+            })
         }
 
 

@@ -115,6 +115,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Aspnetuserid)
                 .HasMaxLength(128)
                 .HasColumnName("aspnetuserid");
+            entity.Property(e => e.City)
+                .HasMaxLength(50)
+                .HasColumnName("city");
             entity.Property(e => e.Createdby)
                 .HasMaxLength(128)
                 .HasColumnName("createdby");

@@ -889,6 +889,165 @@ namespace BusinessLogic.Services
             }
 
         }
+
+        public MyProfileModel MyProfile(string sessionEmail)
+        {
+            var myProfileMain = _db.Admins.Where(x => x.Email == sessionEmail).Select(x => new MyProfileModel()
+            {
+                fname = x.Firstname,
+                lname = x.Lastname,
+                email = x.Email,
+                confirm_email = x.Email,
+                mobile_no = x.Mobile,
+                addr1 = x.Address1,
+                addr2 = x.Address2,
+                city = x.City,
+                zip = x.Zip,
+                state = _db.Regions.Where(r => r.Regionid == x.Regionid).Select(r => r.Name).First(),
+                roles = _db.Aspnetroles.ToList(),
+            }).ToList().FirstOrDefault();
+
+            var aspnetuser = _db.Aspnetusers.Where(r => r.Email == sessionEmail).First();
+
+
+
+            myProfileMain.username = aspnetuser.Username;
+            myProfileMain.password = aspnetuser.Passwordhash;
+
+            return myProfileMain;
+        }
+
+        public bool VerifyState(string state)
+        {
+
+            var stateMain = _db.Regions.Where(r => r.Name.ToLower() == state.ToLower().Trim()).FirstOrDefault();
+
+            if (stateMain == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool CreateRequest(CreateRequestModel model, string sessionEmail)
+        {
+            try
+            {
+                CreateRequestModel _create = new CreateRequestModel();
+
+                var stateMain = _db.Regions.Where(r => r.Name.ToLower() == model.state.ToLower().Trim()).FirstOrDefault();
+
+                if (stateMain == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    Request _req = new Request();
+                    Requestclient _reqClient = new Requestclient();
+                    User _user = new User();
+                    Aspnetuser _asp = new Aspnetuser();
+                    Requestnote _note = new Requestnote();
+
+                    var admin = _db.Admins.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+                    var existUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == model.email);
+
+                    if (existUser == null)
+                    {
+                        _asp.Username = model.firstname + "_" + model.lastname;
+                        _asp.Email = model.email;
+                        _asp.Phonenumber = model.phone;
+                        _asp.Createddate = DateTime.Now;
+                        _db.Aspnetusers.Add(_asp);
+                        _db.SaveChanges();
+
+                        _user.Aspnetuserid = _asp.Id;
+                        _user.Firstname = model.firstname;
+                        _user.Lastname = model.lastname;
+                        _user.Email = model.email;
+                        _user.Mobile = model.phone;
+                        _user.City = model.city;
+                        _user.State = model.state;
+                        _user.Street = model.street;
+                        _user.Zipcode = model.zipcode;
+                        _user.Strmonth = model.dateofbirth.Substring(5, 2);
+                        _user.Intdate = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                        _user.Intyear = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
+                        _user.Createdby = _asp.Id;
+                        _user.Createddate = DateTime.Now;
+                        _user.Regionid = _db.Regions.Where(r => r.Name.ToLower() == model.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                        _db.Users.Add(_user);
+                        _db.SaveChanges();
+
+                        string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + _asp.Id;
+
+                        try
+                        {
+                            //SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
+
+                    _req.Requesttypeid = 1;
+                    _req.Userid = Convert.ToInt32(admin.Aspnetuserid);
+                    _req.Firstname = admin.Firstname;
+                    _req.Lastname = admin.Lastname;
+                    _req.Phonenumber = admin.Mobile;
+                    _req.Email = admin.Email;
+                    _req.Status = 1;
+                    _req.Confirmationnumber = admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
+                    _req.Createddate = DateTime.Now;
+
+                    _db.Requests.Add(_req);
+                    _db.SaveChanges();
+
+
+
+                    _reqClient.Requestid = _req.Requestid;
+                    _reqClient.Firstname = model.firstname;
+                    _reqClient.Lastname = model.lastname;
+                    _reqClient.Phonenumber = model.phone;
+                    _reqClient.Strmonth = model.dateofbirth.Substring(5, 2);
+                    _reqClient.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
+                    _reqClient.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                    _reqClient.Street = model.street;
+                    _reqClient.City = model.city;
+                    _reqClient.State = model.state;
+                    _reqClient.Zipcode = model.zipcode;
+                    _reqClient.Regionid = _db.Regions.Where(r => r.Name.ToLower() == model.state.ToLower()).Select(r => r.Regionid).FirstOrDefault();
+                    _reqClient.Email = model.email;
+
+                    _db.Requestclients.Add(_reqClient);
+                    _db.SaveChanges();
+
+                    _note.Requestid = _req.Requestid;
+                    _note.Adminnotes = model.admin_notes;
+                    _note.Createdby = _db.Aspnetusers.Where(r => r.Email == model.email).Select(r => r.Id).FirstOrDefault();
+                    _note.Createddate = DateTime.Now;
+                    _db.Requestnotes.Add(_note);
+                    _db.SaveChanges();
+
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+           
+
+
+        }
+
+
     }
 
 

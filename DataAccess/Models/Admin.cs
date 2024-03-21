@@ -42,6 +42,8 @@ public partial class Admin
 
     public int? Roleid { get; set; }
 
+    public string? City { get; set; }
+
     public virtual ICollection<Adminregion> Adminregions { get; set; } = new List<Adminregion>();
 
     public virtual Aspnetuser Aspnetuser { get; set; } = null!;
