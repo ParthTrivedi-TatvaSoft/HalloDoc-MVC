@@ -1,6 +1,6 @@
 ﻿@using DataAccess.CustomModels;
 @using DataAccess.Enums;
-@model List<AdminDashTableModel>;
+@model DashboardModel;
 
 
 <div class="container-fluid pt-4">
@@ -43,9 +43,12 @@
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option selected>Regions</option>
-                    <option value="1">new york</option>
-                    <option value="2">usa</option>
+                    <option disabled selected>Regions</option>
+                    @foreach (var item in Model.regionList)
+                    {
+                        <option value=@item.Regionid>@item.Name</option>
+
+                    }
                 </select>
                 <label for="floatingSelect"><i class="bi bi-search"></i> All Regions</label>
             </div>
@@ -86,7 +89,7 @@
         </thead>
         <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.adminDashTableList)
             {
                 if (item.status == 6)
                 {
@@ -203,40 +206,40 @@
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns">
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                            <button class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewCase
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" asp-controller="Admin" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
+                                            <button "dropdown-item" asp-controller="Admin" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewUploads
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("viewnotes", new {ReqId = item.Reqid})">
+                                            <button dropdown-item" href="@Url.Action("viewnotes", new {ReqId = item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewNotes
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="@Url.Action("orders", new {ReqId = item.Reqid})">
+                                            <button  dropdown-item" href="@Url.Action("orders", new {ReqId = item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Orders
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <button dropdown-item" href="#">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Doctor Notes
-                                            </a>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <button="dropdown-item" href="@Url.Action("Encounter",new {ReqId=item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Encounter
-                                            </a>
+                                            </button>
                                         </li>
                                     </ul>
 

@@ -119,7 +119,6 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-
         [HttpPost]
         public string ExportReq(List<AdminDashTableModel> reqList)
         {
@@ -148,6 +147,12 @@ namespace HalloDoc.mvc.Controllers
 
             return finaldata;
 
+        }
+
+        public IActionResult FilterRegion(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_newrequest", list);
         }
 
         [CustomAuthorize("Admin")]
@@ -572,7 +577,7 @@ namespace HalloDoc.mvc.Controllers
         [HttpGet]
         public IActionResult VerifyState(string stateMain)
         {
-            if (stateMain.Trim() == null || stateMain == null)
+            if (stateMain == null || stateMain.Trim() == null)
             {
                 return Json(new { isSend = false });
             }

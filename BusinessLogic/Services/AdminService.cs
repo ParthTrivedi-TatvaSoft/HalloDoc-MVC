@@ -35,7 +35,7 @@ namespace BusinessLogic.Services
             var aspNetUser = _db.Aspnetusers.Include(x => x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
             return aspNetUser;
         }
-        public List<AdminDashTableModel> GetRequestsByStatus(int tabNo)
+        public DashboardModel GetRequestsByStatus(int tabNo)
         {
             var query = from r in _db.Requests
                         join rc in _db.Requestclients on r.Requestid equals rc.Requestid
@@ -58,7 +58,8 @@ namespace BusinessLogic.Services
                             requestTypeId = r.Requesttypeid,
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
-                            Reqid = r.Requestid
+                            Reqid=rc.Requestid,
+                            regionId = rc.Regionid
                         };
 
 
@@ -98,9 +99,14 @@ namespace BusinessLogic.Services
 
             var result = query.ToList();
 
+            DashboardModel dashboardModel = new DashboardModel();
+            dashboardModel.adminDashTableList = result;
+            dashboardModel.regionList = _db.Regions.ToList();
 
-            return result;
+            return dashboardModel;
         }
+
+
 
         public StatusCountModel GetStatusCount()
         {
@@ -124,6 +130,14 @@ namespace BusinessLogic.Services
             return statusCount;
 
 
+        }
+
+        public DashboardModel GetRequestByRegion(int regionId, int tabNo)
+        {
+            DashboardModel model = new DashboardModel();
+            model = GetRequestsByStatus(tabNo);
+            model.adminDashTableList = model.adminDashTableList.Where(x => x.regionId == regionId).ToList();
+            return model;
         }
 
 
