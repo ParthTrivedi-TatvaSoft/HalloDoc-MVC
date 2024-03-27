@@ -35,7 +35,7 @@ namespace BusinessLogic.Services
             var aspNetUser = _db.Aspnetusers.Include(x => x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
             return aspNetUser;
         }
-        public DashboardModel GetRequestsByStatus(int tabNo)
+        public DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage)
         {
             var query = from r in _db.Requests
                         join rc in _db.Requestclients on r.Requestid equals rc.Requestid
@@ -58,8 +58,11 @@ namespace BusinessLogic.Services
                             requestTypeId = r.Requesttypeid,
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
-                            Reqid=rc.Requestid,
-                            regionId = rc.Regionid
+                            Reqid = r.Requestid,
+                            regionId = rc.Regionid,
+                            reqintDate = r.Createddate.Day,
+                            reqintYear = r.Createddate.Year,
+                            reqstrMonth = r.Createddate.ToString("MMM"),
                         };
 
 
@@ -98,11 +101,15 @@ namespace BusinessLogic.Services
 
 
             var result = query.ToList();
+            int count = result.Count();
+            int TotalPage = (int)Math.Ceiling(count / (double)5);
+            result = result.Skip((CurrentPage - 1) * 5).Take(5).ToList();
 
             DashboardModel dashboardModel = new DashboardModel();
             dashboardModel.adminDashTableList = result;
             dashboardModel.regionList = _db.Regions.ToList();
-
+            dashboardModel.TotalPage = TotalPage;
+            dashboardModel.CurrentPage = CurrentPage;
             return dashboardModel;
         }
 
@@ -135,7 +142,7 @@ namespace BusinessLogic.Services
         public DashboardModel GetRequestByRegion(int regionId, int tabNo)
         {
             DashboardModel model = new DashboardModel();
-            model = GetRequestsByStatus(tabNo);
+            model = GetRequestsByStatus(tabNo, 1);
             model.adminDashTableList = model.adminDashTableList.Where(x => x.regionId == regionId).ToList();
             return model;
         }
@@ -318,7 +325,7 @@ namespace BusinessLogic.Services
                 req.Physicianid = assignCaseModel.selectPhysicianId;
                 req.Modifieddate = DateTime.Now;
 
-               
+
                 Requeststatuslog rsl = new Requeststatuslog();
                 rsl.Requestid = (int)assignCaseModel.ReqId;
                 rsl.Status = (int)StatusEnum.Accepted;
@@ -329,7 +336,7 @@ namespace BusinessLogic.Services
                 _db.Requests.Update(req);
                 _db.SaveChanges();
                 return true;
-                
+
 
 
             }
@@ -1056,10 +1063,160 @@ namespace BusinessLogic.Services
             {
                 return false;
             }
-           
+
 
 
         }
+
+        public List<ProviderModel> GetProvider()
+        {
+            List<ProviderModel> model = new List<ProviderModel>();
+
+            var query = from p in _db.Physicians
+                        join pn in _db.Physiciannotifications on p.Physicianid equals pn.Pysicianid
+                        //where r.Status == status
+                        select new AdminDashTableModel
+                        {
+
+                        };
+
+
+
+            return model;   
+        }
+        public List<AccountAccess> AccountAccess()
+        {
+            var obj = (from role in _db.Roles
+                       select new AccountAccess
+                       {
+                           Name = role.Name,
+                           RoleId = role.Roleid,
+                           AccountType = role.Accounttype,
+                       }).ToList();
+            return obj;
+        }
+
+        public ProviderList Provider()
+        {
+            var provider = (from physician in _db.Physicians
+                                //join role in _db.Roles on physician.Roleid equals role.Roleid
+                            join physiciannotify in _db.Physiciannotifications on physician.Physicianid equals physiciannotify.Pysicianid
+                            select new Provider
+                            {
+                                physicianid = physician.Physicianid,
+                                providername = physician.Firstname + " " + physician.Lastname,
+                                role = "",
+                                notification = physiciannotify.Isnotificationstopped,
+                            }).ToList();
+
+            ProviderList obj = new()
+            {
+                List = provider
+            };
+            return obj;
+
+        }
+
+        public Provider StopProviderNotif(int Physicianid)
+        {
+            Provider provider = new Provider();
+
+            var phyNotification = _db.Physiciannotifications.Where(r => r.Pysicianid == Physicianid).Select(r => r).First();
+
+            var notification = new BitArray(1);
+            notification[0] = false;
+
+            if (phyNotification.Isnotificationstopped[0] == notification[0])
+            {
+                phyNotification.Isnotificationstopped = new BitArray(1);
+                phyNotification.Isnotificationstopped[0] = true;
+                _db.SaveChanges();
+
+                return provider;
+            }
+            else
+            {
+                phyNotification.Isnotificationstopped = new BitArray(1);
+                phyNotification.Isnotificationstopped[0] = false;
+                _db.SaveChanges();
+
+                return provider;
+            }
+        }
+
+        public Provider providerContact(int PhysicianId)
+        {
+            Provider provider = new Provider()
+            {
+                physicianid = PhysicianId,
+            };
+
+            return provider;
+        }
+        public void SendRegistrationproviderContactEmail(string provider, string msg, int phyIdMain)
+        {
+            string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
+            string senderPassword = "Parth@70160";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Mail For provider",
+                IsBodyHtml = true,
+                Body = $"{msg}",
+            };
+
+
+            mailMessage.To.Add(provider);
+
+            client.Send(mailMessage);
+
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + provider + "Subject : " + mailMessage.Subject + "Message : " + msg,
+                Emailid = provider,
+                Roleid = 1,
+                Adminid = _db.Admins.Where(r => r.Email == provider).Select(r => r.Adminid).First(),
+                Physicianid = phyIdMain,
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+
+            };
+
+            _db.Emaillogs.Add(emailLog);
+            _db.SaveChanges();
+        }
+
+        public void providerContactEmail(int phyIdMain, string msg)
+        {
+            Provider _provider = new Provider();
+
+            _provider.physicianid = phyIdMain;
+
+            var provider = _db.Physicians.FirstOrDefault(x => x.Physicianid == phyIdMain);
+
+            try
+            {
+                SendRegistrationproviderContactEmail(provider.Email, msg, phyIdMain);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+        }
+
+
 
 
     }

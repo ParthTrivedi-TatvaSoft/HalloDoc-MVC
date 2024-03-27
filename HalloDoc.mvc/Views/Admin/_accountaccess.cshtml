@@ -1,0 +1,92 @@
+﻿
+@using DataAccess.CustomModels;
+@model List<AccountAccess>;
+<div>
+    <div class="container-fluid d-flex justify-content-between mt-4" style="max-width:1000px">
+        <h4>
+            Account Access
+        </h4>
+        <button class="btn btn-outline-info m-2 text-decoration-none float-end " onclick="ShowCreateAccess()">
+            Create Access
+        </button>
+    </div>
+</div>
+<div class="container-fluid justify-content-center mt-4" style="max-width:1200px">
+
+    <div class="card border-0 shadow p-4 mb-5 rounded">
+
+        <table class="table table-hover table-responsive" style="height:75px; text-align:match-parent">
+            <thead>
+                <tr class="table-secondary">
+                    <td width="25%">Name</td>
+                    <td width="50%">Account Type</td>
+                    <td width="25%">Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        @if (item.AccountType == 1)
+                        {
+                            <td>Admin</td>
+                        }
+                        else if(item.AccountType==2)
+                        {
+                            <td>Physician</td>
+                        }
+                        else if (item.AccountType == 0)
+                        {
+                            <td>All</td>
+                        }
+                        else
+                        {
+                            <td>Patient</td>
+                        }
+                        <td>
+                            <button type="button" class="btn btn-outline-info">Edit</button>
+                            <button type="button" class="btn btn-outline-info" onclick="deleteRole(@item.RoleId)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    $('.admin-tab').removeClass("active");
+    $('#access-tab').addClass("active");
+</script>
+<script>
+    function deleteRole(roleId) {
+        $.ajax({
+            url: "/Admin/DeleteRole",
+            data: { RoleId: roleId },
+            type: 'POST',
+            success: function (result) {
+                alert("Role has been deleted Successfully");
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    }
+
+    function ShowCreateAccess() {
+        $.ajax({
+            url: '/Admin/CreateAccess',
+            type: 'GET',
+            success: function (response) {
+                $("#provider-tab-pane").html(response);
+            }
+        });
+    }
+</script>

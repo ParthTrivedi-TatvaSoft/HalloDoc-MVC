@@ -98,11 +98,26 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="provider-tab" data-bs-toggle="tab"
-                                data-bs-target="#provider-tab-pane" type="button" role="tab"
-                                aria-controls="provider-tab-pane" aria-selected="false">
-                            Providers
-                        </button>
+                        <div class="dropdown">
+                            <button class="nav-link" type="button" id="provider-tab" data-bs-toggle="dropdown" data-bs-target="#provider-tab-pane" aria-expanded="false">
+                                Providers
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <button class="nav-link mx-3" id="provider-tab" data-bs-toggle="tab"
+                                            data-bs-target="#provider-tab-pane" type="button" role="tab"
+                                            aria-controls="provider-tab-pane" onclick="showProvider()" aria-selected="false">
+                                        Providers
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" href="#">Scheduling</button>
+                                    </li>
+                                <li>
+                                    <button class="dropdown-item" href="#">Invoicing</button>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="partner-tab" data-bs-toggle="tab"
@@ -111,11 +126,41 @@
                             Partners
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
+                 @*    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="access-tab" data-bs-toggle="tab" data-bs-target="#access-tab-pane"
                                 type="button" role="tab" aria-controls="access-tab-pane" aria-selected="false">
                             Access
                         </button>
+                    </li> *@
+                    <li class="nav-item admin-tab" role="presentation" id="access-tab">
+                        <div class="dropdown">
+                            <button class="nav-link" type="button" id="access-tab" data-bs-toggle="dropdown" data-bs-target="#access-tab-pane" aria-expanded="false">
+                                Access
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <button class="nav-link mx-3" id="access-tab" data-bs-toggle="tab"
+                                            data-bs-target="#access-tab-pane" role="tab"
+                                            aria-controls="access-tab-pane" onclick="AccountAccess()" aria-selected="false">
+                                        Account Access
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="nav-link mx-3" id="access-tab" data-bs-toggle="tab"
+                                       data-bs-target="#access-tab-pane" role="tab"
+                                       aria-controls="access-tab-pane" onclick="UserAccess()" aria-selected="false">
+                                        User Access
+                                    </button>
+                                    </li>
+                                <li>
+                                    <button class="nav-link mx-3" id="provider-tab" data-bs-toggle="tab"
+                                            data-bs-target="#provider-tab-pane" role="tab"
+                                            aria-controls="provider-tab-pane" onclick="CreateAdminAccount()" aria-selected="false">
+                                        Create Admin Account
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="record-tab" data-bs-toggle="tab" data-bs-target="#record-tab-pane"
@@ -143,16 +188,16 @@
             provider-location......
         </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            <partial name="_myprofile" />
+        
         </div>
         <div class="tab-pane fade" id="provider-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            provider......
+            
         </div>
         <div class="tab-pane fade" id="partner-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             partner......
         </div>
         <div class="tab-pane fade" id="access-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            access......
+            
         </div>
         <div class="tab-pane fade" id="record-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             record......
@@ -211,8 +256,9 @@
 
 
         $(document).ready(function () {
-            ShowAllRequests();
-            // Convert table rows to accordions in mobile view
+            ShowAllRequests();// On Page Load It Will show All Tab Heads
+
+            // Convert Table Rows To Accordions In Mobile view
             if ($(window).width() < 768) {
                 $('.data-table tbody tr').each(function () {
                     var name = $(this).find('td:eq(0)').text();
@@ -260,6 +306,51 @@
                 });
             }
         });
+
+
+        function changepage(CurrentPage, tabNo) {
+            debugger
+            console.log("pagination");
+
+            $.ajax({
+                url: '/Admin/GetRequestsByStatus',
+                type: "GET",
+                data: { tabNo: tabNo, CurrentPage: CurrentPage },
+
+                success: function (response) {
+                    console.log(response);
+                    if (tabNo == 1) {
+                        $("#tab1").html(response);
+
+
+                    }
+                    if (tabNo == 2) {
+                        $("#tab2").html(response);
+                    }
+                    if (tabNo == 3) {
+                        $("#tab3").html(response);
+                    }
+                    if (tabNo == 4) {
+                        $("#tab4").html(response);
+                    }
+                    if (tabNo == 5) {
+                        $("#tab5").html(response);
+                    }
+                    if (tabNo == 6) {
+                        $("#tab6").html(response);
+                    }
+
+
+                },
+                error: function (error) {
+                    console.log(error)
+
+                }
+            });
+        }
+
+
+
 
         function showNewRequests(status) {
             $.ajax({
@@ -450,7 +541,6 @@
 
         }
 
-
         function ExportAll() {
             $.ajax({
                 url: '/Admin/GetRequestsByStatus',
@@ -462,17 +552,6 @@
                 }
             });
         }
-
-        function showMyProfile() {
-            $.ajax({
-                url: '/Admin/ShowMyProfile',
-                type: 'GET',
-                success: function (response) {
-                    $("#profile-tab-pane").html(response);
-                }
-            });
-        }
-
 
         function ShowRequestSupport() {
             $.ajax({
@@ -489,7 +568,6 @@
             });
         }
 
-
         function sendLink() {
             $.ajax({
                 url: '/Admin/SendLink',
@@ -501,6 +579,50 @@
             })
         }
 
+        function showMyProfile() {
+            $.ajax({
+                url: '/Admin/ShowMyProfile',
+                type: 'GET',
+                success: function (response) {
+                    $("#profile-tab-pane").html(response);
+                }
+            });
+        }
+
+        function showProvider() {
+            $.ajax({
+                url: '/Admin/Provider',
+                type: 'GET',
+                success: function (response) {
+                    $("#provider-tab-pane").html(response);
+                }
+            });
+        }
+
+
+
+
+        function AccountAccess() {
+            $.ajax({
+                url: '/Admin/ShowAccountAccess',
+                type: 'GET',
+                success: function (response) {
+                    $("#access-tab-pane").html(response);
+                }
+            });
+        }
+
+        function UserAccess() {
+            $.ajax({
+                url: '/Admin/ShowUserAccess',
+                type: 'GET',
+                success: function (response) {
+                    $("#access-tab-pane").html(response);
+                }
+            });
+        }
+
+        
 
 
 

@@ -14,7 +14,7 @@ namespace BusinessLogic.Interfaces
     public interface IAdminService
     {
         Aspnetuser GetAspnetuser(string email);
-        DashboardModel GetRequestsByStatus(int status);
+        DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage);
         DashboardModel GetRequestByRegion(int regionId, int tabNo);
 
 
@@ -81,6 +81,16 @@ namespace BusinessLogic.Interfaces
 
         bool CreateRequest(CreateRequestModel model, string sessionEmail);
 
-       
+        List<ProviderModel> GetProvider();
+
+        List<AccountAccess> AccountAccess();
+
+        ProviderList Provider();
+        Provider StopProviderNotif(int Physicianid);
+
+        Provider providerContact(int PhysicianId);
+
+        void providerContactEmail(int phyIdMain, string msg);
+
     }
 }

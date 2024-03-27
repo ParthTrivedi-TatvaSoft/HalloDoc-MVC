@@ -85,13 +85,9 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult GetRequestsByStatus(int tabNo)
+        public IActionResult GetRequestsByStatus(int tabNo, int CurrentPage)
         {
-            var list = _adminService.GetRequestsByStatus(tabNo);
-            if (tabNo == 0)
-            {
-                return Json(list);
-            }
+            var list = _adminService.GetRequestsByStatus(tabNo, CurrentPage);
             if (tabNo == 1)
             {
                 return PartialView("_newrequest", list);
@@ -110,14 +106,19 @@ namespace HalloDoc.mvc.Controllers
             }
             else if (tabNo == 5)
             {
-                return PartialView("_tocloserequest", list);
+                return PartialView("_toCloserequest", list);
             }
             else if (tabNo == 6)
             {
                 return PartialView("_unpaidrequest", list);
             }
+            else if (tabNo == 0)
+            {
+                return Json(list);
+            }
             return View();
         }
+
 
         [HttpPost]
         public string ExportReq(List<AdminDashTableModel> reqList)
@@ -149,12 +150,7 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
-        public IActionResult FilterRegion(int regionId, int tabNo)
-        {
-            var list = _adminService.GetRequestByRegion(regionId, tabNo);
-            return PartialView("_newrequest", list);
-        }
-
+        
         [CustomAuthorize("Admin")]
         public IActionResult admin_dashboard()
         {
@@ -610,6 +606,10 @@ namespace HalloDoc.mvc.Controllers
             }
         }
 
+
+       
+
+
         [HttpGet]
         public IActionResult SendLink()
         {
@@ -649,10 +649,76 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_requestsupport");
         }
 
-      
 
-       
+        public IActionResult FilterRegion(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_newrequest", list);
+        }
 
+        public IActionResult FilterRegionPending(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_pendingrequest", list);
+        }
+
+        public IActionResult FilterRegionActive(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_activerequest", list);
+        }
+
+        public IActionResult FilterRegionConclude(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_concluderequest", list);
+        }
+        public IActionResult FilterRegionToClose(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_tocloserequest", list);
+        }
+        public IActionResult FilterRegionUnpaid(int regionId, int tabNo)
+        {
+            var list = _adminService.GetRequestByRegion(regionId, tabNo);
+            return PartialView("_unpaidrequest", list);
+        }
+
+        public IActionResult Provider()
+        {
+            var provider = _adminService.Provider();
+            return PartialView("_provider", provider);
+        }
+
+        public void StopNotification(int PhysicianId)
+        {
+            _adminService.StopProviderNotif(PhysicianId);
+        }
+
+        public IActionResult ContactProvider(int physicianId)
+        {
+            var contact = _adminService.providerContact(physicianId);
+            return PartialView("_contactprovider", contact);
+        }
+
+        [HttpPost]
+        public IActionResult providerContactModalEmail(int phyIdMain, string msg)
+        {
+            _adminService.providerContactEmail(phyIdMain, msg);
+            return RedirectToAction("admin_dashboard");
+        }
+
+        [HttpGet]
+        public IActionResult EditProvider()
+        {
+            return PartialView("_editprovider");
+        }
+        [HttpGet]
+        public IActionResult ShowAccountAccess()
+        {
+            var obj = _adminService.AccountAccess();
+            return PartialView("_accountaccess",obj);
+        }
 
 
 

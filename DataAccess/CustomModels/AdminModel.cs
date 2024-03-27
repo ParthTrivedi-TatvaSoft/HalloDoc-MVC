@@ -1,6 +1,7 @@
 ﻿using DataAccess.Models;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -42,6 +43,10 @@ namespace DataAccess.CustomModels
         public int? intYear { get; set; }
         public int? intDate { get; set; }
 
+        public string reqstrMonth { get; set; }
+        public int? reqintYear { get; set; }
+        public int? reqintDate { get; set; }
+
         public string? requestorFname { get; set; }
 
         public string? requestorLname { get; set; }
@@ -75,6 +80,8 @@ namespace DataAccess.CustomModels
     {
         public List<AdminDashTableModel>? adminDashTableList { get; set; }
         public List<Region>? regionList { get; set; }
+        public int? TotalPage { get; set; }
+        public int? CurrentPage { get; set; }
     }
     public class ViewCaseViewModel
     {
@@ -351,5 +358,37 @@ namespace DataAccess.CustomModels
         public string? admin_notes { get; set; }
 
         public bool? indicate { get; set; }
+    }
+
+    public class ProviderModel
+    {
+        public bool? isNotified { get; set; }
+        public string? name { get; set; }
+        public string? role { get; set; }
+        public string? callStatus { get; set; }
+        public string? status { get; set; }
+        public string? physicianId { get; set; }
+    }
+
+    public class ProviderList
+    {
+        public List<Provider> List { get; set; }
+    }
+    public class Provider
+    {
+        public int physicianid { get; set; }
+        public BitArray notification { get; set; }
+        public string providername { get; set; }
+        public string role { get; set; }
+        [Required(ErrorMessage = "Message is required")]
+        public string message { get; set; }
+
+    }
+    public class AccountAccess
+    {
+        public int RoleId { get; set; }
+        public string Name { get; set; }
+        public short AccountType { get; set; }
+
     }
 }

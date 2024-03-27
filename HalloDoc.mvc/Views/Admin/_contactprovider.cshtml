@@ -1,0 +1,94 @@
+﻿@using DataAccess.CustomModels;
+@model Provider;
+
+<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <div class="modal-title text-light" id="exampleModalLongTitle">Contact Your Provider</div>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <form class="p-3" method="post" id="ContactProviderForm">
+                <input type="hidden" asp-for="@Model.physicianid" value="@Model.physicianid" />
+                <input type="text" hidden />
+                <div class="text-secondary">
+                    Choose communication to send message
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="SMS" checked>
+                    <label class="form-check-label cursor-pointer" for="SMS">
+                        SMS
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="Email">
+                    <label class="form-check-label cursor-pointer" for="Email">
+                        Email
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ContactRadio" id="Both">
+                    <label class="form-check-label cursor-pointer" for="Both">
+                        Both
+                    </label>
+                </div>
+                <div class="mt-4 form-floating text-secondary">
+                    <textarea asp-for="@Model.message" class="form-control h-100" id="floatingInputMessage" placeholder="Message" rows="3"></textarea>
+                    <label for="floatingInputMessage" class="text-wrap">Message</label>
+                    <span asp-validation-for="@Model.message" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="button" onclick="providerContactSendBtn(@Model.physicianid)" class="btn btn-info continue-btn mx-2">Send</button>
+                    <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    function providerContactSendBtn(physicianid) {
+        var msg = $("#floatingInputMessage").val();
+        var checkboxes = document.querySelectorAll('input[type="radio"]:checked');
+
+        console.log(checkboxes[0].id)
+
+
+        if ($("#ContactProviderForm").valid()) {
+            if (checkboxes[0].id == "SMS") {
+                toastr.error("SMS Service Is Not Available!")
+            } else if (checkboxes[0].id == "Email") {
+                $.ajax({
+                    url: "/Admin/providerContactModalEmail",
+                    data: { phyIdMain: physicianid, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("Email Sent Successfully")
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            } else if (checkboxes[0].id == "Both") {
+
+                toastr.error("SMS Service Is Not Available!")
+
+                $.ajax({
+                    url: "/Admin/providerContactModalEmail",
+                    data: { phyIdMain: physicianid, msg: msg },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("Email Sent Successfully")
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            }
+        }
+    }
+</script>
