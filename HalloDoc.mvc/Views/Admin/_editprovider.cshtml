@@ -1,415 +1,630 @@
-﻿@* @{
-    ViewData["Title"] = "_EditProvider";
-}
- *@
+﻿@using DataAccess.CustomModels;
+@model EditProviderModel2;
+
+<style>
+
+    .regionbtn {
+        box-shadow: none !important;
+        border-color: #0dcaf0 !important;
+        color: #0dcaf0 !important;
+    }
+
+    .iti {
+        width: 100%;
+    }
+
+    .iti__country-list {
+        z-index: 3 !important;
+    }
+
+    .form_doc {
+        position: absolute;
+        width: 80px;
+        margin-top: 4px;
+        opacity: 0;
+    }
+
+    .form_doc_mobile {
+        position: absolute;
+        width: 45px;
+        margin-top: 4px;
+        opacity: 0;
+    }
+
+</style>
+
 
 <div class="container">
-    <div class="container-fluid d-flex justify-content-between mt-4" style="max-width:1000px" id="EditProviderModal">
-        <h4>
-            Edit Physician Account
-        </h4>
-        <div class="d-inline-flex">
-           
-            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
-        </div>
+    <div class=" mt-2 d-flex justify-content-between align-items-center">
+        <h4>My Profile</h4>
+        <button onclick="providers()"
+                class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+            <i class="fa-solid fa-angle-left fs-6"></i> Back
+        </button>
     </div>
-    <div class="container-fluid d-flex justify-content-center mt-4" style="max-width:1000px">
-        <div class="viewCaseForm form-floating shadow patient-request-form p-3">
+    @*  <form action="" class="shadow border rounded my-3" method="post"> *@
+    <div class="shadow border rounded my-3">
+        <div class="mx-3 my-4 ">
+            <form action=" " method="post" id="ResetPasswordForm">
+                <div class="mt-3">
+                    <h4 class="my-4 pt-4">Account Information</h4>
 
-            <form>
-                <input value="1" hidden />
-                <input id="PhysicianId" hidden />
+                    <div class="row">
+                        <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating  ">
+                            <input type="text" class="form-control " id="floatingInputUsername" placeholder="User Name" disabled aria-label="User Name" asp-for="@Model.editPro.username">
+                            <label class="ms-2 " for="floatingInputUsername">User Name</label>
+                        </div>
+                        <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
+                            <input type="password" class="form-control bg-transparent"
+                                   id="floatingPassword2" placeholder="Password">
+                            <label class="ms-2" for="floatingPassword2">Password</label>
+                            <div class="eye-icon position-absolute top-0 end-0 mx-3 my-2">
+                                <i class="bi bi-eye-slash fs-4 text-muted mt-1 common-cursor-pointer" id="togglePassword2" onclick="showPassword()"></i>
+                            </div>
 
-                <h5>Account Information</h5>
-                <div class="row g-2 m-1">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="userName">
-                            <label for="">User Name</label>
+                        </div>
+                        @*  <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden1" hidden /> *@
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <select class="form-select form-control d1class" disabled id="status">
+                                <option value="1">Active</option>
+                                <option value="2">Pending</option>
+                                <option value="3">Not Active</option>
+                            </select>
+                            <label for="status" class="ms-2 ">Status</label>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <select class="form-select form-control d1class" disabled id="Role">
+                                <option value="1">Master Admin</option>
+                                <option value="2">Physician</option>
+                                <option value="3">Provider</option>
+                            </select>
+
+                            <label for="Role" class="ms-2 ">Role</label>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" id="editBtn1" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(1)">
+                            Edit
+                        </button>
 
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="text" class="form-control " id="password">
-                            <label for="floatingSelectGrid">Password</label>
-                        </div>
+                        <button type="submit" id="submitBtn1" class="btn btn-info text-white SaveBtn me-2">Save</button>
+
+                        <button type="button" id="cancelBtn1" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(1)">
+                            Cancel
+                        </button>
+                        <button type="submit" id="ResetPassword"
+                                class="btn btn-outline-secondary border-info text-info ms-2">
+                            Reset Password
+                        </button>
                     </div>
                 </div>
-
-                <div class="row g-2 m-1">
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <select class="form-select mb-3" id="status">
-                                <option>Active</option>
-                                <option>Out</option>
-                                <option>Died</option>
-                            </select>
-                            <label for="">Status</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <select class="form-select mb-3" id="role">
-                                <option>Active</option>
-                                <option>Out</option>
-                                <option>Died</option>
-                            </select>
-                            <label for="">Role</label>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary float-end m-1">Reset Password</button><br />
             </form>
-            <form>
-                <input value="2" hidden />
-                <input id="PhysicianId" hidden />
-                <h5>Physician Information</h5>
-                <fieldset id="fieldset2" disabled>
 
-                    <div class="row g-2 m-1">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control">
-                                <label for="">First Name</label>
-                            </div>
+            <form action=" " method="post" id="AdministratorForm">
+                <div class="pt-4">
+                    <h4 class="mb-4">Physician Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                            <input type="text" class="d2class form-control " id="floatingInputFirstName" asp-for="@Model.editPro.Firstname"
+                                   placeholder="First Name" aria-label="First Name">
+                            <label class="ms-2 " for="floatingInputFirstName">First Name</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control">
-                                <label for="floatingSelectGrid">Last Name</label>
-                            </div>
+                        @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden2" hidden /> *@
+                        @* <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden3" hidden /> *@
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <input type="text" class="d2class form-control " id="floatingInputLast" asp-for="@Model.editPro.Lastname"
+                                   placeholder="Last Name" aria-label="Last Name">
+                            <label class="ms-2  " for="floatingInputLast">Last Name</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control">
-                                <label for="">Email</label>
-                            </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="email" class="d2class form-control " id="ProfileInputemail" asp-for="@Model.editPro.Email"
+                                   placeholder="Email" aria-label="Email">
+
+                            <label class="ms-2 " for="floatingInputemail">Email</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating phone-div w-100 h-100">
-                                <input type="tel" class="patientPhone form-control w-100 h-100">
-                                <label for="">Phone</label>
-                            </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input style="height:58px;" id="providerMobile" asp-for="@Model.editPro.PhoneNumber"
+                                   class="form-control contact d2class"
+                                   aria-label="Contact"
+                                   type="number" />
+                            @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control">
-                                <label for="">Medical License Number</label>
-                            </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d2class form-control " id="MedicalLicense" asp-for="@Model.editPro.MedicalLicesnse"
+                                   placeholder="MedicalLicense" aria-label="MedicalLicense">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="MedicalLicense">MedicalLicense #</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control">
-                                <label for="">NPI Number</label>
-                            </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d2class form-control " id="NPINumber" asp-for="@Model.editPro.NPInumber"
+                                   placeholder="NPINumber" aria-label="NPINumber">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="NPINumber">NPI Number</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control">
-                                <label for="">Synchronization Email Address</label>
-                            </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="email" class="d2class form-control " id="SynchronizationEmail" asp-for="@Model..SycnEmail"
+                                   placeholder="SynchronizationEmail" aria-label="SynchronizationEmail">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="SynchronizationEmail">Synchronization Email Address</label>
                         </div>
-                        <div class="col-6 d-flex justify-content-start flex-wrap mt-4">
-                            <div>
-                                @*    @foreach (var item in Model.RegionList)
+                        <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <button class="btn border d-flex align-items-center w-100 regionbtn d2class" type="button" style="height:58px" data-bs-toggle="dropdown" aria-expanded="false">
+                                Select Region
+                            </button>
+                            <div class="dropdown-menu d1class">
+                                @if (Model.physicianregiontable is not null && Model.physicianregiontable.Count > 0)
                                 {
-                                <input class="form-check-input" type="checkbox" value="@item.Regionid" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                @item.Name
-                                </label>
-                                } *@
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-
-
-                <button type="reset" id="editBtn1" onclick="" class="btn btn-primary float-end me-1 m-1">Edit</button>
-                <button type="reset" id="cancelBtn1" class="btn btn-danger float-end me-1 d-none">Cancel</button>
-                <button type="submit" id="saveBtn1" class="btn btn-primary float-end me-1 d-none">Save</button><br />
-            </form>
-            <form>
-                <input value="3" hidden />
-                <input id="PhysicianId" hidden />
-                <h5>Mailing & Billing Information</h5>
-                <fieldset disabled id="fieldset3">
-
-                    <div class="row g-2 m-1">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="">Address1</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="floatingSelectGrid">Address2</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="">City</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating phone-div w-100 h-100 ">
-                                @*    <select class="form-select border-0" aria-label="Default select example">
-                                @foreach (var items in Model.RegionList)
-                                {
-                                <option value="@items.Regionid" selected>@items.Name</option>
+                                    @foreach (var region in Model.physicianregiontable)
+                                    {
+                                        <div class="dropdown-item">
+                                            <input type="checkbox" @(region.ExistsInTable ? "checked" : "") name="regions" id="@region.Regionid" value="@region.Regionid" class="region-checkbox me-1">
+                                            <label for="@region.Regionid">@region</label>
+                                        </div>
+                                    }
                                 }
-                                </select> *@
-                                <label for="">Select A Region</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="">Zip</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating phone-div w-100 h-100 ">
-                                <input type="tel" class="patientPhone form-control w-100 h-100" placeholder="">
-                                <label for="">Phone</label>
                             </div>
                         </div>
                     </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mt-3 mb-3">
+                        <button type="button" id="editBtn2" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(2)">
+                            Edit
+                        </button>
 
-                </fieldset>
-                <button type="reset" id="editBtn2" class="btn btn-primary float-end me-1 m-1">Edit</button>
-                <button type="reset" id="cancelBtn2" class="btn btn-danger float-end me-1 d-none">Cancel</button>
-                <button type="submit" id="saveBtn2" class="btn btn-primary float-end me-1 d-none">Save</button><br />
+                        <button type="submit" id="submitBtn2" class="btn btn-info text-white SaveBtn ">Save</button>
+
+                        <button type="button" id="cancelBtn2" class="btn btn-outline-info CancelBtn "
+                                onclick="disableFields(2)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </form>
-            <form>
-                <input value="4" hidden />
-                <input id="PhysicianId" hidden />
-                <div class="my-3"></div>
-                <h5>Provider Profile</h5>
-                <fieldset id="fieldset4" disabled>
 
-                    <div class="row g-2 m-1">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="">Business name</label>
-                            </div>
+            <form action=" " method="post" id="MailingForm">
+                <div class="pt-4">
+                    <h4 class="mb-4">Mailing And Billing Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="@Model.editPro.Address1"
+                                   placeholder="Address1" aria-label="Address1">
+                            @* <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> *@
+                            <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="">
-                                <label for="floatingSelectGrid">Business Website</label>
-                            </div>
+                        @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden4" hidden /> *@
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputAddress2" asp-for="@Model.editPro.Address2"
+                                   placeholder="Address2" aria-label="Address2">
+                            <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                         </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputCity"
+                                   placeholder="City" aria-label="City">
+                            <label class="ms-2 " for="floatingInputCity">City</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region">
+                                @foreach (var obj in Model.regions)
+                                {
+                                    <option value="@obj.Regionid">
+                                        @obj.Name
+                                    </option>
+                                }
+                            </select>
+                            <label for="state" class="ms-2 ">State</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputZipCode" asp-for="@Model.editPro.zipcode"
+                                   placeholder="Zip Code" aria-label="Zip Code">
 
-                        <div class="col-md-6">
-                            <div class="input-group m-1 mb-3">
-                                <input type="file" id="actualFileBtn1" class="form-control" hidden>
-                                <span id="fileChoosen1" class="form-control">Select Photo</span>
-                                <label class="input-group-text btn btn-primary" id="uploadFileLabel1" for="actualFileBtn1">
-                                    @*  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
-                                    </svg> *@
-                                    Upload
+                            <label class="ms-2" for="floatingInputZipCode">Zip</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input style="height:58px;" id="providerMobileTwo" asp-for="@Model.editPro.altPhone"
+                                   class="form-control contact d2class"
+                                   aria-label="Contact"
+                                   type="number" />
+                            @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mb-3">
+                        <button type="button" id="editBtn3" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(3)">
+                            Edit
+                        </button>
+
+                        <button type="submit" id="submitBtn3" class="btn btn-info text-white SaveBtn">Save</button>
+
+                        <button type="button" id="cancelBtn3" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(3)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form action=" " method="post" id="Prvider">
+                <div class="pt-4">
+                    <h4 class="mb-4">Provider Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d4class form-control " id="Businessname" asp-for="@Model.editPro.Businessname"
+                                   placeholder="Businessname" aria-label="Businessname">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="Businessname">Business Name</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d4class form-control " id="Businesswebsite" asp-for="@Model.editPro.BusinessWebsite"
+                                   placeholder="Businesswebsite" aria-label="Businesswebsite">
+                            <label class="ms-2 " for="Businesswebsite">Business website</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex ">
+                            <div class="input-group">
+                                <input type="file" class="d4class form-control py-3" id="inputGroupFile" onchange="checkForm()">
+                                <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile">
+                                    <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                                    <span class="text-white">Upload</span>
                                 </label>
                             </div>
-                            <br />
-                            <img style="height:150px;width:150px" alt="Photo" />
                         </div>
-                        <div class="col-md-4">
-                            <div class="input-group m-1 mb-3">
-                                <input type="file" id="actualFileBtn2" class="form-control" hidden>
-                                <span id="fileChoosen2" class="form-control">Select Signature</span>
-                                <label class="input-group-text btn btn-primary" id="uploadFileLabel2" for="actualFileBtn2">
-                                    @*   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z" />
-                                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
-                                    </svg> *@
-                                    Upload
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex">
+                            <div class="input-group">
+                                <input type="file" class=" d4class form-control py-3" id="inputGroupFile1" onchange="checkForm()">
+                                <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile1">
+                                    <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                                    <span class="text-white">Upload</span>
                                 </label>
                             </div>
-                            <br />
-                            @* <img style="height:150px;width:150px" src="/uploadedFiles/ProviderData/@Model.Signature" alt="Signature" /> *@
+                            <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
+                                <i class="bi bi-pen me-1"></i><span>Create</span>
+                            </button>
                         </div>
-                        <div class="col-md-1">
-                            <div class="input-group m-1 mb-3">
-
-                                <button type="button" class="btn btn-primary" style="height:fit-content">Create</button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 col sm-12 col-12 ">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Admin Notes"></textarea>
+                        <div class=" col-12 form-floating mb-3">
+                            <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="@Model.editPro.Adminnotes"></textarea>
+                            <label class="ms-2" for="AdminNotes">
+                                Admin Notes
+                            </label>
                         </div>
                     </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end justify-content-md-end mb-3">
+                        <button type="button" id="editBtn4" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(4)">
+                            Edit
+                        </button>
 
-                </fieldset>
+                        <button type="submit" id="submitBtn4" class="btn btn-info text-white SaveBtn">Save</button>
 
-                <button type="button" id="editBtn3" class="btn btn-primary float-end m-1">Edit</button>
-                <button type="reset" id="cancelBtn3" class="btn btn-danger float-end m-1 d-none">Cancel</button>
-                <button type="submit" id="saveBtn3" class="btn btn-primary float-end m-1 d-none">Save</button><br />
-
-
-                <div class="my-4"></div>
-
-                <div class="border-bottom border-5"></div>
+                        <button type="button" id="cancelBtn4" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(4)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </form>
-            <form>
-                <input value="5" hidden />
-                <input id="PhysicianId" hidden />
-                <h5>Onboarding</h5>
 
-                <div class="row my-1">
-                    <div class="wrapper d-flex">
-                        <div class="col-1 m-1">
-                            <input type="checkbox" style="height:20px;width:20px" class="btn-outline-info" />
-                        </div>
-                        <div class="col-4">
-                            <span>Independent Contract Agreement</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">Upload</button>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">View</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-1">
-                    <div class="wrapper d-flex">
-                        <div class="col-1 m-1">
-                            <input type="checkbox" style="height:20px;width:20px" class="btn-outline-info" />
-                        </div>
-                        <div class="col-4">
-                            <span>Background Check</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">Upload</button>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">View</button>
+            <hr class="w-100" />
+
+            <form method="post" asp-action="">
+                <h4 class="mb-4">Onboarding</h4>
+                @* <input hidden value="@Model.PhyID" id="onboardingPhyID" /> *@
+                <div class="row pt-2 ">
+                    <div class="col-1 py-2 pt-3">
+                        <div class="form-check ms-3" style="padding-left : 50%;">
+                            <input type="checkbox"
+                                   onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxA" name="checkbox_group"
+                            @* @if (Model.isAgreementdoc[0])
+                                   {
+                                   <text>checked</text>
+                                   } *@ />
                         </div>
                     </div>
-                </div>
-                <div class="row my-1">
-                    <div class="wrapper d-flex">
-                        <div class="col-1 m-1">
-                            <input type="checkbox" style="height:20px;width:20px" class="btn-outline-info" />
-                        </div>
-                        <div class="col-4">
-                            <span>HIPAA Compliance</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">Upload</button>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">View</button>
+                    <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
+                        <spna class="my-1">Independent Contractor Agreement</spna>
+                    </div>
+                    <div class="col-md-4 col-3 py-2">
+                        <div class="d-flex flex-wrap ">
+                            <input type="file" onchange="uploadDocument()" id="isAgreementdocument" class="form_doc d-none d-sm-block" />
+                            <input type="file" class="form_doc_mobile  d-sm-none" />
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload1">Upload</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-1"><i class="bi bi-cloud-upload"></i></button>
+                            @*  @if (Model.isAgreementdoc[0])
+                            {
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("AgreementDoc")' id="view1">View</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("AgreementDoc")' id="view-sm-1"><i class="bi bi-eye-fill"></i></button>
+                            } *@
                         </div>
                     </div>
+                    <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
                 </div>
-                <div class="row my-1">
-                    <div class="wrapper d-flex">
-                        <div class="col-1 m-1">
-                            <input type="checkbox" style="height:20px;width:20px" class="btn-outline-info" />
-                        </div>
-                        <div class="col-4">
-                            <span>Non-Disclosure Agreement</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">Upload</button>
+                <div class="row pt-2">
+                    <div class="col-1 py-2 pt-3">
+                        <div class="form-check ms-3" style="padding-left : 50%;">
+                            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxB" name="checkbox_group"
+                            @* @if (Model.isBackgrounddoc[0])
+                                   {
+                                   <text>checked</text>
+                                   } *@ />
                         </div>
                     </div>
-                </div>
-                <div class="row my-1">
-                    <div class="wrapper d-flex">
-                        <div class="col-1 m-1">
-                            <input type="checkbox" style="height:20px;width:20px" class="btn-outline-info" />
-                        </div>
-                        <div class="col-4">
-                            <span>License Document</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary">Upload</button>
+                    <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
+                        <spna class="my-1">Background Check</spna>
+                    </div>
+                    <div class="col-md-4 col-3 py-2">
+                        <div class="d-flex flex-wrap">
+                            <input type="file" onchange="uploadDocument()" id="isBackgrounddocument" class="form_doc d-none d-sm-block" />
+                            <input type="file" class="form_doc_mobile  d-sm-none" />
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload2">Upload</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-2"><i class="bi bi-cloud-upload"></i></button>
+                            @*  @if (Model.isBackgrounddoc[0])
+                            {
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Backgrounddoc")' id="view2">View</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Backgrounddoc")' id="view-sm-2"><i class="bi bi-eye-fill"></i></button>
+                            } *@
                         </div>
                     </div>
+                    <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
                 </div>
-                <div class="border-bottom border-5"></div>
-                <button type="reset" class="btn btn-danger float-end m-1 ">Delete Account</button>
-                <button type="submit" class="btn btn-primary float-end m-1 ">Save</button><br />
+                <div class="row pt-2">
+                    <div class="col-1 py-2 pt-3">
+                        <div class="form-check ms-3" style="padding-left : 50%;">
+                            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxC" name="checkbox_group"
+                            @* @if (Model.isTrainingdoc[0])
+                                   {
+                                   <text>checked</text>
+                                   } *@ />
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
+                        <spna class="my-1">HPAA Compliance</spna>
+                    </div>
+                    <div class="col-md-4 col-3 py-2">
+                        <div class="d-flex flex-wrap">
+                            <input type="file" onchange="uploadDocument()" id="isTrainingdocument" class="form_doc d-none d-sm-block" />
+                            <input type="file" class="form_doc_mobile  d-sm-none" />
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload3">Upload</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-3"><i class="bi bi-cloud-upload"></i></button>
+                            @* @if (Model.isTrainingdoc[0])
+                            {
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Trainingdoc")' id="view3">View</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Trainingdoc")' id="view-sm-3"><i class="bi bi-eye-fill"></i></button>
+                            } *@
+                        </div>
+                    </div>
+                    <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
+                </div>
+                <div class="row pt-2">
+                    <div class="col-1 py-2 pt-3">
+                        <div class="form-check ms-3" style="padding-left : 50%;">
+                            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxD" name="checkbox_group"
+                            @* @if (Model.isNondiclosuserdoc[0])
+                                   {
+                                   <text>checked</text>
+                                   } *@ />
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
+                        <spna class="my-1">Non-disclosure Agreement</spna>
+                    </div>
+                    <div class="col-md-4 col-3 py-2">
+                        <div class="d-flex flex-wrap">
+                            <input type="file" onchange="uploadDocument()" id="isNondiclosuserdocument" class="form_doc d-none d-sm-block" />
+                            <input type="file" class="form_doc_mobile  d-sm-none" />
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload4">Upload</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-4"><i class="bi bi-cloud-upload"></i></button>
+                            @*  @if (Model.isNondiclosuserdoc[0])
+                            {
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Nondiclosuserdoc")' id="view4">View</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Nondiclosuserdoc")' id="view-sm-4"><i class="bi bi-eye-fill"></i></button>
+                            } *@
+                        </div>
+                    </div>
+                    <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
+                </div>
+                <div class="row pt-2">
+                    <div class="col-1 py-2 pt-3">
+                        <div class="form-check ms-3" style="padding-left : 50%;">
+                            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxE" name="checkbox_group"
+                            @* @if (Model.isLicesensdoc[0])
+                                   {
+                                   <text>checked</text>
+                                   } *@ />
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
+                        <spna class="my-1">License Document</spna>
+                    </div>
+                    <div class="col-md-4 col-3 py-2">
+                        <div class="d-flex flex-wrap">
+                            <input type="file" onchange="uploadDocument()" id="isLicesensdocument" class="form_doc d-none d-sm-block" />
+                            <input type="file" class="form_doc_mobile  d-sm-none" />
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload5">Upload</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-5"><i class="bi bi-cloud-upload"></i></button>
+                            @* @if (Model.isLicesensdoc[0])
+                            {
+                            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" onclick='ONboardviewDoc("Licesensdoc")' id="view5">View</button>
+                            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" onclick='ONboardviewDoc("Licesensdoc")' id="view-sm-5"><i class="bi bi-eye-fill"></i></button>
+                            } *@
+                        </div>
+                    </div>
+                    <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
+                </div>
             </form>
+
+            @* <form action=" " method="post" id="Onboarding">
+            <div class="pt-4">
+            <h4 class="mb-4">Onboarding</h4>
+            <div class="mb-3 d-flex align-items-center">
+            <div class="form-check">
+            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="1" id="Onboarding1">
+            <label class="form-check-label ms-3 fw-bolder" for="Onboarding1">
+            Independent Contractor Agreement
+            </label>
+            </div>
+            <button type="button" id="Upload" class="btn btn-info text-white mx-3">Upload</button>
+
+            <button type="button" id="OnboardingView1" class="btn btn-info text-white" style="display:none">
+            View
+            </button>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+            <div class="form-check">
+            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="2" id="Onboarding2">
+            <label class="form-check-label ms-3 fw-bolder" for="Onboarding2">
+            Background Check
+            </label>
+            </div>
+            <button type="button" id="Upload1" class="btn btn-info text-white mx-3">Upload</button>
+
+            <button type="button" id="OnboardingView2" class="btn btn-info text-white" style="display:none">
+            View
+            </button>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+            <div class="form-check">
+            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="3" id="Onboarding3">
+            <label class="form-check-label ms-3 fw-bolder" for="Onboarding3">
+            HIPAA Compliance
+            </label>
+            </div>
+            <button type="button" id="Upload2" class="btn btn-info text-white mx-3">Upload</button>
+
+            <button type="button" id="OnboardingView3" class="btn btn-info text-white" style="display:none">
+            View
+            </button>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+            <div class="form-check">
+            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="4" id="Onboarding4">
+            <label class="form-check-label ms-3 fw-bolder" for="Onboarding4">
+            Non-disclouser Agreement
+            </label>
+            </div>
+            <button type="button" id="Upload3" class="btn btn-info text-white mx-3">Upload</button>
+
+            <button type="button" id="OnboardingView4" class="btn btn-info text-white" style="display:none">
+            View
+            </button>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+            <div class="form-check">
+            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="5" id="Onboarding5">
+            <label class="form-check-label ms-3 fw-bolder" for="Onboarding5">
+            License Document
+            </label>
+            </div>
+            <button type="button" id="Upload4" class="btn btn-info text-white mx-3">Upload</button>
+
+            <button type="button" id="OnboardingView5" class="btn btn-info text-white" style="display:none">
+            View
+            </button>
+            </div>
+
+            </div>
+            </form> *@
+
+            <hr class="w-100" />
+            <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
+
+                <button type="submit" id="savebtn" class="btn btn-info text-white me-1">Save</button>
+
+                <button type="button" id="DeleteAccount" class="btn btn-danger ">
+                    Delete Account
+                </button>
+            </div>
         </div>
-
     </div>
+    @*     </form> *@
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
-</script>
-
-<script>
-    $("#editBtn1").click(function () {
-        document.getElementById("fieldset2").disabled = false;
-        document.getElementById("cancelBtn1").classList.remove("d-none");
-        document.getElementById("saveBtn1").classList.remove("d-none");
-        document.getElementById("editBtn1").classList.add("d-none");
-    })
-    $("#cancelBtn1").click(function () {
-        document.getElementById("fieldset2").disabled = true;
-        document.getElementById("cancelBtn1").classList.add("d-none");
-        document.getElementById("saveBtn1").classList.add("d-none");
-        document.getElementById("editBtn1").classList.remove("d-none");
-    });
-</script>
-<script>
-
-    $("#editBtn2").click(function () {
-        document.getElementById("fieldset3").disabled = false;
-        document.getElementById("cancelBtn2").classList.remove("d-none");
-        document.getElementById("saveBtn2").classList.remove("d-none");
-        document.getElementById("editBtn2").classList.add("d-none");
-    });
-    $("#cancelBtn2").click(function () {
-        document.getElementById("fieldset3").disabled = true;
-        document.getElementById("cancelBtn2").classList.add("d-none");
-        document.getElementById("saveBtn2").classList.add("d-none");
-        document.getElementById("editBtn2").classList.remove("d-none");
-    });
-</script>
-<script>
-
-    $("#editBtn3").click(function () {
-        document.getElementById("fieldset4").disabled = false;
-        document.getElementById("cancelBtn3").classList.remove("d-none");
-        document.getElementById("saveBtn3").classList.remove("d-none");
-        document.getElementById("editBtn3").classList.add("d-none");
-    });
-    $("#cancelBtn3").click(function () {
-        document.getElementById("fieldset4").disabled = true;
-        document.getElementById("cancelBtn3").classList.add("d-none");
-        document.getElementById("saveBtn3").classList.add("d-none");
-        document.getElementById("editBtn3").classList.remove("d-none");
-    });
-</script>
+<partial name="_ValidationScriptsPartial" />
 
 <script>
 
-    // file upload
-    const actualBtn1 = document.getElementById('actualFileBtn1');
+    $(document).ready(function () {
+        $('.Onboarding').change(function () {
+            var checkboxId = $(this).attr('id');
+            var buttonId = $(this).attr('value');
 
-    const fileChosen1 = document.getElementById('fileChoosen1');
+            if ($(this).is(':checked')) {
+                $('#OnboardingView' + buttonId).show();
+            } else {
+                $('#OnboardingView' + buttonId).hide();
+            }
+        });
+    });
 
-    actualBtn1.addEventListener('change', function () {
-        fileChosen1.textContent = this.files[0].name
-    })
-    const actualBtn2 = document.getElementById('actualFileBtn2');
 
-    const fileChosen2 = document.getElementById('fileChoosen2');
+    function disableFields(formid) {
+        document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
+            element.disabled = true;
+        });
+        // Hide the submit and cancel buttons, show the edit button
+        document.getElementById('submitBtn' + formid).style.display = 'none';
+        document.getElementById('cancelBtn' + formid).style.display = 'none';
+        document.getElementById('editBtn' + formid).style.display = 'block';
+    }
 
-    actualBtn2.addEventListener('change', function () {
-        fileChosen2.textContent = this.files[0].name
-    })
-</script> 
+    function enableFields(formid) {
+        document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
+            element.disabled = false;
+        });
+        // Show the submit and cancel buttons, hide the edit button
+        document.getElementById('submitBtn' + formid).style.display = 'block';
+        document.getElementById('cancelBtn' + formid).style.display = 'block';
+        document.getElementById('editBtn' + formid).style.display = 'none';
+    }
+    disableFields(1);
+    disableFields(2);
+    disableFields(3);
+    disableFields(4);
+
+    function showPassword() {
+
+        const togglePassword = document.querySelector("#togglePassword2");
+        const password = document.querySelector("#floatingPassword2");
+
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    }
+
+    $(document).ready(function () {
+        $('#inputGroupFile').on('change', function () {
+            if (checkForm() == true) {
+                var inputValue = $('#inputGroupFile').val();
+
+                if (inputValue != "") {
+                    $("#upload-admin-btn").removeClass("d-none");
+                }
+                else {
+                    $("#upload-admin-btn").addClass("d-none");
+                }
+            }
+
+        });
+    });
+
+    var providerEditMbl = document.querySelector("#providerMobile");
+    var providerEditMblMain = window.intlTelInput(providerEditMbl, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+
+    var providerEditMblTwo = document.querySelector("#providerMobileTwo");
+    var providerEditMblTwoMain = window.intlTelInput(providerEditMblTwo, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+</script>
+
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" crossorigin="anonymous"></script>
+<script src="~/js/countriesinput.js"></script>
+ *@

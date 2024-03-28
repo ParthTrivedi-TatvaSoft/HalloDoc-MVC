@@ -65,13 +65,20 @@
 </script>
 <script>
     function deleteRole(roleId) {
+      
         $.ajax({
             url: "/Admin/DeleteRole",
             data: { RoleId: roleId },
-            type: 'POST',
+            type: 'GET',
             success: function (result) {
-                alert("Role has been deleted Successfully");
-                location.reload();
+                if (result.isDelete ==false) {
+                    toastr.success("Role Has Been Deleted Successfully");
+                        AccountAccess();
+                }
+                else {
+                    toastr.error("Something Went Wrong");
+                    AccountAccess();
+                }
             },
             error: function (error) {
                 console.log(error);
@@ -85,7 +92,7 @@
             url: '/Admin/CreateAccess',
             type: 'GET',
             success: function (response) {
-                $("#provider-tab-pane").html(response);
+                $("#access-tab-pane").html(response);
             }
         });
     }

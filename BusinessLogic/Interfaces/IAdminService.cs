@@ -76,21 +76,30 @@ namespace BusinessLogic.Interfaces
         int GetStatusForReviewAgreement(int reqId);
 
         MyProfileModel MyProfile(string email);
-
+        bool ResetPassword(string tokenEmail, string resetPassword);
+        bool SubmitAdminInfo(MyProfileModel model, string tokenEmail);
+        bool SubmitBillingInfo(MyProfileModel model, string tokenEmail);
         bool VerifyState(string state);
 
         bool CreateRequest(CreateRequestModel model, string sessionEmail);
 
-        List<ProviderModel> GetProvider();
 
         List<AccountAccess> AccountAccess();
+        bool DeleteRole(int roleId);
 
-        ProviderList Provider();
-        Provider StopProviderNotif(int Physicianid);
+        CreateAccess FetchRole(short selectedValue);
+        void CreateRole(List<int> menuIds, string roleName, short accountType);
+        List<ProviderModel> GetProvider();
 
-        Provider providerContact(int PhysicianId);
+        //ProviderModel ProviderContact(int phyId);
+        public bool StopNotification(int phyId);
 
-        void providerContactEmail(int phyIdMain, string msg);
+        bool ProviderContactEmail(int phyIdMain, string msg);
+
+        void CreateAdminAccount(CreateAdminAccount createNewAccount);
+
+        CreateAdminAccount RegionList();
+
 
     }
 }

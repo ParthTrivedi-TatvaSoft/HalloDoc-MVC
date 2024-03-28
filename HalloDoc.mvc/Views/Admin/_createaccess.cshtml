@@ -1,5 +1,130 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DataAccess.CustomModels;
+@model CreateAccess;
+<div>
+    <div class="container-fluid d-flex justify-content-between mt-4" style="max-width:1000px">
+        <h4>
+            Create Role
+        </h4>
+        <a class="btn btn-outline-info m-2 text-decoration-none float-end"
+           id="back-btn" onclick="AccountAccess()">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="container-fluid justify-content-center mt-4" style="max-width:1200px">
+
+    <div class="card border-0 shadow p-4 mb-5 rounded">
+        <form>
+            <div class="row">
+                <div>
+                    <span>Details</span>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" class="form-control border" id="roleName" value="">
+                        <label for="roleName">Role Name</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating border phone-div w-100 h-100 ">
+                        <select class="form-select border-0" aria-label="Default select example" id="accountType">
+                            <option value="0" selected>All</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Physician</option>
+                            <option value="3">Patient</option>
+                        </select>
+                        <label for="accountType">Account Type</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row flex-wrap mt-4" id="roles">
+
+                @foreach (var item in Model.Menu)
+                {
+                    <div class="col-3">
+                        <input type="checkbox" class="m-1" value="@item.Menuid" />
+                        <span>@item.Name</span>
+                    </div>
+                }
+            </div>
+            <div class="d-flex float-end mt-3">
+                <button type="button" id="postForm" class="btn btn-outline-info float-end m-1">Save</button><br />
+                <button type="reset" class="btn btn-danger float-end m-1">Cancel</button><br />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#accountType").change(function () {
+            let selectedValue = $('option:selected', this).val();
+
+            $.ajax({
+                url: '/Admin/FetchRoles',
+                method: 'GET',
+                data: { selectedValue: selectedValue },
+                success: function (data) {
+                    $('#roles').empty();
+
+                    $.each(data.menu, function (index, item) {
+                        var checkbox = $('<input>').attr({
+                            type: 'checkbox',
+                            value: item.menuid,
+                            id: item.menuid,
+                        }).addClass('m-1').addClass('')
+                        var label = $('<label>').attr('for', item.menuid).text(item.name);
+                        var div = $('<div>').addClass('col-3');
+                        div.append(checkbox).append(label);
+                        $("#roles").append(div);
+                    })
+                },
+                error: function (error) {
+                    console.error('Error fetching data: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+
+    $('#postForm').click(function () {
+
+        let selectedBox = [];
+        let roleName = $("#roleName").val();
+        let accountType = $("#accountType").val();
+
+
+        $("input:checkbox:checked").each(function () {
+            selectedBox.push($(this).val());
+        });
+
+        console.log(selectedBox);
+        console.log(roleName);
+        console.log(accountType);
+
+        $.ajax({
+            url: "/Admin/CreateAccessPost",
+            type: 'POST',
+            data: {
+                MenuIds: selectedBox,
+                RoleName: roleName,
+                AccountType: accountType,
+            },
+            success: function (result) {
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert(error);
+                alert('Error Cancelling Request')
+            },
+        });
+    });
+
+
+</script>

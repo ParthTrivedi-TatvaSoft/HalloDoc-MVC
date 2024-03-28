@@ -680,9 +680,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.ToTable("menu");
 
-            entity.Property(e => e.Menuid)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("menuid");
+            entity.Property(e => e.Menuid).HasColumnName("menuid");
             entity.Property(e => e.Accounttype).HasColumnName("accounttype");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -849,6 +847,10 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Region).WithMany(p => p.Physicians)
                 .HasForeignKey(d => d.Regionid)
                 .HasConstraintName("fk_physician1");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.Physicians)
+                .HasForeignKey(d => d.Roleid)
+                .HasConstraintName("fk_physician4");
         });
 
         modelBuilder.Entity<Physicianlocation>(entity =>

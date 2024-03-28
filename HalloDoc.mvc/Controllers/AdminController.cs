@@ -15,6 +15,7 @@ using Org.BouncyCastle.Asn1.Ocsp;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -556,12 +557,66 @@ namespace HalloDoc.mvc.Controllers
             var token = request.Cookies["jwt"];
             if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
             {
-                return Json("ok");
+                return Json("token expired");
             }
             var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
 
             var model = _adminService.MyProfile(emailClaim.Value);
             return PartialView("_myprofile", model);
+        }
+        public string GetTokenEmail()
+        {
+            var token = HttpContext.Request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return "";
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            return emailClaim.Value;
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(string resetPassword)
+        {
+            var tokenEmail = GetTokenEmail();
+            if (tokenEmail != "")
+            {
+                bool isReset = _adminService.ResetPassword(tokenEmail, resetPassword);
+                return Json(new { isReset = isReset });
+             
+            }
+            return Json(new { isReset = false });
+        }
+
+        [HttpPost]
+        public IActionResult SubmitAdminInfo(MyProfileModel model)
+        {
+            var tokenEmail = GetTokenEmail();
+            if (tokenEmail != "")
+            {
+                bool isSubmit = _adminService.SubmitAdminInfo(model, tokenEmail);
+                return Json(new { isSubmit = isSubmit });
+            }
+            return Json(new { isSubmit = false });
+        }
+
+        [HttpPost]
+        public IActionResult SubmitBillingInfo(MyProfileModel model)
+        {
+            var tokenEmail = GetTokenEmail();
+            if (tokenEmail != "")
+            {
+                var isRegionExists = _adminService.VerifyState(model.state);
+                if (isRegionExists)
+                {
+                    bool isSubmit = _adminService.SubmitBillingInfo(model, tokenEmail);
+                    return Json(new { isSubmit = isSubmit, isRegionExists = isRegionExists });
+                }
+                else
+                {
+                    return Json(new { isRegionExists = isRegionExists });
+                }
+            }
+            return Json(new { isSubmit = false });
         }
 
         [HttpGet]
@@ -684,35 +739,69 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_unpaidrequest", list);
         }
 
-        public IActionResult Provider()
+        public IActionResult ShowProvider()
         {
-            var provider = _adminService.Provider();
-            return PartialView("_provider", provider);
+            var model = _adminService.GetProvider();
+            return PartialView("_provider", model);
         }
-
-        public void StopNotification(int PhysicianId)
+        [HttpGet]
+        public IActionResult DeleteRole(int RoleId)
         {
-            _adminService.StopProviderNotif(PhysicianId);
-        }
-
-        public IActionResult ContactProvider(int physicianId)
-        {
-            var contact = _adminService.providerContact(physicianId);
-            return PartialView("_contactprovider", contact);
-        }
-
-        [HttpPost]
-        public IActionResult providerContactModalEmail(int phyIdMain, string msg)
-        {
-            _adminService.providerContactEmail(phyIdMain, msg);
-            return RedirectToAction("admin_dashboard");
+            var isDeleted = _adminService.DeleteRole(RoleId);
+            return Json(new { isDeleted = isDeleted });
         }
 
         [HttpGet]
+        public IActionResult ProviderContactModal(int phyId)
+        {
+
+            var model = new ProviderModel();
+            model.phyId = phyId;
+
+            return PartialView("_contactprovider", model);
+        }
+
+        [HttpPost]
+        public IActionResult ContactProviderEmail(int phyId, string msg)
+        {
+            var isSend = _adminService.ProviderContactEmail(phyId, msg);
+            return Json(new { isSend = isSend });
+        }
+
+        public IActionResult ProviderCheckbox(int phyId)
+        {
+            var isStopped = _adminService.StopNotification(phyId);
+            return Json(new { isStopped = isStopped });
+        }
+
         public IActionResult EditProvider()
         {
-            return PartialView("_editprovider");
+            EditProviderModel2 model = new EditProviderModel2();
+            return PartialView("_editprovider", model);
         }
+
+        [HttpGet]
+        public IActionResult CreateAccess()
+        {
+            var obj = _adminService.FetchRole(0);
+            return PartialView("_createaccess",obj);
+        }
+
+
+        [HttpPost]
+        public IActionResult CreateAccessPost(List<int> MenuIds, string RoleName, short AccountType)
+        {
+                _adminService.CreateRole(MenuIds, RoleName, AccountType);
+            return RedirectToAction("ShowAccountAccess");
+        }
+
+        [HttpGet]
+        public CreateAccess FetchRoles(short selectedValue)
+        {
+            var obj = _adminService.FetchRole(selectedValue);
+            return obj;
+        }
+
         [HttpGet]
         public IActionResult ShowAccountAccess()
         {
@@ -720,6 +809,24 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_accountaccess",obj);
         }
 
+        [HttpGet]
+        public IActionResult AdminAccount()
+        {
+            var obj = _adminService.RegionList();
+            return PartialView("_createadminaccount",obj);
+        }
+
+        [HttpPost]
+        public IActionResult AdminAccount(CreateAdminAccount model)
+        {
+            _adminService.CreateAdminAccount(model);
+            return RedirectToAction("admin_dashboard");
+        }
+
+        public IActionResult ShowUserAccess()
+        {
+            return PartialView("_useraccess");
+        }
 
 
 

@@ -23,4 +23,6 @@ public partial class Role
     public BitArray Isdeleted { get; set; } = null!;
 
     public string? Ip { get; set; }
+
+    public virtual ICollection<Physician> Physicians { get; set; } = new List<Physician>();
 }

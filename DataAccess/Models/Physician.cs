@@ -98,5 +98,7 @@ public partial class Physician
 
     public virtual ICollection<Requestwisefile> Requestwisefiles { get; set; } = new List<Requestwisefile>();
 
+    public virtual Role? Role { get; set; }
+
     public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
 }

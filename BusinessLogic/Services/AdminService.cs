@@ -933,9 +933,143 @@ namespace BusinessLogic.Services
 
 
             myProfileMain.username = aspnetuser.Username;
-            myProfileMain.password = aspnetuser.Passwordhash;
+            //myProfileMain.password = aspnetuser.Passwordhash;
 
             return myProfileMain;
+        }
+
+        public bool ResetPassword(string tokenEmail, string resetPassword)
+        {
+            try
+            {
+                var aspUser = _db.Aspnetusers.Where(r => r.Email == tokenEmail).Select(r => r).First();
+
+                if (aspUser.Passwordhash != resetPassword)
+                {
+                    aspUser.Passwordhash = resetPassword;
+                    _db.Aspnetusers.Update(aspUser);
+
+                    _db.SaveChanges();
+
+                    return true;
+                }
+                return false;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        public bool SubmitAdminInfo(MyProfileModel model, string tokenEmail)
+        {
+            try
+            {
+
+                var aspUser = _db.Aspnetusers.Where(r => r.Email == tokenEmail).Select(r => r).First();
+
+                var adminInfo = _db.Admins.Where(r => r.Email == tokenEmail).Select(r => r).First();
+
+                if (adminInfo.Firstname != model.fname || adminInfo.Lastname != model.lname || adminInfo.Email != model.email || adminInfo.Mobile != model.mobile_no)
+                {
+                    if (adminInfo.Firstname != model.fname)
+                    {
+
+                        adminInfo.Firstname = model.fname;
+
+                    }
+
+                    if (adminInfo.Lastname != model.lname)
+                    {
+                        adminInfo.Lastname = model.lname;
+                    }
+
+                    if (adminInfo.Email != model.email)
+                    {
+                        adminInfo.Email = model.email;
+                        aspUser.Email = model.email;
+
+                        int index = model.email.IndexOf('@');
+                        var username = model.email.Substring(0, index);
+                        aspUser.Username = username;
+                    }
+
+                    if (adminInfo.Mobile != model.mobile_no)
+                    {
+                        adminInfo.Mobile = model.mobile_no;
+                        aspUser.Phonenumber = model.mobile_no;
+                    }
+
+
+                    aspUser.Modifieddate = DateTime.Now;
+
+                    _db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool SubmitBillingInfo(MyProfileModel model, string tokenEmail)
+        {
+            try
+            {
+                var adminInfo = _db.Admins.Where(r => r.Email == tokenEmail).Select(r => r).First();
+
+                var regionid = _db.Regions.Where(x => x.Name.ToLower() == model.state.ToLower()).Select(x => x.Regionid).First();
+
+                if (adminInfo.Address1 != model.addr1 || adminInfo.Address2 != model.addr2 || adminInfo.City != model.city || adminInfo.Zip != model.zip || adminInfo.Regionid != regionid)
+                {
+
+                    if (adminInfo.Address1 != model.addr1)
+                    {
+                        adminInfo.Address1 = model.addr1;
+                    }
+
+                    if (adminInfo.Address2 != model.addr2)
+                    {
+                        adminInfo.Address2 = model.addr2;
+                    }
+
+                    if (adminInfo.City != model.city)
+                    {
+                        adminInfo.City = model.city;
+                    }
+
+                    if (adminInfo.Zip != model.zip)
+                    {
+                        adminInfo.Zip = model.zip;
+                    }
+
+                    if (adminInfo.Regionid != regionid)
+                    {
+                        adminInfo.Regionid = regionid;
+                    }
+
+                    _db.SaveChanges();
+
+                    return true;
+                }
+
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool VerifyState(string state)
@@ -1070,58 +1204,31 @@ namespace BusinessLogic.Services
 
         public List<ProviderModel> GetProvider()
         {
-            List<ProviderModel> model = new List<ProviderModel>();
-
-            var query = from p in _db.Physicians
-                        join pn in _db.Physiciannotifications on p.Physicianid equals pn.Pysicianid
-                        //where r.Status == status
-                        select new AdminDashTableModel
-                        {
-
-                        };
 
 
+            var provider = from phy in _db.Physicians
+                           join role in _db.Roles on phy.Roleid equals role.Roleid
+                           join phynoti in _db.Physiciannotifications on phy.Physicianid equals phynoti.Pysicianid
+                           orderby phy.Physicianid
+                           select new ProviderModel
+                           {
+                               phyId = phy.Physicianid,
+                               firstName = phy.Firstname,
+                               lastName = phy.Lastname,
+                               status = phy.Status.ToString(),
+                               role = role.Name,
+                               onCallStatus = "un available",
+                               notification = phynoti.Isnotificationstopped[0],
+                           };
+            var result = provider.ToList();
 
-            return model;   
-        }
-        public List<AccountAccess> AccountAccess()
-        {
-            var obj = (from role in _db.Roles
-                       select new AccountAccess
-                       {
-                           Name = role.Name,
-                           RoleId = role.Roleid,
-                           AccountType = role.Accounttype,
-                       }).ToList();
-            return obj;
+            return result;
         }
 
-        public ProviderList Provider()
+        public bool StopNotification(int phyId)
         {
-            var provider = (from physician in _db.Physicians
-                                //join role in _db.Roles on physician.Roleid equals role.Roleid
-                            join physiciannotify in _db.Physiciannotifications on physician.Physicianid equals physiciannotify.Pysicianid
-                            select new Provider
-                            {
-                                physicianid = physician.Physicianid,
-                                providername = physician.Firstname + " " + physician.Lastname,
-                                role = "",
-                                notification = physiciannotify.Isnotificationstopped,
-                            }).ToList();
 
-            ProviderList obj = new()
-            {
-                List = provider
-            };
-            return obj;
-
-        }
-
-        public Provider StopProviderNotif(int Physicianid)
-        {
-            Provider provider = new Provider();
-
-            var phyNotification = _db.Physiciannotifications.Where(r => r.Pysicianid == Physicianid).Select(r => r).First();
+            var phyNotification = _db.Physiciannotifications.Where(r => r.Pysicianid == phyId).Select(r => r).First();
 
             var notification = new BitArray(1);
             notification[0] = false;
@@ -1130,30 +1237,41 @@ namespace BusinessLogic.Services
             {
                 phyNotification.Isnotificationstopped = new BitArray(1);
                 phyNotification.Isnotificationstopped[0] = true;
+                _db.Physiciannotifications.Update(phyNotification);
                 _db.SaveChanges();
 
-                return provider;
+                return true;
             }
             else
             {
                 phyNotification.Isnotificationstopped = new BitArray(1);
                 phyNotification.Isnotificationstopped[0] = false;
+                _db.Physiciannotifications.Update(phyNotification);
                 _db.SaveChanges();
 
-                return provider;
+                return false;
             }
         }
 
-        public Provider providerContact(int PhysicianId)
-        {
-            Provider provider = new Provider()
-            {
-                physicianid = PhysicianId,
-            };
 
-            return provider;
+        public bool ProviderContactEmail(int phyId, string msg)
+        {
+
+            var providerEmail = _db.Physicians.Where(x => x.Physicianid == phyId).Select(x => x.Email).First();
+
+            try
+            {
+                SendAndSaveProviderEmail(providerEmail, msg, phyId);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
         }
-        public void SendRegistrationproviderContactEmail(string provider, string msg, int phyIdMain)
+        public void SendAndSaveProviderEmail(string provider, string msg, int phyId)
         {
             string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
             string senderPassword = "Parth@70160";
@@ -1169,7 +1287,7 @@ namespace BusinessLogic.Services
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(senderEmail, "HalloDoc"),
-                Subject = "Mail For provider",
+                Subject = "Mail For Provider",
                 IsBodyHtml = true,
                 Body = $"{msg}",
             };
@@ -1179,42 +1297,171 @@ namespace BusinessLogic.Services
 
             client.Send(mailMessage);
 
-            Emaillog emailLog = new Emaillog()
-            {
-                Subjectname = mailMessage.Subject,
-                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + provider + "Subject : " + mailMessage.Subject + "Message : " + msg,
-                Emailid = provider,
-                Roleid = 1,
-                Adminid = _db.Admins.Where(r => r.Email == provider).Select(r => r.Adminid).First(),
-                Physicianid = phyIdMain,
-                Createdate = DateTime.Now,
-                Sentdate = DateTime.Now,
-                Isemailsent = new BitArray(1, true),
+            Emaillog emaillog = new Emaillog();
 
-            };
 
-            _db.Emaillogs.Add(emailLog);
+            emaillog.Subjectname = mailMessage.Subject;
+            emaillog.Emailtemplate = "Sender : " + senderEmail + "Reciver :" + provider + "Subject : " + mailMessage.Subject + "Message : " + msg;
+            emaillog.Emailid = provider;
+            emaillog.Roleid = 1;
+            emaillog.Adminid = _db.Admins.Where(r => r.Email == "user@gmail.com").Select(r => r.Adminid).First();
+            emaillog.Physicianid = phyId;
+            emaillog.Createdate = DateTime.Now;
+            emaillog.Sentdate = DateTime.Now;
+            emaillog.Isemailsent = new BitArray(1, true);
+
+
+
+            _db.Emaillogs.Add(emaillog);
             _db.SaveChanges();
         }
 
-        public void providerContactEmail(int phyIdMain, string msg)
+        public List<AccountAccess> AccountAccess()
         {
-            Provider _provider = new Provider();
+            var obj = (from role in _db.Roles
+                       where role.Isdeleted != new BitArray(1, true)
+                       select new AccountAccess
+                       {
+                           Name = role.Name,
+                           RoleId = role.Roleid,
+                           AccountType = role.Accounttype,
+                       }).ToList();
+            return obj;
+        }
 
-            _provider.physicianid = phyIdMain;
-
-            var provider = _db.Physicians.FirstOrDefault(x => x.Physicianid == phyIdMain);
-
+        public bool DeleteRole(int roleId)
+        {
             try
             {
-                SendRegistrationproviderContactEmail(provider.Email, msg, phyIdMain);
+                var role = _db.Roles.FirstOrDefault(x => x.Roleid == roleId);
+                role.Isdeleted = new BitArray(1, true);
+                _db.Roles.Update(role);
+                _db.SaveChanges();
+                return true;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                Console.WriteLine(e);
+                return false;
             }
+        }
+
+        public CreateAccess FetchRole(short selectedValue)
+        {
+            if (selectedValue == 0)
+            {
+                CreateAccess obj = new()
+                {
+                    Menu = _db.Menus.ToList(),
+                };
+                return obj;
+            }
+            else if (selectedValue == 1 || selectedValue == 2)
+            {
+
+                CreateAccess obj = new()
+                {
+                    Menu = _db.Menus.Where(x => x.Accounttype == selectedValue).ToList(),
+                };
+                return obj;
+            }
+            else
+            {
+                CreateAccess obj = new();
+                return obj;
+            }
+        }
+
+        public void CreateRole(List<int> menuIds, string roleName, short accountType)
+        {
+            Role role = new()
+            {
+                Name = roleName,
+                Accounttype = accountType,
+                Createdby = "Admin",
+                Createddate = DateTime.Now,
+                Isdeleted = new BitArray(0, false),
+            };
+            _db.Roles.Add(role);
+            _db.SaveChanges();
+
+            foreach (int menuId in menuIds)
+            {
+                Rolemenu rolemenu = new()
+                {
+                    Roleid = role.Roleid,
+                    Menuid = menuId,
+                };
+                _db.Rolemenus.Add(rolemenu);
+                _db.SaveChanges();
+            };
+
 
         }
+        public CreateAdminAccount RegionList()
+        {
+            CreateAdminAccount obj = new()
+            {
+                RegionList = _db.Regions.ToList(),
+            };
+            return obj;
+        }
+
+        public void CreateAdminAccount(CreateAdminAccount obj)
+        {
+            Guid id = Guid.NewGuid();
+            Aspnetuser aspnetuser = new()
+            {
+                Id = id.ToString(),
+                Username = obj.UserName,
+                Passwordhash = obj.AdminPassword,
+                Email = obj.Email,
+                Phonenumber = obj.AdminPhone,
+                Createddate = DateTime.Now,
+
+            };
+            _db.Aspnetusers.Add(aspnetuser);
+            _db.SaveChanges();
+
+            Admin admin = new Admin();
+
+
+            admin.Aspnetuserid = id.ToString();
+            admin.Firstname = obj.FirstName;
+            admin.Lastname = obj.LastName;
+            admin.Email = obj.Email;
+
+            admin.Mobile = obj.AdminPhone;
+            admin.Address1 = obj.Address1;
+
+            admin.Address2 = obj.Address2;
+            admin.Zip = obj.Zip;
+            admin.Altphone = obj.BillingPhone;
+            admin.Createdby = "admin";
+            admin.Createddate = DateTime.Now;
+            admin.Isdeleted = new BitArray(1, true);
+
+            
+            _db.Admins.Add(admin);
+            _db.SaveChanges();
+
+
+
+            var AdminRegions = obj.AdminRegion.ToList();
+            for (int i = 0; i < AdminRegions.Count; i++)
+            {
+                Adminregion adminregion = new()
+                {
+                    Adminid = admin.Adminid,
+                    Regionid = _db.Regions.First(x => x.Regionid == AdminRegions[0]).Regionid,
+                };
+
+                _db.Adminregions.Add(adminregion);
+                _db.SaveChanges();
+            }
+
+
+        }
+
 
 
 

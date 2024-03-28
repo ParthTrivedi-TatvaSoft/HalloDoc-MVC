@@ -1,5 +1,5 @@
 ﻿@using DataAccess.CustomModels;
-@model Provider;
+@model ProviderModel;
 
 <div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <form class="p-3" method="post" id="ContactProviderForm">
-                <input type="hidden" asp-for="@Model.physicianid" value="@Model.physicianid" />
+                <input type="hidden" asp-for="@Model.phyId" value="@Model.phyId" />
                 <input type="text" hidden />
                 <div class="text-secondary">
                     Choose communication to send message
@@ -35,22 +35,31 @@
                 <div class="mt-4 form-floating text-secondary">
                     <textarea asp-for="@Model.message" class="form-control h-100" id="floatingInputMessage" placeholder="Message" rows="3"></textarea>
                     <label for="floatingInputMessage" class="text-wrap">Message</label>
-                    <span asp-validation-for="@Model.message" class="text-danger"></span>
+                    <small class="text-danger d-none" id="msgReq">Message is required</small>
+                    @*<span asp-validation-for="@Model.message" class="text-danger"></span>*@
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-                    <button type="button" onclick="providerContactSendBtn(@Model.physicianid)" class="btn btn-info continue-btn mx-2">Send</button>
-                    <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="providerContactSendBtn(@Model.phyId)" class="btn btn-info continue-btn mx-2">Send</button>
+                    <button type="button" id="cancelContactProvider" class="btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
 <partial name="_ValidationScriptsPartial" />
 
 <script>
+    $('#floatingInputMessage').on('input', function () {
+        let msg = $("#floatingInputMessage").val();
+        if (msg != "") {
+            $("#msgReq").addClass('d-none');
+        }
+        else {
+            $("#msgReq").removeClass('d-none');
+        }
+    });
     function providerContactSendBtn(physicianid) {
         var msg = $("#floatingInputMessage").val();
         var checkboxes = document.querySelectorAll('input[type="radio"]:checked');
@@ -58,13 +67,22 @@
         console.log(checkboxes[0].id)
 
 
-        if ($("#ContactProviderForm").valid()) {
+        if (msg != "") {
+            $("#msgReq").addClass('d-none');
+        }
+        else {
+            $("#msgReq").removeClass('d-none');
+        }
+
+
+        if (msg !== "") {
+            //if ($("#ContactProviderForm").valid()) {
             if (checkboxes[0].id == "SMS") {
                 toastr.error("SMS Service Is Not Available!")
             } else if (checkboxes[0].id == "Email") {
                 $.ajax({
-                    url: "/Admin/providerContactModalEmail",
-                    data: { phyIdMain: physicianid, msg: msg },
+                    url: "/Admin/ContactProviderEmail",
+                    data: { phyId: physicianid, msg: msg },
                     type: 'POST',
                     success: function (result) {
                         toastr.success("Email Sent Successfully")
@@ -78,17 +96,26 @@
                 toastr.error("SMS Service Is Not Available!")
 
                 $.ajax({
-                    url: "/Admin/providerContactModalEmail",
-                    data: { phyIdMain: physicianid, msg: msg },
+                    url: "/Admin/ContactProviderEmail",
+                    data: { phyId: physicianid, msg: msg },
                     type: 'POST',
                     success: function (result) {
-                        toastr.success("Email Sent Successfully")
+                        if (result.isSend) {
+                            toastr.success("Email Sent Successfully");
+                            var button = document.getElementById("cancelContactProvider");
+                            button.click();
+                        }
+                        else {
+                            toastr.error("Something went wrong");
+                        }
                     },
                     error: function () {
                         alert("Error");
                     },
                 });
             }
+
+            //}
         }
     }
 </script>

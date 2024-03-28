@@ -1,6 +1,5 @@
 ﻿@using DataAccess.CustomModels;
-@model ProviderList;
-
+@model List<ProviderModel>;
 <style>
     .form-check-input:checked {
         background-color: #0dcaf0 !important;
@@ -9,7 +8,7 @@
 </style>
 
 <div class="container">
-    <h4 class="mb-4">Provider Information</h4>
+    <h4 class="my-4">Provider Information</h4>
 
     <div class="border rounded shadow p-3 bg-white">
         <div class="d-md-flex justify-content-between align-items-center mb-3">
@@ -17,12 +16,7 @@
                 <i type="search" class="fa-solid fa-magnifying-glass px-2" style="color:#adadad;position:absolute;    "></i>
                 <select class="form-select border-0 regionDropdown ps-4" aria-label="Default select example">
                     <option selected disabled>All Region</option>
-                    @* @foreach (var obj in Model.regions.ToList())
-                    {
-                    <option value="@obj.Regionid">
-                    @obj.Name
-                    </option>
-                    } *@
+
                 </select>
             </form>
             <div class="d-flex justify-content-center  mb-3">
@@ -45,30 +39,36 @@
                 </thead>
 
                 <tbody>
-                        @foreach (var item in Model.List)
+                        @foreach (var item in Model)
                         {
-
                         <tr class="align-middle">
                             <td class="ps-5">
-                                <input type="checkbox" name="Mark" class="checkbox fileCheckbox px-4" onchange="stopNotyf(@item.physicianid)" />
+                                    @*<input type="hidden" asp-for="@item.Physicianid" value="@item.Physicianid"/> *@
+                                    @if (item.notification == true)
+                                    {
+                                    <input type="checkbox" name="Mark" class="checkbox fileCheckbox px-4 providerCheckBox" checked onchange="checkBox(@item.phyId)" />
+                                    }
+                                    else
+                                    {
+                                    <input type="checkbox" name="Mark" class="checkbox fileCheckbox px-4 providerCheckBox" onchange="checkBox(@item.phyId)" />
+                                    }
                             </td>
                             <td>
-                                <span class="document-name mx-2">@item.providername</span>
+                                <span class="document-name mx-2">@item.firstName @item.lastName</span>
                             </td>
-                            <td>Physician</td>
-                            <td>Un Available</td>
+                            <td>@item.role</td>
+                            <td>@item.onCallStatus</td>
 
-                            <td>Active</td>
+                            <td>@item.status</td>
                             <td>
-                                <button type="button" class="btn  border-info text-info" onclick="contactProvider(@item.physicianid)">
+                                <button type="button" class="btn  border-info text-info" onclick="contactProvider(@item.phyId)">
                                     Contact
                                 </button>
-                                <button type="button" class="btn  border-info text-info" onclick="EditProvider()">
+                                <button type="button" class="btn  border-info text-info" onclick="editProvider()">
                                     Edit
                                 </button>
                             </td>
                         </tr>
-
                         }
 
                 </tbody>
@@ -95,12 +95,14 @@
                             <td>
                                 <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
 
-                                <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)" aria-expanded="false" aria-controls="flush-collapse@(counter)">
+                                <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse"
+                                     data-bs-target="#flush-collapse@(counter)" aria-expanded="false"
+                                     aria-controls="flush-collapse@(counter)">
 
                                     <div class="w-100 ">
                                         <input type="checkbox" name="Mark" class="checkbox fileCheckbox me-2" onchange="allCheck()" />
                                         <span class="fw-bolder">
-                                            Yash Variya
+                                            vatsal
                                         </span>
                                     </div>
                                     <div class="w-100">
@@ -113,7 +115,8 @@
 
                             </td>
                             <td>
-                                <div id="flush-collapse@(counter)" class="accordion-collapse collapse" aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+                                <div id="flush-collapse@(counter)" class="accordion-collapse collapse"
+                                     aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body main-flex pt-0">
                                         <div class="inner-flex pt-1">
                                             <span class="fw-bolder">Role</span>: Physician
@@ -142,21 +145,38 @@
     </div>
 </div>
 
-<div id="providerContactModal"></div>
-<div id="providerEditModal"></div>
-<div id="EditProvider"></div>
+<div id="providerContactModal">
+</div>
 
 <script>
 
-    function contactProvider(physicianid) {
+    function contactProvider(phyId) {
         $.ajax({
-            url: "/Admin/ContactProvider",
+            url: '/Admin/ProviderContactModal',
             type: 'GET',
-            data: { PhysicianId: physicianid },
+            data: { phyId: phyId },
             success: function (result) {
-                console.log(result);
                 $("#providerContactModal").html(result);
                 $('#ContactProviderModal').modal('show');
+            },
+            error: function (e) {
+                console.log(e)
+                alert("Error");
+            },
+        });
+    }
+
+    function checkBox(phyId) {
+        $.ajax({
+            url: "/Admin/ProviderCheckbox",
+            data: { phyID: phyId },
+            type: 'GET',
+            success: function (result) {
+                if (result.isStopped == true) {
+                    toastr.success("Notification Stopped");
+                } else {
+                    toastr.success("Notification Started");
+                }
             },
             error: function () {
                 alert("Error");
@@ -164,36 +184,20 @@
         });
     }
 
-    function EditProvider() {
+    function editProvider() {
+
         $.ajax({
             url: "/Admin/EditProvider",
             type: 'GET',
-            // data: { PhysicianId: physicianid },
-            success: function (response) {
-                console.log(response)
-                $("#provider-tab-pane").html(response);
-            },
-            error: function (error) {
-             
-                alert('Error Fetching Request')
-            },
-        });
-    }
-
-    function stopNotyf(physicianid) {
-        $.ajax({
-            url: "/Admin/StopNotification",
-            data: { PhysicianId: physicianid },
-            type: 'POST',
             success: function (result) {
-
+                $('#provider-tab-pane').html(result);
             },
-            error: function (error) {
-
-                alert('Error Fetching Request')
-            },
+            error: function (e) {
+                console.log(e);
+                alert('Error aa loading partial view');
+            }
         });
     }
 
 
-</script>
+</script>                                            
