@@ -9,14 +9,14 @@
             <span class="fs-4">Patients</span>
             <span style="color: darkblue;">(To Close)</span>
         </span>
-        <span class="d-flex gap-1 gap-md-3">
+        <span class="d-flex gap-1 gap-md-3" onclick="sendLink()">
             <button class="action-btn">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
                 </span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="location.href='@Url.Action("createrequest", "Admin")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
             <button class="action-btn" id="exportToCLoseReq">
@@ -28,7 +28,7 @@
             <button class="action-btn">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
-                    DTY Support
+                    Support
                 </span>
             </button>
         </span>
@@ -64,7 +64,7 @@
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer"><div class="vip_circle"></div><span> VIP</span></div>
+ 
 
         </div>
     </div>
@@ -210,9 +210,9 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item" asp-controller="Admin" asp-action="ViewUploads" asp-route-reqId=@item.Reqid>
                                                     <i class="bi bi-file-earmark-text"></i>
-                                                    ViewUploads
+                                                    View Uploads
                                                 </a>
                                             </li>
                                             <li>
@@ -222,7 +222,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item" href="@Url.Action("orders", new {reqId = item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     Orders
                                                 </a>
@@ -246,7 +246,7 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("EncounterForm",new {ReqId=@item.Reqid})">
+                                                <a class="dropdown-item" href="@Url.Action("Encounter",new {ReqId=@item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     Encounter
                                                 </a>
@@ -294,7 +294,8 @@ else
 {
     <div class="text-center text-danger fw-bold h5">No record found</div>
 }
-<div id="modelContent3"></div>
+<div id="modelContenttoclose"></div>
+
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
@@ -308,10 +309,10 @@ else
             type: 'GET',
             data: { reqId: reqId },
             success: function (response) {
-                console.log(response);
-                $("#modelContent3").html(response);
+                
+                $("#modelContenttoclose").html(response);
 
-                $('#exampleModal').modal('show');
+                $('#clearModal').modal('show');
             }
         });
     }

@@ -24,10 +24,10 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
-                    DTY Support
+                    Support
                 </span>
             </button>
         </span>
@@ -260,7 +260,9 @@
     </table>
 
 </div>
-<div id="modelContent"></div>
+<div id="modelContentnew"></div>
+
+
 
 
 <!-- accordions -->
@@ -308,7 +310,7 @@ else
 
 <script>
     $("#exportNewReq").click(function () {
-
+        alert("exportbtn was clicked.");
         var request = @Html.Raw(Json.Serialize(Model));
 
         Export(request);
@@ -455,9 +457,53 @@ else
 
 
     }
-   
 
-     
+
+    function showAssignCase(Reqid) {
+
+        $.ajax({
+            url: '/Admin/AssignCase',
+            type: 'GET',
+            data: { ReqId: Reqid },
+            success: function (response) {
+
+                $("#modelContentnew").html(response);
+
+                $('#assignModal').modal('show');
+
+            }
+        });
+    }
+
+    function showCancelCase(Reqid) {
+        $.ajax({
+            url: '/Admin/CancelCase',
+            type: 'GET',
+            data: { Reqid: Reqid },
+            success: function (response) {
+
+                $("#modelContentnew").html(response);
+
+                $('#cancelModal').modal('show');
+
+            }
+        });
+    }
+
+    function showBlockCase(reqId) {
+        $.ajax({
+            url: '/Admin/BlockCase',
+            type: 'GET',
+            data: { reqId: reqId },
+            success: function (response) {
+
+                $("#modelContentnew").html(response);
+
+                $('#blockModal').modal('show');
+
+            }
+        });
+    }
 
     $('#newRegionFilter').on('change', function () {
         var searchRegion = $('#newRegionFilter').val();
@@ -470,6 +516,18 @@ else
             }
         })
     })
+
+    function sendLink() {
+        $.ajax({
+            url: '/Admin/SendLink',
+            type: 'GET',
+            success: function (response) {
+                console.log(response);
+                $('#modelContentnew').html(response);
+                $('#sendLinkPopUpOne').modal('show');
+            }
+        })
+    }
 
 
 

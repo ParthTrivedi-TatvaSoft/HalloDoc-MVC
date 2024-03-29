@@ -96,10 +96,10 @@ namespace BusinessLogic.Interfaces
 
         bool ProviderContactEmail(int phyIdMain, string msg);
 
-        void CreateAdminAccount(CreateAdminAccount createNewAccount);
+        bool CreateAdminAccount(CreateAdminAccount createNewAccount,string email);
 
         CreateAdminAccount RegionList();
 
-
+        List<Physicianlocation> GetPhysicianlocations();
     }
 }

@@ -26,12 +26,7 @@
             cursor: pointer;
         }
 
-    #downloadSelected {
-        color: rgb(0, 183, 255);
-        background-color: white;
-        border: 1px solid rgb(0, 183, 255);
-        border-radius: 5px;
-    }
+  
 </style>
 
 <div class="container-fluid d-flex justify-content-center row ">
@@ -42,8 +37,7 @@
             <div class="d-flex">
                 <h4><strong>View Notes</strong></h4>
             </div>
-
-            <button class="px-3" id="downloadSelected" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
+            <button id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
 
         </div>
 

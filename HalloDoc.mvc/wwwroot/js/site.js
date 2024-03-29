@@ -28,22 +28,31 @@ var modal = document.getElementById("myModal");
 
 var btn = document.getElementById("myBtn");
 
-$(document).ready(function () {
-    modal.style.display = "block";
-});
-
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function () {
-    modal.style.display = "block";
+$(document).ready(function () {
+    if (modal != null) {
+        modal.style.display = "block";
+    }
+
+});
+
+
+// When the user clicks the button, open the modal
+
+if (btn != null) {
+    btn.onclick = function (e) {
+        modal.style.display = "block";
+    }
+
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-    modal.style.display = "none";
+if (span != null) {
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     if (event.target == modal) {
@@ -69,5 +78,9 @@ function password() {
         temp = true;
     }
 }
+
+
+
+   
 
 

@@ -819,13 +819,33 @@ namespace HalloDoc.mvc.Controllers
         [HttpPost]
         public IActionResult AdminAccount(CreateAdminAccount model)
         {
-            _adminService.CreateAdminAccount(model);
-            return RedirectToAction("admin_dashboard");
+            var email = GetTokenEmail();
+            var isCreated = _adminService.CreateAdminAccount(model,email);
+            if (isCreated)
+            {
+                _notyf.Success("Account created");
+                return RedirectToAction("admin_dashboard");
+            }
+            else
+            {
+                _notyf.Error("Somethng Went Wrong!!");
+                return PartialView("_createadminaccount");
+            }
         }
 
         public IActionResult ShowUserAccess()
         {
             return PartialView("_useraccess");
+        }
+
+        public IActionResult ProviderLocation()
+        {
+            return PartialView("_providerlocation");
+        }
+        public IActionResult GetLocation()
+        {
+            List<Physicianlocation> getLocation = _adminService.GetPhysicianlocations();
+            return Ok(getLocation);
         }
 
 

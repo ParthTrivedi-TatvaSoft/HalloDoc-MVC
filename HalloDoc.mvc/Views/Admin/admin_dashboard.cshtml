@@ -88,7 +88,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="provider-location-tab" data-bs-toggle="tab"
                                 data-bs-target="#provider-location-tab-pane" type="button" role="tab"
-                                aria-controls="provider-location-tab-pane" aria-selected="false">
+                                aria-controls="provider-location-tab-pane" onclick="ProviderLocation()" aria-selected="false">
                             Provider Location
                         </button>
                     </li>
@@ -114,7 +114,7 @@
                                 </li>
                                 <li>
                                     <button class="dropdown-item" href="#">Scheduling</button>
-                                    </li>
+                                 </li>
                                 <li>
                                     <button class="dropdown-item" href="#">Invoicing</button>
                                 </li>
@@ -153,9 +153,9 @@
                                        aria-controls="access-tab-pane" onclick="UserAccess()" aria-selected="false">
                                         User Access
                                     </button>
-                                    </li>
+                                </li>
                                 <li>
-                                    <button class="nav-link mx-3" id="provider-tab" data-bs-toggle="tab"
+                                    <button class="nav-link mx-3" id="access-tab" data-bs-toggle="tab"
                                             data-bs-target="#access-tab-pane" role="tab"
                                             aria-controls="access-tab-pane" onclick="CreateAdminAccount()" aria-selected="false">
                                         Create Admin Account    
@@ -570,16 +570,7 @@
             });
         }
 
-        function sendLink() {
-            $.ajax({
-                url: '/Admin/SendLink',
-                type: 'GET',
-                success: function (response) {
-                    $('#modelContent').html(response);
-                    $('#sendLinkPopUpOne').modal('show');
-                }
-            })
-        }
+        
 
         function showMyProfile() {
             $.ajax({
@@ -636,6 +627,28 @@
             });
         }
 
+        function ProviderLocation() {
+            $.ajax({
+                url: '/Admin/ProviderLocation',
+                type: 'GET',
+
+                success: function (response) {
+                    $("#provider-location-tab-pane").html(response);
+                }
+            });
+        }
+
+        function sendLink() {
+            $.ajax({
+                url: '/Admin/SendLink',
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    $('#modelContent').html(response);
+                    $('#sendLinkPopUpOne').modal('show');
+                }
+            })
+        }
         
 
 

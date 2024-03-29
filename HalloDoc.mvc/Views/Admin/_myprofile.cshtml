@@ -1,5 +1,15 @@
 ﻿@using DataAccess.CustomModels;
 @model MyProfileModel;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<style>
+    .iti{
+        width:100%;
+    }
+    input{
+        height:55px;
+    }
+</style>
 <div class="container-fluid">
     <div class="container">
         <div class=" mt-2 d-flex justify-content-between align-items-center">
@@ -90,11 +100,9 @@
 
                             </div>
                             <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                                <input asp-for="mobile_no"  id="phoneMyProfile"
-                                       class="d1class form-control contact"
-                                       aria-label="Contact"
-                                       type="number" disabled />
-                                <span asp-validation-for="mobile_no" class="text-danger d-none"></span>
+                                <input asp-for="mobile_no" type="tel" class="d1class form-control w-100" id="phone1" placeholder="Phone" disabled />
+                                <span asp-validation-for="mobile_no" class="text-danger"></span>
+                                
 
                             </div>
                             <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
@@ -362,5 +370,12 @@
             });
         //}
     }
+
+    const phoneInputField1 = document.getElementById("phone1");
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        initialCountry: "in",
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
 
 </script>

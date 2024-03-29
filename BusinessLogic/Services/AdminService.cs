@@ -1379,7 +1379,7 @@ namespace BusinessLogic.Services
                 Accounttype = accountType,
                 Createdby = "Admin",
                 Createddate = DateTime.Now,
-                Isdeleted = new BitArray(0, false),
+                Isdeleted = new BitArray(1, true),
             };
             _db.Roles.Add(role);
             _db.SaveChanges();
@@ -1406,63 +1406,80 @@ namespace BusinessLogic.Services
             return obj;
         }
 
-        public void CreateAdminAccount(CreateAdminAccount obj)
+        public bool CreateAdminAccount(CreateAdminAccount obj,string email)
         {
-            Guid id = Guid.NewGuid();
-            Aspnetuser aspnetuser = new()
+            var emailExists = _db.Aspnetusers.Where(x => x.Email == obj.Email).Any();
+            if (emailExists)
             {
-                Id = id.ToString(),
-                Username = obj.UserName,
-                Passwordhash = obj.AdminPassword,
-                Email = obj.Email,
-                Phonenumber = obj.AdminPhone,
-                Createddate = DateTime.Now,
-
-            };
-            _db.Aspnetusers.Add(aspnetuser);
-            _db.SaveChanges();
-
-            Admin admin = new Admin();
-
-
-            admin.Aspnetuserid = id.ToString();
-            admin.Firstname = obj.FirstName;
-            admin.Lastname = obj.LastName;
-            admin.Email = obj.Email;
-
-            admin.Mobile = obj.AdminPhone;
-            admin.Address1 = obj.Address1;
-
-            admin.Address2 = obj.Address2;
-            admin.Zip = obj.Zip;
-            admin.Altphone = obj.BillingPhone;
-            admin.Createdby = "admin";
-            admin.Createddate = DateTime.Now;
-            admin.Isdeleted = new BitArray(1, true);
-
-            
-            _db.Admins.Add(admin);
-            _db.SaveChanges();
-
-
-
-            var AdminRegions = obj.AdminRegion.ToList();
-            for (int i = 0; i < AdminRegions.Count; i++)
+                return false;
+            }
+            else
             {
-                Adminregion adminregion = new()
+                Guid id = Guid.NewGuid();
+                Aspnetuser aspnetuser = new()
                 {
-                    Adminid = admin.Adminid,
-                    Regionid = _db.Regions.First(x => x.Regionid == AdminRegions[0]).Regionid,
-                };
+                    Id = id.ToString(),
+                    Username = obj.UserName,
+                    Passwordhash = obj.AdminPassword,
+                    Email = obj.Email,
+                    Phonenumber = obj.AdminPhone,
+                    Createddate = DateTime.Now,
+                 
 
-                _db.Adminregions.Add(adminregion);
+                 };
+                _db.Aspnetusers.Add(aspnetuser);
                 _db.SaveChanges();
+
+                var aspnetId = _db.Aspnetusers.Where(x => x.Email == email).Select(x => x.Id).First();
+                Admin admin = new Admin();
+
+
+                admin.Aspnetuserid = aspnetuser.Id;
+                admin.Firstname = obj.FirstName;
+                admin.Lastname = obj.LastName;
+                admin.Email = obj.Email;
+
+                admin.Mobile = obj.AdminPhone;
+                admin.Address1 = obj.Address1;
+
+                admin.Address2 = obj.Address2;
+                admin.Zip = obj.Zip;
+                admin.Altphone = obj.BillingPhone;
+                admin.Createdby = aspnetId;
+                admin.Createddate = DateTime.Now;
+                admin.Isdeleted = new BitArray(1, false);
+
+
+                _db.Admins.Add(admin);
+                _db.SaveChanges();
+
+
+
+                var AdminRegions = obj.AdminRegion.ToList();
+                for (int i = 0; i < AdminRegions.Count; i++)
+                {
+                    Adminregion adminregion = new()
+                    {
+                        Adminid = admin.Adminid,
+                        Regionid = _db.Regions.First(x => x.Regionid == AdminRegions[0]).Regionid,
+                    };
+
+                    _db.Adminregions.Add(adminregion);
+                    _db.SaveChanges();
+                }
+
+                return true;
+
             }
 
 
         }
 
-
+        public List<Physicianlocation> GetPhysicianlocations()
+        {
+            var phyLocation = _db.Physicianlocations.ToList();
+            return phyLocation;
+        }
 
 
 

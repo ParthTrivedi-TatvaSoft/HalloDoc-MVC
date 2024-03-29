@@ -1,0 +1,50 @@
+﻿
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<style>
+    #map {
+        height: 75vh;
+        z-index: 1;
+        width: 75%;
+    }
+
+</style>
+
+@* <partial name="_AdminHeader" /> *@
+<div class="d-flex justify-content-center align-content-center h-100 flex-column mt-5">
+
+    <div class="req_form_container w-75 w-lg-50 d-flex justify-content-between mt-4 mb-3 px-2">
+        <h3 class="fw-bold m-0 d-flex align-items-center">Provider Location</h3>
+
+        <div class="d-flex justify-content-between mb-4">
+            <button  id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
+        </div>
+        
+    </div>
+
+    <div id="map" class="w-75 shadow m-5 p-2"></div>
+</div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    
+    var map = L.map('map').setView([22.2587, 71.1924], 8);
+
+    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    }).addTo(map);
+
+
+    $.ajax({
+        url: '/Admin/GetLocation',
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            response.map(function (res) {
+                L.marker([res.latitude, res.longitude]).addTo(map)
+                    .bindPopup(res.physicianname)
+            })
+        }
+    })
+
+</script>

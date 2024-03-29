@@ -10,7 +10,7 @@
             <span style="color: darkblue;">(Conclude)</span>
         </span>
         <span class="d-flex gap-1 gap-md-3">
-            <button class="action-btn" onclick="ShowSendLink()">
+            <button class="action-btn" onclick="sendLink()">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
@@ -64,7 +64,7 @@
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
             <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer"><div class="vip_circle"></div><span> VIP</span></div>
+       
 
         </div>
     </div>
@@ -207,40 +207,40 @@
                                     </button>
                                     <ul class="dropdown-menu table_dropdowns">
                                         <li>
-                                            <button class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                ViewCase
-                                            </button>
+                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    ViewCase
+                                                </a>
                                         </li>
                                         <li>
-                                            <button class="dropdown-item" asp-controller="Admin" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 ViewUploads
-                                            </button>
+                                            </a>
                                         </li>
                                         <li>
-                                            <button dropdown-item" href="@Url.Action("viewnotes", new {ReqId = item.Reqid})">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                                ViewNotes
-                                            </button>
+                                                <a class="dropdown-item" href="@Url.Action("viewnotes", new {ReqId = item.Reqid})">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    View Notes
+                                                </a>
                                         </li>
                                         <li>
-                                            <button  dropdown-item" href="@Url.Action("orders", new {ReqId = item.Reqid})">
+                                            <a  class="dropdown-item" href="@Url.Action("orders", new {ReqId = item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Orders
-                                            </button>
+                                            </a>
                                         </li>
                                         <li>
-                                            <button dropdown-item" href="#">
+                                            <a class="dropdown-item" href="#">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Doctor Notes
-                                            </button>
+                                            </a>
                                         </li>
                                         <li>
-                                            <button="dropdown-item" href="@Url.Action("Encounter",new {ReqId=item.Reqid})">
+                                            <a class="dropdown-item" href="@Url.Action("Encounter",new {ReqId=item.Reqid})">
                                                 <i class="bi bi-file-earmark-text"></i>
                                                 Encounter
-                                            </button>
+                                            </a>
                                         </li>
                                     </ul>
 
@@ -261,6 +261,7 @@
     </table>
 </div>
 <div id="modelContent"></div>
+
 
 
 
