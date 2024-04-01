@@ -1,0 +1,147 @@
+﻿
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="container">
+    <div class="justify-content-between d-flex container-fluid  position-relative ">
+        <div class="">
+            <h3 class="fw-bolder">
+                Scheduling
+            </h3>
+        </div>
+
+    </div>
+    <div class=" border-0  py-1 mx-3 mt-3 rounded">
+        <div class="row">
+            <div class="col-md-7 mt-2">
+                <div class="dropdown bg-white">
+
+                    <select class="form-select form-control form-select-md" id="fregion" data-allow-clear="true" tabindex="-1" data-control="select2" data-placeholder="Select Level">
+                        <option value="-1">All Region</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-5 mt-2">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-info text-white mx-2">
+                        Provider On Call
+                    </button>
+                    <button type="button" class="btn btn-info text-white  mx-2">
+                        Shift Review
+                    </button>
+                    <button type="button" class="btn btn-info text-white mx-2" data-modal-size="lg" onclick="NewShift()">
+                        Add New Shift
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-7 mt-2">
+                <div class="calendar-current-date fs-4 fw-bolder">Dec 2023</div>
+                <div class="text-start my-3 calendar-navigation">
+                    <span id="calendar-prev" class="btn btn-info text-white rounded-circle">❮</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                    </svg>
+                    <span id="calendar-next" class="btn btn-info text-white rounded-circle">❯</span>
+                </div>
+            </div>
+            <div class="col-md-5 mt-3">
+                <div class="d-flex justify-content-end">
+                    <div class="alert alert-panding mx-1 px-4" role="alert">
+                    </div>
+                    <span class="mx-1">Pending Shifts</span>
+                    <div class="alert alert-success mx-1 px-4" role="alert">
+                    </div>
+                    <span class="mx-1">Approved Shifts</span>
+
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="day" onclick="ShowTable('day')" class="btn btn-outline-info mx-2">
+                        Day
+                    </button>
+                    <button type="button" id="week" onclick="ShowTable('week')" class="btn btn-outline-info mx-2">
+                        Week
+                    </button>
+                    <button type="button" id="month" onclick="ShowTable('month')" class="btn btn-outline-info mx-2">
+                        Month
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="displayyy"></div>
+  
+    <div id="displayTable"></div>
+
+   
+
+
+</div>
+
+<script>
+
+    function ShowTable(str) {
+        if (str == "day") {
+            $.ajax({
+                url: '/Admin/DayTable',
+                type: 'GET',
+                success: function (response) {
+                    $("#displayTable").html(response);
+                },
+                error: function (e) {
+                    alert("error loading partial view");
+                }
+            });
+        }
+        else if (str == "week") {
+            $.ajax({
+                url: '/Admin/WeekTable',
+                type: 'GET',
+                success: function (response) {
+                    $("#displayTable").html(response);
+                },
+                error: function (e) {
+                    alert("error loading partial view");
+                }
+            });
+        }
+        else if (str == "month") {
+            $.ajax({
+                url: '/Admin/MonthTable',
+                type: 'GET',
+                success: function (response) {
+                    $("#displayTable").html(response);
+                },
+                error: function (e) {
+                    alert("error loading partial view");
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    function NewShift() {
+        console.log("hello");
+        $.ajax({
+            url: "/Admin/CreateShift",
+            type: 'GET',
+            success: function (result) {
+                $('#displayyy').html(result);
+                $('#CreateShiftModal').modal('show');
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    };
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#day").trigger('click');
+    });
+</script>

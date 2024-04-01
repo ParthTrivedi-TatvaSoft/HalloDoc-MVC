@@ -95,7 +95,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
-                                aria-selected="false" onClick="showMyProfile()">
+                                aria-selected="false" onClick="ShowMyProfile()">
                             My Profile
                         </button>
                     </li>
@@ -108,12 +108,17 @@
                                 <li>
                                     <button class="nav-link mx-3" id="provider-tab" data-bs-toggle="tab"
                                             data-bs-target="#provider-tab-pane" type="button" role="tab"
-                                            aria-controls="provider-tab-pane" onclick="showProvider()" aria-selected="false">
+                                            aria-controls="provider-tab-pane" onclick="ShowProvider()" aria-selected="false">
                                         Providers
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item" href="#">Scheduling</button>
+                                    <button class="nav-link mx-3" id="provider-tab" data-bs-toggle="tab"
+                                            data-bs-target="#provider-tab-pane" type="button" role="tab"
+                                            aria-controls="provider-tab-pane" onclick="ShowScheduling()" aria-selected="false">
+                                        Scheduling
+                                    </button>
+                     
                                  </li>
                                 <li>
                                     <button class="dropdown-item" href="#">Invoicing</button>
@@ -572,7 +577,7 @@
 
         
 
-        function showMyProfile() {
+        function ShowMyProfile() {
             $.ajax({
                 url: '/Admin/ShowMyProfile',
                 type: 'GET',
@@ -582,7 +587,7 @@
             });
         }
 
-        function showProvider() {
+        function ShowProvider() {
             $.ajax({
                 url: '/Admin/ShowProvider',
                 type: 'GET',
@@ -601,6 +606,9 @@
                 type: 'GET',
                 success: function (response) {
                     $("#access-tab-pane").html(response);
+                },
+                error: function (e) {
+                    alert("Error Loading Partial View");
                 }
             });
         }
@@ -649,7 +657,16 @@
                 }
             })
         }
-        
+
+        function ShowScheduling() {
+            $.ajax({
+                url: '/Admin/Scheduling',
+                type: 'GET',
+                success: function (response) {
+                    $("#provider-tab-pane").html(response);
+                }
+            });
+        }
 
 
 

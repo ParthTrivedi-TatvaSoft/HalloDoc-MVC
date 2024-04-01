@@ -100,8 +100,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2NyZWF0ZWFkbWluYWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_createshift.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2NyZWF0ZXNoaWZ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_daytable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2RheXRhYmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_editprovider.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VkaXRwcm92aWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_monthtable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX21vbnRodGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_myprofile.cshtml]
@@ -128,6 +140,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3JlcXVlc3RzdXBwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_scheduling.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3NjaGVkdWxpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_sendagreement.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3NlbmRhZ3JlZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -150,6 +166,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_useraccess.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3VzZXJhY2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_weektable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3dlZWt0YWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Home/AccessDenied.cshtml]

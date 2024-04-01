@@ -85,10 +85,7 @@ namespace BusinessLogic.Interfaces
 
 
         List<AccountAccess> AccountAccess();
-        bool DeleteRole(int roleId);
 
-        CreateAccess FetchRole(short selectedValue);
-        void CreateRole(List<int> menuIds, string roleName, short accountType);
         List<ProviderModel> GetProvider();
 
         //ProviderModel ProviderContact(int phyId);
@@ -96,10 +93,28 @@ namespace BusinessLogic.Interfaces
 
         bool ProviderContactEmail(int phyIdMain, string msg);
 
+        EditProviderModel EditProviderProfile(int phyId, string tokenEmail);
+
+        List<Region> RegionTable();
+
+        List<PhysicianRegionTable> PhyRegionTable(int phyId);
+
         bool CreateAdminAccount(CreateAdminAccount createNewAccount,string email);
 
         CreateAdminAccount RegionList();
 
+        bool DeleteRole(int roleId);
+
+        CreateAccess FetchRole(short selectedValue);
+        bool CreateRole(List<int> menuIds, string roleName, short accountType);
+
+        bool RoleExists(string roleName, short accountType);
         List<Physicianlocation> GetPhysicianlocations();
+        List<Role> GetRoles();
+        bool providerResetPass(string email, string password);
+
+        void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId);
+
+        CreateShift GetCreateShift();
     }
 }

@@ -64,7 +64,7 @@
                                 <button type="button" class="btn  border-info text-info" onclick="contactProvider(@item.phyId)">
                                     Contact
                                 </button>
-                                <button type="button" class="btn  border-info text-info" onclick="editProvider()">
+                                <button type="button" class="btn  border-info text-info" onclick="editProvider(@item.phyId)">
                                     Edit
                                 </button>
                             </td>
@@ -184,12 +184,14 @@
         });
     }
 
-    function editProvider() {
+    function editProvider(phyId) {
 
         $.ajax({
             url: "/Admin/EditProvider",
             type: 'GET',
+            data: { phyId: phyId },
             success: function (result) {
+                console.log(result);
                 $('#provider-tab-pane').html(result);
             },
             error: function (e) {

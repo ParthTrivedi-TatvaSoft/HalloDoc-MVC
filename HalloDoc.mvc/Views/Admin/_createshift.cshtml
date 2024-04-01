@@ -1,0 +1,178 @@
+﻿@using DataAccess.CustomModels;
+
+@model CreateShift;
+
+<div class="modal fade" id="CreateShiftModal" tabindex="-1" aria-labelledby="newReqModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #01bce9; color:white;">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Shift</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="dropdown">
+                    <form id="CreateShiftForm">
+
+                        <select asp-for="RegionId" class="form-select form-select mb-3" id="RegionId" aria-label="Large select example">
+                            <option>Select Region</option>
+                            @foreach (var item in Model.Regions)
+                            {
+                                <option value="@item.Regionid">@item.Name</option>
+                            }
+                        </select>
+                        <select asp-for="PhysicianId" class="form-select form-select mb-3" id="PhysicianId" aria-label="Large select example">
+                            <option>Select Physician</option>
+                        </select>
+
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="StartDate" type="date" class="form-control" placeholder="">
+                                    <label for="">ShiftDate</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <input asp-for="StartTime" type="time" class="form-control" placeholder="">
+                                    <label for="">Start</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <input asp-for="EndTime" type="time" class="form-control" placeholder="">
+                                    <label for="">End</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 m-1">
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    <input asp-for="IsRepeat" class="form-check-input" type="checkbox" role="slider" id="RepeatToggle">
+                                    <label asp-for="IsRepeat" class="form-check-label" for="RepeatToggle">Repeat</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="repeatDiv" class="d-none">
+                            <h6>Repeat Days</h6>
+
+                            <div class="row g-2">
+
+                                <div class="col-4">
+
+                                    <input class="DaysCheckbox" type="checkbox" id="1" name="1" value="1" />
+                                    <label for="1">Every Monday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="2" name="2" value="2" />
+                                    <label for="2">Every Tuesday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="3" name="3" value="3" />
+                                    <label for="3">Every Wednesday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="4" name="4" value="4" />
+                                    <label for="4">Every Thursday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="5" name="5" value="5" />
+                                    <label for="5">Every Friday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="6" name="6" value="6" />
+                                    <label for="6">Every Saturday</label>
+                                </div>
+                                <div class="col-4">
+                                    <input class="DaysCheckbox" type="checkbox" id="7" name="7" value="7" />
+                                    <label for="7">Every Sunday</label>
+                                </div>
+                                <div class="col-12">
+
+                                    <select asp-for="RepeatUpto" class="form-select form-select mb-3" aria-label="Large select example">
+                                        <option value="">Repeat End</option>
+                                        <option value="1">1-time</option>
+                                        <option value="2">2-time</option>
+                                        <option value="3">3-time</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="SaveShiftBtn">Save</button>
+                <button type="button" class="btn btn-outline-primary CloseModal" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#RepeatToggle").click(function () {
+        var b = $(this).prop('checked');
+        if (b) {
+            $("#repeatDiv").removeClass('d-none');
+        }
+        else {
+            $("#repeatDiv").addClass('d-none');
+        }
+    })
+
+    $(function () {
+        $("#RegionId").change(function () {
+            let selectRegion = $('option:selected', this).val();
+            $.ajax({
+                url: '/Admin/GetPhysician',
+                method: 'GET',
+                data: { selectRegion: selectRegion },
+                success: function (response) {
+
+                    $('#PhysicianId').html("<option disabled selected value>" + "Select Physician" + "</option>");
+                    console.log(response.physicianlist.length);
+                    for (var i = 0; i < response.physicianlist.length; i++) {
+
+                        $("#PhysicianId").append('<option value = "' + response.physicianlist[i].physicianid + '" >' + response.physicianlist[i].firstname + '</option>');
+
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching data: ' + error);
+                }
+            });
+        });
+    });
+
+    $("#SaveShiftBtn").click(function () {
+        console.log("sds");
+        var selectedDays = [];
+        $(".DaysCheckbox").each(function () {
+
+            var checkboxdata = {
+                Id: parseInt($(this).attr('id')),
+                value: $(this).val(),
+                Checked: $(this).is(':checked')
+            };
+
+            selectedDays.push(checkboxdata);
+        })
+
+        var formdata = new FormData($("#CreateShiftForm")[0]);
+
+        formdata.append('selectedDays', JSON.stringify(selectedDays));
+
+
+        $.ajax({
+            url: '/Admin/CreateShiftSubmit',
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function () {
+                $("#CreateShiftModel").modal('toggle');
+                location.reload();
+            }
+        })
+    })
+</script>

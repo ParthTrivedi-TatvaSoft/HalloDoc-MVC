@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http;
 using DataAccess.Data;
 using System.Net.Mail;
 using System.Net;
+using DataAccess.Enums;
+using HalloDoc.mvc.Auth;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -59,43 +61,69 @@ namespace HalloDoc.mvc.Controllers
 
 
 
+        //[HttpPost]
+        //public IActionResult patient_login(LoginModel loginModel)
+        //{
+
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        string passwordhash = loginModel.Password;
+        //        loginModel.Password = passwordhash;
+        //        var user = _loginService.Login(loginModel);
+
+        //        //var userId = user.Userid;
+        //        HttpContext.Session.SetInt32("UserId", user.Userid);
+
+        //        //the above data is coming from user table and storing in user object
+        //        if (user != null)
+        //        {
+        //            TempData["username"] = user.Firstname;
+        //            TempData["id"] = user.Lastname;
+        //            _notyf.Success("Logged In Successfully !!");
+        //            return RedirectToAction("patient_dashboard", "Patient");
+        //        }
+        //        else
+        //        {
+        //            _notyf.Error("Invalid Credentials");
+
+        //            //ViewBag.AuthFailedMessage = "Please enter valid username and password !!";
+        //        }
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return View(loginModel);
+        //    }
+        //}
+
         [HttpPost]
-        public IActionResult patient_login(LoginModel loginModel)
+        public IActionResult patient_login(LoginModel user)
         {
-
-
             if (ModelState.IsValid)
             {
-                string passwordhash = loginModel.Password;
-                loginModel.Password = passwordhash;
-                var user = _loginService.Login(loginModel);
-
-                //var userId = user.Userid;
-                HttpContext.Session.SetInt32("UserId", user.Userid);
-
-                //the above data is coming from user table and storing in user object
-                if (user != null)
+                LoginResponseViewModel? result = _patientService.patient_login(user);
+                if (result.Status == ResponseStatus.Success)
                 {
-                    TempData["username"] = user.Firstname;
-                    TempData["id"] = user.Lastname;
-                    _notyf.Success("Logged In Successfully !!");
+                    HttpContext.Session.SetString("Email", user.Email);
+                    Response.Cookies.Append("jwt", result.Token);
+                    TempData["Success"] = "Login Successfully";
                     return RedirectToAction("patient_dashboard", "Patient");
                 }
                 else
                 {
-                    _notyf.Error("Invalid Credentials");
-
-                    //ViewBag.AuthFailedMessage = "Please enter valid username and password !!";
+                    ModelState.AddModelError("", result.Message);
+                    TempData["Error"] = result.Message;
+                    return View();
                 }
-                return View();
             }
-            else
-            {
-                return View(loginModel);
-            }
+            return View();
         }
 
-
+        public IActionResult patient_login()
+        {
+            return View();
+        }
 
         [HttpPost]
         
@@ -190,10 +218,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        public IActionResult patient_login()
-        {
-            return View();
-        }
+       
         public IActionResult forgot_password()
         {
             return View();
@@ -300,16 +325,34 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-        
+
+        //public IActionResult patient_dashboard()
+        //{
+        //    int? userid = HttpContext.Session.GetInt32("UserId");
+
+        //    var infos = _patientService.GetMedicalHistory((int)userid);
+
+        //    return View(infos);
+        //}
+
+        [CustomAuthorize("User")]
         public IActionResult patient_dashboard()
         {
-            int? userid = HttpContext.Session.GetInt32("UserId");
+            var email = HttpContext.Session.GetString("Email");
+            var userdata = _db.Users.Where(x => x.Email == email).FirstOrDefault();
+            var medical = _patientService.GetMedicalHistory(userdata.Userid);
 
-            var infos = _patientService.GetMedicalHistory((int)userid);
 
-            return View(infos);
+            return View(medical);
         }
 
+        public IActionResult PatientLogout()
+        {
+            Response.Cookies.Delete("jwt");
+            return RedirectToAction("patient_login", "Patient");
+        }
+
+        [CustomAuthorize("User")]
         public IActionResult document_list(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);

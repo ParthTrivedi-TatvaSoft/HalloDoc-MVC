@@ -14,4 +14,10 @@ namespace DataAccess.Enums
         Family = 3,
         Concierge = 4
     }
+
+    public enum ResponseStatus
+    {
+        Failed,
+        Success
+    }
 }

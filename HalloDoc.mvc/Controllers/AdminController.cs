@@ -744,12 +744,7 @@ namespace HalloDoc.mvc.Controllers
             var model = _adminService.GetProvider();
             return PartialView("_provider", model);
         }
-        [HttpGet]
-        public IActionResult DeleteRole(int RoleId)
-        {
-            var isDeleted = _adminService.DeleteRole(RoleId);
-            return Json(new { isDeleted = isDeleted });
-        }
+
 
         [HttpGet]
         public IActionResult ProviderContactModal(int phyId)
@@ -774,25 +769,71 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isStopped = isStopped });
         }
 
-        public IActionResult EditProvider()
+        public IActionResult EditProvider(int phyId)
         {
-            EditProviderModel2 model = new EditProviderModel2();
-            return PartialView("_editprovider", model);
+            var tokenemail = GetTokenEmail();
+            if (tokenemail != null)
+            {
+
+                EditProviderModel2 model = new EditProviderModel2();
+                model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
+                model.regions = _adminService.RegionTable();
+                model.physicianregiontable = _adminService.PhyRegionTable(phyId);
+                model.roles = _adminService.GetRoles();
+                return PartialView("_EditProvider", model);
+            }
+            _notyf.Error("Token is expired,Login again");
+            return RedirectToAction("admin_login");
         }
+
+        [HttpPost]
+        public IActionResult providerEditFirst(string password, int phyId, string email)
+        {
+            bool editProvider = _adminService.providerResetPass(email, password);
+            return Json(new { indicate = editProvider, phyId = phyId });
+        }
+
+
+
+        [HttpGet]
+        public IActionResult DeleteRole(int RoleId)
+        {
+            var isDeleted = _adminService.DeleteRole(RoleId);
+            return Json(new { isDeleted = isDeleted });
+        }
+
 
         [HttpGet]
         public IActionResult CreateAccess()
         {
             var obj = _adminService.FetchRole(0);
-            return PartialView("_createaccess",obj);
+            return PartialView("_createaccess", obj);
         }
+
+
+
+
+
+
+
+
 
 
         [HttpPost]
         public IActionResult CreateAccessPost(List<int> MenuIds, string RoleName, short AccountType)
         {
-                _adminService.CreateRole(MenuIds, RoleName, AccountType);
-            return RedirectToAction("ShowAccountAccess");
+            var isRoleExists = _adminService.RoleExists(RoleName, AccountType);
+            if (isRoleExists)
+            {
+                return Json(new { isRoleExists = true });
+            }
+
+            else
+            {
+                var isCreated = _adminService.CreateRole(MenuIds, RoleName, AccountType);
+                return Json(new { isCreated = isCreated });
+            }
+
         }
 
         [HttpGet]
@@ -823,7 +864,7 @@ namespace HalloDoc.mvc.Controllers
             var isCreated = _adminService.CreateAdminAccount(model,email);
             if (isCreated)
             {
-                _notyf.Success("Account created");
+                _notyf.Success("Account Created");
                 return RedirectToAction("admin_dashboard");
             }
             else
@@ -848,6 +889,30 @@ namespace HalloDoc.mvc.Controllers
             return Ok(getLocation);
         }
 
+        public IActionResult CreateShift()
+        {
+            var obj = _adminService.GetCreateShift();
+            return View("_createshift", obj);
+        }
+
+        public IActionResult Scheduling()
+        {
+            //var obj = _adminService.CreateNewShiftSubmit();
+            return PartialView("_scheduling");
+        }
+
+        public IActionResult MonthTable()
+        {
+            return PartialView("_monthtable");
+        }
+        public IActionResult WeekTable()
+        {
+            return PartialView("_weektable");
+        }
+        public IActionResult DayTable()
+        {
+            return PartialView("_daytable");
+        }
 
 
 

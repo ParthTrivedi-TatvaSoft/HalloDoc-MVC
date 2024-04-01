@@ -11,6 +11,7 @@ namespace BusinessLogic.Interfaces
 {
     public interface IPatientService
     {
+        LoginResponseViewModel patient_login(LoginModel model);
         Task<bool> IsEmailExists(string email);
          void AddPatientInfo(PatientInfoModel patientInfoModel);
 
@@ -29,7 +30,7 @@ namespace BusinessLogic.Interfaces
         bool UploadDocuments(List<IFormFile> files, int reqId);
     
 
-    public DocumentModel GetAllDocById(int requestId);
+        public DocumentModel GetAllDocById(int requestId);
 
 
 

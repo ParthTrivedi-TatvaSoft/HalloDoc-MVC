@@ -1,18 +1,15 @@
 ﻿@using DataAccess.CustomModels;
 @model CreateAccess;
 <div>
-    <div class="container-fluid d-flex justify-content-between mt-4" style="max-width:1000px">
+    <div class="container d-flex justify-content-between mt-4">
         <h4>
-            Create Role
+            Create Access
         </h4>
-        <a class="btn btn-outline-info m-2 text-decoration-none float-end"
-           id="back-btn" onclick="AccountAccess()">
-            Back
-        </a>
+        <button onclick="AccountAccess()" id="back-btn">&lt; Back</button>
     </div>
 </div>
 
-<div class="container-fluid justify-content-center mt-4" style="max-width:1200px">
+<div class="container justify-content-center mt-4">
 
     <div class="card border-0 shadow p-4 mb-5 rounded">
         <form>
@@ -22,8 +19,9 @@
                 </div>
                 <div class="col-md">
                     <div class="form-floating">
-                        <input type="text" class="form-control border" id="roleName" value="">
-                        <label for="roleName">Role Name</label>
+                        <input type="text" class="form-control border" id="roleName" placeholder="Role Name" value="">
+                        <label for="roleName">Role Name *</label>
+                        <small id="roleReq" class="d-none text-danger">Role is required</small>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -59,6 +57,16 @@
 </div>
 
 <script>
+    $("#roleName").on('input', function () {
+        var rolename = $(this).val();
+        if (rolename == "") {
+            $("#roleReq").removeClass('d-none');
+        }
+        else {
+            $("#roleReq").addClass('d-none');
+        }
+    });
+
     $(function () {
         $("#accountType").change(function () {
             let selectedValue = $('option:selected', this).val();
@@ -106,6 +114,14 @@
         console.log(selectedBox);
         console.log(roleName);
         console.log(accountType);
+        if (roleName == "") {
+            $("#roleReq").removeClass('d-none');
+            return;
+        }
+        if (selectedBox.length == 0) {
+            toastr.error("Check Atleast One Item");
+            return;
+        }
 
         $.ajax({
             url: "/Admin/CreateAccessPost",
@@ -116,11 +132,20 @@
                 AccountType: accountType,
             },
             success: function (result) {
-                location.reload();
+                if (result.isRoleExists == true) {
+                    toastr.error("Role Already Exists In Selected AccountType");
+                    return;
+                }
+                else if (result.isCreated == true) {
+                    toastr.success("Created Successfully");
+                    accountAccess();
+                }
+                else {
+                    toastr.error("Failed To Create");
+                }
             },
             error: function (error) {
                 console.log(error);
-                alert(error);
                 alert('Error Cancelling Request')
             },
         });

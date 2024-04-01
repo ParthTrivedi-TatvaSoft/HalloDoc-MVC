@@ -1462,9 +1462,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Shiftdetailid)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("shiftdetailid");
-            entity.Property(e => e.Endtime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("endtime");
+            entity.Property(e => e.Endtime).HasColumnName("endtime");
             entity.Property(e => e.Eventid)
                 .HasMaxLength(100)
                 .HasColumnName("eventid");
@@ -1486,9 +1484,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Regionid).HasColumnName("regionid");
             entity.Property(e => e.Shiftdate).HasColumnName("shiftdate");
             entity.Property(e => e.Shiftid).HasColumnName("shiftid");
-            entity.Property(e => e.Starttime)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("starttime");
+            entity.Property(e => e.Starttime).HasColumnName("starttime");
             entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.ModifiedbyNavigation).WithMany(p => p.Shiftdetails)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LIeOvEGwsxzvAciwNTe9t9b+3to2Ek0UXUlv2cqfqKY=",
+  "Hash": "Hih2sr6FRfhlJeE7KPBIqPxrkDGyvfJOlHfC21QzvhA=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -1749,6 +1749,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor (1).svg"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (3).svg",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "UploadedFiles/doctor (3).svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor (3).svg"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",

@@ -273,10 +273,10 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Please Enter Your Mobile number")]
         public string? mobile_no { get; set; }
 
-        [Required(ErrorMessage = "Please Enter address-1")]
+        [Required(ErrorMessage = "Please Enter Address-1")]
         public string? addr1 { get; set; }
 
-        [Required(ErrorMessage = "Please Enter address-2")]
+        [Required(ErrorMessage = "Please Enter Address-2")]
         public string? addr2 { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your City")]
@@ -306,13 +306,13 @@ namespace DataAccess.CustomModels
 
     public class SendLinkModel
     {
-        [Required(ErrorMessage = "FirstName is required")]
+        [Required(ErrorMessage = "FirstName Is Required")]
         public string? fName { get; set; }
-        [Required(ErrorMessage = "LastName is required")]
+        [Required(ErrorMessage = "LastName Is Required")]
         public string? lName { get; set; }
-        [Required(ErrorMessage = "Phone No. is required")]
+        [Required(ErrorMessage = "Phone No. Is Required")]
         public string? phoneNo { get; set; }
-        [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessage = "Email Is Required")]
         public string? email { get; set; }
 
     }
@@ -388,6 +388,7 @@ namespace DataAccess.CustomModels
         public string? password { get; set; }
 
         public string? Email { get; set; }
+        public string? Con_Email { get; set; }
 
         public string? PhoneNumber { get; set; }
 
@@ -423,46 +424,57 @@ namespace DataAccess.CustomModels
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
 
-        public int? PhyID { get; set; }
+        public int PhyID { get; set; }
+        public int statusId { get; set; }
 
+        public List<Region> regions { get; set; }
 
+        //public List<Physicianregion> physicianregions { get; set; }
 
         public string? altPhone { get; set; }
         public string? State { get; set; }
+        public int? StateId { get; set; }
+        public string? flag { get; set; }
 
         public IFormFile? Photo { get; set; }
 
+        public string? PhotoValue { get; set; }
+
         public IFormFile? Signature { get; set; }
 
-        public BitArray? isAgreementdoc { get; set; }
+        public string? SignatureValue { get; set; }
 
-        public BitArray? isBackgrounddoc { get; set; }
+        public IFormFile? ContractorAgreement { get; set; }
 
-        public BitArray? isTrainingdoc { get; set; }
+        public bool IsContractorAgreement { get; set; }
 
-        public BitArray? isNondiclosuserdoc { get; set; }
+        public IFormFile? BackgroundCheck { get; set; }
 
-        public BitArray? isLicesensdoc { get; set; }
+        public bool IsBackgroundCheck { get; set; }
 
-        public IFormFile? isAgreementdocument { get; set; }
+        public IFormFile? HIPAA { get; set; }
 
-        public IFormFile? isBackgrounddocument { get; set; }
+        public bool IsHIPAA { get; set; }
 
-        public IFormFile? isTrainingdocument { get; set; }
+        public IFormFile? NonDisclosure { get; set; }
 
-        public IFormFile? isNondiclosuserdocument { get; set; }
+        public bool IsNonDisclosure { get; set; }
 
-        public IFormFile? isLicesensdocument { get; set; }
+        public IFormFile? LicenseDocument { get; set; }
 
-        public List<Role>? roles { get; set; }
+        public bool IsLicenseDocument { get; set; }
+
+        public List<Role> roles { get; set; }
+
+        public bool? indicate { get; set; }
     }
     public class PhysicianRegionTable
     {
-        public int PhysicianId { get; set; }
+        public int? PhysicianId { get; set; }
 
-        public int Regionid { get; set; }
+        public int? Regionid { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public bool ExistsInTable { get; set; }
     }
@@ -472,7 +484,10 @@ namespace DataAccess.CustomModels
         public List<Region>? regions { get; set; }
 
         public List<PhysicianRegionTable>? physicianregiontable { get; set; }
+        public List<Role>? roles { get; set; }
     }
+    
+   
     public class AccountAccess
     {
         public int RoleId { get; set; }
@@ -496,6 +511,8 @@ namespace DataAccess.CustomModels
         public string? LastName { get; set; }
         public string? AdminPhone { get; set; }
         public string? Email { get; set; }
+
+        [Compare("Email", ErrorMessage = "Email MissMatch")]
         public string? ConfirmEmail { get; set; }
         public List<Region>? RegionList { get; set; }
         public IEnumerable<int> AdminRegion { get; set; }
@@ -505,5 +522,36 @@ namespace DataAccess.CustomModels
         public string? State { get; set; }
         public string? Zip { get; set; }
         public string? BillingPhone { get; set; }
+    }
+
+    public class CreateShift
+    {
+        public int RegionId { get; set; }
+
+        public int PhysicianId { get; set; }
+
+        public DateOnly StartDate { get; set; }
+
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
+
+        public bool IsRepeat { get; set; }
+
+        public string? WeekDays { get; set; }
+
+        public int? RepeatUpto { get; set; }
+
+        public IEnumerable<Region> Regions { get; set; }
+        public IEnumerable<Physician> Physicians { get; set; }
+
+        public IEnumerable<CheckBoxData> Days { get; set; }
+
+    }
+    public class CheckBoxData
+    {
+        public int Id { get; set; }
+        public string value { get; set; }
+
+        public bool Checked { get; set; }
     }
 }

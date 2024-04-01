@@ -17,6 +17,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 using System.Globalization;
+using System.Text.Json;
 
 namespace BusinessLogic.Services
 {
@@ -974,7 +975,7 @@ namespace BusinessLogic.Services
 
                 var adminInfo = _db.Admins.Where(r => r.Email == tokenEmail).Select(r => r).First();
 
-                if (adminInfo.Firstname != model.fname || adminInfo.Lastname != model.lname || adminInfo.Email != model.email || adminInfo.Mobile != model.mobile_no)
+                if (adminInfo.Firstname != model.fname || adminInfo.Lastname != model.lname || adminInfo.Email != model.email || adminInfo.Mobile != model.mobile_no || model.email == model.confirm_email)
                 {
                     if (adminInfo.Firstname != model.fname)
                     {
@@ -1316,6 +1317,92 @@ namespace BusinessLogic.Services
             _db.SaveChanges();
         }
 
+
+        public EditProviderModel EditProviderProfile(int phyId, string tokenEmail)
+        {
+            var phy = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            var user = _db.Aspnetusers.Where(r => r.Email == phy.Email).First();
+
+            EditProviderModel _profile = new EditProviderModel()
+            {
+                //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
+                Firstname = phy.Firstname,
+                Lastname = phy.Lastname,
+                Email = phy.Email,
+                PhoneNumber = phy.Mobile,
+                MedicalLicesnse = phy.Medicallicense,
+                NPInumber = phy.Npinumber,
+                SycnEmail = phy.Syncemailaddress,
+                Address1 = phy.Address1,
+                Address2 = phy.Address2,
+                city = phy.City,
+                zipcode = phy.Zip,
+                altPhone = phy.Altphone,
+                Businessname = phy.Businessname,
+                BusinessWebsite = phy.Businesswebsite,
+                Adminnotes = phy.Adminnotes,
+                statusId = (int)phy.Status,
+                PhyID = phyId,
+                Roleid = phy.Roleid,
+                Regionid = phy.Regionid,
+                PhotoValue = phy.Photo,
+                SignatureValue = phy.Signature,
+                IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
+                IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
+                IsHIPAA = phy.Istrainingdoc == null ? false : true,
+                IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
+                IsLicenseDocument = phy.Islicensedoc == null ? false : true,
+
+
+                username = user.Username,
+                password = user.Passwordhash,
+            };
+
+            return _profile;
+        }
+
+
+        public List<Role> GetRoles()
+        {
+            var roles = _db.Roles.ToList();
+            return roles;
+        }
+        public List<Region> RegionTable()
+        {
+            var region = _db.Regions.ToList();
+            return region;
+        }
+
+        public List<PhysicianRegionTable> PhyRegionTable(int phyId)
+        {
+            var region = _db.Regions.ToList();
+            var phyRegion = _db.Physicianregions.ToList();
+
+            var checkedRegion = region.Select(r1 => new PhysicianRegionTable
+            {
+                Regionid = r1.Regionid,
+                Name = r1.Name,
+                ExistsInTable = phyRegion.Any(r2 => r2.Physicianid == phyId && r2.Regionid == r1.Regionid),
+            }).ToList();
+
+            return checkedRegion;
+        }
+        public bool providerResetPass(string email, string password)
+        {
+            var resetPass = _db.Aspnetusers.Where(r => r.Email == email).Select(r => r).First();
+
+            if (resetPass.Passwordhash != password)
+            {
+                resetPass.Passwordhash = password;
+                _db.SaveChanges();
+
+                return true;
+            }
+            return false;
+
+        }
+
         public List<AccountAccess> AccountAccess()
         {
             var obj = (from role in _db.Roles
@@ -1337,9 +1424,17 @@ namespace BusinessLogic.Services
                 role.Isdeleted = new BitArray(1, true);
                 _db.Roles.Update(role);
                 _db.SaveChanges();
+
+                var rolemenu = _db.Rolemenus.Where(x => x.Roleid == roleId).ToList();
+
+                foreach (var item in rolemenu)
+                {
+                    _db.Rolemenus.Remove(item);
+                }
+                _db.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -1370,31 +1465,47 @@ namespace BusinessLogic.Services
                 return obj;
             }
         }
-
-        public void CreateRole(List<int> menuIds, string roleName, short accountType)
+        public bool RoleExists(string roleName, short accountType)
         {
-            Role role = new()
+            BitArray deletedBit = new BitArray(new[] { false });
+            var isRoleExists = _db.Roles.Where(x => (x.Name.ToLower() == roleName.Trim().ToLower() && x.Accounttype == accountType) && (x.Isdeleted.Equals(deletedBit))).Any();
+            if (isRoleExists)
             {
-                Name = roleName,
-                Accounttype = accountType,
-                Createdby = "Admin",
-                Createddate = DateTime.Now,
-                Isdeleted = new BitArray(1, true),
-            };
-            _db.Roles.Add(role);
-            _db.SaveChanges();
-
-            foreach (int menuId in menuIds)
+                return true;
+            }
+            return false;
+        }
+        public bool CreateRole(List<int> menuIds, string roleName, short accountType)
+        {
+            try
             {
-                Rolemenu rolemenu = new()
+                Role role = new()
                 {
-                    Roleid = role.Roleid,
-                    Menuid = menuId,
+                    Name = roleName,
+                    Accounttype = accountType,
+                    Createdby = "Admin",
+                    Createddate = DateTime.Now,
+                    Isdeleted = new BitArray(1, false),
                 };
-                _db.Rolemenus.Add(rolemenu);
+                _db.Roles.Add(role);
                 _db.SaveChanges();
-            };
 
+                foreach (int menuId in menuIds)
+                {
+                    Rolemenu rolemenu = new()
+                    {
+                        Roleid = role.Roleid,
+                        Menuid = menuId,
+                    };
+                    _db.Rolemenus.Add(rolemenu);
+                };
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
 
         }
         public CreateAdminAccount RegionList()
@@ -1406,7 +1517,7 @@ namespace BusinessLogic.Services
             return obj;
         }
 
-        public bool CreateAdminAccount(CreateAdminAccount obj,string email)
+        public bool CreateAdminAccount(CreateAdminAccount obj, string email)
         {
             var emailExists = _db.Aspnetusers.Where(x => x.Email == obj.Email).Any();
             if (emailExists)
@@ -1424,9 +1535,9 @@ namespace BusinessLogic.Services
                     Email = obj.Email,
                     Phonenumber = obj.AdminPhone,
                     Createddate = DateTime.Now,
-                 
 
-                 };
+
+                };
                 _db.Aspnetusers.Add(aspnetuser);
                 _db.SaveChanges();
 
@@ -1461,7 +1572,7 @@ namespace BusinessLogic.Services
                     Adminregion adminregion = new()
                     {
                         Adminid = admin.Adminid,
-                        Regionid = _db.Regions.First(x => x.Regionid == AdminRegions[0]).Regionid,
+                        Regionid = _db.Regions.First(x => x.Regionid == AdminRegions[i]).Regionid,
                     };
 
                     _db.Adminregions.Add(adminregion);
@@ -1479,6 +1590,96 @@ namespace BusinessLogic.Services
         {
             var phyLocation = _db.Physicianlocations.ToList();
             return phyLocation;
+        }
+
+
+
+        public CreateShift GetCreateShift()
+        {
+            var regionList = _db.Regions.ToList();
+            var phy = _db.Physicians.ToList();
+
+            CreateShift obj = new()
+            {
+                Regions=regionList,
+                Physicians=phy
+            };
+
+            return obj;
+        }
+
+
+        public void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId)
+        {
+            var admin = _db.Admins.FirstOrDefault(x => x.Adminid == adminId);
+
+            var day = JsonSerializer.Deserialize<List<CheckBoxData>>(selectedDays);
+
+            var curDate = obj.StartDate;
+            var curDay = (int)obj.StartDate.DayOfWeek;
+
+            if (!obj.IsRepeat)
+            {
+                var shift = new Shift()
+                {
+                    Physicianid = obj.PhysicianId,
+                    Startdate = obj.StartDate,
+                    Isrepeat = new BitArray(0, false),
+                    Repeatupto = obj.RepeatUpto,
+                    Createdby = admin.Aspnetuserid,
+                    Createddate = DateTime.Now,
+                };
+                _db.Shifts.Add(shift);
+                _db.SaveChanges();
+            }
+            else
+            {
+                var shift = new Shift()
+                {
+                    Physicianid = obj.PhysicianId,
+                    Startdate = obj.StartDate,
+                    Isrepeat = new BitArray(1,true),
+                    Repeatupto = obj.RepeatUpto,
+                    Createdby = admin.Aspnetuserid,
+                    Createddate = DateTime.Now,
+                };
+                _db.Shifts.Add(shift);
+                _db.SaveChanges();
+
+
+                for (int i = 1; i <= obj.RepeatUpto; i++)
+                {
+                    foreach (var item in day)
+                    {
+                        if (item.Checked)
+                        {
+                            var shiftDay = 7 * i - curDay + item.Id;
+                            var shiftDate = curDate.AddDays(shiftDay);
+
+                            var shiftdetail = new Shiftdetail()
+                            {
+                                Shiftid = shift.Shiftid,
+                                Shiftdate = shiftDate,
+                                Starttime = obj.StartTime,
+                                Endtime = obj.EndTime,
+                                Status = (short)_db.Physicians.FirstOrDefault(x => x.Physicianid == obj.PhysicianId).Status,
+
+                            };
+                            _db.Shiftdetails.Add(shiftdetail);
+                            _db.SaveChanges();
+
+                            var shiftRegion = new Shiftdetailregion()
+                            {
+                                Regionid = obj.RegionId,
+                                Shiftdetailid = shiftdetail.Shiftdetailid,
+                            };
+                            _db.Shiftdetailregions.Add(shiftRegion);
+                            _db.SaveChanges();
+                        }
+                    }
+                }
+            }
+
         }
 
 

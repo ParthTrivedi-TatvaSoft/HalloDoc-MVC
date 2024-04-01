@@ -20,12 +20,33 @@ namespace BusinessLogic.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly IHostingEnvironment _env;
+        private readonly IJwtService _jwtService;
 
-        public PatientService(ApplicationDbContext db, IHostingEnvironment env)
+        public PatientService(ApplicationDbContext db, IHostingEnvironment env, IJwtService jwtService)
         {
             _db = db;
             _env = env;
+            _jwtService = jwtService;
         }
+
+        public LoginResponseViewModel patient_login(LoginModel model)
+        {
+            var user = _db.Aspnetusers.Where(u => u.Email == model.Email).FirstOrDefault();
+
+            if (user == null)
+                return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "User Not Found" };
+            if (user.Passwordhash == null)
+                return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "There is no Password with this Account" };
+            if (user.Passwordhash == model.Password)
+            {
+                var jwtToken = _jwtService.GetJwtToken(user);
+
+                return new LoginResponseViewModel() { Status = ResponseStatus.Success, Token = jwtToken };
+            }
+
+            return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "Password does not match" };
+        }
+
 
         public Task<bool> IsEmailExists(string email)
         {
