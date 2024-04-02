@@ -2,7 +2,8 @@
 
 @model CreateShift;
 
-<div class="modal fade" id="CreateShiftModal" tabindex="-1" aria-labelledby="newReqModal" aria-hidden="true">
+
+<div class="modal" id="CreateShiftModal" aria-labelledby="newReqModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #01bce9; color:white;">
@@ -171,7 +172,7 @@
             contentType: false,
             success: function () {
                 $("#CreateShiftModel").modal('toggle');
-                location.reload();
+             
             }
         })
     })

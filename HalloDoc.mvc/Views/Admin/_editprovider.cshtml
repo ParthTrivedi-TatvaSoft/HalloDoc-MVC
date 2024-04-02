@@ -62,8 +62,8 @@
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
-        <h4>My Profile</h4>
-        <button onclick="accountAccess()" id="back-btn">&lt; Back</button>
+        <h4>Edit Physician Account</h4>
+        <button onclick="ShowProvider()" id="back-btn">&lt; Back</button>
 
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
@@ -102,11 +102,14 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
                             <select class="form-select form-control d1class" disabled id="providerEditRole" asp-for="editRoleNameMain(@Model.editPro.Roleid)" value="editRoleNameMain(@Model.editPro.Roleid)">
-                                @foreach (var obj in Model.roles)
+                                @if (Model.roles != null && Model.roles.Count > 0)
                                 {
-                                    <option value="@obj.Roleid">
-                                        @obj.Name
-                                    </option>
+                                    @foreach (var obj in Model.roles)
+                                    {
+                                        <option value="@obj.Roleid">
+                                            @obj.Name
+                                        </option>
+                                    }
                                 }
                             </select>
 
@@ -126,7 +129,7 @@
                             Cancel
                         </button>
                         <button type="button" id="providerResetPassword" onclick="providerEditResetPass('@Model.editPro.Email')"
-                                class="btn btn-outline-secondary border-info text-info ms-2">
+                                class="btn btn-outline-info ms-2">
                             Reset Password
                         </button>
                     </div>
@@ -216,29 +219,29 @@
             </form>
 
             <form action=" " method="post" id="MailingForm">
-                <input id="providerEditThree" type="hidden" asp-for="@Model.editPro.PhyID" value="@Model.editPro.PhyID" />
+                <input id="providerEditThree" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
                 <div class="pt-4">
-                    <h4 class="mb-4">Mailing And Billing Information</h4>
+                    <h4 class="mb-4">Mailing & Billing Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="@Model.editPro.Address1"
+                            <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="editPro.Address1"
                                    placeholder="Address1" aria-label="Address1">
                             @* <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> *@
                             <label class="ms-2 " for="floatingInputAddress1">Address1</label>
                         </div>
                         @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden4" hidden /> *@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputAddress2" asp-for="@Model.editPro.Address2"
+                            <input type="text" class="d3class form-control " id="floatingInputAddress2" asp-for="editPro.Address2"
                                    placeholder="Address2" aria-label="Address2">
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputCity" asp-for="@Model.editPro.city"
+                            <input type="text" class="d3class form-control " id="floatingInputCity" asp-for="editPro.city"
                                    placeholder="City" aria-label="City">
                             <label class="ms-2 " for="floatingInputCity">City</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region" asp-for="@Model.editPro.Regionid">
+                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region" asp-for="editPro.Regionid">
                                 @foreach (var obj in Model.regions)
                                 {
                                     <option value="@obj.Regionid">
@@ -249,13 +252,13 @@
                             <label for="state" class="ms-2 ">State</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d3class form-control " id="floatingInputZipCode" asp-for="@Model.editPro.zipcode"
+                            <input type="text" class="d3class form-control " id="floatingInputZipCode" asp-for="editPro.zipcode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input style="height:58px;" id="providerMobileTwo" asp-for="@Model.editPro.altPhone"
+                            <input style="height:58px;" id="providerMobileTwo" asp-for="editPro.altPhone"
                                    class="form-control contact d3class"
                                    aria-label="Contact"
                                    type="number" />
@@ -279,18 +282,18 @@
             </form>
 
             <form action=" " method="post" id="PhysicianBusinessInfoForm">
-                <input id="providerEditFour" type="hidden" asp-for="@Model.editPro.PhyID" value="@Model.editPro.PhyID" />
+                <input id="providerEditFour" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
                 <div class="pt-4">
-                    <h4 class="mb-4">Provider Information</h4>
+                    <h4 class="mb-4">Provider Profile</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d4class form-control " id="Businessname" asp-for="@Model.editPro.Businessname"
+                            <input type="text" class="d4class form-control " id="Businessname" asp-for="editPro.Businessname"
                                    placeholder="Businessname" aria-label="Businessname">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="Businessname">Business Name</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input type="text" class="d4class form-control " id="Businesswebsite" asp-for="@Model.editPro.BusinessWebsite"
+                            <input type="text" class="d4class form-control " id="Businesswebsite" asp-for="editPro.BusinessWebsite"
                                    placeholder="Businesswebsite" aria-label="Businesswebsite">
                             <label class="ms-2 " for="Businesswebsite">Business website</label>
                         </div>
@@ -299,15 +302,15 @@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
                             <div>
                                 <div class="input-group rounded d-flex">
-                                    <input asp-for="@Model.editPro.Photo" type="file" class="d4class form-control py-3" id="fileUploadInp">
-                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onchange="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
+                                    <input asp-for="editPro.Photo" type="file" class="d4class form-control py-3" id="fileUploadInp">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onclick="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
                                 </div>
                             </div>
                             <span class="text-danger" id="errormessgespan"></span>
                             @if (Model.editPro.PhotoValue != null)
                             {
                                 <div class="d-flex justify-content-center w-100 mt-2 mb-2">
-                                    <img src="~/Documents/@Model.editPro.PhotoValue" width="200px" alt="Profile">
+                                    <img src="~/UploadedFiles/@Model.editPro.PhotoValue" width="200px" alt="Profile">
                                 </div>
                             }
                         </div>
@@ -329,8 +332,8 @@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
-                                    <input asp-for="@Model.editPro.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
-                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" disabled onchange="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                                    <input asp-for="editPro.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
                                 </div>
                                 <button style="cursor:pointer;" type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
                                     <i class="bi bi-pen me-1"></i><span>Create</span>
@@ -342,14 +345,14 @@
                                 @if (Model.editPro.SignatureValue != null)
                                 {
                                     <div class="d-flex justify-content-center w-100 mt-2 mb-2">
-                                        <img src="~/Documents/@Model.editPro.SignatureValue" width="200px" alt="Signature">
+                                        <img src="~/UploadedFiles/@Model.editPro.SignatureValue" width="200px" alt="Signature">
                                     </div>
                                 }
                             </div>
                         </div>
 
                         <div class=" col-12 form-floating mb-3">
-                            <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="@Model.editPro.Adminnotes"></textarea>
+                            <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="editPro.Adminnotes"></textarea>
                             <label class="ms-2" for="AdminNotes">
                                 Admin Notes
                             </label>
@@ -375,7 +378,7 @@
             <hr class="w-100" />
 
             <form method="post" id="OnboardingEditForm">
-                <input id="providerEditFive" type="hidden" asp-for="@Model.editPro.PhyID" value="@Model.editPro.PhyID" />
+                <input id="providerEditFive" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
                 <div class="pt-4">
                     <h4 class="mb-4">Onboarding</h4>
                     <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
@@ -387,10 +390,10 @@
                         </div>
                         <span class="text-danger" id="errorSpan1"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/Documents/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model.editPro.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile1">Upload</label>
                         </div>
                     </div>
@@ -403,10 +406,10 @@
                         </div>
                         <span class="text-danger" id="errorSpan2"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/Documents/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model.editPro.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile2">Upload</label>
                         </div>
                     </div>
@@ -419,10 +422,10 @@
                         </div>
                         <span class="text-danger" id="errorSpan3"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/Documents/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model.editPro.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile3">Upload</label>
                         </div>
                     </div>
@@ -435,10 +438,10 @@
                         </div>
                         <span class="text-danger" id="errorSpan4"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/Documents/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model.editPro.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile4">Upload</label>
                         </div>
                     </div>
@@ -451,10 +454,10 @@
                         </div>
                         <span class="text-danger" id="errorSpan5"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/Documents/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="@Model.editPro.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
                             <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile5">Upload</label>
                         </div>
                     </div>
@@ -472,203 +475,7 @@
 
             </form>
 
-            @* <form method="post" asp-action="">
-            <input id="providerEditFive" type="hidden" asp-for="@Model._providerEdit.PhyID" value="@Model._providerEdit.PhyID" />
-            <h4 class="mb-4">Onboarding</h4>
-            <div class="row pt-2 ">
-            <div class="col-1 py-2 pt-3">
-            <div class="form-check ms-3" style="padding-left : 50%;">
-            <input type="checkbox"
-            onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxA" name="checkbox_group"
 
-            />
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
-            <spna class="my-1">Independent Contractor Agreement</spna>
-            </div>
-            <div class="col-md-4 col-3 py-2">
-            <div class="d-flex flex-wrap ">
-            <input type="file"  onchange="uploadDocument()" id="isAgreementdocument" class="form_doc d-none d-sm-block" />
-            <input type="file"  class="form_doc_mobile  d-sm-none" />
-            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload1">Upload</button>
-            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-1"><i class="bi bi-cloud-upload"></i></button>
-
-            </div>
-            </div>
-            <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
-            </div>
-            <div class="row pt-2">
-            <div class="col-1 py-2 pt-3">
-            <div class="form-check ms-3" style="padding-left : 50%;">
-            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxB" name="checkbox_group"
-
-            />
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
-            <spna class="my-1">Background Check</spna>
-            </div>
-            <div class="col-md-4 col-3 py-2">
-            <div class="d-flex flex-wrap">
-            <input type="file"  onchange="uploadDocument()" id="isBackgrounddocument" class="form_doc d-none d-sm-block" />
-            <input type="file"  class="form_doc_mobile  d-sm-none" />
-            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload2">Upload</button>
-            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-2"><i class="bi bi-cloud-upload"></i></button>
-
-            </div>
-            </div>
-            <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
-            </div>
-            <div class="row pt-2">
-            <div class="col-1 py-2 pt-3">
-            <div class="form-check ms-3" style="padding-left : 50%;">
-            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxC" name="checkbox_group"
-
-            />
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
-            <spna class="my-1">HPAA Compliance</spna>
-            </div>
-            <div class="col-md-4 col-3 py-2">
-            <div class="d-flex flex-wrap">
-            <input type="file"  onchange="uploadDocument()" id="isTrainingdocument" class="form_doc d-none d-sm-block" />
-            <input type="file"  class="form_doc_mobile  d-sm-none" />
-            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload3">Upload</button>
-            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-3"><i class="bi bi-cloud-upload"></i></button>
-
-            </div>
-            </div>
-            <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
-            </div>
-            <div class="row pt-2">
-            <div class="col-1 py-2 pt-3">
-            <div class="form-check ms-3" style="padding-left : 50%;">
-            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxD" name="checkbox_group"
-
-            />
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
-            <spna class="my-1">Non-disclosure Agreement</spna>
-            </div>
-            <div class="col-md-4 col-3 py-2">
-            <div class="d-flex flex-wrap">
-            <input type="file" onchange="uploadDocument()" id="isNondiclosuserdocument" class="form_doc d-none d-sm-block" />
-            <input type="file" class="form_doc_mobile  d-sm-none" />
-            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload4">Upload</button>
-            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-4"><i class="bi bi-cloud-upload"></i></button>
-
-            </div>
-            </div>
-            <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
-            </div>
-            <div class="row pt-2">
-            <div class="col-1 py-2 pt-3">
-            <div class="form-check ms-3" style="padding-left : 50%;">
-            <input type="checkbox" onchange="onCheck(event)" class="form-check-input border-2" value="" id="checkboxE" name="checkbox_group"
-
-            />
-            </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-8 py-2 pt-3">
-            <spna class="my-1">License Document</spna>
-            </div>
-            <div class="col-md-4 col-3 py-2">
-            <div class="d-flex flex-wrap">
-            <input type="file"  onchange="uploadDocument()" id="isLicesensdocument" class="form_doc d-none d-sm-block" />
-            <input type="file"  class="form_doc_mobile  d-sm-none" />
-            <button type="button" class="btn btn-info text-white d-none d-md-block m-1" id="upload5">Upload</button>
-            <button type="button" class="btn btn-info text-white d-block d-md-none m-1" id="upload-sm-5"><i class="bi bi-cloud-upload"></i></button>
-
-            </div>
-            </div>
-            <hr class="d-block d-md-none ms-3" style="width: calc(100% - 35px);" />
-            </div>
-            </form> *@
-
-            @* <form action=" " method="post" id="Onboarding">
-            <div class="pt-4">
-            <h4 class="mb-4">Onboarding</h4>
-            <div class="mb-3 d-flex align-items-center">
-            <div class="form-check">
-            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="1" id="Onboarding1">
-            <label class="form-check-label ms-3 fw-bolder" for="Onboarding1">
-            Independent Contractor Agreement
-            </label>
-            </div>
-            <button type="button" id="Upload" class="btn btn-info text-white mx-3">Upload</button>
-
-            <button type="button" id="OnboardingView1" class="btn btn-info text-white" style="display:none">
-            View
-            </button>
-            </div>
-            <div class="mb-3 d-flex align-items-center">
-            <div class="form-check">
-            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="2" id="Onboarding2">
-            <label class="form-check-label ms-3 fw-bolder" for="Onboarding2">
-            Background Check
-            </label>
-            </div>
-            <button type="button" id="Upload1" class="btn btn-info text-white mx-3">Upload</button>
-
-            <button type="button" id="OnboardingView2" class="btn btn-info text-white" style="display:none">
-            View
-            </button>
-            </div>
-            <div class="mb-3 d-flex align-items-center">
-            <div class="form-check">
-            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="3" id="Onboarding3">
-            <label class="form-check-label ms-3 fw-bolder" for="Onboarding3">
-            HIPAA Compliance
-            </label>
-            </div>
-            <button type="button" id="Upload2" class="btn btn-info text-white mx-3">Upload</button>
-
-            <button type="button" id="OnboardingView3" class="btn btn-info text-white" style="display:none">
-            View
-            </button>
-            </div>
-            <div class="mb-3 d-flex align-items-center">
-            <div class="form-check">
-            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="4" id="Onboarding4">
-            <label class="form-check-label ms-3 fw-bolder" for="Onboarding4">
-            Non-disclouser Agreement
-            </label>
-            </div>
-            <button type="button" id="Upload3" class="btn btn-info text-white mx-3">Upload</button>
-
-            <button type="button" id="OnboardingView4" class="btn btn-info text-white" style="display:none">
-            View
-            </button>
-            </div>
-            <div class="mb-3 d-flex align-items-center">
-            <div class="form-check">
-            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="5" id="Onboarding5">
-            <label class="form-check-label ms-3 fw-bolder" for="Onboarding5">
-            License Document
-            </label>
-            </div>
-            <button type="button" id="Upload4" class="btn btn-info text-white mx-3">Upload</button>
-
-            <button type="button" id="OnboardingView5" class="btn btn-info text-white" style="display:none">
-            View
-            </button>
-            </div>
-
-            </div>
-            </form> *@
-
-            @* <hr class="w-100" />
-            <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
-
-            <button type="submit" id="savebtn" class="btn btn-info text-white me-1">Save</button>
-
-            <button type="button" id="DeleteAccount" class="btn btn-danger ">
-            Delete Account
-            </button>
-            </div> *@
         </div>
     </div>
 </div>
@@ -811,7 +618,7 @@
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
-                    toastr.error("For reset password you need to change old password");
+                    toastr.error("For Reset Password You Need To Change Old Password");
                 }
             },
             error: function () {
@@ -824,7 +631,7 @@
         var statusId = $("#providerEditStatus").val();
         var roleId = $("#providerEditRole").val();
         $.ajax({
-            url: "/adminDashboard/editProviderForm1",
+            url: "/Admin/editProviderForm1",
             type: 'POST',
             data: { phyId: phyId, roleId: roleId, statusId: statusId },
             success: function (result) {
@@ -854,6 +661,7 @@
         var sync = $("#editProviderSynchronizationEmail").val();
 
 
+
         var phyRegionArray = [];
         var checkedBoxes = $('.region-checkbox:checkbox:checked');
         console.log(phyRegionArray)
@@ -863,7 +671,7 @@
 
 
         $.ajax({
-            url: "/adminDashboard/editProviderForm2",
+            url: "/Admin/editProviderForm2",
             type: 'POST',
             data: { fname: fname, lname: lname, email: email, phone: phone, medical: medical, npi: npi, sync: sync, phyId: phyId, phyRegionArray },
             success: function (result) {
@@ -885,7 +693,7 @@
         var payloadMain = $("#MailingForm").serializeArray();
 
         $.ajax({
-            url: "/adminDashboard/editProviderForm3",
+            url: "/Admin/editProviderForm3",
             type: 'POST',
             data: payloadMain,
             success: function (result) {
@@ -949,7 +757,7 @@
 
         $.ajax({
             method: "POST",
-            url: "/adminDashboard/PhysicianBusinessInfoEdit",
+            url: "/Admin/PhysicianBusinessInfoEdit",
             data: new FormData($('#PhysicianBusinessInfoForm')[0]),
             processData: false,
             contentType: false,
@@ -973,7 +781,7 @@
     function UpdateOnBoarding() {
         $.ajax({
             method: "POST",
-            url: "/adminDashboard/UpdateOnBoarding",
+            url: "/Admin/UpdateOnBoarding",
             data: new FormData($('#OnboardingEditForm')[0]),
             processData: false,
             contentType: false,
@@ -988,7 +796,7 @@
             },
 
             error: function () {
-                alert("error in edit onboarding");
+                alert("Error In Edit Onboarding");
             }
         });
     }
@@ -1013,11 +821,11 @@
 
     function DeletePhysicianAccount(phyId) {
         $.ajax({
-            url: "/adminDashboard/editProviderDeleteAccount",
+            url: "/Admin/editProviderDeleteAccount",
             type: 'POST',
             data: { phyId: phyId },
             success: function (result) {
-                providers();
+                ShowProvider();
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {

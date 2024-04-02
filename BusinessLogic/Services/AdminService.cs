@@ -1324,42 +1324,41 @@ namespace BusinessLogic.Services
 
             var user = _db.Aspnetusers.Where(r => r.Email == phy.Email).First();
 
-            EditProviderModel _profile = new EditProviderModel()
-            {
-                //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
-                Firstname = phy.Firstname,
-                Lastname = phy.Lastname,
-                Email = phy.Email,
-                PhoneNumber = phy.Mobile,
-                MedicalLicesnse = phy.Medicallicense,
-                NPInumber = phy.Npinumber,
-                SycnEmail = phy.Syncemailaddress,
-                Address1 = phy.Address1,
-                Address2 = phy.Address2,
-                city = phy.City,
-                zipcode = phy.Zip,
-                altPhone = phy.Altphone,
-                Businessname = phy.Businessname,
-                BusinessWebsite = phy.Businesswebsite,
-                Adminnotes = phy.Adminnotes,
-                statusId = (int)phy.Status,
-                PhyID = phyId,
-                Roleid = phy.Roleid,
-                Regionid = phy.Regionid,
-                PhotoValue = phy.Photo,
-                SignatureValue = phy.Signature,
-                IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
-                IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
-                IsHIPAA = phy.Istrainingdoc == null ? false : true,
-                IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
-                IsLicenseDocument = phy.Islicensedoc == null ? false : true,
+            EditProviderModel obj = new EditProviderModel();
 
 
-                username = user.Username,
-                password = user.Passwordhash,
-            };
 
-            return _profile;
+            obj.Firstname = phy.Firstname;
+            obj.Lastname = phy.Lastname;
+            obj.Email = phy.Email;
+            obj.PhoneNumber = phy.Mobile;
+            obj.MedicalLicesnse = phy.Medicallicense;
+            obj.NPInumber = phy.Npinumber;
+            obj.SycnEmail = phy.Syncemailaddress;
+            obj.Address1 = phy.Address1;
+            obj.Address2 = phy.Address2;
+            obj.city = phy.City;
+            obj.zipcode = phy.Zip;
+            obj.altPhone = phy.Altphone;
+            obj.Businessname = phy.Businessname;
+            obj.BusinessWebsite = phy.Businesswebsite;
+            obj.Adminnotes = phy.Adminnotes;
+            obj.statusId = (int)phy.Status;
+            obj.PhyID = phyId;
+            obj.Roleid = phy.Roleid;
+            obj.Regionid = phy.Regionid;
+            obj.PhotoValue = phy.Photo;
+            obj.SignatureValue = phy.Signature;
+            obj.IsContractorAgreement = phy.Isagreementdoc == null ? false : true;
+            obj.IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true;
+            obj.IsHIPAA = phy.Istrainingdoc == null ? false : true;
+            obj.IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true;
+            obj.IsLicenseDocument = phy.Islicensedoc == null ? false : true;
+            obj.username = user.Username;
+            obj.password = user.Passwordhash;
+            
+
+            return obj;
         }
 
 
@@ -1402,6 +1401,277 @@ namespace BusinessLogic.Services
             return false;
 
         }
+
+        public bool editProviderForm1(int phyId, int roleId, int statusId)
+        {
+            var user = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            if (user.Status != (short)statusId || user.Roleid != roleId)
+            {
+                user.Status = (short)statusId;
+                user.Roleid = roleId;
+
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
+        {
+            var user = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+            var aspUser = _db.Aspnetusers.Where(r => r.Id == user.Aspnetuserid).Select(r => r).First();
+
+            var abc = _db.Physicianregions.Where(x => x.Physicianid == phyId).Select(r => r.Regionid).ToList();
+
+            var changes = abc.Except(phyRegionArray);
+
+            if (user.Firstname != fname || user.Lastname != lname || user.Email != email || user.Mobile != phone || user.Medicallicense != medical || user.Npinumber != npi || user.Syncemailaddress != sync || changes.Any() == true)
+            {
+                user.Firstname = fname;
+                user.Lastname = lname;
+                if (user.Email != email)
+                {
+                    user.Email = email;
+                    aspUser.Email = email;
+                }
+
+                user.Mobile = phone;
+                user.Medicallicense = medical;
+                user.Npinumber = npi;
+                user.Syncemailaddress = sync;
+
+                _db.SaveChanges();
+
+
+
+
+                if (changes.Any())
+                {
+                    if (_db.Physicianregions.Any(x => x.Physicianid == phyId))
+                    {
+                        var physicianRegion = _db.Physicianregions.Where(x => x.Physicianid == phyId).ToList();
+
+                        _db.Physicianregions.RemoveRange(physicianRegion);
+                        _db.SaveChanges();
+                    }
+
+                    var phyRegion = _db.Physicianregions.ToList();
+
+                    foreach (var item in phyRegionArray)
+                    {
+                        var region = _db.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                        _db.Physicianregions.Add(new Physicianregion
+                        {
+                            Physicianid = phyId,
+                            Regionid = region.Regionid,
+                        });
+                    }
+                    _db.SaveChanges();
+                }
+                return true;
+            }
+
+
+
+            return false;
+        }
+
+        public bool editProviderForm3(EditProviderModel2 dataMain)
+        {
+            var data = _db.Physicians.Where(r => r.Physicianid == dataMain.editPro.PhyID).Select(r => r).First();
+            if (data.Address1 != dataMain.editPro.Address1 || data.Address2 != dataMain.editPro.Address2 || data.City != dataMain.editPro.city || data.Regionid != dataMain.editPro.Regionid || data.Zip != dataMain.editPro.zipcode || data.Altphone != dataMain.editPro.altPhone)
+            {
+                data.Address1 = dataMain.editPro.Address1;
+                data.Address2 = dataMain.editPro.Address2;
+                data.City = dataMain.editPro.city;
+                data.Regionid = dataMain.editPro.Regionid;
+                data.Zip = dataMain.editPro.zipcode;
+                data.Altphone = dataMain.editPro.altPhone;
+
+                _db.SaveChanges();
+
+                return true;
+            }
+            return false;
+        }
+        public bool PhysicianBusinessInfoUpdate(EditProviderModel2 dataMain)
+        {
+
+
+            var physician = _db.Physicians.FirstOrDefault(x => x.Physicianid == dataMain.editPro.PhyID);
+
+            if (physician != null)
+            {
+                physician.Businessname = dataMain.editPro.Businessname;
+                physician.Businesswebsite = dataMain.editPro.BusinessWebsite;
+                physician.Adminnotes = dataMain.editPro.Adminnotes;
+                physician.Modifieddate = DateTime.Now;
+
+                _db.SaveChanges();
+
+                if (dataMain.editPro.Photo != null || dataMain.editPro.Signature != null)
+                {
+                    AddProviderBusinessPhotos(dataMain.editPro.Photo, dataMain.editPro.Signature, dataMain.editPro.PhyID);
+                }
+
+            }
+
+            return true;
+        }
+        public void AddProviderBusinessPhotos(IFormFile photo, IFormFile signature, int phyId)
+        {
+            var physician = _db.Physicians.FirstOrDefault(x => x.Physicianid == phyId);
+
+            if (photo != null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", photo.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    photo.CopyTo(fileStream);
+                }
+
+                physician.Photo = photo.FileName;
+            }
+
+            if (signature != null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", signature.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    signature.CopyTo(fileStream);
+                }
+
+                physician.Signature = signature.FileName;
+            }
+
+            _db.SaveChanges();
+
+        }
+
+        public bool EditOnBoardingData(EditProviderModel2 dataMain)
+        {
+
+            var physicianData = _db.Physicians.FirstOrDefault(x => x.Physicianid == dataMain.editPro.PhyID);
+
+            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", physicianData.Physicianid.ToString());
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (dataMain.editPro.ContractorAgreement != null)
+            {
+                string path = Path.Combine(directory, "Independent_Contractor" + Path.GetExtension(dataMain.editPro.ContractorAgreement.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain.editPro.ContractorAgreement.CopyTo(fileStream);
+                }
+
+                physicianData.Isagreementdoc = new BitArray(1, true);
+            }
+
+            if (dataMain.editPro.BackgroundCheck != null)
+            {
+                string path = Path.Combine(directory, "Background" + Path.GetExtension(dataMain.editPro.BackgroundCheck.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain.editPro.BackgroundCheck.CopyTo(fileStream);
+                }
+
+                physicianData.Isbackgrounddoc = new BitArray(1, true);
+            }
+
+            if (dataMain.editPro.HIPAA != null)
+            {
+                string path = Path.Combine(directory, "HIPAA" + Path.GetExtension(dataMain.editPro.HIPAA.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain.editPro.HIPAA.CopyTo(fileStream);
+                }
+
+                physicianData.Istrainingdoc = new BitArray(1, true);
+            }
+
+            if (dataMain.editPro.NonDisclosure != null)
+            {
+                string path = Path.Combine(directory, "Non_Disclosure" + Path.GetExtension(dataMain.editPro.NonDisclosure.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain.editPro.NonDisclosure.CopyTo(fileStream);
+                }
+
+                physicianData.Isnondisclosuredoc = new BitArray(1, true);
+            }
+
+            if (dataMain.editPro.LicenseDocument != null)
+            {
+                string path = Path.Combine(directory, "Licence" + Path.GetExtension(dataMain.editPro.LicenseDocument.FileName));
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    dataMain.editPro.LicenseDocument.CopyTo(fileStream);
+                }
+
+                physicianData.Islicensedoc = new BitArray(1, true);
+            }
+
+            _db.SaveChanges();
+
+
+
+            return true;
+
+        }
+
+        public void editProviderDeleteAccount(int phyId)
+        {
+            var phy = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+
+            if (phy.Isdeleted == null)
+            {
+                phy.Isdeleted = new BitArray(1);
+                phy.Isdeleted[0] = true;
+
+                _db.SaveChanges();
+            }
+
+
+        }
+
 
         public List<AccountAccess> AccountAccess()
         {

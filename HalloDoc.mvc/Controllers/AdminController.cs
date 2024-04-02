@@ -61,12 +61,12 @@ namespace HalloDoc.mvc.Controllers
                     }
                     else
                     {
-                        _notyf.Error("Password is incorrect");
+                        _notyf.Error("Password Is Incorrect");
 
                         return View(adminLoginModel);
                     }
                 }
-                _notyf.Error("Email is incorrect");
+                _notyf.Error("Email Is Incorrect");
                 return View(adminLoginModel);
             }
             return View(adminLoginModel);
@@ -398,7 +398,7 @@ namespace HalloDoc.mvc.Controllers
                 string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
                 string reviewPathLink = baseUrl + Url.Action("ReviewAgreement", "Home",new {reqId=model.Reqid});
 
-                SendEmail(model.Email, "Review Agreement", $"Hello, Review the agreement properly: {reviewPathLink}");
+                SendEmail(model.Email, "Review Agreement", $"Hello, Review The Agreement Properly: {reviewPathLink}");
                 return Json(new { isSend = true });
 
             }
@@ -440,7 +440,7 @@ namespace HalloDoc.mvc.Controllers
             }
             else
             {
-                _notyf.Error("Failed to close");
+                _notyf.Error("Failed To Close");
                 return RedirectToAction("closecase", new { ReqId = ReqId });
             }
         }
@@ -557,7 +557,7 @@ namespace HalloDoc.mvc.Controllers
             var token = request.Cookies["jwt"];
             if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
             {
-                return Json("token expired");
+                return Json("Token Expired");
             }
             var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
 
@@ -656,7 +656,7 @@ namespace HalloDoc.mvc.Controllers
             }
             else
             {
-                _notyf.Error("Failed to Create");
+                _notyf.Error("Failed To Create");
                 return View(model);
             }
         }
@@ -679,13 +679,13 @@ namespace HalloDoc.mvc.Controllers
                 string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
                 string reviewPathLink = baseUrl + Url.Action("submit_request", "Patient");
 
-                SendEmail(model.email, "Create Patient Request", $"Hello, please create patient request from this link: {reviewPathLink}");
+                SendEmail(model.email, "Create Patient Request", $"Hello, Please Create Patient Request From This Link: {reviewPathLink}");
                 _notyf.Success("Link Sent");
                 isSend = true;
             }
             catch (Exception ex)
             {
-                _notyf.Error("Failed to sent");
+                _notyf.Error("Failed To Sent");
             }
             return Json(new { isSend = isSend });
 
@@ -780,9 +780,9 @@ namespace HalloDoc.mvc.Controllers
                 model.regions = _adminService.RegionTable();
                 model.physicianregiontable = _adminService.PhyRegionTable(phyId);
                 model.roles = _adminService.GetRoles();
-                return PartialView("_EditProvider", model);
+                return PartialView("_editprovider", model);
             }
-            _notyf.Error("Token is expired,Login again");
+            _notyf.Error("Token Expired,Login Again");
             return RedirectToAction("admin_login");
         }
 
@@ -791,6 +791,43 @@ namespace HalloDoc.mvc.Controllers
         {
             bool editProvider = _adminService.providerResetPass(email, password);
             return Json(new { indicate = editProvider, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm1(int phyId, int roleId, int statusId)
+        {
+            bool editProviderForm1 = _adminService.editProviderForm1(phyId, roleId, statusId);
+            return Json(new { indicate = editProviderForm1, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
+        {
+            bool editProviderForm2 = _adminService.editProviderForm2(fname, lname, email, phone, medical, npi, sync, phyId, phyRegionArray);
+            return Json(new { indicate = editProviderForm2, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm3(EditProviderModel2 payloadMain)
+        {
+            bool editProviderForm3 = _adminService.editProviderForm3(payloadMain);
+            return Json(new { indicate = editProviderForm3, phyId = payloadMain.editPro.PhyID });
+        }
+        [HttpPost]
+        public IActionResult PhysicianBusinessInfoEdit(EditProviderModel2 payloadMain)
+        {
+            bool editProviderForm4 = _adminService.PhysicianBusinessInfoUpdate(payloadMain);
+            return Json(new { indicate = editProviderForm4, phyId = payloadMain.editPro.PhyID });
+
+
+        }
+        [HttpPost]
+        public IActionResult UpdateOnBoarding(EditProviderModel2 payloadMain)
+        {
+            var editProviderForm5 = _adminService.EditOnBoardingData(payloadMain);
+            return Json(new { indicate = editProviderForm5, phyId = payloadMain.editPro.PhyID });
+        }
+        public IActionResult editProviderDeleteAccount(int phyId)
+        {
+            _adminService.editProviderDeleteAccount(phyId);
+            return Ok();
         }
 
 
@@ -912,6 +949,12 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult DayTable()
         {
             return PartialView("_daytable");
+        }
+        public IActionResult CreateShiftSubmit(string selectedDays, CreateShift obj)
+        {
+            int? adminId = HttpContext.Session.GetInt32("adminId");
+            _adminService.CreateNewShiftSubmit(selectedDays, obj, (int)adminId);
+            return RedirectToAction("admin_dashboard");
         }
 
 

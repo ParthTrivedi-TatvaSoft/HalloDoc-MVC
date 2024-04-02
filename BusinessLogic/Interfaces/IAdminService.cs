@@ -111,7 +111,14 @@ namespace BusinessLogic.Interfaces
         bool RoleExists(string roleName, short accountType);
         List<Physicianlocation> GetPhysicianlocations();
         List<Role> GetRoles();
+
         bool providerResetPass(string email, string password);
+        bool editProviderForm1(int phyId, int roleId, int statusId);
+        bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray);
+        bool editProviderForm3(EditProviderModel2 dataMain);
+        bool PhysicianBusinessInfoUpdate(EditProviderModel2 dataMain);
+        bool EditOnBoardingData(EditProviderModel2 dataMain);
+        void editProviderDeleteAccount(int phyId);
 
         void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId);
 
