@@ -17,6 +17,7 @@ namespace DataAccess.CustomModels
 
         [Required(ErrorMessage = "First Name Is Required")]
         public string firstName { get; set; }
+        [Required(ErrorMessage = "Last Name Is Required")]
         public string? lastName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Date Of Birth")]

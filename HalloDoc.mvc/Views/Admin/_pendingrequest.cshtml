@@ -41,7 +41,7 @@
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="newRegionFilter" aria-label="Floating label select example">
+                <select class="form-select" id="pendingRegionFilter" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -330,8 +330,8 @@ else
 
         Export(request);
     });
-    $('#newRegionFilter').on('change', function () {
-        var searchRegion = $('#newRegionFilter').val();
+    $('#pendingRegionFilter').on('change', function () {
+        var searchRegion = $('#pendingRegionFilter').val();
         $.ajax({
             url: '/Admin/FilterRegionPending',
             type: 'GET',

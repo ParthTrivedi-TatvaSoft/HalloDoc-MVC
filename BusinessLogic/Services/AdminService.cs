@@ -18,16 +18,20 @@ using System.Threading.Tasks;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 using System.Globalization;
 using System.Text.Json;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BusinessLogic.Services
 {
     public class AdminService : IAdminService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment _environment;
 
-        public AdminService(ApplicationDbContext db)
+        public AdminService(ApplicationDbContext db,IWebHostEnvironment environment)
         {
             _db = db;
+            _environment = environment;
         }
 
 
@@ -1226,6 +1230,32 @@ namespace BusinessLogic.Services
             return result;
         }
 
+        public List<ProviderModel> GetProviderByRegion(int regionId)
+        {
+
+
+            var provider = from phy in _db.Physicians
+                           join role in _db.Roles on phy.Roleid equals role.Roleid
+                           join phynoti in _db.Physiciannotifications on phy.Physicianid equals phynoti.Pysicianid
+                           join phyregion in _db.Physicianregions on phy.Physicianid equals phyregion.Physicianid
+                           where phyregion.Regionid == regionId
+                           orderby phy.Physicianid
+                           select new ProviderModel
+                           {
+                               phyId = phy.Physicianid,
+                               firstName = phy.Firstname,
+                               lastName = phy.Lastname,
+                               status = phy.Status.ToString(),
+                               role = role.Name,
+                               onCallStatus = "un available",
+                               notification = phynoti.Isnotificationstopped[0],
+                           };
+            var result = provider.ToList();
+
+            return result;
+        }
+
+
         public bool StopNotification(int phyId)
         {
 
@@ -1317,7 +1347,143 @@ namespace BusinessLogic.Services
             _db.SaveChanges();
         }
 
+        public void CreateProviderAccount(CreateProviderAccount model)
+        {
+            List<string> validProfileExtensions = new() { ".jpeg", ".png", ".jpg" };
+            List<string> validDocumentExtensions = new() { ".pdf" };
 
+            try
+            {
+                Guid generatedId = Guid.NewGuid();
+
+                Aspnetuser aspUser = new()
+                {
+                    Id = generatedId.ToString(),
+                    Username = model.UserName,
+                    Passwordhash = model.Password,
+                    Email = model.Email,
+                    Phonenumber = model.Phone,
+                    Createddate = DateTime.Now,
+                }; _db.Aspnetusers.Add(aspUser);
+                _db.SaveChanges();
+
+
+                Physician phy = new()
+                {
+                    Aspnetuserid = generatedId.ToString(),
+                    Firstname = model.FirstName,
+                    Lastname = model.LastName,
+                    Email = model.Email,
+                    Mobile = model.Phone,
+                    Medicallicense = model.MedicalLicenseNumber,
+                    Adminnotes = model.AdminNote,
+                    Address1 = model.Address1,
+                    Address2 = model.Address2,
+                    City = model.City,
+                    //Regionid = model.RegionId,
+                    Zip = model.Zip,
+                    Altphone = model.PhoneNumber,
+                    Createdby = "1",
+                    Createddate = DateTime.Now,
+                    Roleid = model.Role,
+                    Npinumber = model.NPINumber,
+                    Businessname = model.BusinessName,
+                    Businesswebsite = model.BusinessWebsite,
+                };
+
+                _db.Physicians.Add(phy);
+                _db.SaveChanges();
+
+
+                Physiciannotification physiciannotification = new()
+                {
+                    Pysicianid = phy.Physicianid,
+                    Isnotificationstopped = new BitArray(1, false),
+                };
+                _db.Physiciannotifications.Add(physiciannotification);
+                _db.SaveChanges();
+
+
+                string path = Path.Combine(_environment.WebRootPath, "PhysicianImages", phy.Physicianid.ToString());
+
+                if (model.Photo != null)
+                {
+                    string fileExtension = Path.GetExtension(model.Photo.FileName);
+                    if (validProfileExtensions.Contains(fileExtension))
+                    {
+                        InsertFileAfterRename(model.Photo, path, "ProfilePhoto");
+                        phy.Photo = Path.GetFileName(model.Photo.FileName);
+
+                    }
+                }
+                if (model.ICA != null)
+                {
+                    string fileExtension = Path.GetExtension(model.ICA.FileName);
+                    if (validDocumentExtensions.Contains(fileExtension))
+                    {
+                        phy.Isagreementdoc = new BitArray(1, true);
+                        InsertFileAfterRename(model.ICA, path, "ICA");
+                    }
+                }
+                if (model.BGCheck != null)
+                {
+                    string fileExtension = Path.GetExtension(model.BGCheck.FileName);
+                    if (validDocumentExtensions.Contains(fileExtension))
+                    {
+                        phy.Isbackgrounddoc = new BitArray(1, true);
+                        InsertFileAfterRename(model.BGCheck, path, "BackgroundCheck");
+                    }
+                }
+                if (model.HIPAACompliance != null)
+                {
+                    string fileExtension = Path.GetExtension(model.HIPAACompliance.FileName);
+                    if (validDocumentExtensions.Contains(fileExtension))
+                    {
+                        phy.Isnondisclosuredoc = new BitArray(1, true);
+                        InsertFileAfterRename(model.HIPAACompliance, path, "HipaaCompliance");
+                    }
+                }
+                if (model.NDA != null)
+                {
+                    string fileExtension = Path.GetExtension(model.NDA.FileName);
+                    if (validDocumentExtensions.Contains(fileExtension))
+                    {
+                        phy.Isnondisclosuredoc = new BitArray(1, true);
+                        InsertFileAfterRename(model.NDA, path, "NDA");
+                    }
+                }
+                _db.Physicians.Update(phy);
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+            };
+
+
+        }
+        public void InsertFileAfterRename(IFormFile file, string path, string updateName)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string[] oldfiles = Directory.GetFiles(path, updateName + ".*");
+            foreach (string f in oldfiles)
+            {
+                System.IO.File.Delete(f);
+            }
+
+            string extension = Path.GetExtension(file.FileName);
+
+            string fileName = updateName + extension;
+
+            string fullPath = Path.Combine(path, fileName);
+
+            using FileStream stream = new(fullPath, FileMode.Create);
+            file.CopyTo(stream);
+        }
         public EditProviderModel EditProviderProfile(int phyId, string tokenEmail)
         {
             var phy = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
@@ -1854,6 +2020,54 @@ namespace BusinessLogic.Services
             }
 
 
+        }
+
+        public List<BusinessTable> BusinessTable()
+        {
+            var obj = (from t1 in _db.Healthprofessionals
+                       join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
+                       where t2.Isdeleted != new BitArray(1, true)
+                       select new BusinessTable
+                       {
+                           BusinessId = t1.Vendorid,
+                           ProfessionId = t2.Healthprofessionalid,
+                           ProfessionName = t2.Professionname,
+                           Email = t1.Email,
+                           PhoneNumber = t1.Phonenumber,
+                           FaxNumber = t1.Faxnumber,
+                           BusinessContact = t1.Businesscontact
+                       });
+            return obj.ToList();
+        }
+
+        public void AddBusiness(AddBusinessModel obj)
+        {
+
+
+            Healthprofessional healthprofessional = new()
+            {
+                Vendorname = obj.BusinessName,
+                Profession = obj.ProfessionId,
+                Faxnumber = obj.FaxNumber,
+                Address = obj.Street,
+                City = obj.City,
+                State = _db.Regions.FirstOrDefault(x => x.Regionid == obj.RegionId).Name,
+                Zip = obj.Zip,
+                Regionid = obj.RegionId,
+                Createddate = DateTime.Now,
+                Phonenumber = obj.PhoneNumber,
+                Email = obj.BusinessContact,
+                Isdeleted = new BitArray(1, false),
+            };
+            _db.Healthprofessionals.Add(healthprofessional);
+            _db.SaveChanges();
+
+        }
+
+        public List<Healthprofessionaltype> GetProfession()
+        {
+            var obj = _db.Healthprofessionaltypes.ToList();
+            return obj;
         }
 
         public List<Physicianlocation> GetPhysicianlocations()

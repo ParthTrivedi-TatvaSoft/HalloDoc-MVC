@@ -20,19 +20,19 @@
                 <div class="row g-2 m-1">
                     <div class="col-4">
                         <div class="form-floating">
-                            <input asp-for="UserName" type="text" class="form-control" id="userName">
+                            <input asp-for="UserName" type="text" class="form-control" id="userName" placeholder="">
                             <label for="">User Name</label>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div class="form-floating">
-                            <input asp-for="AdminPassword" type="password" class="form-control " id="password">
+                            <input asp-for="AdminPassword" type="password" class="form-control " id="password" placeholder="">
                             <label for="floatingSelectGrid">Password</label>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="form-floating phone-div w-100 h-100 ">
+                        <div class="form-floating phone-div w-100 h-100 " >
                             <select class="form-select mb-3" id="role">
                                 <option>Active</option>
                                 <option>Out</option>
@@ -48,31 +48,31 @@
                 <div class="row g-2 m-1">
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input asp-for="FirstName" type="text" class="form-control">
+                            <input asp-for="FirstName" type="text" class="form-control" placeholder="">
                             <label for="">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input asp-for="LastName" type="text" class="form-control">
+                            <input asp-for="LastName" type="text" class="form-control" placeholder="">
                             <label for="floatingSelectGrid">Last Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="email" asp-for="Email" class="form-control">
+                            <input type="email" asp-for="Email" class="form-control" placeholder="">
                             <label for="">Email</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="email" asp-for="ConfirmEmail" class="form-control">
+                            <input type="email" asp-for="ConfirmEmail" class="form-control" placeholder="">
                             <label for="">Confirm Email</label>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <input type="tel" asp-for="AdminPhone" class="patientPhone form-control w-100 h-100">
+                        <div class="form-floating phone-div " >
+                            <input type="tel" asp-for="AdminPhone" class="patientPhone form-control w-100 h-100" placeholder="">
                             <label for="">Phone</label>
                         </div>
                     </div>

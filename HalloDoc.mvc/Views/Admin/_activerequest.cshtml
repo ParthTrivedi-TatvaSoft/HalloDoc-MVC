@@ -41,7 +41,7 @@
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select class="form-select" id="activeRegionFilter" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -265,6 +265,47 @@
 </div>
 
 
+@if (Model.TotalPage > 1)
+{
+    <div class="page-container">
+        <ul class="pagination justify-content-center d-flex page-list">
+            <li class="page-item @(Model.CurrentPage <= 1 ? "d-none" : "")">
+                <a class="page-link border-0 m-2" onclick="changepage(@Model.CurrentPage - 1)"><i class="bi bi-chevron-double-left text-info page"></i></a>
+            </li>
+            @for (int CurrentPage = 1; CurrentPage <= Model.TotalPage; CurrentPage++)
+            {
+                <li class="m-2 btn @(CurrentPage == Model.CurrentPage ? "page-active" : "")" onclick="changepage(@CurrentPage,3)"><a class="text-decoration-none text-black curent-page-index" data-page="@CurrentPage">@CurrentPage</a></li>
+            }
+            <li class="page-item  @(Model.CurrentPage == Model.TotalPage ? "d-none" : "")">
+                <a class="page-link border-0 m-2" onclick="changepage(@Model.CurrentPage + 1)"><i class="bi bi-chevron-double-right text-info page"></i></a>
+            </li>
+        </ul>
+
+    </div>
+}
+else if (Model.TotalPage == 1)
+{
+}
+else
+{
+    <div class="text-center text-danger fw-bold h5">No record found</div>
+}
+
+<style>
+
+    .page-active {
+        border-radius: 50%;
+        background: #0dcaf0;
+        color: white;
+    }
+
+        .page-active:hover {
+            color: white;
+        }
+</style>
+
+
+
 <script>
     $("#exportActiveReq").click(function () {
         alert("exportbtn was clicked.");
@@ -272,4 +313,16 @@
 
         Export(request);
     });
+
+    $('#activeRegionFilter').on('change', function () {
+        var searchRegion = $('#activeRegionFilter').val();
+        $.ajax({
+            url: '/Admin/FilterRegionActive',
+            type: 'GET',
+            data: { regionId: searchRegion, tabNo: 3 },
+            success: function (response) {
+                $("#tab3").html(response);
+            }
+        })
+    })
 </script>

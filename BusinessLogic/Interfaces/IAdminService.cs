@@ -87,6 +87,7 @@ namespace BusinessLogic.Interfaces
         List<AccountAccess> AccountAccess();
 
         List<ProviderModel> GetProvider();
+        List<ProviderModel> GetProviderByRegion(int regionId);
 
         //ProviderModel ProviderContact(int phyId);
         public bool StopNotification(int phyId);
@@ -112,6 +113,7 @@ namespace BusinessLogic.Interfaces
         List<Physicianlocation> GetPhysicianlocations();
         List<Role> GetRoles();
 
+        void CreateProviderAccount(CreateProviderAccount model);
         bool providerResetPass(string email, string password);
         bool editProviderForm1(int phyId, int roleId, int statusId);
         bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray);
@@ -123,5 +125,9 @@ namespace BusinessLogic.Interfaces
         void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId);
 
         CreateShift GetCreateShift();
+
+        List<BusinessTable> BusinessTable();
+        void AddBusiness(AddBusinessModel obj);
+        List<Healthprofessionaltype> GetProfession();
     }
 }

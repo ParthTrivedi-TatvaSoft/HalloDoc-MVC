@@ -16,12 +16,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <style>
         .iti {
             width: 100%;
         }
     </style>
-
 </head>
 
 <body>
@@ -58,6 +60,7 @@
                 </div>
                 <div class="form-floating col-md-6">
                         <input asp-for="lastName" type="text" class="form-control" id="floatingPassword" placeholder="">
+                            <span asp-validation-for="lastName" class="text-danger"></span>
                     <label for="floatingPassword" class="comman">Last Name</label>
                 </div>
                 <div class="form-floating  col-lg-6 col-md-12 col-sm-12 mt-3">

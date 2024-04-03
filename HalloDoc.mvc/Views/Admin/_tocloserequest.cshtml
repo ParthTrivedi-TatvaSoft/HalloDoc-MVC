@@ -42,7 +42,7 @@
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select class="form-select" id="tocloseRegionFilter" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -292,7 +292,7 @@ else if (Model.TotalPage == 1)
 }
 else
 {
-    <div class="text-center text-danger fw-bold h5">No record found</div>
+    <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
 <div id="modelContenttoclose"></div>
 
@@ -323,4 +323,16 @@ else
 
         Export(request);
     });
+
+    $('#tocloseRegionFilter').on('change', function () {
+        var searchRegion = $('#tocloseRegionFilter').val();
+        $.ajax({
+            url: '/Admin/FilterRegionToClose',
+            type: 'GET',
+            data: { regionId: searchRegion, tabNo: 5 },
+            success: function (response) {
+                $("#tab5").html(response);
+            }
+        })
+    })
 </script>

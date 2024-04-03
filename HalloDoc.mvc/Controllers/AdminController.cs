@@ -43,7 +43,15 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult admin_login()
+        {
+            return View();
+        }
+
+
         //[CustomAuthorize]
+        [HttpPost]
         public IActionResult admin_login(AdminLoginModel adminLoginModel)
         {
             if (ModelState.IsValid)
@@ -739,10 +747,30 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_unpaidrequest", list);
         }
 
+        [HttpGet]
         public IActionResult ShowProvider()
         {
-            var model = _adminService.GetProvider();
+            ProviderModel2 model = new ProviderModel2();
+            model.regions = _adminService.RegionTable();
+            model.providerModels = _adminService.GetProvider();
             return PartialView("_provider", model);
+        }
+
+        [HttpGet]
+        public IActionResult ProviderRegionFilter(int regionId)
+        {
+
+            ProviderModel2 model = new ProviderModel2();
+            model.regions = _adminService.RegionTable();
+            if (regionId == 0)
+            {
+                model.providerModels = _adminService.GetProvider();
+            }
+            else
+            {
+                model.providerModels = _adminService.GetProviderByRegion(regionId);
+            }
+            return PartialView("_Provider", model);
         }
 
 
@@ -890,8 +918,9 @@ namespace HalloDoc.mvc.Controllers
         [HttpGet]
         public IActionResult AdminAccount()
         {
-            var obj = _adminService.RegionList();
-            return PartialView("_createadminaccount",obj);
+            CreateAdminAccount obj = new CreateAdminAccount();
+            obj.RegionList = _adminService.RegionTable();
+            return PartialView("_createadminaccount", obj);
         }
 
         [HttpPost]
@@ -957,7 +986,22 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("admin_dashboard");
         }
 
+        [HttpGet]
+        public IActionResult CreateProviderAccount()
+        {
+            CreateProviderAccount obj = new CreateProviderAccount();
+            obj.RegionList = _adminService.RegionTable();
+            obj.RolesList = _adminService.GetRoles();
+            return PartialView("_createprovideraccount", obj);
+        }
 
+        [HttpPost]
+        public IActionResult CreateProviderAccount(CreateProviderAccount model)
+        {
+
+            _adminService.CreateProviderAccount(model);
+            return RedirectToAction("admin_dashboard");
+        }
 
     }
 }
