@@ -122,6 +122,8 @@ namespace BusinessLogic.Interfaces
         bool EditOnBoardingData(EditProviderModel2 dataMain);
         void editProviderDeleteAccount(int phyId);
 
+        List<UserAccess> FetchAccess(short selectedValue);
+
         void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId);
 
         CreateShift GetCreateShift();
@@ -129,5 +131,16 @@ namespace BusinessLogic.Interfaces
         List<BusinessTable> BusinessTable();
         void AddBusiness(AddBusinessModel obj);
         List<Healthprofessionaltype> GetProfession();
+        void RemoveBusiness(int VendorId);
+
+        EditBusinessModel GetEditBusiness(int VendorId);
+        void EditBusiness(EditBusinessModel obj);
+
+
+
+        List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel);
+        List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
+
+
     }
 }

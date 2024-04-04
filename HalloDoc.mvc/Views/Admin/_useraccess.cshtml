@@ -1,40 +1,150 @@
-﻿
+﻿@using DataAccess.CustomModels;
+@model List<UserAccess>;
 
+<div class="container">
+    <h4 class="my-4">User Access</h4>
 
-<div>
-    <div class="container-fluid d-flex justify-content-between mt-4" style="max-width:1000px">
-        <h4>
-            User Access
-        </h4>
+    <div class="border rounded shadow p-3 bg-white">
+        <div class="d-md-flex w-25 justify-content-start align-items-center mb-3">
+            <select class="form-select border-2" aria-label="Default select example" id="accountAccessType">
+                <option value="0" selected>All</option>
+                <option value="1">Admin</option>
+                <option value="2">Physician</option>
+            </select>
+        </div>
+        <div class="table-responsive d-lg-block d-none">
+            <table class="table" id="usertable">
+                <thead class="bg-body-tertiary ">
+                <thead>
+                    <tr>
+                        <th>Account Type<span><i class="bi bi-arrow-up bg-transparent"></i></span></th>
+                        <th>Account POC</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Open Requests</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr class="align-middle">
+                            <td>
+                                    @Enum.Parse( typeof(DataAccess.Enums.AccountType), item.accType.ToString())
+                            </td>
+                            <td>
+                                    @item.fname, @item.lname
+                            </td>
+                            <td>
+                                    @item.phone
+                            </td>
+                            <td>
+                                    @Enum.Parse( typeof(DataAccess.Enums.Status), item.status.ToString())
+                            </td>
+                            <td>
+                                369
+                            </td>
+                            <td>
+                                <button type="button" class="btn  border-info text-info">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @* <div class="border rounded shadow d-block d-lg-none">
+    <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
+    <table class="w-100">
+    <thead>
+    <tr>
+    <th class="d-none"></th>
+    <th class="d-none"></th>
+    </tr>
+    </thead>
+    @{
+    var counter = 1;
+    }
+    <tbody>
+    @foreach (var obj in Model.AdminUploadDocument)
+    {
+    <tr class="d-flex flex-column">
+    <td>
+    <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
+
+    <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse"
+    data-bs-target="#flush-collapse@(counter)" aria-expanded="false"
+    aria-controls="flush-collapse@(counter)">
+
+    <div class="w-100 ">
+    <input type="checkbox" name="Mark" class="checkbox fileCheckbox me-2" onchange="allCheck()" />
+    <span class="fw-bolder">
+    vatsal
+    </span>
+    </div>
+    <div class="w-100">
+    <div class="">
+    <span class="fw-bolder">On Call Status</span>: Un Available
+    </div>
+    </div>
 
     </div>
-</div>
-<div class="container-fluid justify-content-center mt-4" style="max-width:1200px">
 
-    <div class="card border-0 shadow p-4 mb-5 rounded">
-
-        <table class="table table-hover table-responsive" style="height:75px; text-align:match-parent">
-            <thead>
-                <tr class="table-secondary">
-                    <td>Account Type</td>
-                    <td>Account POC</td>
-                    <td>Phone</td>
-                    <td>Status</td>
-                    <td>Open Requests</td>
-                    <td>Actions</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                </tr>
-            </tbody>
-        </table>
+    </td>
+    <td>
+    <div id="flush-collapse@(counter)" class="accordion-collapse collapse"
+    aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+    <div class="accordion-body main-flex pt-0">
+    <div class="inner-flex pt-1">
+    <span class="fw-bolder">Role</span>: Physician
     </div>
+    <div class="inner-flex pb-2">
+    <span class="fw-bolder">Status</span>: Active
+    </div>
+    <div class="inner-flex d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-dark border-info text-info">
+    Edit
+    </button>
+    </div>
+
+    </div>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+
+    </div>
+    </div> *@
 </div>
 
-
+@* <div id="providerContactModal">
+</div> *@
 
 <script>
-    $('.admin-tab').removeClass("active");
-    $('#access-tab').addClass("active");
-</script>
+
+
+    $("#accountAccessType").change(function () {
+        let selectedValue = $("#accountAccessType").val();
+        $.ajax({
+            url: '/Admin/ShowUserAccess',
+            method: 'GET',
+            data: { selectedValue: selectedValue },
+            success: function (response) {
+                console.log(selectedValue)
+                $("#access-tab-pane").html(response);
+                $('#accountAccessType').val(selectedValue);
+            },
+            error: function (error) {
+                console.error('Error fetching data: ' + error);
+            }
+        });
+    });
+
+
+
+</script>                                            

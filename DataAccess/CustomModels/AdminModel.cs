@@ -539,25 +539,47 @@ namespace DataAccess.CustomModels
 
     public class CreateAdminAccount
     {
+        [Required(ErrorMessage = "UserName Is Required")]
         public string? UserName { get; set; }
+        [Required(ErrorMessage = "Password Is Required")]
         public string? AdminPassword { get; set; }
         public short? Status { get; set; }
+        [Required(ErrorMessage = "Role Is Required")]
         public string? Role { get; set; }
+        [Required(ErrorMessage = "First Name Is Required")]
         public string? FirstName { get; set; }
+        [Required(ErrorMessage = "Last Name Is Required")]
         public string? LastName { get; set; }
         public string? AdminPhone { get; set; }
+        [Required(ErrorMessage = "Email Is Required")]
         public string? Email { get; set; }
 
+        [Required(ErrorMessage = "Confirm Email Is Required")]
         [Compare("Email", ErrorMessage = "Email MissMatch")]
         public string? ConfirmEmail { get; set; }
+
+        [Required(ErrorMessage = "Select At Least One Region ")]
+
         public List<Region>? RegionList { get; set; }
+
         public IEnumerable<int> AdminRegion { get; set; }
+
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Zip { get; set; }
         public string? BillingPhone { get; set; }
+    }
+
+    public class UserAccess
+    {
+        public short? accType { get; set; }
+        public string? fname { get; set; }
+        public string? lname { get; set; }
+        public string? phone { get; set; }
+        public short? status { get; set; }
+        public int? openReq { get; set; }
     }
 
     public class CreateShift
@@ -593,10 +615,13 @@ namespace DataAccess.CustomModels
 
     public class AddBusinessModel
     {
+        [Required(ErrorMessage = "Business Name Is Required")]
         public string BusinessName { get; set; }
         public int ProfessionId { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Fax Number Is Required")]
         public string FaxNumber { get; set; }
         public string BusinessContact { get; set; }
         public string Street { get; set; }
@@ -613,11 +638,79 @@ namespace DataAccess.CustomModels
         public int BusinessId { get; set; }
         public int ProfessionId { get; set; }
         public string ProfessionName { get; set; }
+
+        [Required(ErrorMessage = "Business Name Is Required")]
         public string BusinessName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Fax Number Is Required")]
+        public string FaxNumber { get; set; }
+        public string BusinessContact { get; set; }
+
+    }
+
+    public class EditBusinessModel
+    {
+        public int VendorId { get; set; }
+        public string BusinessName { get; set; }
+        public int ProfessionId { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string FaxNumber { get; set; }
         public string BusinessContact { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Zip { get; set; }
+        public List<Region> RegionList { get; set; }
+        public int RegionId { get; set; }
+        public List<Healthprofessionaltype> ProfessionList { get; set; }
+      
+    }
 
+    public class RecordsModel
+    {
+        public List<RequestsRecordModel>? requestListMain { get; set; }
+        public int? searchRecordOne { get; set; }
+        public string? searchRecordTwo { get; set; }
+        public int? searchRecordThree { get; set; }
+        public DateOnly? searchRecordFour { get; set; }
+        public DateOnly? searchRecordFive { get; set; }
+        public string? searchRecordSix { get; set; }
+        public string? searchRecordSeven { get; set; }
+        public string? searchRecordEight { get; set; }
+    }
+    public class RequestsRecordModel
+    {
+        public string? patientname { get; set; }
+        public string? requestor { get; set; }
+        public DateTime? dateOfService { get; set; }
+        public DateTime? closeCaseDate { get; set; }
+        public string? email { get; set; }
+        public string? contact { get; set; }
+        public string? address { get; set; }
+        public string? zip { get; set; }
+        public string? status { get; set; }
+        public int? statusId { get; set; }
+        public string? physician { get; set; }
+        public string? physicianNote { get; set; }
+        public string? providerNote { get; set; }
+        public string? AdminNote { get; set; }
+        public string? pateintNote { get; set; }
+        public int? requestid { get; set; }
+        public int? requesttypeid { get; set; }
+        public int? userid { get; set; }
+        public int? flag { get; set; }
+
+    }
+
+    public class PatientRecordsModel
+    {
+        public List<User>? users { get; set; }
+        public string? searchRecordOne { get; set; }
+        public string? searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public string? searchRecordFour { get; set; }
+        public int? flag { get; set; }
     }
 }

@@ -918,6 +918,7 @@ namespace HalloDoc.mvc.Controllers
         [HttpGet]
         public IActionResult AdminAccount()
         {
+           
             CreateAdminAccount obj = new CreateAdminAccount();
             obj.RegionList = _adminService.RegionTable();
             return PartialView("_createadminaccount", obj);
@@ -926,23 +927,36 @@ namespace HalloDoc.mvc.Controllers
         [HttpPost]
         public IActionResult AdminAccount(CreateAdminAccount model)
         {
+            
             var email = GetTokenEmail();
-            var isCreated = _adminService.CreateAdminAccount(model,email);
-            if (isCreated)
+           
+            if (ModelState.IsValid)
             {
-                _notyf.Success("Account Created");
-                return RedirectToAction("admin_dashboard");
+               var isCreated = _adminService.CreateAdminAccount(model,email);
+                if (isCreated)
+                {
+                    _notyf.Success("Account Created");
+                    return RedirectToAction("admin_dashboard");
+                }
+                else
+                {
+                    _notyf.Error("Somethng Went Wrong!!");
+                    return PartialView("_createadminaccount");
+                }
             }
             else
             {
                 _notyf.Error("Somethng Went Wrong!!");
                 return PartialView("_createadminaccount");
             }
+           
         }
 
-        public IActionResult ShowUserAccess()
+        [HttpGet]
+        public IActionResult ShowUserAccess(short selectedValue)
         {
-            return PartialView("_useraccess");
+            var obj = _adminService.FetchAccess(selectedValue);
+            return PartialView("_useraccess", obj);
         }
 
         public IActionResult ProviderLocation()
@@ -1001,6 +1015,109 @@ namespace HalloDoc.mvc.Controllers
 
             _adminService.CreateProviderAccount(model);
             return RedirectToAction("admin_dashboard");
+        }
+
+        public IActionResult Partners()
+        {
+            return PartialView("_partners");
+        }
+        public IActionResult BusinessTable()
+        {
+            var obj = _adminService.BusinessTable();
+            return PartialView("_businesstable", obj);
+        }
+
+        public IActionResult Patners()
+        {
+            AddBusinessModel obj = new()
+            {
+                RegionList = _adminService.RegionTable(),
+                ProfessionList = _adminService.GetProfession()
+            };
+            return PartialView("_Partners", obj);
+        }
+
+        [HttpPost]
+        public IActionResult AddBusiness(AddBusinessModel obj)
+        {
+            if (obj.BusinessName != null && obj.FaxNumber != null)
+            {
+                _adminService.AddBusiness(obj);
+                _notyf.Success("Save Data!!");
+                return Ok();
+            }
+            else
+            {
+                _notyf.Error("Please Enter a Data");
+                return BadRequest();
+            }
+
+
+            //int? adminId = HttpContext.Session.GetInt32("adminId");
+
+        }
+
+        public IActionResult AddVendor()
+        {
+            AddBusinessModel obj = new()
+            {
+                RegionList = _adminService.RegionTable(),
+                ProfessionList = _adminService.GetProfession()
+            };
+            return PartialView("_addvendor", obj);
+        }
+
+        public void DeleteBusiness(int VendorId)
+        {
+            _adminService.RemoveBusiness(VendorId);
+            _notyf.Success("Delete Successfully!!");
+        }
+
+        public IActionResult EditBusinessData(int VendorId)
+        {
+            var obj = _adminService.GetEditBusiness(VendorId);
+            return PartialView("_editbusiness", obj);
+        }
+
+        [HttpPost]
+        public IActionResult EditBusinessSubmit(EditBusinessModel model)
+        {
+            _adminService.EditBusiness(model);
+            _notyf.Success("Data Updated!!");
+            return Partners();
+        }
+
+
+
+        [HttpGet]
+        public IActionResult SearchRecords(RecordsModel recordsModel)
+        {
+            RecordsModel model = new RecordsModel();
+            model.requestListMain = _adminService.SearchRecords(recordsModel);
+            if (model.requestListMain.Count() == 0)
+            {
+                RequestsRecordModel rec = new RequestsRecordModel();
+                rec.flag = 1;
+                model.requestListMain.Add(rec);
+            }
+
+            return PartialView("_searchrecord", model);
+
+
+        }
+
+        [HttpGet]
+        public IActionResult PatientRecords(PatientRecordsModel patientRecordsModel)
+        {
+            PatientRecordsModel model = new PatientRecordsModel();
+            model.users = _adminService.PatientRecords(patientRecordsModel);
+
+            if (model.users.Count() == 0)
+            {
+                model.flag = 1;
+            }
+
+            return PartialView("_patientrecord", model);
         }
 
     }

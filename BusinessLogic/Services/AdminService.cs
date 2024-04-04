@@ -1531,6 +1531,8 @@ namespace BusinessLogic.Services
         public List<Role> GetRoles()
         {
             var roles = _db.Roles.ToList();
+
+
             return roles;
         }
         public List<Region> RegionTable()
@@ -1901,48 +1903,122 @@ namespace BusinessLogic.Services
                 return obj;
             }
         }
-        public bool RoleExists(string roleName, short accountType)
+        public bool RoleExists(string roleName, short accType)
         {
             BitArray deletedBit = new BitArray(new[] { false });
-            var isRoleExists = _db.Roles.Where(x => (x.Name.ToLower() == roleName.Trim().ToLower() && x.Accounttype == accountType) && (x.Isdeleted.Equals(deletedBit))).Any();
-            if (isRoleExists)
-            {
-                return true;
-            }
-            return false;
+
+            var isRoleExists = (accType == 0) ? _db.Roles.Where(x => x.Name.ToLower() == roleName.Trim().ToLower() && x.Isdeleted.Equals(deletedBit)).Any() : _db.Roles.Where(x => (x.Name.ToLower() == roleName.Trim().ToLower() && x.Accounttype == accType) && (x.Isdeleted.Equals(deletedBit))).Any();
+
+            return isRoleExists ? true : false;
         }
         public bool CreateRole(List<int> menuIds, string roleName, short accountType)
         {
             try
             {
-                Role role = new()
+                if (accountType == 1)
                 {
-                    Name = roleName,
-                    Accounttype = accountType,
-                    Createdby = "Admin",
-                    Createddate = DateTime.Now,
-                    Isdeleted = new BitArray(1, false),
-                };
-                _db.Roles.Add(role);
-                _db.SaveChanges();
-
-                foreach (int menuId in menuIds)
-                {
-                    Rolemenu rolemenu = new()
+                    Role role = new()
                     {
-                        Roleid = role.Roleid,
-                        Menuid = menuId,
+                        Name = roleName,
+                        Accounttype = accountType,
+                        Createdby = "Admin",
+                        Createddate = DateTime.Now,
+                        Isdeleted = new BitArray(1, false),
                     };
-                    _db.Rolemenus.Add(rolemenu);
-                };
-                _db.SaveChanges();
-                return true;
+                    _db.Roles.Add(role);
+                    _db.SaveChanges();
+
+                    foreach (int menuId in menuIds)
+                    {
+                        Rolemenu rolemenu = new()
+                        {
+                            Roleid = role.Roleid,
+                            Menuid = menuId,
+                        };
+                        _db.Rolemenus.Add(rolemenu);
+                    };
+                    _db.SaveChanges();
+                    return true;
+                }
+
+                else if (accountType == 2)
+                {
+                    Role role = new()
+                    {
+                        Name = roleName,
+                        Accounttype = accountType,
+                        Createdby = "Physician",
+                        Createddate = DateTime.Now,
+                        Isdeleted = new BitArray(1, false),
+                    };
+                    _db.Roles.Add(role);
+                    _db.SaveChanges();
+
+                    foreach (int menuId in menuIds)
+                    {
+                        Rolemenu rolemenu = new()
+                        {
+                            Roleid = role.Roleid,
+                            Menuid = menuId,
+                        };
+                        _db.Rolemenus.Add(rolemenu);
+                    };
+                    _db.SaveChanges();
+                    return true;
+                }
+
+                else
+                {
+                    Role role = new()
+                    {
+                        Name = roleName,
+                        Accounttype = 1,
+                        Createdby = "Admin",
+                        Createddate = DateTime.Now,
+                        Isdeleted = new BitArray(1, false),
+                    };
+                    _db.Roles.Add(role);
+                    _db.SaveChanges();
+
+                    foreach (int menuId in menuIds)
+                    {
+                        Rolemenu rolemenu = new()
+                        {
+                            Roleid = role.Roleid,
+                            Menuid = menuId,
+                        };
+                        _db.Rolemenus.Add(rolemenu);
+                        _db.SaveChanges();
+                    };
+
+                    Role role2 = new()
+                    {
+                        Name = roleName,
+                        Accounttype = 2,
+                        Createdby = "Physician",
+                        Createddate = DateTime.Now,
+                        Isdeleted = new BitArray(1, false),
+                    };
+                    _db.Roles.Add(role2);
+                    _db.SaveChanges();
+
+                    foreach (int menuId in menuIds)
+                    {
+                        Rolemenu rolemenu2 = new()
+                        {
+                            Roleid = role2.Roleid,
+                            Menuid = menuId,
+                        };
+                        _db.Rolemenus.Add(rolemenu2);
+                        _db.SaveChanges();
+                    };
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 return false;
             }
-
         }
         public CreateAdminAccount RegionList()
         {
@@ -2022,53 +2098,11 @@ namespace BusinessLogic.Services
 
         }
 
-        public List<BusinessTable> BusinessTable()
-        {
-            var obj = (from t1 in _db.Healthprofessionals
-                       join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
-                       where t2.Isdeleted != new BitArray(1, true)
-                       select new BusinessTable
-                       {
-                           BusinessId = t1.Vendorid,
-                           ProfessionId = t2.Healthprofessionalid,
-                           ProfessionName = t2.Professionname,
-                           Email = t1.Email,
-                           PhoneNumber = t1.Phonenumber,
-                           FaxNumber = t1.Faxnumber,
-                           BusinessContact = t1.Businesscontact
-                       });
-            return obj.ToList();
-        }
+        
 
-        public void AddBusiness(AddBusinessModel obj)
-        {
+       
 
-
-            Healthprofessional healthprofessional = new()
-            {
-                Vendorname = obj.BusinessName,
-                Profession = obj.ProfessionId,
-                Faxnumber = obj.FaxNumber,
-                Address = obj.Street,
-                City = obj.City,
-                State = _db.Regions.FirstOrDefault(x => x.Regionid == obj.RegionId).Name,
-                Zip = obj.Zip,
-                Regionid = obj.RegionId,
-                Createddate = DateTime.Now,
-                Phonenumber = obj.PhoneNumber,
-                Email = obj.BusinessContact,
-                Isdeleted = new BitArray(1, false),
-            };
-            _db.Healthprofessionals.Add(healthprofessional);
-            _db.SaveChanges();
-
-        }
-
-        public List<Healthprofessionaltype> GetProfession()
-        {
-            var obj = _db.Healthprofessionaltypes.ToList();
-            return obj;
-        }
+      
 
         public List<Physicianlocation> GetPhysicianlocations()
         {
@@ -2076,7 +2110,48 @@ namespace BusinessLogic.Services
             return phyLocation;
         }
 
-
+        public List<UserAccess> FetchAccess(short selectedValue)
+        {
+            if (selectedValue == 1)
+            {
+                var admin = from admins in _db.Admins
+                            join role in _db.Roles on admins.Roleid equals role.Roleid
+                            orderby admins.Createddate
+                            select new UserAccess
+                            {
+                                fname = admins.Firstname,
+                                lname = admins.Lastname,
+                                accType = role.Accounttype,
+                                phone = admins.Mobile,
+                                status = admins.Status,
+                            };
+                var result1 = admin.ToList();
+                return result1;
+            }
+            else if (selectedValue == 2)
+            {
+                var physician = from phy in _db.Physicians
+                                join role in _db.Roles on phy.Roleid equals role.Roleid
+                                orderby phy.Createddate
+                                select new UserAccess
+                                {
+                                    fname = phy.Firstname,
+                                    lname = phy.Lastname,
+                                    accType = role.Accounttype,
+                                    phone = phy.Mobile,
+                                    status = phy.Status,
+                                };
+                var result2 = physician.ToList();
+                return result2;
+            }
+            else
+            {
+                var r1 = FetchAccess(1);
+                var r2 = FetchAccess(2);
+                var r3 = r1.Union(r2).ToList();
+                return r3;
+            }
+        }
 
         public CreateShift GetCreateShift()
         {
@@ -2166,9 +2241,268 @@ namespace BusinessLogic.Services
 
         }
 
+        public List<Healthprofessionaltype> GetProfession()
+        {
+            var obj = _db.Healthprofessionaltypes.ToList();
+            return obj;
+        }
+
+        public List<BusinessTable> BusinessTable()
+        {
+            BitArray deletedBit = new BitArray(1, false);
+
+            var obj = (from t1 in _db.Healthprofessionals
+                       join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
+                       where t1.Isdeleted == deletedBit
+                       select new BusinessTable
+                       {
+                           BusinessId = t1.Vendorid,
+                           BusinessName = t1.Vendorname,
+                           ProfessionId = t2.Healthprofessionalid,
+                           ProfessionName = t2.Professionname,
+                           Email = t1.Email,
+                           PhoneNumber = t1.Phonenumber,
+                           FaxNumber = t1.Faxnumber,
+                           BusinessContact = t1.Businesscontact
+                       });
+            return obj.ToList();
+        }
+
+        public void AddBusiness(AddBusinessModel obj)
+        {
+            try
+            {
+                if (obj.BusinessName != null && obj.FaxNumber != null)
+                {
+                    Healthprofessional healthprofessional = new()
+                    {
+                        Vendorname = obj.BusinessName,
+                        Profession = obj.ProfessionId,
+                        Faxnumber = obj.FaxNumber,
+                        Address = obj.Street,
+                        City = obj.City,
+                        State = _db.Regions.FirstOrDefault(x => x.Regionid == obj.RegionId).Name,
+                        Zip = obj.Zip,
+                        Regionid = obj.RegionId,
+                        Createddate = DateTime.Now,
+                        Businesscontact = obj.BusinessContact,
+                        Phonenumber = obj.PhoneNumber,
+                        Email = obj.Email,
+                        Isdeleted = new BitArray(1, false),
+                    };
+                    _db.Healthprofessionals.Add(healthprofessional);
+                    _db.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
 
 
-    }
+
+        }
+
+     
+
+        public void RemoveBusiness(int VendorId)
+        {
+            var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == VendorId);
+            vendor.Isdeleted[0] = true;
+            _db.Healthprofessionals.Update(vendor);
+            _db.SaveChanges();
+        }
+
+        public EditBusinessModel GetEditBusiness(int VendorId)
+        {
+            var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == VendorId);
+            var vendorType = _db.Healthprofessionaltypes.FirstOrDefault(x => x.Healthprofessionalid == vendor.Profession);
+            EditBusinessModel obj = new()
+            {
+                VendorId = VendorId,
+                BusinessName = vendor.Vendorname,
+                ProfessionId = (int)vendor.Profession,
+                Email = vendor.Email,
+                PhoneNumber = vendor.Phonenumber,
+                FaxNumber = vendor.Faxnumber,
+                BusinessContact = vendor.Businesscontact,
+                Street = vendor.Address,
+                City = vendor.City,
+                Zip = vendor.Zip,
+                RegionList = RegionTable(),
+                ProfessionList = GetProfession(),
+                RegionId = (int)vendor.Regionid
+            };
+            return obj;
+
+        }
+
+        public void EditBusiness(EditBusinessModel obj)
+        {
+            var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == obj.VendorId);
+
+            vendor.Vendorname = obj.BusinessName;
+            vendor.Profession = obj.ProfessionId;
+            vendor.Email = obj.Email;
+            vendor.Faxnumber = obj.FaxNumber;
+            vendor.Phonenumber = obj.PhoneNumber;
+            vendor.Businesscontact = obj.BusinessContact;
+            vendor.Address = obj.Street;
+            vendor.City = obj.City;
+            vendor.Zip = obj.Zip;
+            vendor.Regionid = obj.RegionId;
+
+            _db.Healthprofessionals.Update(vendor);
+            _db.SaveChanges();
+
+
+        }
+    
+
+
+    public List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel)
+        {
+            //List<requestsRecordModel> listdata = new List<requestsRecordModel>();
+            //requestsRecordModel requestsRecordModel = new requestsRecordModel();
+
+            var requestList = _db.Requests.Where(r => r.Isdeleted == null).Select(x => new RequestsRecordModel()
+            {
+                requestid = x.Requestid,
+                requesttypeid = x.Requesttypeid,
+                patientname = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Firstname).First(),
+                requestor = x.Firstname,
+                email = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Email).First(),
+                contact = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Phonenumber).First(),
+                address = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Street).First() + " " + x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.City).First() + " " + x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.State).First(),
+                zip = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Zipcode).First(),
+                statusId = x.Status,
+                physician = _db.Physicians.Where(r => r.Physicianid == x.Physicianid).Select(r => r.Firstname).First(),
+                physicianNote = x.Requestnotes.Where(r => r.Requestid == x.Requestid).Select(r => r.Physiciannotes).First(),
+                AdminNote = x.Requestnotes.Where(r => r.Requestid == x.Requestid).Select(r => r.Adminnotes).First(),
+                pateintNote = x.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Notes).First(),
+            }).ToList();
+
+            if (recordsModel != null)
+            {
+                if (recordsModel.searchRecordOne != null)
+                {
+                    requestList = requestList.Where(r => r.statusId == recordsModel.searchRecordOne).Select(r => r).ToList();
+                }
+
+                if (recordsModel.searchRecordTwo != null)
+                {
+                    requestList = requestList.Where(r => r.patientname.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                }
+
+                if (recordsModel.searchRecordThree != null)
+                {
+                    requestList = requestList.Where(r => r.requesttypeid == recordsModel.searchRecordThree).Select(r => r).ToList();
+                }
+
+                if (recordsModel.searchRecordSix != null)
+                {
+                    requestList = requestList.Where(r => r.requestor.Trim().ToLower().Contains(recordsModel.searchRecordSix.Trim().ToLower())).Select(r => r).ToList();
+                }
+
+                if (recordsModel.searchRecordSeven != null)
+                {
+                    requestList = requestList.Where(r => r.email.Trim().ToLower().Contains(recordsModel.searchRecordSeven.Trim().ToLower())).Select(r => r).ToList();
+                }
+
+                if (recordsModel.searchRecordEight != null)
+                {
+                    requestList = requestList.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.searchRecordEight.Trim().ToLower())).Select(r => r).ToList();
+                }
+            }
+
+            return requestList;
+        }
+
+        //public void DeleteRecords(int reqId)
+        //{
+        //    var reqClient = _context.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
+
+        //    if (reqClient.Isdeleted == null)
+        //    {
+        //        reqClient.Isdeleted = new BitArray(1, true);
+        //        _context.SaveChanges();
+        //    }
+        //}
+
+        //public byte[] GenerateExcelFile(List<requestsRecordModel> recordsModel)
+        //{
+        //    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
+        //    {
+        //        var worksheet = excelPackage.Workbook.Worksheets.Add("Requests");
+
+        //        // Add headers
+        //        worksheet.Cells[1, 1].Value = "Patient Name";
+        //        worksheet.Cells[1, 2].Value = "Requestor";
+        //        worksheet.Cells[1, 3].Value = "Date Of Service";
+        //        worksheet.Cells[1, 4].Value = "Close Case Date";
+        //        worksheet.Cells[1, 5].Value = "Email";
+        //        worksheet.Cells[1, 6].Value = "Phone Number";
+        //        worksheet.Cells[1, 7].Value = "Address";
+        //        worksheet.Cells[1, 8].Value = "Zip";
+        //        worksheet.Cells[1, 9].Value = "Physician";
+        //        worksheet.Cells[1, 10].Value = "Physician Notes";
+        //        worksheet.Cells[1, 11].Value = "Admin Note";
+        //        worksheet.Cells[1, 12].Value = "Patient Notes";
+
+        //        // Populate data
+        //        for (int i = 0; i < recordsModel.Count; i++)
+        //        {
+        //            var rowData = recordsModel[i];
+        //            worksheet.Cells[i + 2, 1].Value = rowData.patientname;
+        //            worksheet.Cells[i + 2, 2].Value = rowData.requestor;
+        //            worksheet.Cells[i + 2, 3].Value = rowData.dateOfService;
+        //            worksheet.Cells[i + 2, 4].Value = rowData.closeCaseDate;
+        //            worksheet.Cells[i + 2, 5].Value = rowData.email;
+        //            worksheet.Cells[i + 2, 6].Value = rowData.contact;
+        //            worksheet.Cells[i + 2, 7].Value = rowData.address;
+        //            worksheet.Cells[i + 2, 8].Value = rowData.zip;
+        //            worksheet.Cells[i + 2, 9].Value = rowData.physician;
+        //            worksheet.Cells[i + 2, 10].Value = rowData.physicianNote;
+        //            worksheet.Cells[i + 2, 11].Value = rowData.AdminNote;
+        //            worksheet.Cells[i + 2, 12].Value = rowData.pateintNote;
+        //        }
+
+        //        // Convert package to bytes for download
+        //        return excelPackage.GetAsByteArray();
+        //    }
+        //}
+        public List<User> PatientRecords(PatientRecordsModel patientRecordsModel)
+        {
+
+            var users = _db.Users.ToList();
+
+            if (patientRecordsModel != null)
+            {
+                if (patientRecordsModel.searchRecordOne != null)
+                {
+                    users = users.Where(r => r.Firstname.Trim().ToLower().Contains(patientRecordsModel.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (patientRecordsModel.searchRecordTwo != null)
+                {
+                    users = users.Where(r => r.Lastname.Trim().ToLower().Contains(patientRecordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (patientRecordsModel.searchRecordThree != null)
+                {
+                    users = users.Where(r => r.Email.Trim().ToLower().Contains(patientRecordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (patientRecordsModel.searchRecordFour != null)
+                {
+                    users = users.Where(r => r.Mobile.Trim().ToLower().Contains(patientRecordsModel.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                }
+            }
+
+            return users;
+        }
+
+    
+
+}
 
 
 

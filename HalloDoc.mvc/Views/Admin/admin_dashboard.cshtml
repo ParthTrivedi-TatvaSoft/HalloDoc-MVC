@@ -127,11 +127,13 @@
                         </div>
                     </li>
                     <li class="nav-item" role="presentation">
+                    
                         <button class="nav-link" id="partner-tab" data-bs-toggle="tab"
-                                data-bs-target="#partner-tab-pane" type="button" role="tab" aria-controls="partner-tab-pane"
+                                data-bs-target="#partner-tab-pane" type="button" role="tab" onclick="Partners()" aria-controls="partner-tab-pane"
                                 aria-selected="false">
                             Partners
                         </button>
+                    
                     </li>
                  @*    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="access-tab" data-bs-toggle="tab" data-bs-target="#access-tab-pane"
@@ -170,10 +172,33 @@
                         </div>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="record-tab" data-bs-toggle="tab" data-bs-target="#record-tab-pane"
-                                type="button" role="tab" aria-controls="record-tab-pane" aria-selected="false">
-                            Records
-                        </button>
+                        <div class="dropdown">
+                            <button class="nav-link" type="button" id="provider-tab" data-bs-toggle="dropdown" data-bs-target="#record-tab-pane" aria-expanded="false">
+                                Records
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <button class="nav-link mx-3" id="record-tab" data-bs-toggle="tab"
+                                            data-bs-target="#record-tab-pane" type="button" role="tab"
+                                            aria-controls="record-tab-pane" onclick="searchRecords()" aria-selected="false">
+                                        Search Records
+                                    </button>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Email Logs</a>
+
+                                </li>
+                                <li><a class="dropdown-item" href="#">SMS Logs</a></li>
+                                <li>
+                                    <button class="nav-link mx-3" id="record-tab" data-bs-toggle="tab"
+                                            data-bs-target="#record-tab-pane" type="button" role="tab"
+                                            aria-controls="record-tab-pane" onclick="patientRecord()" aria-selected="false">
+                                        Patient Records
+                                    </button>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Block History</a></li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -192,7 +217,7 @@
         <!-- tab2  pending -->
         <div class="tab-pane fade" id="provider-location-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
              tabindex="0">
-            provider-location......
+           
         </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
         
@@ -201,13 +226,13 @@
             
         </div>
         <div class="tab-pane fade" id="partner-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            partner......
+            
         </div>
         <div class="tab-pane fade" id="access-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
             
         </div>
         <div class="tab-pane fade" id="record-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            record......
+            
         </div>
     </div>
 
@@ -668,8 +693,41 @@
             });
         }
 
+        function searchRecords() {
+            $.ajax({
+                url: '/Admin/SearchRecords',
+                type: 'GET',
+                success: function (response) {
+                    $("#record-tab-pane").html(response);
+                },
+                error: function (e) {
+                    alert("Error loading partial view");
+                }
+            })
+        }
+        function patientRecord() {
+            $.ajax({
+                url: '/Admin/PatientRecords',
+                type: 'GET',
+                success: function (response) {
+                    $("#record-tab-pane").html(response);
+                },
+                error: function (e) {
+                    alert("Error loading partial view");
+                }
+            })
+        }
 
+        function Partners() {
+            $.ajax({
+                url: '/Admin/Partners',
+                type: 'GET',
 
+                success: function (response) {
+                    $("#partner-tab-pane").html(response);
+                }
+            });
+        }
 
     </script>
 

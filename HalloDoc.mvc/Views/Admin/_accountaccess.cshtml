@@ -35,22 +35,13 @@
                         <td>
                             @item.Name
                         </td>
-                        @if (item.AccountType == 1)
-                        {
-                            <td>Admin</td>
-                        }
-                        else if (item.AccountType == 2)
-                        {
-                            <td>Physician</td>
-                        }
-                        else if (item.AccountType == 0)
-                        {
-                            <td>All</td>
-                        }
-                        else
-                        {
-                            <td>Patient</td>
-                        }
+
+                        <td>
+
+                        @Enum.Parse( typeof(DataAccess.Enums.AccountType), item.AccountType.ToString())
+
+                        </td>
+                        
                         <td>
                             <button type="button" class="btn btn-outline-info">Edit</button>
                             <button type="button" class="btn btn-outline-info" onclick="deleteRole(@item.RoleId)">Delete</button>

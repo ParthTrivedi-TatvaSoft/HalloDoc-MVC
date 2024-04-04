@@ -22,6 +22,7 @@
                         <div class="form-floating">
                             <input asp-for="UserName" type="text" class="form-control" id="userName" placeholder="">
                             <label for="">User Name</label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -29,6 +30,7 @@
                         <div class="form-floating">
                             <input asp-for="AdminPassword" type="password" class="form-control " id="password" placeholder="">
                             <label for="floatingSelectGrid">Password</label>
+                            <span asp-validation-for="AdminPassword" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-4">
@@ -39,6 +41,7 @@
                                 <option>Died</option>
                             </select>
                             <label for="">Role</label>
+                            <span asp-validation-for="Role" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -50,30 +53,35 @@
                         <div class="form-floating">
                             <input asp-for="FirstName" type="text" class="form-control" placeholder="">
                             <label for="">First Name</label>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input asp-for="LastName" type="text" class="form-control" placeholder="">
                             <label for="floatingSelectGrid">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="email" asp-for="Email" class="form-control" placeholder="">
                             <label for="">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="email" asp-for="ConfirmEmail" class="form-control" placeholder="">
                             <label for="">Confirm Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating phone-div " >
                             <input type="tel" asp-for="AdminPhone" class="patientPhone form-control w-100 h-100" placeholder="">
                             <label for="">Phone</label>
+                            <span asp-validation-for="AdminPhone" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-start flex-wrap mt-4">

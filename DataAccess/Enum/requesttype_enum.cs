@@ -20,4 +20,18 @@ namespace DataAccess.Enums
         Failed,
         Success
     }
+
+    public enum AccountType
+    {
+        Admin = 1,
+        Physician = 2,
+        Patient = 3
+    }
+
+    public enum Status
+    {
+        Active = 1,
+        Pending = 2,
+        Inactive = 3
+    }
 }

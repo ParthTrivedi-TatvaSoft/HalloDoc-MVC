@@ -1,0 +1,132 @@
+﻿@using DataAccess.CustomModels;
+@model PatientRecordsModel;
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+
+<div class="w-100 px-2 px-sm-5 my-3">
+
+    <h3 class="ms-2 my-1">Patient History</h3>
+
+    <div class="shadow rounded-2 my-3 bg-white">
+        <form id="patientRecordForm">
+            <div class="row g-2 my-2 p-3">
+                <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
+                    <input type="text" class="form-control bg-transparent" id="first_name" placeholder="First Name" asp-for="@Model.searchRecordOne">
+                    <label for="first_name" class="ms-2 text-muted">First Name</label>
+                </div>
+
+                <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
+                    <input type="text" class="form-control bg-transparent" id="last_name" placeholder="Last Name" asp-for="@Model.searchRecordTwo">
+                    <label for="last_name" class="ms-2 text-muted">Last Name</label>
+                </div>
+
+                <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
+                    <input type="email" class="form-control " id="email" placeholder="Email" aria-label="Email" asp-for="@Model.searchRecordThree">
+                    <label class="ms-2 text-muted" for="Email">Email</label>
+                </div>
+
+                <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3 d-flex">
+                    <input class="form-control" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.searchRecordFour">
+                    <label class="text-muted ms-2">Phone Number</label>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-info me-2 px-3 py-2" type="button" id="clear_button" onclick="clearAll()">Clear</button>
+                    <button class="btn btn-info text-white ms-1 px-3 py-2" onclick="patientRecordSearch()" type="button" id="search_button">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table" id="recordTable">
+                <thead class="table-active p-2">
+                    <tr>
+                        <th scope="col" class="text-center">First Name</th>
+                        <th scope="col" class="text-center">Last Name</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Phone</th>
+                        <th scope="col" class="text-center">Address</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.users)
+                    {
+                        <tr>
+                            <td class="text-center">@obj.Firstname</td>
+                            <td class="text-center">@obj.Lastname</td>
+                            <td class="text-center">@obj.Email</td>
+                            <td class="text-center">@obj.Mobile</td>
+                            @{
+                                var address = @obj.Street + " " + @obj.City + " " + @obj.State + " " + @obj.Zipcode;
+                            }
+                            <td class="text-center">@address</td>
+                            <td>
+                                <button style="cursor : pointer" class="btn btn-outline-info rounded-2" aria-expanded="false" onclick="GetPatientRecordExplore(@obj.Userid)">
+                                    Explore
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $('#recordTable').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            "order": [[3, "desc"]],
+            // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+
+
+    function patientRecordSearch() {
+        $.ajax({
+            url: "/Admin/PatientRecords",
+            data: $("#patientRecordForm").serializeArray(),
+            type: 'GET',
+            success: function (result) {
+                $("#record-tab-pane").html(result);
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    }
+
+    function clearAll() {
+        let a = document.getElementsByTagName("input")
+        for (let i = 0; i < a.length; i++) {
+            a[i].value = "";
+        }
+
+        let b = document.getElementsByTagName("textarea")
+        for (let i = 0; i < b.length; i++) {
+            b[i].value = "";
+        }
+    }
+
+</script>

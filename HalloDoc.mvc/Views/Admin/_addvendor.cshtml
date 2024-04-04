@@ -1,0 +1,204 @@
+﻿@using DataAccess.CustomModels;
+@model AddBusinessModel;
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-4">
+        <h4>
+            Submit Information
+        </h4>
+
+        <button class="btn btn-primary m-2 text-decoration-none float-end" onclick="Partners()" id="back-btn">
+            &lt; Back
+        </button>
+
+    </div>
+    <div class=" d-flex justify-content-center mt-4">
+        <div class="viewCaseForm form-floating shadow patient-request-form p-3" style="width:100%">
+
+            <form method="post" id="AddVendorForm">
+
+                <div class="row g-2 m-1">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="vendorbusinessName" asp-for="BusinessName" placeholder="" />
+                            <label for="userName">Business Name</label>
+                            <small id="vendorbusinessNamereq" style="color:red" class="d-none">Business Name Is Required</small>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select mb-3" id="HealthProfessional" asp-for="ProfessionId">
+
+                                <option selected disabled>Select A Profession</option>
+                                @foreach (var item in Model.ProfessionList)
+                                {
+                                    <option value="@item.Healthprofessionalid">@item.Professionname</option>
+                                }
+                            </select>
+                            <label for="role">Select A Profession</label>
+                            <small id="HealthProfessionalreq" style="color:red" class="d-none">Please Select Profession</small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="vendorfaxNumber" asp-for="FaxNumber" placeholder="" />
+                            <label for="userName">Fax Number</label>
+                            <small id="vendorfaxNumberreq" style="color:red" class="d-none">Fax Number Is Required</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" asp-for="PhoneNumber" placeholder="">
+                            <label for="">Phone Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" asp-for="Email" placeholder="">
+                            <label for="">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating phone-div w-100 h-100">
+                            <input type="tel" class="patientPhone form-control w-100 h-100" asp-for="BusinessContact" placeholder="">
+                            <label for="">Business Contact</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for="Street" placeholder="">
+                            <label for="">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for="City" placeholder="">
+                            <label for="">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating phone-div w-100 h-100 ">
+                            <select class="form-select border-0" aria-label="Default select example" asp-for="RegionId" id="addvendorregion">
+
+                                <option selected disabled>Select A Region</option>
+                                @foreach (var items in Model.RegionList)
+                                {
+                                    <option value="@items.Regionid">@items.Name</option>
+                                }
+                            </select>
+                            <label for="">Select A Region</label>
+                            <small id="addvendorregionreq" style="color:red" class="d-none">Please Selecct Region</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for="Zip" placeholder="">
+                            <label for="">Zip/Postal</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="AddVendorData()" class="btn btn-success float-end m-1 ">Save</button><br />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $('#vendorbusinessName').on('input', function () {
+        var business = $('#vendorbusinessName').val();
+        if (business == "") {
+            $('#vendorbusinessNamereq').removeClass("d-none");
+        } else {
+            $('#vendorbusinessNamereq').addClass("d-none");
+        }
+    })
+
+    $('#vendorfaxNumber').on('input', function () {
+        var faxnumber = $('#vendorfaxNumber').val();
+        if (faxnumber == "") {
+            $('#vendorfaxNumberreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#vendorfaxNumberreq').addClass("d-none").removeClass("d-block");
+        }
+    })
+
+    $('#HealthProfessional').on('change', function () {
+        var health = $('#HealthProfessional').val();
+        if (health == null) {
+            $('#HealthProfessionalreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#HealthProfessionalreq').addClass("d-none").removeClass("d-block");
+        }
+    })
+
+    $('#addvendorregion').on('change', function () {
+        var region = $('#addvendorregion').val();
+        if (region == null) {
+            $('#addvendorregionreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#addvendorregionreq').addClass("d-none").removeClass("d-block");
+        }
+    })
+
+    function AddVendorData() {
+        var business = $('#vendorbusinessName').val();
+        if (business == "") {
+            $('#vendorbusinessNamereq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#vendorbusinessNamereq').addClass("d-none").removeClass("d-block");
+        }
+
+        var faxnumber = $('#vendorfaxNumber').val();
+        if (faxnumber == "") {
+            $('#vendorfaxNumberreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#vendorfaxNumberreq').addClass("d-none").removeClass("d-block");
+        }
+
+        var health = $('#HealthProfessional').val();
+        if (health == null) {
+            $('#HealthProfessionalreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#HealthProfessionalreq').addClass("d-none").removeClass("d-block");
+        }
+
+        var region = $('#addvendorregion').val();
+        if (region == null) {
+            $('#addvendorregionreq').addClass("d-block").removeClass("d-none");
+        } else {
+            $('#addvendorregionreq').addClass("d-none").removeClass("d-block");
+        }
+
+        if (business != null) {
+            var payloadMain = $("#AddVendorForm").serializeArray();
+
+            $.ajax({
+                url: "/Admin/AddBusiness",
+                type: 'POST',
+                data: payloadMain,
+                success: function (result) {
+                    Partners();
+                    console.log(result);
+                },
+                error: function () {
+                    // alert("Error");
+
+                },
+            });
+        }
+        else {
+            console.log("Error");
+        }
+    }
+</script>

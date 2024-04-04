@@ -1,0 +1,100 @@
+﻿@* @model PaginatedList<BusinessTable>; *@
+@using DataAccess.CustomModels;
+@model List<BusinessTable>;
+
+<style>
+    table {
+        border: 1px solid black;
+    }
+</style>
+
+<table class="table table-hover table-responsive" id="dtBasicExample">
+    <thead>
+        <tr>
+            <td>Profession</td>
+            <td>Business Name</td>
+            <td>Email</td>
+            <td>Fax Number</td>
+            <td>Phone Number</td>
+            <td>Business Contact</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProfessionName</td>
+                <td>@item.BusinessName</td>
+                <td>@item.Email</td>
+                <td>@item.FaxNumber</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.BusinessContact</td>
+                <td>
+                    <button class="btn btn-outline-info" onclick="editvendordata(@item.BusinessId)">Edit</button>
+                    <button class="btn btn-outline-info" onclick="deleteVendor(@item.BusinessId)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function deleteVendor(vendorId) {
+        $.ajax({
+            url: "/Admin/DeleteBusiness",
+            data: { VendorId: vendorId },
+            type: 'GET',
+            success: function (result) {
+                Partners()
+
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Cancelling Request')
+            },
+        });
+    }
+
+    function editvendordata(vendorId) {
+
+        $.ajax({
+            url: "/Admin/EditBusinessData",
+            data: { VendorId: vendorId },
+            type: 'GET',
+            success: function (result) {
+                $('#partner-tab-pane').html(result);
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Cancelling Request');
+            },
+        });
+    }
+
+    $(document).ready(function () {
+
+        $('#dtBasicExample').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+                }
+            }
+        });
+        $('.dataTables_filter').hide();
+    });
+
+</script>
