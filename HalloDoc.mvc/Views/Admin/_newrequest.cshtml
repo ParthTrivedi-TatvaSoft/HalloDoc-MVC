@@ -24,7 +24,7 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupport()">
+            <button class="action-btn" onclick="ShowRequestSupportNew()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -490,6 +490,21 @@ else
         });
     }
 
+    function ShowRequestSupportNew() {
+        $.ajax({
+            url: '/Admin/RequestSupport',
+            type: 'GET',
+
+            success: function (response) {
+
+                $("#modelContentnew").html(response);
+
+                $('#RequestSupportModel').modal('show');
+
+            }
+        });
+    }
+
     function showBlockCase(reqId) {
         $.ajax({
             url: '/Admin/BlockCase',
@@ -522,7 +537,7 @@ else
             url: '/Admin/SendLink',
             type: 'GET',
             success: function (response) {
-                console.log(response);
+              
                 $('#modelContentnew').html(response);
                 $('#sendLinkPopUpOne').modal('show');
             }

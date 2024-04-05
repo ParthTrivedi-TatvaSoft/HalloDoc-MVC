@@ -585,22 +585,7 @@
             });
         }
 
-        function ShowRequestSupport() {
-            $.ajax({
-                url: '/Admin/RequestSupport',
-                type: 'GET',
-               
-                success: function (response) {
-
-                    $("#modelContent").html(response);
-
-                    $('#RequestSupportModel').modal('show');
-
-                }
-            });
-        }
-
-        
+       
 
         function ShowMyProfile() {
             $.ajax({
@@ -676,7 +661,7 @@
                 url: '/Admin/SendLink',
                 type: 'GET',
                 success: function (response) {
-                    console.log(response);
+                   
                     $('#modelContent').html(response);
                     $('#sendLinkPopUpOne').modal('show');
                 }

@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="ShowRequestSupportPending()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request Support
                 </span>
@@ -309,6 +309,21 @@ else
 </style>
 
 <script>
+
+    function ShowRequestSupportPending() {
+        $.ajax({
+            url: '/Admin/RequestSupport',
+            type: 'GET',
+
+            success: function (response) {
+
+                $("#modelContentpending").html(response);
+
+                $('#RequestSupportModel').modal('show');
+
+            }
+        });
+    }
 
     function showCancelCase(Reqid) {
         $.ajax({

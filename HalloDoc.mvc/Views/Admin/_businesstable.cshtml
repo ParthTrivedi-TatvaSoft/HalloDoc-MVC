@@ -1,6 +1,5 @@
-﻿@* @model PaginatedList<BusinessTable>; *@
-@using DataAccess.CustomModels;
-@model List<BusinessTable>;
+﻿@using DataAccess.CustomModels;
+@model List<BusinessTableModel>;
 
 <style>
     table {
@@ -46,7 +45,12 @@
             data: { VendorId: vendorId },
             type: 'GET',
             success: function (result) {
-                Partners()
+                if (result.isDeleted == true) {
+                    showPartners();
+                    toastr.success("Deleted!!");
+                } else {
+                    toastr.error("Something Went Wrong");
+                }
 
             },
             error: function (error) {

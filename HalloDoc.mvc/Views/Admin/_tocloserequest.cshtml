@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="ShowRequestSupportToClose">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -295,12 +295,15 @@ else
     <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
 <div id="modelContenttoclose"></div>
+<div id="modelContentRequestSupprt"></div>
 
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
 
 <script>
+    
+
     function clearCase(reqId) {
         var url = '@Url.Action("ClearCase","Admin")';
 
@@ -317,10 +320,24 @@ else
         });
     }
 
+    function ShowRequestSupportToClose() {
+        $.ajax({
+            url: '/Admin/RequestSupport',
+            type: 'GET',
+
+            success: function (response) {
+
+                $("#modelContenttoclose").html(response);
+
+                $('#modelContentRequestSupprt').modal('show');
+
+            }
+        });
+    }
+
     $("#exportToCLoseReq").click(function () {
         //alert("exportbtn was clicked.");
         var request = @Html.Raw(Json.Serialize(Model));
-
         Export(request);
     });
 

@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupport()">
+            <button class="action-btn" onclick="ShowRequestSupportUnpaid()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -244,6 +244,7 @@
 </div>
 
 <div id="modelContent"></div>
+<div id="modelContentUnpaid"></div>
 
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
@@ -309,4 +310,19 @@ else
             }
         })
     })
+
+    function ShowRequestSupportUnpaid() {
+        $.ajax({
+            url: '/Admin/RequestSupport',
+            type: 'GET',
+
+            success: function (response) {
+
+                $("#modelContentUnpaid").html(response);
+
+                $('#RequestSupportModel').modal('show');
+
+            }
+        });
+    }
 </script>

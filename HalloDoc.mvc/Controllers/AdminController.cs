@@ -930,8 +930,7 @@ namespace HalloDoc.mvc.Controllers
             
             var email = GetTokenEmail();
            
-            if (ModelState.IsValid)
-            {
+            
                var isCreated = _adminService.CreateAdminAccount(model,email);
                 if (isCreated)
                 {
@@ -943,12 +942,7 @@ namespace HalloDoc.mvc.Controllers
                     _notyf.Error("Somethng Went Wrong!!");
                     return PartialView("_createadminaccount");
                 }
-            }
-            else
-            {
-                _notyf.Error("Somethng Went Wrong!!");
-                return PartialView("_createadminaccount");
-            }
+           
            
         }
 
@@ -1017,24 +1011,16 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("admin_dashboard");
         }
 
+
+        public IActionResult BusinessTable(string vendor, string profession)
+        {
+            var obj = _adminService.BusinessTable(vendor, profession);
+            return PartialView("_BusinessTable", obj);
+        }
+
         public IActionResult Partners()
         {
             return PartialView("_partners");
-        }
-        public IActionResult BusinessTable()
-        {
-            var obj = _adminService.BusinessTable();
-            return PartialView("_businesstable", obj);
-        }
-
-        public IActionResult Patners()
-        {
-            AddBusinessModel obj = new()
-            {
-                RegionList = _adminService.RegionTable(),
-                ProfessionList = _adminService.GetProfession()
-            };
-            return PartialView("_Partners", obj);
         }
 
         [HttpPost]
@@ -1048,29 +1034,51 @@ namespace HalloDoc.mvc.Controllers
             }
             else
             {
-                _notyf.Error("Please Enter a Data");
+                _notyf.Error("Please Enter Data");
                 return BadRequest();
             }
 
-
-            //int? adminId = HttpContext.Session.GetInt32("adminId");
 
         }
 
         public IActionResult AddVendor()
         {
             AddBusinessModel obj = new()
-            {
+           {
                 RegionList = _adminService.RegionTable(),
                 ProfessionList = _adminService.GetProfession()
             };
             return PartialView("_addvendor", obj);
         }
 
-        public void DeleteBusiness(int VendorId)
+        [HttpPost]
+        public IActionResult AddVendor(AddBusinessModel obj)
         {
-            _adminService.RemoveBusiness(VendorId);
-            _notyf.Success("Delete Successfully!!");
+            if (obj.BusinessName != null && obj.FaxNumber != null)
+            {
+                bool isAdded = _adminService.AddBusiness(obj);
+
+                return Json(new { isAdded = isAdded });
+            }
+            else
+            {
+                _notyf.Error("Please Enter  Data");
+                return BadRequest();
+            }
+
+        }
+
+
+        [HttpGet]
+        public IActionResult SearchVendor(string vendor, string profession)
+        {
+            var obj = _adminService.BusinessTable(vendor, profession);
+            return PartialView("_businesstable", obj);
+        }
+        public IActionResult DeleteBusiness(int VendorId)
+        {
+            var isDeleted = _adminService.RemoveBusiness(VendorId);
+            return Json(new { isDeleted = isDeleted });
         }
 
         public IActionResult EditBusinessData(int VendorId)
@@ -1079,13 +1087,7 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_editbusiness", obj);
         }
 
-        [HttpPost]
-        public IActionResult EditBusinessSubmit(EditBusinessModel model)
-        {
-            _adminService.EditBusiness(model);
-            _notyf.Success("Data Updated!!");
-            return Partners();
-        }
+
 
 
 

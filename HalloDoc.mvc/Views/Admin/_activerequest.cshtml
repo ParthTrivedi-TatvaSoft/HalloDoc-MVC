@@ -24,7 +24,7 @@
             <button class="action-btn" onclick="ExportAll()">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupport()">
+            <button class="action-btn" onclick="ShowRequestSupportActive()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                      Support
@@ -307,6 +307,21 @@ else
 
 
 <script>
+    function ShowRequestSupportActive() {
+        $.ajax({
+            url: '/Admin/RequestSupport',
+            type: 'GET',
+
+            success: function (response) {
+
+                $("#modelContent").html(response);
+
+                $('#RequestSupportModel').modal('show');
+
+            }
+        });
+    }
+
     $("#exportActiveReq").click(function () {
         alert("exportbtn was clicked.");
         var request = @Html.Raw(Json.Serialize(Model));

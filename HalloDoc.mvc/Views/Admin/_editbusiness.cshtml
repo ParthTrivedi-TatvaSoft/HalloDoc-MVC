@@ -1,5 +1,5 @@
 ﻿@using DataAccess.CustomModels;
-@model EditBusinessModel;
+@model AddBusinessModel;
 
 <div class="container">
     <div class=" d-flex justify-content-between mt-4">
@@ -7,124 +7,141 @@
             Update Information
         </h4>
 
-        <button class="btn btn-primary m-2 text-decoration-none float-end" onclick="Partners()" id="back-btn">
-            &lt;  Back
+        <button id="back-btn" onclick="showPartners()">
+            &lt; Back
         </button>
 
     </div>
-    <div class="d-flex justify-content-center mt-4">
-        <div class="viewCaseForm form-floating shadow patient-request-form p-3" style="width:100%">
 
-            <form method="post" id="EditBusinessDataFrom">
-                <input asp-for="VendorId" hidden />
-                <div class="row g-2 m-1">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="text" asp-for="BusinessName" class="form-control" id="businessName" />
-                            <label for="userName">Business Name</label>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select mb-3" id="role" asp-for="ProfessionId">
-                                <option selected disabled>Select A Profession</option>
-                                @foreach (var item in Model.ProfessionList)
-                                {
-                                    <option value="@item.Healthprofessionalid">@item.Professionname</option>
-                                }
-                            </select>
-                            <label for="role">Select A Profession</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-2 m-1">
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="text" asp-for="FaxNumber" class="form-control" id="faxNumber" />
-                            <label for="userName">Fax Number</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="tel" asp-for="PhoneNumber" class="form-control">
-                            <label for="">Phone Number</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-2 m-1">
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="email" class="form-control" asp-for="Email">
-                            <label for="">Email</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100">
-                            <input type="tel" class="patientPhone form-control w-100 h-100" asp-for="BusinessContact">
-                            <label for="">Business Contact</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-2 m-1">
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" asp-for="Street">
-                            <label for="">Street</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="text" asp-for="City" class="form-control">
-                            <label for="">City</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-2 m-1">
-                    <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <select class="form-select " asp-for="RegionId" aria-label="Default select example">
-                                <option selected disabled >Select A Region</option>
-                                @foreach (var items in Model.RegionList)
-                                {
-                                    <option value="@items.Regionid">@items.Name</option>
-                                }
-                            </select>
-                            <label>Select A Region</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <input type="text" asp-for="Zip" class="form-control">
-                            <label for="">Zip/Postal</label>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" onclick="editvendordata()" class="btn btn-success float-end m-1 ">Save</button><br />
-            </form>
-        </div>
+    <div class=" mt-4 bg-white form-floating shadow w-100 px-3 pt-3 pb-5">
 
+        <form method="post" id="EditBusinessDataFrom">
+
+            <input asp-for="VendorId" hidden />
+            <div class="row g-2 m-1">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="text" asp-for="BusinessName" class="form-control" id="businessName" />
+                        <label for="userName">Business Name</label>
+                        <span class="text-danger" asp-validation-for="BusinessName"></span>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select mb-3" id="role" asp-for="ProfessionId">
+                            <option selected disabled>Select A Profession</option>
+                            @foreach (var item in Model.ProfessionList)
+                            {
+                                <option value="@item.Healthprofessionalid">@item.Professionname</option>
+                            }
+                        </select>
+                        <label for="role">Select A Profession</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2 m-1">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" asp-for="FaxNumber" class="form-control" id="faxNumber" />
+                        <label for="userName">Fax Number</label>
+                        <span class="text-danger" asp-validation-for="FaxNumber"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="tel" asp-for="PhoneNumber" class="form-control">
+                        <label for="">Phone Number</label>
+                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2 m-1">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" asp-for="Email">
+                        <label for="">Email</label>
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating ">
+                        <input type="tel" class=" form-control" asp-for="BusinessContact">
+                        <label for="">Business Contact</label>
+                        <span class="text-danger" asp-validation-for="BusinessContact"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2 m-1">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" asp-for="Street">
+                        <label for="">Street</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" asp-for="City" class="form-control">
+                        <label for="">City</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2 m-1">
+                <div class="col-md-6">
+                    <div class="form-floating phone-div w-100 h-100 ">
+                        <select class="form-select border-0" asp-for="RegionId" aria-label="Default select example">
+                            <option selected disabled>Select A Region</option>
+                            @foreach (var items in Model.RegionList)
+                            {
+                                <option value="@items.Regionid">@items.Name</option>
+                            }
+                        </select>
+                        <label for="">Select A Region</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" asp-for="Zip" class="form-control">
+                        <label for="">Zip/Postal</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="submitEditVendor" class="btn btn-success float-end m-1 ">Save</button><br />
+        </form>
     </div>
+
+
 </div>
-
+<partial name="_ValidationScriptsPartial" />
 <script>
-    function editvendordata() {
 
 
-        var payloadMain = $("#EditBusinessDataFrom").serializeArray();
-
-        $.ajax({
-            url: "/Admin/EditBusinessSubmit",
-            type: 'POST',
-            data: payloadMain,
-            success: function (result) {
-                Partners();
-               
-            },
-            error: function (error) {
-                
-                alert('Error')
-            },
+    $(function () {
+        $('#submitEditVendor').click(function () {
+            if ($("#EditBusinessDataFrom").valid()) {
+                $('#EditBusinessDataFrom').submit();
+            }
+            else {
+                return false;
+            }
         });
 
-    }
+        $("#EditBusinessDataFrom").on("submit", function (event) {
+            event.preventDefault();
+            var payloadMain = $("#EditBusinessDataFrom").serializeArray();
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/AddVendor",
+                data: payloadMain,
+                success: function (response) {
+                    if (response.isAdded) {
+                        toastr.success("Edited !!");
+                        showPartners();
+                    } else {
+                        toastr.error("Something went wrong");
+                    }
+                }
+            });
+        });
+    })
 </script>

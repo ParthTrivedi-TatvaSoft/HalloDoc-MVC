@@ -544,7 +544,7 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Password Is Required")]
         public string? AdminPassword { get; set; }
         public short? Status { get; set; }
-        [Required(ErrorMessage = "Role Is Required")]
+       
         public string? Role { get; set; }
         [Required(ErrorMessage = "First Name Is Required")]
         public string? FirstName { get; set; }
@@ -554,11 +554,10 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Email Is Required")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Confirm Email Is Required")]
         [Compare("Email", ErrorMessage = "Email MissMatch")]
         public string? ConfirmEmail { get; set; }
 
-        [Required(ErrorMessage = "Select At Least One Region ")]
+
 
         public List<Region>? RegionList { get; set; }
 
@@ -613,59 +612,46 @@ namespace DataAccess.CustomModels
         public bool Checked { get; set; }
     }
 
-    public class AddBusinessModel
-    {
-        [Required(ErrorMessage = "Business Name Is Required")]
-        public string BusinessName { get; set; }
-        public int ProfessionId { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-
-        [Required(ErrorMessage = "Fax Number Is Required")]
-        public string FaxNumber { get; set; }
-        public string BusinessContact { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Zip { get; set; }
-        public List<Region> RegionList { get; set; }
-        public int RegionId { get; set; }
-        public List<Healthprofessionaltype> ProfessionList { get; set; }
-
-    }
-
-    public class BusinessTable
+    public class BusinessTableModel
     {
         public int BusinessId { get; set; }
         public int ProfessionId { get; set; }
         public string ProfessionName { get; set; }
 
-        [Required(ErrorMessage = "Business Name Is Required")]
+        [Required(ErrorMessage = "Business Name is required")]
         public string BusinessName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Fax Number Is Required")]
+        [Required(ErrorMessage = "Fax Number is required")]
         public string FaxNumber { get; set; }
         public string BusinessContact { get; set; }
 
     }
-
-    public class EditBusinessModel
+    public class AddBusinessModel
     {
-        public int VendorId { get; set; }
+        public int? VendorId { get; set; }
+
+        [Required(ErrorMessage = "Business Name is required")]
         public string BusinessName { get; set; }
         public int ProfessionId { get; set; }
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Phone Number is required")]
         public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Fax Number is required")]
         public string FaxNumber { get; set; }
+        [Required(ErrorMessage = "Business Contact is required")]
         public string BusinessContact { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Zip { get; set; }
+
+        public string? Street { get; set; }
+        public string? City { get; set; }
+        public string? Zip { get; set; }
         public List<Region> RegionList { get; set; }
         public int RegionId { get; set; }
         public List<Healthprofessionaltype> ProfessionList { get; set; }
-      
+
     }
 
     public class RecordsModel

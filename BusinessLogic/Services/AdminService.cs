@@ -2247,14 +2247,14 @@ namespace BusinessLogic.Services
             return obj;
         }
 
-        public List<BusinessTable> BusinessTable()
+        public List<BusinessTableModel> BusinessTable(string vendor, string profession)
         {
             BitArray deletedBit = new BitArray(1, false);
 
             var obj = (from t1 in _db.Healthprofessionals
                        join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
                        where t1.Isdeleted == deletedBit
-                       select new BusinessTable
+                       select new BusinessTableModel
                        {
                            BusinessId = t1.Vendorid,
                            BusinessName = t1.Vendorname,
@@ -2265,14 +2265,41 @@ namespace BusinessLogic.Services
                            FaxNumber = t1.Faxnumber,
                            BusinessContact = t1.Businesscontact
                        });
-            return obj.ToList();
+            var objList = obj.ToList();
+            if (vendor != null)
+            {
+                objList = objList.Where(x => x.BusinessName.Trim().ToLower().Contains(vendor.Trim().ToLower())).Select(x => x).ToList();
+            }
+            if (profession != null)
+            {
+                objList = objList.Where(x => x.ProfessionName.Trim().ToLower().Contains(profession.Trim().ToLower())).Select(x => x).ToList();
+            }
+            return objList;
         }
 
-        public void AddBusiness(AddBusinessModel obj)
+        public bool AddBusiness(AddBusinessModel obj)
         {
             try
             {
-                if (obj.BusinessName != null && obj.FaxNumber != null)
+                var vendor = _db.Healthprofessionals.Where(x => x.Vendorid == obj.VendorId).First();
+
+                if (vendor != null)
+                {
+                    vendor.Vendorname = obj.BusinessName;
+                    vendor.Profession = obj.ProfessionId;
+                    vendor.Email = obj.Email;
+                    vendor.Faxnumber = obj.FaxNumber;
+                    vendor.Phonenumber = obj.PhoneNumber;
+                    vendor.Businesscontact = obj.BusinessContact;
+                    vendor.Address = obj.Street;
+                    vendor.City = obj.City;
+                    vendor.Zip = obj.Zip;
+                    vendor.Regionid = obj.RegionId;
+
+                    _db.Healthprofessionals.Update(vendor);
+                    _db.SaveChanges();
+                }
+                else
                 {
                     Healthprofessional healthprofessional = new()
                     {
@@ -2281,7 +2308,7 @@ namespace BusinessLogic.Services
                         Faxnumber = obj.FaxNumber,
                         Address = obj.Street,
                         City = obj.City,
-                        State = _db.Regions.FirstOrDefault(x => x.Regionid == obj.RegionId).Name,
+                        State = _db.Regions.Where(x => x.Regionid == obj.RegionId).Select(x => x.Name).First(),
                         Zip = obj.Zip,
                         Regionid = obj.RegionId,
                         Createddate = DateTime.Now,
@@ -2294,31 +2321,42 @@ namespace BusinessLogic.Services
                     _db.SaveChanges();
                 }
 
+                return true;
             }
             catch (Exception e)
             {
-
+                return false;
             }
-
-
+        }
+        public bool RemoveBusiness(int VendorId)
+        {
+            try
+            {
+                var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == VendorId);
+                if (vendor != null && vendor.Isdeleted != null)
+                {
+                    vendor.Isdeleted[0] = true;
+                    _db.Healthprofessionals.Update(vendor);
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        
+        
 
         }
 
-     
-
-        public void RemoveBusiness(int VendorId)
+        public AddBusinessModel GetEditBusiness(int VendorId)
         {
             var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == VendorId);
-            vendor.Isdeleted[0] = true;
-            _db.Healthprofessionals.Update(vendor);
-            _db.SaveChanges();
-        }
 
-        public EditBusinessModel GetEditBusiness(int VendorId)
-        {
-            var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == VendorId);
             var vendorType = _db.Healthprofessionaltypes.FirstOrDefault(x => x.Healthprofessionalid == vendor.Profession);
-            EditBusinessModel obj = new()
+            AddBusinessModel obj = new()
             {
                 VendorId = VendorId,
                 BusinessName = vendor.Vendorname,
@@ -2338,30 +2376,9 @@ namespace BusinessLogic.Services
 
         }
 
-        public void EditBusiness(EditBusinessModel obj)
-        {
-            var vendor = _db.Healthprofessionals.FirstOrDefault(x => x.Vendorid == obj.VendorId);
-
-            vendor.Vendorname = obj.BusinessName;
-            vendor.Profession = obj.ProfessionId;
-            vendor.Email = obj.Email;
-            vendor.Faxnumber = obj.FaxNumber;
-            vendor.Phonenumber = obj.PhoneNumber;
-            vendor.Businesscontact = obj.BusinessContact;
-            vendor.Address = obj.Street;
-            vendor.City = obj.City;
-            vendor.Zip = obj.Zip;
-            vendor.Regionid = obj.RegionId;
-
-            _db.Healthprofessionals.Update(vendor);
-            _db.SaveChanges();
 
 
-        }
-    
-
-
-    public List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel)
+        public List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel)
         {
             //List<requestsRecordModel> listdata = new List<requestsRecordModel>();
             //requestsRecordModel requestsRecordModel = new requestsRecordModel();
