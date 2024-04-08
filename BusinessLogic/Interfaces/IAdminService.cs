@@ -128,20 +128,15 @@ namespace BusinessLogic.Interfaces
 
         CreateShift GetCreateShift();
 
-        List<BusinessTableModel> BusinessTable(string vendor, string profession);
+        List<BusinessTableModel> BusinessTable(string vendor, string profession, string Name);
         bool AddBusiness(AddBusinessModel obj);
         List<Healthprofessionaltype> GetProfession();
         bool RemoveBusiness(int VendorId);
 
         AddBusinessModel GetEditBusiness(int VendorId);
-
-
-
-
-
-
         List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel);
         List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
+        EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel);
 
 
     }

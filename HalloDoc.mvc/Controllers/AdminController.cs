@@ -16,6 +16,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -1012,14 +1013,16 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult BusinessTable(string vendor, string profession)
+        public IActionResult BusinessTable(string vendor, string profession, string Name)
         {
-            var obj = _adminService.BusinessTable(vendor, profession);
-            return PartialView("_BusinessTable", obj);
+
+            var obj = _adminService.BusinessTable(vendor, profession,Name);
+            return PartialView("_businesstable", obj);
         }
 
         public IActionResult Partners()
         {
+            
             return PartialView("_partners");
         }
 
@@ -1069,12 +1072,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult SearchVendor(string vendor, string profession)
-        {
-            var obj = _adminService.BusinessTable(vendor, profession);
-            return PartialView("_businesstable", obj);
-        }
+        
         public IActionResult DeleteBusiness(int VendorId)
         {
             var isDeleted = _adminService.RemoveBusiness(VendorId);
@@ -1120,6 +1118,13 @@ namespace HalloDoc.mvc.Controllers
             }
 
             return PartialView("_patientrecord", model);
+        }
+
+        public IActionResult EmailLogs(EmailSmsRecords2 recordsModel)
+        {
+            EmailSmsRecords2 _data = new EmailSmsRecords2();
+            _data = _adminService.EmailSmsLogs(0, recordsModel);
+            return PartialView("_emaillogs", _data);
         }
 
     }

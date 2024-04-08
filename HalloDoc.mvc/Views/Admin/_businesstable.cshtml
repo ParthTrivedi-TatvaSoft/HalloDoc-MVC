@@ -46,8 +46,8 @@
             type: 'GET',
             success: function (result) {
                 if (result.isDeleted == true) {
-                    showPartners();
-                    toastr.success("Deleted!!");
+                    Partners();
+                    toastr.success("Deleted Successfully!!");
                 } else {
                     toastr.error("Something Went Wrong");
                 }
@@ -70,8 +70,8 @@
                 $('#partner-tab-pane').html(result);
             },
             error: function (error) {
-                console.log(error);
-                alert('Error Cancelling Request');
+              
+                alert('Error');
             },
         });
     }

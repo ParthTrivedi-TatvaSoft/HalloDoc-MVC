@@ -3,11 +3,11 @@
 
 <div class="container">
     <div class=" d-flex justify-content-between mt-4">
-        <h4>
-            Update Information
-        </h4>
+        <h3>
+            Update Business
+        </h3>
 
-        <button id="back-btn" onclick="showPartners()">
+        <button id="back-btn" onclick="Partners()">
             &lt; Back
         </button>
 
@@ -16,7 +16,7 @@
     <div class=" mt-4 bg-white form-floating shadow w-100 px-3 pt-3 pb-5">
 
         <form method="post" id="EditBusinessDataFrom">
-
+            <h4>Submit Information</h4>
             <input asp-for="VendorId" hidden />
             <div class="row g-2 m-1">
                 <div class="col-md">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" id="submitEditVendor" class="btn btn-success float-end m-1 ">Save</button><br />
+            <button type="button" id="submitEditVendor" class="btn btn-success float-end m-1 ">Save</button><br />
         </form>
     </div>
 
@@ -115,18 +115,9 @@
 <script>
 
 
-    $(function () {
-        $('#submitEditVendor').click(function () {
-            if ($("#EditBusinessDataFrom").valid()) {
-                $('#EditBusinessDataFrom').submit();
-            }
-            else {
-                return false;
-            }
-        });
-
-        $("#EditBusinessDataFrom").on("submit", function (event) {
-            event.preventDefault();
+    
+    $('#submitEditVendor').click(function () {
+        if ($("#EditBusinessDataFrom").valid()) {
             var payloadMain = $("#EditBusinessDataFrom").serializeArray();
 
             $.ajax({
@@ -135,13 +126,16 @@
                 data: payloadMain,
                 success: function (response) {
                     if (response.isAdded) {
-                        toastr.success("Edited !!");
-                        showPartners();
+                        toastr.success("Edited Successfully !!");
+                        Partners();
                     } else {
                         toastr.error("Something went wrong");
                     }
                 }
             });
-        });
-    })
+        }
+        else {
+            return false;
+        }
+    });
 </script>

@@ -28,7 +28,7 @@ namespace BusinessLogic.Services
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _environment;
 
-        public AdminService(ApplicationDbContext db,IWebHostEnvironment environment)
+        public AdminService(ApplicationDbContext db, IWebHostEnvironment environment)
         {
             _db = db;
             _environment = environment;
@@ -1522,7 +1522,7 @@ namespace BusinessLogic.Services
             obj.IsLicenseDocument = phy.Islicensedoc == null ? false : true;
             obj.username = user.Username;
             obj.password = user.Passwordhash;
-            
+
 
             return obj;
         }
@@ -2098,11 +2098,11 @@ namespace BusinessLogic.Services
 
         }
 
-        
 
-       
 
-      
+
+
+
 
         public List<Physicianlocation> GetPhysicianlocations()
         {
@@ -2124,6 +2124,7 @@ namespace BusinessLogic.Services
                                 accType = role.Accounttype,
                                 phone = admins.Mobile,
                                 status = admins.Status,
+                                openReq = _db.Requests.Where(i => (i.Status != 10)).Count(),
                             };
                 var result1 = admin.ToList();
                 return result1;
@@ -2140,6 +2141,7 @@ namespace BusinessLogic.Services
                                     accType = role.Accounttype,
                                     phone = phy.Mobile,
                                     status = phy.Status,
+                                    openReq = _db.Requests.Where(i => i.Physicianid == phy.Physicianid && new int[] { 1, 2, 4, 5, 6 }.Contains(i.Status)).Count()
                                 };
                 var result2 = physician.ToList();
                 return result2;
@@ -2160,8 +2162,8 @@ namespace BusinessLogic.Services
 
             CreateShift obj = new()
             {
-                Regions=regionList,
-                Physicians=phy
+                Regions = regionList,
+                Physicians = phy
             };
 
             return obj;
@@ -2197,7 +2199,7 @@ namespace BusinessLogic.Services
                 {
                     Physicianid = obj.PhysicianId,
                     Startdate = obj.StartDate,
-                    Isrepeat = new BitArray(1,true),
+                    Isrepeat = new BitArray(1, true),
                     Repeatupto = obj.RepeatUpto,
                     Createdby = admin.Aspnetuserid,
                     Createddate = DateTime.Now,
@@ -2247,23 +2249,26 @@ namespace BusinessLogic.Services
             return obj;
         }
 
-        public List<BusinessTableModel> BusinessTable(string vendor, string profession)
+        public List<BusinessTableModel> BusinessTable(string vendor, string profession, string Name)
         {
             BitArray deletedBit = new BitArray(1, false);
-
             var obj = (from t1 in _db.Healthprofessionals
                        join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
-                       where t1.Isdeleted == deletedBit
+                       where t1.Isdeleted == deletedBit &&
+                       ((string.IsNullOrEmpty(Name) || t1.Vendorname.ToUpper().Contains(Name.ToUpper())))
                        select new BusinessTableModel
                        {
                            BusinessId = t1.Vendorid,
                            BusinessName = t1.Vendorname,
                            ProfessionId = t2.Healthprofessionalid,
-                           ProfessionName = t2.Professionname,
+                           ProfessionName = t2.Professionname,       
                            Email = t1.Email,
                            PhoneNumber = t1.Phonenumber,
                            FaxNumber = t1.Faxnumber,
-                           BusinessContact = t1.Businesscontact
+                           BusinessContact = t1.Businesscontact,
+                
+
+
                        });
             var objList = obj.ToList();
             if (vendor != null)
@@ -2281,25 +2286,7 @@ namespace BusinessLogic.Services
         {
             try
             {
-                var vendor = _db.Healthprofessionals.Where(x => x.Vendorid == obj.VendorId).First();
-
-                if (vendor != null)
-                {
-                    vendor.Vendorname = obj.BusinessName;
-                    vendor.Profession = obj.ProfessionId;
-                    vendor.Email = obj.Email;
-                    vendor.Faxnumber = obj.FaxNumber;
-                    vendor.Phonenumber = obj.PhoneNumber;
-                    vendor.Businesscontact = obj.BusinessContact;
-                    vendor.Address = obj.Street;
-                    vendor.City = obj.City;
-                    vendor.Zip = obj.Zip;
-                    vendor.Regionid = obj.RegionId;
-
-                    _db.Healthprofessionals.Update(vendor);
-                    _db.SaveChanges();
-                }
-                else
+                if (obj.VendorId == null)
                 {
                     Healthprofessional healthprofessional = new()
                     {
@@ -2320,6 +2307,25 @@ namespace BusinessLogic.Services
                     _db.Healthprofessionals.Add(healthprofessional);
                     _db.SaveChanges();
                 }
+
+                else
+                {
+                    var vendor = _db.Healthprofessionals.Where(x => x.Vendorid == obj.VendorId).First();
+                    vendor.Vendorname = obj.BusinessName;
+                    vendor.Profession = obj.ProfessionId;
+                    vendor.Email = obj.Email;
+                    vendor.Faxnumber = obj.FaxNumber;
+                    vendor.Phonenumber = obj.PhoneNumber;
+                    vendor.Businesscontact = obj.BusinessContact;
+                    vendor.Address = obj.Street;
+                    vendor.City = obj.City;
+                    vendor.Zip = obj.Zip;
+                    vendor.Regionid = obj.RegionId;
+
+                    _db.Healthprofessionals.Update(vendor);
+                    _db.SaveChanges();
+                }
+
 
                 return true;
             }
@@ -2346,8 +2352,8 @@ namespace BusinessLogic.Services
             {
                 return false;
             }
-        
-        
+
+
 
         }
 
@@ -2517,9 +2523,127 @@ namespace BusinessLogic.Services
             return users;
         }
 
-    
+        public EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel)
+        {
+            EmailSmsRecords2 model = new EmailSmsRecords2();
+            model.tempid = tempId;
+            model.emailRecords = new List<EmailSmsRecords>();
+            if (tempId == 0)
+            {
+                var records = _db.Emaillogs.ToList();
+                foreach (var item in records)
+                {
+                    if (item.Requestid != null)
+                    {
 
-}
+                        var newRecord = new EmailSmsRecords
+                        {
+                            email = item.Emailid,
+                            createddate = item.Createdate,
+                            sentdate = item.Sentdate,
+                            sent = item.Isemailsent[0] ? "Yes" : "No",
+                            recipient = _db.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).First(),
+                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                            senttries = item.Senttries,
+                            confirmationNumber = item.Confirmationnumber,
+                        };
+
+                        model.emailRecords.Add(newRecord);
+                    }
+                    else
+                    {
+                        var newRecord = new EmailSmsRecords
+                        {
+                            email = item.Emailid,
+                            createddate = item.Createdate,
+                            sentdate = item.Sentdate,
+                            sent = item.Isemailsent[0] ? "Yes" : "No",
+                            recipient = _db.Physicians.Where(i => i.Physicianid == item.Physicianid).Select(i => i.Firstname).FirstOrDefault(),
+                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                            senttries = item.Senttries,
+                            confirmationNumber = item.Confirmationnumber,
+                        };
+
+                        model.emailRecords.Add(newRecord);
+                    }
+                }
+
+                if (recordsModel != null)
+                {
+                    if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordTwo != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordThree != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.email.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFour != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFive != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
+                    }
+                }
+            }
+
+            else
+            {
+                var records = _db.Smslogs.ToList();
+                foreach (var item in records)
+                {
+
+                    var newRecord = new EmailSmsRecords
+                    {
+                        contact = item.Mobilenumber,
+                        createddate = item.Createdate,
+                        sentdate = item.Sentdate,
+                        sent = item.Issmssent[0] ? "Yes" : "No",
+                        recipient = _db.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).FirstOrDefault(),
+                        rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                        senttries = item.Senttries,
+                        confirmationNumber = item.Confirmationnumber,
+                    };
+
+                    model.emailRecords.Add(newRecord);
+                }
+                if (recordsModel != null)
+                {
+                    if (recordsModel.searchRecordOne != null && recordsModel.searchRecordOne != "All")
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.rolename.Contains(recordsModel.searchRecordOne)).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordTwo != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.recipient.Trim().ToLower().Contains(recordsModel.searchRecordTwo.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordThree != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(r => r.contact.Trim().ToLower().Contains(recordsModel.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFour != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate >= recordsModel.searchRecordFour).Select(r => r).ToList();
+                    }
+                    if (recordsModel.searchRecordFive != null)
+                    {
+                        model.emailRecords = model.emailRecords.Where(item => item.createddate <= recordsModel.searchRecordFive).Select(r => r).ToList();
+                    }
+                }
+
+            }
+            return model;
+        }
+
+
+
+    }
 
 
 

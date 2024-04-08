@@ -627,22 +627,24 @@ namespace DataAccess.CustomModels
         public string FaxNumber { get; set; }
         public string BusinessContact { get; set; }
 
+ 
+
     }
     public class AddBusinessModel
     {
         public int? VendorId { get; set; }
 
-        [Required(ErrorMessage = "Business Name is required")]
+        [Required(ErrorMessage = "Business Name Is Required")]
         public string BusinessName { get; set; }
         public int ProfessionId { get; set; }
-        [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessage = "Email Is Required")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Phone Number is required")]
+        [Required(ErrorMessage = "Phone Number Is Required")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Fax Number is required")]
+        [Required(ErrorMessage = "Fax Number Is Required")]
         public string FaxNumber { get; set; }
-        [Required(ErrorMessage = "Business Contact is required")]
+        [Required(ErrorMessage = "Business Contact Is Required")]
         public string BusinessContact { get; set; }
 
         public string? Street { get; set; }
@@ -698,5 +700,51 @@ namespace DataAccess.CustomModels
         public string? searchRecordThree { get; set; }
         public string? searchRecordFour { get; set; }
         public int? flag { get; set; }
+    }
+
+    public class blockHistory
+    {
+        public string? patientname { get; set; }
+        public string? phonenumber { get; set; }
+        public string? email { get; set; }
+        public string? createddate { get; set; }
+        public BitArray? isActive { get; set; }
+        public string? notes { get; set; }
+        public int? blockId { get; set; }
+        public int? flag { get; set; }
+        public string? searchRecordOne { get; set; }
+        public DateTime searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public string? searchRecordFour { get; set; }
+        public bool indicate { get; set; }
+
+    }
+
+
+    public class EmailSmsRecords
+    {
+
+        public int? requestid { get; set; }
+        public string? recipient { get; set; }
+        public string? action { get; set; }
+        public string? rolename { get; set; }
+        public string? email { get; set; }
+        public DateTime? createddate { get; set; }
+        public DateTime? sentdate { get; set; }
+        public string? sent { get; set; }
+        public int? senttries { get; set; }
+        public string? confirmationNumber { get; set; }
+        public string? contact { get; set; }
+    }
+
+    public class EmailSmsRecords2
+    {
+        public List<EmailSmsRecords>? emailRecords { get; set; }
+        public int? tempid { get; set; }
+        public string? searchRecordOne { get; set; }
+        public string? searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public DateTime? searchRecordFour { get; set; }
+        public DateTime? searchRecordFive { get; set; }
     }
 }

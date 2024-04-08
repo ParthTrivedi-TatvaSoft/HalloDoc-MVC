@@ -1,0 +1,313 @@
+﻿@using DataAccess.CustomModels;
+@model EmailSmsRecords2;
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+
+<div class="w-100 px-2 px-sm-5">
+
+    <div class="d-flex justify-content-between">
+        @if (Model.tempid == 0)
+        {
+            <h3>Email Logs</h3>
+        }
+        else
+        {
+
+            <h3>SMS Logs</h3>
+        }
+    </div>
+
+    <div class="shadow p-3 bg-white my-3">
+
+        <form id="smsLogForm">
+            <div class="row g-3 mb-4">
+
+                
+                <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <select id="status" class="form-select" aria-label="Default select example" asp-for="searchRecordOne">
+                        <option selected value="All">All</option>
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                        <option value="Provider">Provider</option>
+                    </select>
+                    <label class="text-muted ms-2">Search By Role</label>
+                </div>
+
+                
+                <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <input class="form-control" type="search" placeholder=" " aria-label="Search" id="patient_name" asp-for="searchRecordTwo">
+                    <label for="patient_name" class="floating-label text-muted ms-2">Reciever Name</label>
+                </div>
+
+                
+                <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <input class="form-control" type="search" placeholder=" " aria-label="Search" id="email" asp-for="searchRecordThree">
+                    <label for="email" class="text-muted ms-2">Email id</label>
+                </div>
+
+             
+                <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <input type="date" class="form-control bg-transparent" id="from_dateofService" placeholder="From Date of Service" asp-for="searchRecordFour">
+                    <label for="datePickerId" class="ms-2 text-muted">From Date of Service</label>
+                </div>
+
+
+
+                <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <input type="date" class="form-control bg-transparent" id="to_dateofService" placeholder="To Date of Service" asp-for="searchRecordFive">
+                    <label for="datePickerId" class="ms-2 text-muted">To Date of Service</label>
+                </div>
+                <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <button id="resetButton" type="button" onclick="emailLogs()" class="btn btn-outline-info rounded-2 me-2" style="height: 55px;width: 80px;">
+                        Clear
+                    </button>
+                    <button id="search_button" type="button" onclick="smsLogSearchBtnOne()" class="btn btn-info text-white rounded-2 ms-2" style="height: 55px;width: 80px;">Search</button>
+                </div>
+
+            </div>
+        </form>
+
+        @if (Model.emailRecords != null && Model.emailRecords.Count > 0)
+        {
+            <div class="table-responsive d-none d-lg-block">
+                <table id="EmailLogTable" class="table mt-3 requesttable">
+
+                    <thead class="table-active ">
+                        <tr class="text-center">
+                            <th class="col">Recipient</th>
+                            <th class="col">Action</th>
+                            <th class="col">Role Name</th>
+                            @if (Model.tempid == 0)
+                            {
+                                <th class="col">
+                                    Email Id
+                                </th>
+                            }
+                            else
+                            {
+                                <th class="col">
+                                    Mobile Number
+                                </th>
+                            }
+                            <th class="col">Created Date</th>
+                            <th class="col">Sent Date</th>
+                            <th class="col">Sent</th>
+                            <th class="col">Sent Tries</th>
+                            <th class="col">Confirmation Number </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model.emailRecords)
+                        {
+                            <tr class="text-center">
+                                <td>@obj.recipient</td>
+                                <td>@obj.action</td>
+                                <td>@obj.rolename</td>
+                                @if (Model.tempid == 0)
+                                {
+                                    <th class="col">
+                                        @obj.email
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th class="col">
+                                        @obj.contact
+                                    </th>
+                                }
+
+                                <td>@obj.createddate</td>
+                                <td>@obj.sentdate</td>
+                                <td>@obj.sent</td>
+                                <td>@obj.senttries</td>
+                                <td>@obj.confirmationNumber</td>
+
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="border m-2 rounded shadow d-block d-lg-none">
+                <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
+                    <table class="w-100 requesttable">
+                        <thead>
+                            <tr>
+                                <th class="d-none"></th>
+                                <th class="d-none"></th>
+                            </tr>
+                        </thead>
+                        @{
+                            var counter = 1;
+                        }
+                        <tbody>
+                            @if (Model.emailRecords != null)
+                            {
+                                @foreach (var obj in Model.emailRecords)
+                                {
+                                    <tr class="d-flex flex-column">
+                                        <td>
+                                            <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
+
+                                            <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)" aria-expanded="false" aria-controls="flush-collapse@(counter)">
+
+                                                <div class="w-100 ">
+                                                    <span class="fw-bolder">
+                                                        @obj.recipient
+                                                    </span>
+                                                </div>
+                                                <div class="w-100">
+                                                    <div class="">
+                                                        <span class="fw-bolder">Action: </span> @obj.action
+                                                    </div>
+                                                </div>
+                                                <div class="w-100">
+                                                    @if (Model.tempid == 0)
+                                                    {
+                                                        <div class="">
+                                                            <span class="fw-bolder">Email: </span> @obj.email
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="">
+                                                            <span class="fw-bolder">Mobile: </span> @obj.contact
+                                                        </div>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div id="flush-collapse@(counter)" class="accordion-collapse collapse" aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body main-flex pt-2">
+                                                    <div class="w-100">
+                                                        <div class="">
+                                                            <span class="fw-bolder">Role Name: </span> @obj.rolename
+                                                        </div>
+
+                                                        <div class="">
+                                                            <span class="fw-bolder">Created Date: </span> @obj.createddate
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Sent Date: </span> @obj.sentdate
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Sent: </span> @obj.sent
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Sent Tries: </span> @obj.senttries
+                                                        </div>
+                                                        <div class="">
+                                                            <span class="fw-bolder">Confirmation Number: </span> @obj.confirmationNumber
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table">
+                <thead class="table-active">
+                    <tr>
+                        <th class="col">Recipient</th>
+                        <th class="col">Action</th>
+                        <th class="col">Role Name</th>
+                        <th class="col">Email</th>
+                        <th class="col">Created Date</th>
+                        <th class="col">Sent Date</th>
+                        <th class="col">Sent</th>
+                        <th class="col">Sent Tries</th>
+                        <th class="col">Confirmation Number </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td colspan="9" style="text-align:center;">No Request Found</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $('#EmailLogTable').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            "order": [[3, "desc"]],
+            // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+                }
+            }
+        });
+        // $('.dataTables_length').hide();
+        $('.dataTables_filter').hide();
+    });
+
+
+
+    function smsLogSearchBtnOne() {
+        var arrayMain = $("#smsLogForm").serializeArray();
+        console.log(arrayMain);
+
+        event.preventDefault();
+
+        $.ajax({
+            url: "/Admin/EmailLogs",
+            data: arrayMain,
+            type: 'POST',
+            success: function (result) {
+                $("#record-tab-pane").html(result);
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function clearAll() {
+        let a = document.getElementsByTagName("input")
+        for (let i = 0; i < a.length; i++) {
+            a[i].value = "";
+        }
+
+        let b = document.getElementsByTagName("textarea")
+        for (let i = 0; i < b.length; i++) {
+            b[i].value = "";
+        }
+    }
+
+</script>

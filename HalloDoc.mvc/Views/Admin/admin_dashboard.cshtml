@@ -185,7 +185,11 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Email Logs</a>
+                                    <button class="nav-link mx-3" id="record-tab" data-bs-toggle="tab"
+                                            data-bs-target="#record-tab-pane" type="button" role="tab"
+                                            aria-controls="record-tab-pane" onclick="emailLogs()" aria-selected="false">
+                                        Email Logs
+                                    </button>
 
                                 </li>
                                 <li><a class="dropdown-item" href="#">SMS Logs</a></li>
@@ -656,17 +660,17 @@
             });
         }
 
-        function sendLink() {
-            $.ajax({
-                url: '/Admin/SendLink',
-                type: 'GET',
-                success: function (response) {
+        // function sendLink() {
+        //     $.ajax({
+        //         url: '/Admin/SendLink',
+        //         type: 'GET',
+        //         success: function (response) {
                    
-                    $('#modelContent').html(response);
-                    $('#sendLinkPopUpOne').modal('show');
-                }
-            })
-        }
+        //             $('#modelContent').html(response);
+        //             $('#sendLinkPopUpOne').modal('show');
+        //         }
+        //     })
+        // }
 
         function ShowScheduling() {
             $.ajax({
@@ -712,6 +716,19 @@
                     $("#partner-tab-pane").html(response);
                 }
             });
+        }
+
+        function emailLogs() {
+            $.ajax({
+                url: '/Admin/EmailLogs',
+                type: 'GET',
+                success: function (response) {
+                    $("#record-tab-pane").html(response);
+                },
+                error: function (e) {
+                    alert("Error loading partial view");
+                }
+            })
         }
 
     </script>
