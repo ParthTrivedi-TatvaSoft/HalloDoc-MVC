@@ -964,36 +964,58 @@ namespace HalloDoc.mvc.Controllers
             return Ok(getLocation);
         }
 
-        public IActionResult CreateShift()
+
+        public IActionResult Scheduling(SchedulingViewModel model)
         {
-            var obj = _adminService.GetCreateShift();
-            return View("_createshift", obj);
+
+            model.regions = _adminService.RegionTable().ToList();
+            return PartialView("_scheduling", model);
         }
 
-        public IActionResult Scheduling()
+        public IActionResult LoadSchedulingPartial(string PartialName, string date, int regionid, int status)
         {
-            //var obj = _adminService.CreateNewShiftSubmit();
-            return PartialView("_scheduling");
+            if (PartialName == "_daytable")
+            {
+                var day = _adminService.GetDayTable(PartialName, date, regionid, status);
+                return PartialView("_daytable", day);
+
+            }
+
+            else if (PartialName == "_weektable")
+            {
+                var week = _adminService.GetWeekTable(date, regionid, status);
+                return PartialView("_weektable", week);
+            }
+            else if (PartialName == "_monthtable")
+            {
+                var month = _adminService.GetMonthTable(date, regionid, status);
+                return PartialView("_monthtable", month);
+            }
+            else
+            {
+                var day = _adminService.GetDayTable(PartialName, date, regionid, status);
+                return PartialView("_daytable", day);
+            }
         }
 
-        public IActionResult MonthTable()
+
+        [HttpPost]
+        public async Task<IActionResult> AddShift(SchedulingViewModel model, List<int> repeatdays)
         {
-            return PartialView("_monthtable");
+            var email = GetTokenEmail();
+
+            //var email = User.FindFirstValue(ClaimTypes.Email);
+            await _adminService.CreateShift(model, email, repeatdays);
+            TempData["Success"] = "Shift Created Successfully";
+            return RedirectToAction("admin_dashbaord");
         }
-        public IActionResult WeekTable()
+
+        public async Task<IActionResult> ViewShift(int ShiftDetailId)
         {
-            return PartialView("_weektable");
+            var data = await _adminService.ViewShift(ShiftDetailId);
+            return View("_viewshift", data);
         }
-        public IActionResult DayTable()
-        {
-            return PartialView("_daytable");
-        }
-        public IActionResult CreateShiftSubmit(string selectedDays, CreateShift obj)
-        {
-            int? adminId = HttpContext.Session.GetInt32("adminId");
-            _adminService.CreateNewShiftSubmit(selectedDays, obj, (int)adminId);
-            return RedirectToAction("admin_dashboard");
-        }
+
 
         [HttpGet]
         public IActionResult CreateProviderAccount()
@@ -1125,6 +1147,28 @@ namespace HalloDoc.mvc.Controllers
             EmailSmsRecords2 _data = new EmailSmsRecords2();
             _data = _adminService.EmailSmsLogs(0, recordsModel);
             return PartialView("_emaillogs", _data);
+        }
+
+        public IActionResult BlockedHistory(BlockHistory2 blockHistory2)
+        {
+            BlockHistory2 _data = new BlockHistory2();
+            _data.blockHistories = _adminService.BlockHistory(blockHistory2);
+
+
+            return PartialView("_blockhistory", _data);
+        }
+
+
+        public IActionResult unblockBlockHistory(int blockId)
+        {
+            bool isUnblocked = _adminService.UnblockRequest(blockId);
+            return Json(new { isUnblocked = isUnblocked });
+        }
+
+        public IActionResult BlockHistoryCheckBox(int blockId)
+        {
+            bool isActive = _adminService.IsBlockRequestActive(blockId);
+            return Json(new { isActive });
         }
 
     }

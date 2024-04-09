@@ -1,65 +1,176 @@
-﻿<div id="daycontainer">
-    <div class="schedule">
-        <table class="table table-hover table-responsive employee-schedules w-100">
-            <thead class="employee-schedules-thead thead-dark">
-                <tr>
-                    <td>Staff</td>
-                    <td>12 AM</td>
-                    <td>1 AM</td>
-                    <td>2 AM</td>
-                    <td>3 AM</td>
-                    <td>4 AM</td>
-                    <td>5 AM</td>
-                    <td>6 AM</td>
-                    <td>7 AM</td>
-                    <td>8 AM</td>
-                    <td>9 AM</td>
-                    <td>10 AM</td>
-                    <td>11 AM</td>
-                    <td>12 PM</td>
-                    <td>1 PM</td>
-                    <td>2 PM</td>
-                    <td>3 PM</td>
-                    <td>4 PM</td>
-                    <td>5 PM</td>
-                    <td>6 PM</td>
-                    <td>7 PM</td>
-                    <td>8 PM</td>
-                    <td>9 PM</td>
-                    <td>10 PM</td>
-                    <td>11 PM</td>
-                </tr>
-                <tr class="Coverage">
-                    <th>Coverage</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+﻿@using DataAccess.CustomModels;
+@model DayWiseScheduling;
 
-                </tr>
-            </thead>
-            <tbody class="employee-schedules-table">
-            </tbody>
-        </table>
-    </div>
+@{
+    var now = Model.date;
+    var dayweek = Model.date.DayOfWeek.ToString();
+    var currentDay = dayweek + ", " + now.ToString("MMM dd yyyy");
+    <input type="hidden" value="@currentDay" id="currentDay" />
+    var f = 0;
+}
+<div class="table-responsive shadow">
+    <table class="calendar-table table-bordered table">
+        <tr class="bg-secondary text-dark bg-white">
+            <th style="width:10%">Staff</th>
+            <th style="width:3.75%">12A</th>
+            <th style="width:3.75%">1A</th>
+            <th style="width:3.75%">2A</th>
+            <th style="width:3.75%">3A</th>
+            <th style="width:3.75%">4A</th>
+            <th style="width:3.75%">5A</th>
+            <th style="width:3.75%">6A</th>
+            <th style="width:3.75%">7A</th>
+            <th style="width:3.75%">8A</th>
+            <th style="width:3.75%">9A</th>
+            <th style="width:3.75%">10A</th>
+            <th style="width:3.75%">11A</th>
+            <th style="width:3.75%">12P</th>
+            <th style="width:3.75%">1P</th>
+            <th style="width:3.75%">2P</th>
+            <th style="width:3.75%">3P</th>
+            <th style="width:3.75%">4P</th>
+            <th style="width:3.75%">5P</th>
+            <th style="width:3.75%">6P</th>
+            <th style="width:3.75%">7P</th>
+            <th style="width:3.75%">8P</th>
+            <th style="width:3.75%">9P</th>
+            <th style="width:3.75%">10P</th>
+            <th style="width:3.75%">11P</th>
+        </tr>
+        <tr>
+            <td style="font-weight:600">Coverage</td>
+            @for (int i = 0; i < 24; i++)
+            {
+                <td class="dates" style="background-color:#efabd2;"></td>
+            }
+        </tr>
+        @foreach (var obj in Model.physicians)
+        {
+            @*var shift = Model.shiftdetails.Where(u => u.ShiftDate == now && u.Shift.PhysicianId == obj.PhysicianId).ToList(); *@
+            var shift = Model.shiftdetails.Where(u => u.Shiftdate == DateOnly.FromDateTime(now) && u.Shift.Physicianid == obj.Physicianid).ToList();
+            <tr>
+                @if (obj.Photo == null)
+                {
+                    <td class="d-flex border-0" style="font-weight:600"><i class="fa-solid fa-user me-1 mt-1" style="height:25px; width:25px"></i> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
+                }
+                else
+                {
+                    <td class="d-flex border-0" style="font-weight:600"><img class="me-1 mt-1" src="@obj.Photo" height="25px" width="25px" /> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
+                }
+                @for (int i = 0; i < 24; i++)
+                {
+                    if (shift.Count() > 0)
+                    {
+                        int flag = 0;
+                        foreach (var item in shift)
+                        {
+                            var diff = item.Endtime.Hour - item.Starttime.Hour + 1;
+                            if (item.Starttime.Hour <= i && item.Endtime.Hour >= i)
+                            {
+                                var perstart = ((item.Starttime.Minute / 42.00) * 100) / diff;
+                                var perend = (((40 - item.Endtime.Minute) / 60.00) * 100) / diff;
+                                if (perend < 0)
+                                {
+                                    perend = 0;
+                                }
+
+                                perstart /= 2;
+                                <td id="i_@obj.Physicianid" colspan="@diff">
+                                    <button onclick="viewshift(@item.Shiftdetailid)" class="dates d-flex align-items-center justify-content-center border-0 small"
+                                            data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                    @if (item.Status == 2)
+                                    {
+                                        @:style="background-color:rgb(197 255 194); margin-left : @perstart%; margin-right: @perend%;width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                    }
+                                    else
+                                    {
+                                        @:style="background-color:rgb(255, 212, 237); margin-left : @perstart%; margin-right: @perend%;  width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                    }>
+                                        @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
+                                    </button>
+                                </td>
+                                i += (@diff - 1);
+
+                                flag = 1;
+                            }
+                        }
+                        if (flag == 0)
+                        {
+                            <td id="i_@obj.Physicianid"></td>
+                        }
+                    }
+                    else
+                    {
+                        <td id="i_@obj.Physicianid"></td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+
 </div>
+<div id="viewshift"></div>
+
+<script>
+    $('.removeactive').removeClass('active text-white');
+    $('#Day').addClass('active text-white');
+
+    var currentDay = $('#currentDay').val();
+    $('#showDate').text(currentDay);
+
+    // $('.viewshiftbtn').on('click', function () {
+    //     console.log("dhsgb")
+    //     let shiftid = $(this).val();
+    //     $('#shiftdetailidviewmodel').val(shiftid);
+    //     $.ajax({
+    //         url: '/Admin/ViewShiftOpen',
+    //         data: { shiftdetailid: shiftid },
+    //         success: function (response) {
+    //             let starttimeviewshift = new Date(response.starttime);
+    //             let endtimeviewshift = new Date(response.endtime);
+    //             let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    //             let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+    //             let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+    //             $("#viewShiftModal").modal();
+    //             console.log(response)
+
+    //             $('#viewshiftregion').val(response.regionname)
+    //             $('#viewshiftphysicianname').empty();
+    //             $('#viewshiftphysicianname').append(
+    //                 $('<option>', {
+    //                     value: response.physicianname,
+    //                     text: response.physicianname,
+    //                 }));
+    //             $('#viewshiftshiftdate').val(response.shiftdateviewshift)
+    //             $('#viewshiftstartdate').val(starttimeString)
+    //             $('#viewshiftenddate').val(endtimeString)
+    //         },
+    //         error: function (xhr, textStatus, error) {
+    //             console.log(error)
+    //         }
+    //     });
+    // });
+
+    function viewshift(ShiftDetailId) {
+        console.log("abcd");
+        $.ajax({
+            url: "/Admin/ViewShift",
+            type: "GET",
+            data: { ShiftDetailId: ShiftDetailId },
+            success: function (data) {
+                $("#viewshift").html(data);
+                $('#ViewShiftModel').modal('show');
+
+                // const myModal = new bootstrap.Modal("#ViewShiftModel", {});
+                // myModal.show();
+            },
+            error: function () {
+                alert("No Projects Found");
+                $("#shift").html('An error has occurred');
+            }
+        });
+    };
+
+
+</script>

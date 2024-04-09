@@ -1118,6 +1118,11 @@ namespace BusinessLogic.Services
 
                     if (existUser == null)
                     {
+
+
+                        Guid generatedId = Guid.NewGuid();
+
+                        _asp.Id = generatedId.ToString();
                         _asp.Username = model.firstname + "_" + model.lastname;
                         _asp.Email = model.email;
                         _asp.Phonenumber = model.phone;
@@ -1157,11 +1162,13 @@ namespace BusinessLogic.Services
 
                     _req.Requesttypeid = 1;
                     _req.Userid = Convert.ToInt32(admin.Aspnetuserid);
+                    _req.Isurgentemailsent= new BitArray(1);
                     _req.Firstname = admin.Firstname;
                     _req.Lastname = admin.Lastname;
                     _req.Phonenumber = admin.Mobile;
                     _req.Email = admin.Email;
                     _req.Status = 1;
+
                     _req.Confirmationnumber = admin.Firstname.Substring(0, 1) + DateTime.Now.ToString().Substring(0, 19);
                     _req.Createddate = DateTime.Now;
 
@@ -2155,93 +2162,10 @@ namespace BusinessLogic.Services
             }
         }
 
-        public CreateShift GetCreateShift()
-        {
-            var regionList = _db.Regions.ToList();
-            var phy = _db.Physicians.ToList();
-
-            CreateShift obj = new()
-            {
-                Regions = regionList,
-                Physicians = phy
-            };
-
-            return obj;
-        }
+        
 
 
-        public void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId)
-        {
-            var admin = _db.Admins.FirstOrDefault(x => x.Adminid == adminId);
-
-            var day = JsonSerializer.Deserialize<List<CheckBoxData>>(selectedDays);
-
-            var curDate = obj.StartDate;
-            var curDay = (int)obj.StartDate.DayOfWeek;
-
-            if (!obj.IsRepeat)
-            {
-                var shift = new Shift()
-                {
-                    Physicianid = obj.PhysicianId,
-                    Startdate = obj.StartDate,
-                    Isrepeat = new BitArray(0, false),
-                    Repeatupto = obj.RepeatUpto,
-                    Createdby = admin.Aspnetuserid,
-                    Createddate = DateTime.Now,
-                };
-                _db.Shifts.Add(shift);
-                _db.SaveChanges();
-            }
-            else
-            {
-                var shift = new Shift()
-                {
-                    Physicianid = obj.PhysicianId,
-                    Startdate = obj.StartDate,
-                    Isrepeat = new BitArray(1, true),
-                    Repeatupto = obj.RepeatUpto,
-                    Createdby = admin.Aspnetuserid,
-                    Createddate = DateTime.Now,
-                };
-                _db.Shifts.Add(shift);
-                _db.SaveChanges();
-
-
-                for (int i = 1; i <= obj.RepeatUpto; i++)
-                {
-                    foreach (var item in day)
-                    {
-                        if (item.Checked)
-                        {
-                            var shiftDay = 7 * i - curDay + item.Id;
-                            var shiftDate = curDate.AddDays(shiftDay);
-
-                            var shiftdetail = new Shiftdetail()
-                            {
-                                Shiftid = shift.Shiftid,
-                                Shiftdate = shiftDate,
-                                Starttime = obj.StartTime,
-                                Endtime = obj.EndTime,
-                                Status = (short)_db.Physicians.FirstOrDefault(x => x.Physicianid == obj.PhysicianId).Status,
-
-                            };
-                            _db.Shiftdetails.Add(shiftdetail);
-                            _db.SaveChanges();
-
-                            var shiftRegion = new Shiftdetailregion()
-                            {
-                                Regionid = obj.RegionId,
-                                Shiftdetailid = shiftdetail.Shiftdetailid,
-                            };
-                            _db.Shiftdetailregions.Add(shiftRegion);
-                            _db.SaveChanges();
-                        }
-                    }
-                }
-            }
-
-        }
+        
 
         public List<Healthprofessionaltype> GetProfession()
         {
@@ -2442,59 +2366,9 @@ namespace BusinessLogic.Services
             return requestList;
         }
 
-        //public void DeleteRecords(int reqId)
-        //{
-        //    var reqClient = _context.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
-
-        //    if (reqClient.Isdeleted == null)
-        //    {
-        //        reqClient.Isdeleted = new BitArray(1, true);
-        //        _context.SaveChanges();
-        //    }
-        //}
-
-        //public byte[] GenerateExcelFile(List<requestsRecordModel> recordsModel)
-        //{
-        //    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
-        //    {
-        //        var worksheet = excelPackage.Workbook.Worksheets.Add("Requests");
-
-        //        // Add headers
-        //        worksheet.Cells[1, 1].Value = "Patient Name";
-        //        worksheet.Cells[1, 2].Value = "Requestor";
-        //        worksheet.Cells[1, 3].Value = "Date Of Service";
-        //        worksheet.Cells[1, 4].Value = "Close Case Date";
-        //        worksheet.Cells[1, 5].Value = "Email";
-        //        worksheet.Cells[1, 6].Value = "Phone Number";
-        //        worksheet.Cells[1, 7].Value = "Address";
-        //        worksheet.Cells[1, 8].Value = "Zip";
-        //        worksheet.Cells[1, 9].Value = "Physician";
-        //        worksheet.Cells[1, 10].Value = "Physician Notes";
-        //        worksheet.Cells[1, 11].Value = "Admin Note";
-        //        worksheet.Cells[1, 12].Value = "Patient Notes";
-
-        //        // Populate data
-        //        for (int i = 0; i < recordsModel.Count; i++)
-        //        {
-        //            var rowData = recordsModel[i];
-        //            worksheet.Cells[i + 2, 1].Value = rowData.patientname;
-        //            worksheet.Cells[i + 2, 2].Value = rowData.requestor;
-        //            worksheet.Cells[i + 2, 3].Value = rowData.dateOfService;
-        //            worksheet.Cells[i + 2, 4].Value = rowData.closeCaseDate;
-        //            worksheet.Cells[i + 2, 5].Value = rowData.email;
-        //            worksheet.Cells[i + 2, 6].Value = rowData.contact;
-        //            worksheet.Cells[i + 2, 7].Value = rowData.address;
-        //            worksheet.Cells[i + 2, 8].Value = rowData.zip;
-        //            worksheet.Cells[i + 2, 9].Value = rowData.physician;
-        //            worksheet.Cells[i + 2, 10].Value = rowData.physicianNote;
-        //            worksheet.Cells[i + 2, 11].Value = rowData.AdminNote;
-        //            worksheet.Cells[i + 2, 12].Value = rowData.pateintNote;
-        //        }
-
-        //        // Convert package to bytes for download
-        //        return excelPackage.GetAsByteArray();
-        //    }
-        //}
+        
+       
+       
         public List<User> PatientRecords(PatientRecordsModel patientRecordsModel)
         {
 
@@ -2641,7 +2515,362 @@ namespace BusinessLogic.Services
             return model;
         }
 
+        public List<BlockHistory> BlockHistory(BlockHistory2 blockHistory2)
+        {
+            var requestData = _db.Blockrequests.Where(x => x.Isactive != null).Select(x => new BlockHistory()
+            {
+                patientname = _db.Requestclients.Where(r => r.Requestid == x.Requestid).Select(r => r.Firstname).First(),
+                phonenumber = x.Phonenumber,
+                email = x.Email,
+                createddate = Convert.ToDateTime(x.Createddate).ToString("yyyy-MM-dd"),
+                notes = x.Reason,
+                blockId = x.Blockrequestid,
+                isActive = x.Isactive,
+            }).ToList();
 
+            if (blockHistory2 != null)
+            {
+                if (blockHistory2.searchRecordOne != null)
+                {
+                    requestData = requestData.Where(r => r.patientname.Trim().ToLower().Contains(blockHistory2.searchRecordOne.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (blockHistory2.searchRecordTwo != null && blockHistory2.searchRecordTwo != DateTime.MinValue)
+                {
+                    requestData = requestData.Where(r => r.createddate == Convert.ToDateTime(blockHistory2.searchRecordTwo).ToString("yyyy-MM-dd")).Select(r => r).ToList();
+                }
+                if (blockHistory2.searchRecordThree != null)
+                {
+                    requestData = requestData.Where(r => r.email.Trim().ToLower().Contains(blockHistory2.searchRecordThree.Trim().ToLower())).Select(r => r).ToList();
+                }
+                if (blockHistory2.searchRecordFour != null)
+                {
+                    requestData = requestData.Where(r => r.phonenumber.Trim().ToLower().Contains(blockHistory2.searchRecordFour.Trim().ToLower())).Select(r => r).ToList();
+                }
+            }
+
+
+            return requestData;
+        }
+
+        public bool UnblockRequest(int blockId)
+        {
+            try
+            {
+                var block = _db.Blockrequests.Where(r => r.Blockrequestid == blockId).Select(r => r).First();
+
+                block.Isactive = null;
+                _db.Blockrequests.Update(block);
+                _db.SaveChanges();
+
+                Requeststatuslog requeststatuslog = new()
+                {
+                    Requestid = block.Requestid,
+                    Status = (int)StatusEnum.Unassigned,
+                    Notes = "unblocked",
+                    Createddate = DateTime.Now
+                };
+                _db.Requeststatuslogs.Add(requeststatuslog);
+
+                var request = _db.Requests.Where(r => r.Requestid == block.Requestid).Select(r => r).First();
+
+                request.Status = (int)StatusEnum.Unassigned;
+                request.Isdeleted = null;
+                request.Modifieddate = DateTime.Now;
+                _db.Requests.Update(request);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        public bool IsBlockRequestActive(int blockId)
+        {
+            var blockrequest = _db.Blockrequests.Where(x => x.Blockrequestid == blockId).First();
+            var isActive = new BitArray(1);
+            isActive[0] = false;
+
+            if (blockrequest.Isactive != null && blockrequest.Isactive[0] == isActive[0])
+            {
+                blockrequest.Isactive[0] = true;
+                _db.Blockrequests.Update(blockrequest);
+                _db.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                if (blockrequest.Isactive != null)
+                    blockrequest.Isactive[0] = false;
+                _db.Blockrequests.Update(blockrequest);
+                _db.SaveChanges();
+
+                return false;
+            }
+        }
+
+
+        public DayWiseScheduling GetDayTable(string PartialName, string date, int regionid, int status)
+        {
+            var currentDate = DateTime.Parse(date);
+            List<Physician> physician = _db.Physicianregions.Include(u => u.Physician).Where(u => u.Regionid == regionid).Select(u => u.Physician).ToList();
+            if (regionid == 0)
+            {
+                physician = _db.Physicians.ToList();
+            }
+
+
+            DayWiseScheduling day = new DayWiseScheduling
+            {
+                date = currentDate,
+                physicians = physician,
+            };
+            if (regionid != 0 && status != 0)
+            {
+                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+            }
+            else if (regionid != 0)
+            {
+                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+            }
+            else if (status != 0)
+            {
+                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+            }
+            else
+            {
+                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).ToList();
+            }
+
+            return day;
+        }
+
+
+        public WeekWiseScheduling GetWeekTable(string date, int regionid, int status)
+        {
+            var currentDate = DateTime.Parse(date);
+            List<Physician> physician = _db.Physicianregions.Include(u => u.Physician).Where(u => u.Regionid == regionid).Select(u => u.Physician).ToList();
+            if (regionid == 0)
+            {
+                physician = _db.Physicians.ToList();
+            }
+            WeekWiseScheduling week = new WeekWiseScheduling
+            {
+                date = currentDate,
+                physicians = physician,
+
+            };
+            if (regionid != 0 && status != 0)
+            {
+                week.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+            }
+            else if (regionid != 0)
+            {
+                week.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+            }
+            else if (status != 0)
+            {
+                week.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+            }
+            else
+            {
+                week.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).ToList();
+            }
+
+            return week;
+        }
+
+        public MonthWiseScheduling GetMonthTable(string date, int regionid, int status)
+        {
+            var currentDate = DateTime.Parse(date);
+            List<Physician> physician = _db.Physicianregions.Include(u => u.Physician).Where(u => u.Regionid == regionid).Select(u => u.Physician).ToList();
+            if (regionid == 0)
+            {
+                physician = _db.Physicians.ToList();
+            }
+            MonthWiseScheduling month = new MonthWiseScheduling
+            {
+                date = currentDate,
+                physicians = physician,
+            };
+            if (regionid != 0 && status != 0)
+            {
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+            }
+            else if (regionid != 0)
+            {
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+            }
+            else if (status != 0)
+            {
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+            }
+            else
+            {
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).ToList();
+            }
+            return month;
+        }
+
+        public async Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays)
+        {
+            Aspnetuser? aspNetUser = _db.Aspnetusers.FirstOrDefault(a => a.Email == Email);
+
+
+            var chk = repeatdays.ToList();
+
+            var shiftid = _db.Shifts.Where(u => u.Physicianid == model.providerid).Select(u => u.Shiftid).ToList();
+            if (shiftid.Count() > 0)
+            {
+                foreach (var obj in shiftid)
+                {
+                    var shiftdetailchk = _db.Shiftdetails.Where(u => u.Shiftid == obj && u.Shiftdate == model.shiftdate).ToList();
+                    if (shiftdetailchk.Count() > 0)
+                    {
+                        foreach (var item in shiftdetailchk)
+                        {
+                            if ((model.starttime >= item.Starttime && model.starttime <= item.Endtime) || (model.endtime >= item.Starttime && model.endtime <= item.Endtime))
+                            {
+                                //TempData["error"] = "Shift is already assigned in this time";
+                                //return RedirectToAction("Scheduling");
+                            }
+                        }
+                    }
+                }
+            }
+            Shift shift = new Shift
+            {
+                Physicianid = model.providerid,
+                Startdate = model.shiftdate,
+                Repeatupto = model.repeatcount,
+                Createddate = DateTime.Now,
+                Createdby = aspNetUser!.Id
+            };
+            if (chk.Count != 0)
+            {
+                foreach (var obj in chk)
+                {
+                    shift.Weekdays += obj;
+                }
+            }
+            if (model.repeatcount > 0)
+            {
+                shift.Isrepeat = new BitArray(new[] { true });
+            }
+            else
+            {
+                shift.Isrepeat = new BitArray(new[] { false });
+            }
+            _db.Shifts.Add(shift);
+            await _db.SaveChangesAsync();
+            DateOnly curdate = model.shiftdate;
+
+            Shiftdetail shiftdetail = new Shiftdetail();
+            shiftdetail.Shiftid = shift.Shiftid;
+            shiftdetail.Shiftdate = curdate;
+            shiftdetail.Regionid = model.regionid;
+            shiftdetail.Starttime = model.starttime;
+            shiftdetail.Endtime = model.endtime;
+            shiftdetail.Isdeleted = new BitArray(new[] { false });
+            _db.Shiftdetails.Add(shiftdetail);
+            await _db.SaveChangesAsync();
+
+            var dayofweek = model.shiftdate.DayOfWeek.ToString();
+            int valueforweek;
+            if (dayofweek == "Sunday")
+            {
+                valueforweek = 0;
+            }
+            else if (dayofweek == "Monday")
+            {
+                valueforweek = 1;
+            }
+            else if (dayofweek == "Tuesday")
+            {
+                valueforweek = 2;
+            }
+            else if (dayofweek == "Wednesday")
+            {
+                valueforweek = 3;
+            }
+            else if (dayofweek == "Thursday")
+            {
+                valueforweek = 4;
+            }
+            else if (dayofweek == "Friday")
+            {
+                valueforweek = 5;
+            }
+            else
+            {
+                valueforweek = 6;
+            }
+            if (shift.Isrepeat[0] == true)
+            {
+                for (int j = 0; j < shift.Weekdays.Count(); j++)
+                {
+                    var z = shift.Weekdays;
+                    var p = shift.Weekdays.ElementAt(j).ToString();
+                    int ele = Int32.Parse(p);
+                    int x;
+                    if (valueforweek > ele)
+                    {
+                        x = 6 - valueforweek + 1 + ele;
+                    }
+                    else
+                    {
+                        x = ele - valueforweek;
+                    }
+                    if (x == 0)
+                    {
+                        x = 7;
+                    }
+                    DateOnly newcurdate = model.shiftdate.AddDays(x);
+                    for (int i = 0; i < model.repeatcount; i++)
+                    {
+                        Shiftdetail shiftdetailnew = new Shiftdetail
+                        {
+                            Shiftid = shift.Shiftid,
+                            Shiftdate = newcurdate,
+                            Regionid = model.regionid,
+                            Starttime = model.starttime,
+                            Endtime = model.endtime,
+                            Isdeleted = new BitArray(new[] { false })
+                        };
+                        _db.Shiftdetails.Add(shiftdetailnew);
+                        await _db.SaveChangesAsync();
+                        newcurdate = newcurdate.AddDays(7);
+                    }
+                }
+            }
+        }
+
+        public async Task<CreateNewShift> ViewShift(int ShiftDetailId)
+        {
+            Shiftdetail? shiftDetails = await _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefaultAsync();
+            Physician? physicians = await _db.Physicians.Where(a => a.Physicianid == shiftDetails.Shift.Physicianid).FirstOrDefaultAsync();
+            Region? region = await _db.Regions.Where(a => a.Regionid == physicians!.Regionid).FirstOrDefaultAsync();
+            CreateNewShift model = new CreateNewShift()
+            {
+                PhysicianId = physicians.Physicianid,
+                PhysicianName = physicians.Firstname + " " + physicians.Lastname,
+                RegionId = region.Regionid,
+                RegionName = region.Name,
+                ShiftDate = shiftDetails.Shiftdate,
+                Start = shiftDetails.Starttime,
+                End = shiftDetails.Endtime,
+            };
+            return model;
+        }
 
     }
 

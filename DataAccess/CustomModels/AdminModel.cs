@@ -581,29 +581,7 @@ namespace DataAccess.CustomModels
         public int? openReq { get; set; }
     }
 
-    public class CreateShift
-    {
-        public int RegionId { get; set; }
-
-        public int PhysicianId { get; set; }
-
-        public DateOnly StartDate { get; set; }
-
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
-
-        public bool IsRepeat { get; set; }
-
-        public string? WeekDays { get; set; }
-
-        public int? RepeatUpto { get; set; }
-
-        public IEnumerable<Region> Regions { get; set; }
-        public IEnumerable<Physician> Physicians { get; set; }
-
-        public IEnumerable<CheckBoxData> Days { get; set; }
-
-    }
+    
     public class CheckBoxData
     {
         public int Id { get; set; }
@@ -746,5 +724,182 @@ namespace DataAccess.CustomModels
         public string? searchRecordThree { get; set; }
         public DateTime? searchRecordFour { get; set; }
         public DateTime? searchRecordFive { get; set; }
+    }
+
+    public class BlockHistory
+    {
+        public string? patientname { get; set; }
+        public string? phonenumber { get; set; }
+        public string? email { get; set; }
+        public string? createddate { get; set; }
+        public BitArray? isActive { get; set; }
+        public string? notes { get; set; }
+
+        public int? blockId { get; set; }
+
+
+        public bool indicate { get; set; }
+
+    }
+
+    public class BlockHistory2
+    {
+        public List<BlockHistory>? blockHistories { get; set; }
+        public string? searchRecordOne { get; set; }
+        public DateTime searchRecordTwo { get; set; }
+        public string? searchRecordThree { get; set; }
+        public string? searchRecordFour { get; set; }
+        public int? flag { get; set; }
+
+    }
+
+    public class SchedulingViewModel
+    {
+
+        public List<Region> regions { get; set; }
+        public List<Physicianregion> physicianregionlist { get; set; }
+        [Required]
+        public int regionid { get; set; }
+        [Required]
+        public int providerid { get; set; }
+        public DateOnly shiftdateviewshift { get; set; }
+        [Required]
+        public DateOnly shiftdate { get; set; }
+        public TimeOnly starttime { get; set; }
+        public TimeOnly endtime { get; set; }
+        public int repeatcount { get; set; }
+        public int shiftid { get; set; }
+        public int shiftdetailid { get; set; }
+        public string physicianname { get; set; }
+        public string regionname { get; set; }
+
+    }
+
+    public class DayWiseScheduling
+    {
+        public int shiftid { get; set; }
+        public DateTime date { get; set; }
+        public List<Physician> physicians { get; set; }
+        public List<Shiftdetail> shiftdetails { get; set; }
+    }
+    public class MonthWiseScheduling
+    {
+        public DateTime date { get; set; }
+        public List<Shiftdetail> shiftdetails { get; set; }
+        public List<Physician> physicians { get; set; }
+
+    }
+    public class WeekWiseScheduling
+    {
+        public DateTime date { get; set; }
+        public List<Physician> physicians { get; set; }
+
+        public List<Shiftdetail> shiftdetails { get; set; }
+
+    }
+
+    public class ProviderOnCall
+    {
+        public IEnumerable<Shiftdetail> shiftdetaillist { get; set; }
+        public IEnumerable<Shift> shiftlist { get; set; }
+        public IEnumerable<Physician> ondutyphysicianlist { get; set; }
+        public IEnumerable<Physician> offdutyphysicianlist { get; set; }
+        public List<Region> regions { get; set; }
+
+    }
+
+    public class CreateNewShift
+    {
+        public List<Region>? RegionList { get; set; }
+
+        [Required(ErrorMessage = "Please Select Region")]
+        public int RegionId { get; set; }
+        public string? RegionName { get; set; }
+
+        [Required(ErrorMessage = "Please Select Physician")]
+        public int PhysicianId { get; set; }
+        public string PhysicianName { get; set; }
+
+        [Required(ErrorMessage = "ShiftDate Is Required")]
+        public DateOnly ShiftDate { get; set; }
+
+        [Required(ErrorMessage = "StartTime Is Required")]
+        public TimeOnly Start { get; set; }
+
+        [Required(ErrorMessage = "EndTime Is Required")]
+        public TimeOnly End { get; set; }
+
+        public List<int>? RepeatDays { get; set; }
+
+        public int RepeatEnd { get; set; }
+
+    }
+
+    public class CreateShiftModel
+    {
+        public int RegionId { get; set; }
+
+        public int PhysicianId { get; set; }
+
+        public DateOnly StartDate { get; set; }
+
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
+
+        public bool IsRepeat { get; set; }
+
+        public string? WeekDays { get; set; }
+
+        public int? RepeatUpto { get; set; }
+
+        public IEnumerable<Region> Regions { get; set; }
+        public IEnumerable<Physician> Physicians { get; set; }
+
+        public IEnumerable<CheckBoxData> Days { get; set; }
+
+    }
+
+
+    public class RequestedShift
+    {
+        public Dictionary<int, string>? Regions { get; set; }
+
+        public RequestShiftModel RequestedShiftModel { get; set; }
+    }
+
+    public class RequestShiftModel
+    {
+        public List<RequestedShiftTable> RequestedShiftTables { get; set; }
+
+        public int TotalShifts { get; set; }
+
+        public int PageNo { get; set; }
+
+        public bool IsFirstPage { get; set; }
+
+        public bool IsLastPage { get; set; }
+
+        public bool IsNextPage { get; set; }
+
+        public bool IsPreviousPage { get; set; }
+
+        public int StartRange { get; set; }
+
+        public int EndRange { get; set; }
+    }
+
+    public class RequestedShiftTable
+    {
+        public string Name { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public TimeOnly StartTime { get; set; }
+
+        public TimeOnly EndTime { get; set; }
+
+        public string Region { get; set; }
+
+        public int ShiftDetailsId { get; set; }
     }
 }

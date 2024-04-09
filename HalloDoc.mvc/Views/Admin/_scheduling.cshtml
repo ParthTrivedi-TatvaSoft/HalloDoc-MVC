@@ -1,147 +1,343 @@
-﻿
+﻿@using DataAccess.CustomModels;
+@model SchedulingViewModel;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<div class="container">
-    <div class="justify-content-between d-flex container-fluid  position-relative ">
-        <div class="">
-            <h3 class="fw-bolder">
-                Scheduling
-            </h3>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<div id="shedulingMainDiv">
+
+    <div class="container mt-3 px-0">
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <h4>Scheduling</h4>
+            <a asp-controller="Admin" asp-action="AdminDashboard" class="btn m-0 btn-outline-info  px-2 ">
+                <i class="fa-solid fa-chevron-left"></i>
+                Back
+            </a>
         </div>
 
-    </div>
-    <div class=" border-0  py-1 mx-3 mt-3 rounded">
-        <div class="row">
-            <div class="col-md-7 mt-2">
-                <div class="dropdown bg-white">
+        <div class="mt-3">
 
-                    <select class="form-select form-control form-select-md" id="fregion" data-allow-clear="true" tabindex="-1" data-control="select2" data-placeholder="Select Level">
-                        <option value="-1">All Region</option>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <select name="regionname" class="form-select shadow-none mt-3" id="regionDropDownScheduling">
+                        <option class="regionselect" selected value="">All Region</option>
+                        @foreach (var item in Model.regions)
+                        {
+                            <option class="regionselect" value="@item.Regionid" itemid="@item.Regionid">@item.Name</option>
+
+                        }
                     </select>
                 </div>
-            </div>
-            <div class="col-md-5 mt-2">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-info text-white mx-2">
-                        Provider On Call
+                <div class="d-flex">
+                    <button class="p-2 mx-2 text-white btn-info border-0 shadow-none rounded d-flex align-items-center text-decoration-none" id="providerOnCallSchedulingbtn">
+                        <i class="bi bi-plus-square"></i>
+                        <span class="d-none d-lg-block ps-2">Providers On Call</span>
                     </button>
-                    <button type="button" class="btn btn-info text-white  mx-2">
-                        Shift Review
+                    <button class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center">
+                        <i class="bi bi-plus-square"></i>
+                        <span class="d-none d-lg-block ps-2">Shifts For Review</span>
                     </button>
-                    <button type="button" class="btn btn-info text-white mx-2" data-modal-size="lg" onclick="NewShift()">
-                        Add New Shift
+                    <button class="p-2 ms-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#addShiftModal">
+                        <i class="bi bi-plus-square"></i>
+                        <span class="d-none d-lg-block ps-2">Add New Shift</span>
                     </button>
                 </div>
             </div>
-        </div>
-        <div class="row my-4">
-            <div class="col-md-7 mt-2">
-                <div class="calendar-current-date fs-4 fw-bolder">Dec 2023</div>
-                <div class="text-start my-3 calendar-navigation">
-                    <span id="calendar-prev" class="btn btn-info text-white rounded-circle">❮</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
-                    </svg>
-                    <span id="calendar-next" class="btn btn-info text-white rounded-circle">❯</span>
-                </div>
-            </div>
-            <div class="col-md-5 mt-3">
-                <div class="d-flex justify-content-end">
-                    <div class="alert alert-panding mx-1 px-4" role="alert">
-                    </div>
-                    <span class="mx-1">Pending Shifts</span>
-                    <div class="alert alert-success mx-1 px-4" role="alert">
-                    </div>
-                    <span class="mx-1">Approved Shifts</span>
 
+
+
+
+            <div class="d-flex justify-content-between mt-3">
+                <div class="calbtn">
+                    <div>
+                        <div class="d-none" id="currentDateValue">
+                            @DateTime.Now.Date.ToString("MMM dd yyyy")
+                        </div>
+                        <div class="h6 mt-3" id="showDate">
+                            @DateTime.Now.DayOfWeek,
+                            @DateTime.Now.Date.ToString("MMM dd yyyy")
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="dot bg-info text-center text-white me-1 rounded-pill" id="prevDateBtn" style="height:27px;width:27px;padding:2px 8px 2px 8px;"><i class="fa-solid fa-chevron-left fa-sm" style="color: #ffffff;"></i></span>
+
+                        <span>
+                            <i class="bi bi-calendar-week" id="calendar-icon-datepicker"></i>
+                        </span>
+                        <span class="dot bg-info text-center text-white ms-1 rounded-pill " id="nextDateBtn" style="height:27px;width:27px;padding:2px 8px 2px 8px;"><i class="fa-solid fa-chevron-right fa-sm" style="color: #ffffff;"></i></span>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button type="button" id="day" onclick="ShowTable('day')" class="btn btn-outline-info mx-2">
-                        Day
-                    </button>
-                    <button type="button" id="week" onclick="ShowTable('week')" class="btn btn-outline-info mx-2">
-                        Week
-                    </button>
-                    <button type="button" id="month" onclick="ShowTable('month')" class="btn btn-outline-info mx-2">
-                        Month
-                    </button>
+                <div>
+                    <div class="mt-1 mb-2">
+                        <button id="allShiftbtn" value="0" class="shiftfilter btn px-1 border-bottom-active shadow-none" style="font-weight:400">
+                            All Shift
+                        </button>
+                        <button id="pendingShiftbtn" value="1" class="shiftfilter btn px-1 shadow-none" style="color:rgb(87, 1, 51); font-weight:500">
+                            <i class="fa-solid fa-square-full fa-fade pe-1" style="color: #efabd2;"></i>
+                            Pending Shift
+                        </button>
+                        <button id="activeShiftbtn" value="2" class="shiftfilter btn px-1 shadow-none" style="color:rgb(26, 62, 24); font-weight:500">
+                            <i class="fa-solid fa-square-full fa-fade pe-1" style="color: #ABEE97;"></i>
+                            Approved Shift
+                        </button>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="button" onclick="loadSchedulingPartial('_daytable')" class="btn btn-outline-info removeactive shadow-none" id="Day">Day</button>
+                        <button type="button" onclick="loadSchedulingPartial('_weektable')" class="btn btn-outline-info ms-2 removeactive shadow-none" id="Week">Week</button>
+                        <button type="button" onclick="loadSchedulingPartial('_monthtable')" class="btn btn-outline-info ms-2 removeactive shadow-none" id="Month">Month</button>
+                    </div>
                 </div>
             </div>
+
+
+            <div class="calander mt-4" id="rendercalender">
+                Partial
+            </div>
+
         </div>
+
     </div>
-
-    <div id="displayyy"></div>
-  
-    <div id="displayTable"></div>
-
-   
-
-
 </div>
 
-<script>
 
-    function ShowTable(str) {
-        if (str == "day") {
-            $.ajax({
-                url: '/Admin/DayTable',
-                type: 'GET',
-                success: function (response) {
-                    $("#displayTable").html(response);
-                },
-                error: function (e) {
-                    alert("error loading partial view");
-                }
-            });
-        }
-        else if (str == "week") {
-            $.ajax({
-                url: '/Admin/WeekTable',
-                type: 'GET',
-                success: function (response) {
-                    $("#displayTable").html(response);
-                },
-                error: function (e) {
-                    alert("error loading partial view");
-                }
-            });
-        }
-        else if (str == "month") {
-            $.ajax({
-                url: '/Admin/MonthTable',
-                type: 'GET',
-                success: function (response) {
-                    $("#displayTable").html(response);
-                },
-                error: function (e) {
-                    alert("error loading partial view");
-                }
-            });
-        }
-    }
-</script>
-
-<script>
-    function NewShift() {
-        console.log("hello");
-        $.ajax({
-            url: "/Admin/CreateShift",
-            type: 'GET',
-            success: function (result) {
-                $('#displayyy').html(result);
-                $('#CreateShiftModal').modal('show');
-            },
-            error: function (error) {
-                console.log(error);
-                alert('Error Fetching Request')
-            },
+@*Add New Shift Modal*@
+<div class="modal fade" id="addShiftModal" tabindex="-1" aria-labelledby="addShiftModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h1 class="modal-title fs-5" id="addShiftModal1Label">Create Shift</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddShift" asp-controller="Admin">
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <select asp-for="regionid" class="form-select physiciandata" id="addShiftRegion" aria-label="Floating label select example">
+                            <option value="" selected>Select Region</option>
+                            @if (Model.regions != null)
+                            {
+                                @foreach (var obj in Model.regions)
+                                {
+                                    <option value="@obj.Regionid">@obj.Name</option>
+                                }
+                            }
+                        </select>
+                        <label for="floatingSelect" class="text-info">
+                            Region1
+                        </label>
+                        <span class="small text-danger" asp-validation-for="regionid"></span>
+                    </div>
+                    <select asp-for="providerid" class="form-select mt-4" id="physicianAddShift" aria-label="Floating label select example" style="height:58px">
+                        <option value="" selected>Select Physician</option>
+                    </select>
+                    <span class="small text-danger" asp-validation-for="providerid"></span>
+                    <div class="form-floating mt-3">
+                        <input asp-for="shiftdate" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" placeholder="Date">
+                        <label for="floatingInput">Shift Date</label>
+                        <span class="small text-danger" asp-validation-for="shiftdate"></span>
+                    </div>
+                    <div class="row row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3">
+                        <div class="col mb-3 mb-md-0">
+                            <div class="form-floating">
+                                <input asp-for="starttime" id="startTimeAddShiftModel" type="time" class="form-control" placeholder="Date" />
+                                <label for="floatingInput">Start</label>
+                                <span class="small text-danger" asp-validation-for="starttime"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input asp-for="endtime" id="endTimeAddShiftModel" type="time" class="form-control" placeholder="Date" />
+                                <label for="floatingInput">End</label>
+                                <span class="small text-danger" asp-validation-for="endtime"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch mt-2 mb-3 ms-1">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Repeat</label>
+                        <input class="form-check-input repeatchk" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    </div>
+                    Repeat Days
+                    <div class="checkbox mt-2 d-flex flex-wrap">
+                        <span class="me-2"><input type="checkbox" value="0" name="repeatdays" class="me-1 disable" disabled /> Every Sunday</span>
+                        <span class="me-2"><input type="checkbox" value="1" name="repeatdays" class="me-1 disable" disabled /> Every Monday</span>
+                        <span class="me-2"><input type="checkbox" value="2" name="repeatdays" class="me-1 disable" disabled /> Every Tuesday</span>
+                        <span class="me-2"><input type="checkbox" value="3" name="repeatdays" class="me-1 disable" disabled /> Every Wednesday</span>
+                        <span class="me-2"><input type="checkbox" value="4" name="repeatdays" class="me-1 disable" disabled /> Every Thursday</span>
+                        <span class="me-2"><input type="checkbox" value="5" name="repeatdays" class="me-1 disable" disabled /> Every Friday</span>
+                        <span><input type="checkbox" value="6" class="me-1 disable" name="repeatdays" disabled /> Every Saturday</span>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <select asp-for="repeatcount" class="form-select disable" id="floatingSelect" aria-label="Floating label select example" disabled>
+                            <option value="1" selected>1-times</option>
+                            <option value="2" selected>2-times</option>
+                            <option value="3" selected>3-times</option>
+                            <option value="4" selected>4-times</option>
+                            <option value="5" selected>5-times</option>
+                        </select>
+                        <label for="floatingSelect" class="text-info">
+                            Repeat End
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info text-white">Save</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (TempData["shiftalreadyassigned"] != null)
+{
+    <script>
+        console.log("kdshgduhsghjfddsfdsfdsfdsf")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Already assigned shift in selected time period",
         });
-    };
+    </script>
+}
+@if (TempData["ShiftCreated"] != null)
+{
+    <script>
+        console.log("added")
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Shift Created Successfully",
+            showConfirmButton: false,
+            timer: 1700
+        });
+    </script>
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-</script>
-<script type="text/javascript">
+
+<script>
+    var regionid;
+    var status;
+    var filterDate = new Date($('#currentDateValue').text());
+    var timezoneOffset = filterDate.getTimezoneOffset();
+    filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
+
+    var currentPartial = "";
+    window.onload = function () {
+        $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+        $('#nav-provider-tab').addClass('admin-layout-nav-active');
+    }
+
+    function loadSchedulingPartial(PartialName) {
+        currentPartial = PartialName;
+        $.ajax({
+            url: '/Admin/LoadSchedulingPartial',
+            data: { PartialName: PartialName, date: filterDate.toISOString(), regionid: regionid, status: status },
+            success: function (data) {
+                $("#rendercalender").html(data);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+    
+
+
     $(document).ready(function () {
-        $("#day").trigger('click');
+       
+        loadSchedulingPartial('_daytable');
+        $('#prevDateBtn').on('click', function () {
+            if (currentPartial == "_monthtable") {
+                var date = filterDate.setMonth(filterDate.getMonth() - 1);
+                loadSchedulingPartial(currentPartial);
+            }
+            else if (currentPartial == "_daytable") {
+                var date = filterDate.setDate(filterDate.getDate() - 1);
+                loadSchedulingPartial(currentPartial);
+            }
+            else if (currentPartial == "_weektable") {
+                var date = filterDate.setDate(filterDate.getDate() - 7);
+                loadSchedulingPartial(currentPartial);
+            }
+        });
+
+        $('#nextDateBtn').on('click', function () {
+            if (currentPartial == "_monthtable") {
+                var date = filterDate.setMonth(filterDate.getMonth() + 1);
+                loadSchedulingPartial(currentPartial);
+            }
+            else if (currentPartial == "_daytable") {
+                var date = filterDate.setDate(filterDate.getDate() + 1);
+                loadSchedulingPartial(currentPartial);
+            }
+            else if (currentPartial == "_weektable") {
+                var date = filterDate.setDate(filterDate.getDate() + 7);
+                loadSchedulingPartial(currentPartial);
+            }
+        });
+
+        $('#addShiftRegion').on('change', function () {
+            regionid = $(this).val();
+       
+            $.ajax({
+                url: "/Admin/GetPhysician",
+                type: "GET",
+                data: {
+                    regionId: regionid,
+                },
+                success: function (response) {
+                    $('#physicianAddShift').empty();
+                    console.log(response);
+                    $.each(response, function (index, object) {
+                        $('#physicianAddShift').append($('<option>', {
+                            value: object["physicianId"],
+                            text: object["physicianName"]
+                        }));
+
+                    });
+                },
+            })
+        })
+
+
+
+
+
+
+        $('.repeatchk').on('change', function () {
+            if ($(this).prop('checked')) {
+                $('.disable').each(function () {
+                    $(this).prop('disabled', false);
+                });
+            }
+            else {
+                $('.disable').each(function () {
+                    $(this).prop('disabled', true);
+                });
+            }
+
+        });
     });
+
+    $('#editbtnviewshiftmodel').click(function () {
+        console.log("jdsbhjdbshj")
+        $('#viewshiftstartdate').prop('disabled', false);
+        $('#viewshiftenddate').prop('disabled', false);
+        $('#editbtnviewshiftmodel').addClass('d-none');
+        $(this).hide();
+        $('#savebtnviewshiftmodel').removeClass('d-none');
+    });
+
+
+
+    $('#regionDropDownScheduling').on('change', function () {
+        regionid = $(this).val()
+        loadSchedulingPartial(currentPartial);
+    });
+
+
 </script>

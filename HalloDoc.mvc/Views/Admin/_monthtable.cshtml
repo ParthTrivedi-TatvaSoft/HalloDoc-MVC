@@ -1,11 +1,275 @@
-﻿<div id="monthcontainer" class="calendar-body calendar-container">
-    <h1>abcd</h1>
-    <table class="calendar-table" style="width:100%">
-        <thead>
-            <tr class="calendar-weekdays">
-            </tr>
-        </thead>
-        <tbody class="calendar-dates">
-        </tbody>
-    </table>
+﻿@using DataAccess.CustomModels;
+@model MonthWiseScheduling;
+
+
+<div id="calendar" class="my-3 shadow bg-white">
+    @{
+        // Get the current month and year
+        var now = Model.date;
+        var currentMonth = now.Month;
+        var currentYear = now.Year;
+        var today = now.Day;
+        var todaydate = DateTime.Now.Date;
+        // Generate the calendar table
+        var currentDate = now.ToString("MMMM yyyy");
+        <input type="hidden" id="currentMonth" value="@currentDate" />
+        var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+        var firstDay = new DateTime(currentYear, currentMonth, 1).DayOfWeek;
+        int x = 5;
+        if (firstDay.ToString() == "Saturday")
+        {
+            x = 6;
+        }
+        if (daysInMonth == 28 && firstDay.ToString() == "Sunday")
+        {
+            x = 4;
+        }
+        var date = 1;
+        <div class="table-responsive shadow bg-white">
+            <table class="table calendar-table table-bordered text-center">
+                <tr class="text-white bg-secondary">
+                    <th style="width:14.2857143%">Sun</th>
+                    <th style="width:14.2857143%">Mon</th>
+                    <th style="width:14.2857143%">Tue</th>
+                    <th style="width:14.2857143%">Wed</th>
+                    <th style="width:14.2857143%">Thu</th>
+                    <th style="width:14.2857143%">Fri</th>
+                    <th style="width:14.2857143%">Sat</th>
+                </tr>
+                @{
+
+                    @for (var i = 0; i < x; i++)
+                    {
+
+                        <tr>
+                            @for (var j = 0; j < 7; j++)
+                            {
+                                var shift = Model.shiftdetails.Where(u => u.Shiftdate.Month == now.Month && u.Shiftdate.Year == now.Year);
+                                var chkbool = 0;
+                                <td class="p-0">
+                                    <table class="w-100 table-bordered border-light text-center">
+                                        <tr>
+                                            @if ((i == 0 && j < (int)firstDay) || date >= daysInMonth)
+                                            {
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="dates fw-bold text-white" style="background-color:#efabd2">
+                                                    @(date++)
+                                                </td>
+                                                chkbool = 1;
+                                            }
+                                        </tr>
+                                        @{
+                                            if (chkbool == 1)
+                                            {
+                                                shift = shift.Where(u => u.Shiftdate.Day.ToString() == (date - 1).ToString()).ToList();
+                                            }
+
+                                        }
+                                        @if (chkbool == 1)
+                                        {
+                                            if (shift.Count() > 5)
+                                            {
+                                                int count = 4;
+                                                @foreach (var item in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td class="d-flex justify-content-center">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small " value="@item.Shiftdetailid"
+                                                                        data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (item.Status == 2)
+                                                                {
+                                                                    @:style="background-color:rgb(197 255 194); color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:rgb(255, 212, 237); color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @item.Shift.Physician.Firstname, @item.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr class="d-none more_@shift.ElementAt(0).Shiftid">
+                                                            <td class="d-flex justify-content-center">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small " value="@item.Shiftdetailid"
+                                                                        data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (item.Status == 2)
+                                                                {
+                                                                    @:style="background-color:rgb(197 255 194); color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:rgb(255, 212, 237); color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @item.Shift.Physician.Firstname, @item.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                <tr>
+                                                    <td class="p-0">
+                                                        <button class="btn p-0 px-md-1  px-xl-4  readmorebtn shadow-none text-white" id="readmore" value="more_@shift.ElementAt(0).Shiftid" style="background-color:#3c7b9d;width:-webkit-fit-content;">Read more</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                int count = 5;
+                                                @foreach (var item in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td class="d-flex justify-content-center" style="width:inherit">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small " value="@item.Shiftdetailid"
+                                                                        data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (item.Status == 2)
+                                                                {
+                                                                    @:style="background-color:rgb(197 255 194); color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:rgb(255, 212, 237); color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @item.Shift.Physician.Firstname, @item.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                // @while (count > 0)
+                                                // {
+                                                //     <tr><td></td></tr>
+                                                //     count--;
+                                                // }
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            // <tr class="border-0"><td></td></tr>
+                                            // <tr class="border-0"><td></td></tr>
+                                            // <tr class="border-0"><td></td></tr>
+                                            // <tr class="border-0"><td></td></tr>
+                                            // <tr class="border-0"><td></td></tr>
+
+                                        }
+                                    </table>
+                                </td>
+
+
+
+
+                            }
+                        </tr>
+                        <tr>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                            <td class="bg-white border-0"></td>
+                        </tr>
+
+
+                    }
+
+                }
+
+
+            </table>
+        </div>
+    }
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.readmorebtn').on('click', function () {
+            let id = $(this).val();
+            // function monthWiseReadMorebtn(id) {
+            debugger;
+
+            let x = $(this).html()
+            if (x == "Read more") {
+                $(this).html("Read less");
+            }
+            else {
+                $(this).html("Read more");
+            }
+            var ids = document.getElementsByClassName(id);
+            for (var i = 0; i < ids.length; i++) {
+                ids[i].classList.toggle('d-none');
+            }
+            // }
+        });
+    });
+    $('.removeactive').removeClass('active text-white');
+    $('#Month').addClass('active text-white');
+
+    var currentdate = $('#currentMonth').val();
+    $('#showDate').text(currentdate);
+
+    $('.viewshiftbtn').on('click', function () {
+        console.log("dhsgb")
+        let shiftid = $(this).val();
+        $('#shiftdetailidviewmodel').val(shiftid);
+        $.ajax({
+            url: '/Scheduling/ViewShiftOpen',
+            data: { shiftdetailid: shiftid },
+            success: function (response) {
+                let starttimeviewshift = new Date(response.starttime);
+                let endtimeviewshift = new Date(response.endtime);
+                let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+                let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+                $("#viewShiftModal").modal();
+                console.log(response)
+
+                $('#viewshiftregion').val(response.regionname)
+                $('#viewshiftphysicianname').empty();
+                $('#viewshiftphysicianname').append(
+                    $('<option>', {
+                        value: response.physicianname,
+                        text: response.physicianname,
+                    }));
+                $('#viewshiftShiftdate').val(response.Shiftdateviewshift)
+                $('#viewshiftstartdate').val(starttimeString)
+                $('#viewshiftenddate').val(endtimeString)
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+    });
+</script>

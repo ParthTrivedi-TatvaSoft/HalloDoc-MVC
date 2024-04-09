@@ -58,7 +58,7 @@
 
 </style>
 
-@*<partial name="_Notification" />*@
+
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
@@ -66,7 +66,7 @@
         <button onclick="ShowProvider()" id="back-btn">&lt; Back</button>
 
     </div>
-    @*  <form action="" class="shadow border rounded my-3" method="post"> *@
+
     <div class="shadow border rounded my-3 bg-white">
         <div class="mx-3 my-4 ">
             <form action=" " method="post" id="ResetPasswordForm">
@@ -314,21 +314,7 @@
                                 </div>
                             }
                         </div>
-                        @*   <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-
-                        <div>
-                        <div class="input-group rounded d-flex">
-                        <input asp-for="@Model._providerEdit.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
-                        <button class="btn btn-info text-white" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Sign</span></button>
-                        </div>
-                        <span class="text-danger" id="errormessgespan2"></span>
-                        </div>
-                        <div>
-                        <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
-                        <i class="bi bi-pen me-1"></i><span>Create</span>
-                        </button>
-                        </div>
-                        </div> *@
+                       
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
@@ -480,7 +466,6 @@
     </div>
 </div>
 
-@*<partial name="_ValidationScriptsPartial" />*@
 
 <script>
 

@@ -200,7 +200,13 @@
                                         Patient Records
                                     </button>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Block History</a></li>
+                                <li>
+                                    <button class="nav-link mx-3" id="record-tab" data-bs-toggle="tab"
+                                            data-bs-target="#record-tab-pane" type="button" role="tab"
+                                            aria-controls="record-tab-pane" onclick="showBlockHistory()" aria-selected="false">
+                                        Block History
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -660,27 +666,9 @@
             });
         }
 
-        // function sendLink() {
-        //     $.ajax({
-        //         url: '/Admin/SendLink',
-        //         type: 'GET',
-        //         success: function (response) {
-                   
-        //             $('#modelContent').html(response);
-        //             $('#sendLinkPopUpOne').modal('show');
-        //         }
-        //     })
-        // }
+       
 
-        function ShowScheduling() {
-            $.ajax({
-                url: '/Admin/Scheduling',
-                type: 'GET',
-                success: function (response) {
-                    $("#provider-tab-pane").html(response);
-                }
-            });
-        }
+   
 
         function searchRecords() {
             $.ajax({
@@ -729,6 +717,29 @@
                     alert("Error loading partial view");
                 }
             })
+        }
+
+        function showBlockHistory() {
+            $.ajax({
+                url: '/Admin/BlockedHistory',
+                type: 'GET',
+                success: function (response) {
+                    $("#record-tab-pane").html(response);
+                },
+                error: function (e) {
+                    alert("Error loading partial view");
+                }
+            })
+        }
+
+        function ShowScheduling() {
+            $.ajax({
+                url: '/Admin/Scheduling',
+                type: 'GET',
+                success: function (response) {
+                    $("#provider-tab-pane").html(response);
+                }
+            });
         }
 
     </script>

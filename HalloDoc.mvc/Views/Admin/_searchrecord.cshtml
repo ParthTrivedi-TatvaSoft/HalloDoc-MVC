@@ -21,7 +21,7 @@
         <form id="searchRecordForm">
             <div class="row g-3">
 
-                @*ONE*@
+                
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <select id="status" class="form-select" aria-label="Default select example" asp-for="@Model.searchRecordOne">
                         <option disabled selected>Select Request Status</option>
@@ -35,13 +35,13 @@
                 @*     <label class="text-muted ms-2">Status</label> *@
                 </div>
 
-                @*TWO*@
+                
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Patient Name" aria-label="Search" id="patient_name" asp-for="@Model.searchRecordTwo">
                     <label class="text-muted ms-2">Patient Name</label>
                 </div>
 
-                @*THREE*@
+                
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <select id="request_type" class="form-select" aria-label="Default select example" asp-for="@Model.searchRecordThree">
                         <option disabled selected>Select Request Type</option>
@@ -54,32 +54,32 @@
      @*                <label class="text-muted ms-2">Status</label> *@
                 </div>
 
-                @*FOUR*@
+                
                 <div class="form-floating mb-3  col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input type="date" class="form-control bg-transparent" id="from_dateofService" placeholder="From Date of Service" asp-for="@Model.searchRecordFour">
                     <label for="datePickerId" class="ms-2 text-muted">From Date of Service</label>
                 </div>
 
 
-                @*FIVE*@
+                
                 <div class="form-floating mb-3  col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input type="date" class="form-control bg-transparent" id="to_dateofService" placeholder="To Date of Service" asp-for="@Model.searchRecordFive">
                     <label for="datePickerId" class="ms-2 text-muted">To Date of Service</label>
                 </div>
 
-                @*SIX*@
+                
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Provider Name" aria-label="Search" id="physician" asp-for="@Model.searchRecordSix">
                     <label class="text-muted ms-2">Provider Name</label>
                 </div>
 
-                @*SEVEN*@
+               
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Email" aria-label="Search" id="email" asp-for="@Model.searchRecordSeven">
                     <label class="text-muted ms-2">Email</label>
                 </div>
 
-                @*EIGHT*@
+                
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.searchRecordEight">
                     <label class="text-muted ms-2">Phone Number</label>

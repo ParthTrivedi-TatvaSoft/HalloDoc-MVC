@@ -124,9 +124,6 @@ namespace BusinessLogic.Interfaces
 
         List<UserAccess> FetchAccess(short selectedValue);
 
-        void CreateNewShiftSubmit(string selectedDays, CreateShift obj, int adminId);
-
-        CreateShift GetCreateShift();
 
         List<BusinessTableModel> BusinessTable(string vendor, string profession, string Name);
         bool AddBusiness(AddBusinessModel obj);
@@ -138,6 +135,17 @@ namespace BusinessLogic.Interfaces
         List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
         EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel);
 
+        List<BlockHistory> BlockHistory(BlockHistory2 blockHistory2);
+        bool UnblockRequest(int blockId);
+        bool IsBlockRequestActive(int blockId);
+
+        DayWiseScheduling GetDayTable(string PartialName, string date, int regionid, int status);
+        WeekWiseScheduling GetWeekTable(string date, int regionid, int status);
+        MonthWiseScheduling GetMonthTable(string date, int regionid, int status);
+
+        Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
+
+        Task<CreateNewShift> ViewShift(int ShiftDetailId);
 
     }
 }
