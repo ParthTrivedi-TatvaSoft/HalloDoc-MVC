@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lfkJKWbwzBvj7VbvLgI0cbOgAHuCsHAqhV0cJ5qIAQw=",
+  "Hash": "WzvEDo7cagQnYwrCt1jX+j8NRQz7wDHXOdIIwPiftEY=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -236,6 +236,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\create_account.css"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "css/darkmode.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\darkmode.css"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",

@@ -2,68 +2,119 @@
     ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .main {
+    height: 100vh;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient site</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
-</head>
+.hallodoc-img {
+    width: 200px;
+    height: 100px;
+}
 
-<body class="d-flex justify-content-center align-items-center">
+.light {
+    width: 30px;
+    height: 30px;
+}
 
-    <div class="d-flex flex-column main justify-content-around">
+.under {
+    margin-top: 100%;
+}
 
-        <div class="d-flex flex-column">
+.terms {
+    background-color: #f8f8f9;
+    margin-bottom: 5%;
+}
+
+ media screen and (max-width:450px) {
+
+    .main {
+        justify-content: space-between;
+    }
+
+    .hallodoc-img {
+        display: none;
+    }
+
+    .light {
+        position: fixed;
+        right: 5%;
+        top: 2%;
+    }
+
+    .btn {
+        padding: 10px 0px;
+    }
+
+    a {
+        padding: 0px 20px;
+    }
+
+    .footer {
+        font-size: small;
+        margin-top: 80%;
+    }
+}
+
+.dark-mode {
+    background-color: rgb(46, 44, 44);
+    color: white;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 65%;
+    bottom: 10%;
+}
+
+</style>
+
+<div class="d-flex justify-content-center align-items-center" style="margin-top:-20px">
+
+    <div class="d-flex flex-column main justify-content-between">
+
+        <div class="d-flex flex-column under">
             <div class="d-flex justify-content-between ps-4">
                 <div>
-                    <img class="hallodoc-img" src="./images/hallodoc.png" alt="">
+                    <img class="hallodoc-img" src="../images/hallodoc.png" alt="">
                 </div>
 
                 <div>
-                    <img onclick="myFunction()" role="button" class="light" src="./images/dark.png" alt="">
+                    <img onclick="toggleDarkMode()" class="light" src="../images/dark.png" alt="" id="changeicon">
                 </div>
             </div>
 
             <div class="d-grid gap-2 mt-5">
                 <a asp-controller="Patient" asp-action="submit_request">
-                    <button class="btn w-100 border-0 fw-medium" style="background-color: #00b8e6; color: white;"
+                    <button class="btn w-100 p-2 border-0 fw-medium" style="background-color: #00b8e6; color: white;"
                             type="button">
                         Submit A Request
                     </button>
-                    </a>
+                </a>
 
-                
-
-                     <a asp-controller="Patient" asp-action="patient_login">
-                    <button class="btn w-100 border-0 fw-medium" style="background-color: #00004d; color: white;"
+                <a asp-controller="Patient" asp-action="patient_login">
+                    <button class="btn w-100 p-2 border-0 fw-medium" style="background-color: #00004d; color: white;"
                             type="button">
                         Registered Patients
                     </button>
+                </a>
 
-                    </a>
-
-                     <a asp-controller="Admin" asp-action="admin_login">
-                    <button class="btn w-100 border-0 fw-medium" style="background-color:orange; color: white;"
+                <a asp-controller="Admin" asp-action="admin_login">
+                    <button class="btn w-100 p-2 border-0 fw-medium" style="background-color: orange; color: white;"
                             type="button">
                         Admin
                     </button>
-
-                    </a>
-                
+                </a>
             </div>
+            <div class="footer fw-medium p-2">Terms of Conditions &nbsp;|&nbsp; Privacy Policy</div>
 
         </div>
 
-        <footer>Terms of Conditions | Privacy Policy</footer>
     </div>
 
     <script src="./js/bootstrap.bundle.js"></script>
-    <script src="./js/custom.js"></script>
-</body>
+    <script src="./js/site.js"></script>
+    <script src="./js/darkmode.js"></script>
+</div>
 
 
-</html>

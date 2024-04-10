@@ -26,6 +26,63 @@
     <link rel="stylesheet" href="~/css/admin_dashboard.css">
 </head>
 
+<style>
+    .dark-mode {
+        background-color: #333 !important;
+        color: #fff !important;
+    }
+
+    .dark-mode-two {
+        color: #fff !important;
+    }
+
+
+    html[data-bs-theme="dark"] nav.header {
+        background-color: rgb(42, 50, 56) !important;
+    }
+
+    html[data-bs-theme="dark"] .text-testing {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .modal-dark {
+        color: #212529 !important;
+    }
+
+    html[data-bs-theme="dark"] .dark-mode1 {
+        background-color: rgb(42, 50, 56) !important;
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .dark-mode2 {
+        background-color: rgb(42, 50, 56) !important;
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .new {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .Pending {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .Active {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .Conclude {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .ToClose {
+        color: white !important;
+    }
+
+    html[data-bs-theme="dark"] .Unpaid {
+        color: white !important;
+    }
+</style>
 
 <body>
     <!-- navbar -->
@@ -62,9 +119,11 @@
                 </a>
 
             </li>
-            <li class="nav-item">
-                <img onclick="myFunction()" class="light" src="/images/dark.png" alt="">
-            </li>
+            <button type="button" class="btn shadow border-info ms-2"
+                    style="border-radius: 10px; border-color: aqua" id="colorButton">
+                <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+            </button>
             </ul>
         </div>
         </div>
@@ -120,9 +179,7 @@
                                     </button>
                      
                                  </li>
-                                <li>
-                                    <button class="dropdown-item" href="#">Invoicing</button>
-                                </li>
+                               
                             </ul>
                         </div>
                     </li>
@@ -453,21 +510,21 @@
             });
         }
 
-        function showAssignCase(Reqid) {
+        // function showAssignCase(Reqid) {
 
-            $.ajax({
-                url: '/Admin/AssignCase',
-                type: 'GET',
-                data: {ReqId: Reqid },
-                success: function (response) {
+        //     $.ajax({
+        //         url: '/Admin/AssignCase',
+        //         type: 'GET',
+        //         data: {ReqId: Reqid },
+        //         success: function (response) {
 
-                    $("#modelContent").html(response);
+        //             $("#modelContent").html(response);
 
-                    $('#assignModal').modal('show');
+        //             $('#assignModal').modal('show');
 
-                }
-            });
-        }
+        //         }
+        //     });
+        // }
 
         function showBlockCase(reqId) {
             $.ajax({

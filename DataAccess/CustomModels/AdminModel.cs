@@ -85,18 +85,21 @@ namespace DataAccess.CustomModels
     }
     public class ViewCaseViewModel
     {
+        public int RequestId { get; set; }
         public int Requestclientid { get; set; }
-        public int? RequestTypeId { get; set; }
-        public int? Requestid { get; set; }
+        public int RequestTypeId { get; set; }
+        public string? Requesttype { get; set; }
         public string Firstname { get; set; } = null!;
         public string? Lastname { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string? Phonenumber { get; set; }
         public string? Address { get; set; }
-        public int? Regionid { get; set; }
+        public string? RegionName { get; set; }
         public string? Notes { get; set; }
         public string? Email { get; set; }
-        public string? Strmonth { get; set; }
+        public string? StrMonth { get; set; }
+        public int? IntYear { get; set; }
+        public int? IntDate { get; set; }
         public string? Street { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
@@ -104,7 +107,6 @@ namespace DataAccess.CustomModels
         public string? Room { get; set; }
         public string? ConfirmationNumber { get; set; }
     }
-
 
 
     public class ViewNotesModel
@@ -673,11 +675,30 @@ namespace DataAccess.CustomModels
     public class PatientRecordsModel
     {
         public List<User>? users { get; set; }
+        public List<Request>? requestList { get; set; }
+        public List<Requestclient>? requestClient { get; set; }
+
         public string? searchRecordOne { get; set; }
         public string? searchRecordTwo { get; set; }
         public string? searchRecordThree { get; set; }
         public string? searchRecordFour { get; set; }
         public int? flag { get; set; }
+    }
+
+    public class GetRecordExplore
+    {
+        public string? fullname { get; set; }
+        public string? confirmationnumber { get; set; }
+        public string? providername { get; set; }
+        public string? createddate { get; set; }
+        public string? concludedate { get; set; }
+        public int? status { get; set; }
+        public int? requestid { get; set; }
+        public int? requestclientid { get; set; }
+        public int? requesttypeid { get; set; }
+
+
+        
     }
 
     public class blockHistory
@@ -752,7 +773,21 @@ namespace DataAccess.CustomModels
         public int? flag { get; set; }
 
     }
+    public class CreateShiftModel
+    {
+        public int RegionId { get; set; }
+        public int PhysicianId { get; set; }
+        public DateOnly StartDate { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
+        public bool IsRepeat { get; set; }
+        public string? WeekDays { get; set; }
+        public int? RepeatUpto { get; set; }
+        public IEnumerable<Region> Regions { get; set; }
+        public IEnumerable<Physician> Physicians { get; set; }
+        public IEnumerable<CheckBoxData> Days { get; set; }
 
+    }
     public class SchedulingViewModel
     {
 
@@ -774,7 +809,6 @@ namespace DataAccess.CustomModels
         public string regionname { get; set; }
 
     }
-
     public class DayWiseScheduling
     {
         public int shiftid { get; set; }
@@ -807,99 +841,19 @@ namespace DataAccess.CustomModels
         public List<Region> regions { get; set; }
 
     }
-
     public class CreateNewShift
     {
         public List<Region>? RegionList { get; set; }
-
-        [Required(ErrorMessage = "Please Select Region")]
-        public int RegionId { get; set; }
+        [Required(ErrorMessage = "Please Select Region")] public int RegionId { get; set; }
         public string? RegionName { get; set; }
-
-        [Required(ErrorMessage = "Please Select Physician")]
-        public int PhysicianId { get; set; }
+        [Required(ErrorMessage = "Please Select Physician")] public int PhysicianId { get; set; }
         public string PhysicianName { get; set; }
-
-        [Required(ErrorMessage = "ShiftDate Is Required")]
-        public DateOnly ShiftDate { get; set; }
-
-        [Required(ErrorMessage = "StartTime Is Required")]
-        public TimeOnly Start { get; set; }
-
-        [Required(ErrorMessage = "EndTime Is Required")]
-        public TimeOnly End { get; set; }
-
+        [Required(ErrorMessage = "ShiftDate is required")] public DateOnly ShiftDate { get; set; }
+        [Required(ErrorMessage = "StartTime is required")] public TimeOnly Start { get; set; }
+        [Required(ErrorMessage = "EndTime is required")] public TimeOnly End { get; set; }
         public List<int>? RepeatDays { get; set; }
-
         public int RepeatEnd { get; set; }
-
+        public int shiftdetailid { get; set; }
     }
 
-    public class CreateShiftModel
-    {
-        public int RegionId { get; set; }
-
-        public int PhysicianId { get; set; }
-
-        public DateOnly StartDate { get; set; }
-
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
-
-        public bool IsRepeat { get; set; }
-
-        public string? WeekDays { get; set; }
-
-        public int? RepeatUpto { get; set; }
-
-        public IEnumerable<Region> Regions { get; set; }
-        public IEnumerable<Physician> Physicians { get; set; }
-
-        public IEnumerable<CheckBoxData> Days { get; set; }
-
-    }
-
-
-    public class RequestedShift
-    {
-        public Dictionary<int, string>? Regions { get; set; }
-
-        public RequestShiftModel RequestedShiftModel { get; set; }
-    }
-
-    public class RequestShiftModel
-    {
-        public List<RequestedShiftTable> RequestedShiftTables { get; set; }
-
-        public int TotalShifts { get; set; }
-
-        public int PageNo { get; set; }
-
-        public bool IsFirstPage { get; set; }
-
-        public bool IsLastPage { get; set; }
-
-        public bool IsNextPage { get; set; }
-
-        public bool IsPreviousPage { get; set; }
-
-        public int StartRange { get; set; }
-
-        public int EndRange { get; set; }
-    }
-
-    public class RequestedShiftTable
-    {
-        public string Name { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public TimeOnly StartTime { get; set; }
-
-        public TimeOnly EndTime { get; set; }
-
-        public string Region { get; set; }
-
-        public int ShiftDetailsId { get; set; }
-    }
 }

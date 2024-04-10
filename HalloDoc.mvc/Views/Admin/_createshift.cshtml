@@ -21,7 +21,7 @@
                                 <option value="@item.Regionid">@item.Name</option>
                             }
                         </select>
-                        <select asp-for="PhysicianId" class="form-select form-select mb-3" id="selectPhysician" aria-label="Large select example">
+                        <select asp-for="PhysicianId" class="form-select form-select mb-3" id="PhysicianId" aria-label="Large select example">
                             <option>Select Physician</option>
                         </select>
 
@@ -124,21 +124,20 @@
     $(function () {
         $("#RegionId").change(function () {
             let selectRegion = $('option:selected', this).val();
-            console.log(selectRegion);
             $.ajax({
                 url: '/Admin/GetPhysician',
                 method: 'GET',
                 data: { selectRegion: selectRegion },
                 success: function (response) {
 
-                    $('#selectPhysician').html("<option disabled selected value>" + "Select Physician" + "</option>");
+                    $('#PhysicianId').html("<option disabled selected value>" + "Select Physician" + "</option>");
                     console.log(response.physicianlist.length);
                     for (var i = 0; i < response.physicianlist.length; i++) {
 
-                        $("#selectPhysician").append('<option value = "' + response.physicianlist[i].physicianid + '" >' + response.physicianlist[i].firstname + '</option>')
+                        $("#PhysicianId").append('<option value = "' + response.physicianlist[i].physicianid + '" >' + response.physicianlist[i].firstname + '</option>');
 
                     }
-                }
+                },
                 error: function (error) {
                     console.error('Error fetching data: ' + error);
                 }

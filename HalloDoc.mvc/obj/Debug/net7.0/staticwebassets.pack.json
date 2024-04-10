@@ -137,6 +137,10 @@
       "PackagePath": "staticwebassets\\css\\create_account.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
+      "PackagePath": "staticwebassets\\css\\darkmode.css"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
       "PackagePath": "staticwebassets\\css\\forgot_password.css"
     },

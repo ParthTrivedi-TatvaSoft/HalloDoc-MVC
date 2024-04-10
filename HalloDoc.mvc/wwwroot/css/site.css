@@ -4,11 +4,12 @@
     font-family: "Poppins", sans-serif;
 }
 
-body{
+body {
     background-color: white;
     color: black;
 }
-.dark-mode{
+
+.dark-mode {
     background-color: black;
     color: white;
 }
@@ -31,10 +32,10 @@ body{
     background-color: #f8f8f9;
     margin-bottom: 5%;
 }
-footer{
+
+footer {
     text-align: center;
     margin-bottom: 2rem;
-    
 }
 
 @media screen and (max-width:319px) {
@@ -42,12 +43,13 @@ footer{
         display: none;
     }
 
-    .light{
+    .light {
         position: fixed;
         right: 5%;
         top: 2%;
     }
 }
+
 #navbar {
     background-color: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
@@ -120,4 +122,3 @@ footer p {
         background-color: rgb(0, 183, 255);
         color: white;
     }
-

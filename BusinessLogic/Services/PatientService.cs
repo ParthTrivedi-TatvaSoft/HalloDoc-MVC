@@ -110,6 +110,7 @@ namespace BusinessLogic.Services
             request.Requesttypeid = (int)RequestTypeEnum.Patient;
             request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
+            request.Userid = u.Userid;
             request.Isurgentemailsent = new BitArray(1);
             request.Firstname = patientInfoModel.firstName;
             request.Lastname = patientInfoModel.lastName;
@@ -257,7 +258,7 @@ namespace BusinessLogic.Services
 
         }
 
-
+        // aspnet user    user            req reqclient ....
         public void AddConciergeReq(ConciergeReqModel conciergeReqModel)
         {
             Request request = new Request();

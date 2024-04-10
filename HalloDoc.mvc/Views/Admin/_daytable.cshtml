@@ -8,7 +8,7 @@
     <input type="hidden" value="@currentDay" id="currentDay" />
     var f = 0;
 }
-<div class="table-responsive shadow">
+<div class="table-responsive shadow dark-mode1">
     <table class="calendar-table table-bordered table">
         <tr class="bg-secondary text-dark bg-white">
             <th style="width:10%">Staff</th>
@@ -55,7 +55,7 @@
                 }
                 else
                 {
-                    <td class="d-flex border-0" style="font-weight:600"><img class="me-1 mt-1" src="@obj.Photo" height="25px" width="25px" /> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
+                    <td class="d-flex border-0" style="font-weight:600"><img class="me-1 mt-1" src="/images/@obj.Photo" height="25px" width="25px" /> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
                 }
                 @for (int i = 0; i < 24; i++)
                 {
@@ -67,15 +67,15 @@
                             var diff = item.Endtime.Hour - item.Starttime.Hour + 1;
                             if (item.Starttime.Hour <= i && item.Endtime.Hour >= i)
                             {
-                                var perstart = ((item.Starttime.Minute / 42.00) * 100) / diff;
-                                var perend = (((40 - item.Endtime.Minute) / 60.00) * 100) / diff;
+                                var perstart = ((item.Starttime.Minute / 60.00) * 100) / diff;
+                                var perend = (((item.Endtime.Minute) / 60.00) * 100) / diff;
                                 if (perend < 0)
                                 {
                                     perend = 0;
                                 }
 
                                 perstart /= 2;
-                                <td id="i_@obj.Physicianid" colspan="@diff">
+                                <td id="i_@obj.Physicianid" class="px-0" colspan="@diff">
                                     <button onclick="viewshift(@item.Shiftdetailid)" class="dates d-flex align-items-center justify-content-center border-0 small"
                                             data-bs-toggle="modal" data-bs-target="#viewShiftModal"
                                     @if (item.Status == 2)
@@ -96,12 +96,12 @@
                         }
                         if (flag == 0)
                         {
-                            <td id="i_@obj.Physicianid"></td>
+                            <td id="i_@obj.Physicianid" class="px-0"></td>
                         }
                     }
                     else
                     {
-                        <td id="i_@obj.Physicianid"></td>
+                        <td id="i_@obj.Physicianid" class="px-0"></td>
                     }
                 }
             </tr>

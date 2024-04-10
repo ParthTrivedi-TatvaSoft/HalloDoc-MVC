@@ -44,10 +44,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cb3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HalloDoc/HalloDoc.mvc/Views/Admin/requestedshift.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccmVxdWVzdGVkc2hpZnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/viewcase.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cdmlld2Nhc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -160,6 +156,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3BhdGllbnRyZWNvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_patientrecordexplore.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3BhdGllbnRyZWNvcmRleHBsb3JlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_pendingrequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3BlbmRpbmdyZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -172,8 +172,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3Byb3ZpZGVybG9jYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_requestedshifttable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3JlcXVlc3RlZHNoaWZ0dGFibGUuY3NodG1s
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_provideroncall.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3Byb3ZpZGVyb25jYWxsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_requestsupport.cshtml]
@@ -194,6 +194,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_sendlink.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3NlbmRsaW5rLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Admin/_shiftforreview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX3NoaWZ0Zm9ycmV2aWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/_tocloserequest.cshtml]

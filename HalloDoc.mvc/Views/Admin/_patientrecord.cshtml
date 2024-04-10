@@ -129,4 +129,18 @@
         }
     }
 
+    function GetPatientRecordExplore(userId) {
+        $.ajax({
+            url: "/Admin/GetPatientRecordExplore",
+            data: { userId: userId },
+            type: 'GET',
+            success: function (result) {
+                $("#record-tab-pane").html(result);
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    }
+
 </script>

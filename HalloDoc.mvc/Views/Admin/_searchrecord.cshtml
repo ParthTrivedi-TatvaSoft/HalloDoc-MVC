@@ -17,11 +17,11 @@
         </button>
     </div>
 
-    <div class="shadow p-3 bg-white my-3">
+    <div class="shadow p-3 bg-white my-3 dark-mode1">
         <form id="searchRecordForm">
             <div class="row g-3">
 
-                
+         
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <select id="status" class="form-select" aria-label="Default select example" asp-for="@Model.searchRecordOne">
                         <option disabled selected>Select Request Status</option>
@@ -32,16 +32,16 @@
                             </option>
                         }
                     </select>
-                @*     <label class="text-muted ms-2">Status</label> *@
+                    <label class="text-muted ms-2">Status</label>
                 </div>
 
-                
+
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Patient Name" aria-label="Search" id="patient_name" asp-for="@Model.searchRecordTwo">
                     <label class="text-muted ms-2">Patient Name</label>
                 </div>
 
-                
+        
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <select id="request_type" class="form-select" aria-label="Default select example" asp-for="@Model.searchRecordThree">
                         <option disabled selected>Select Request Type</option>
@@ -51,35 +51,35 @@
                         <option value="4">Bussiness</option>
 
                     </select>
-     @*                <label class="text-muted ms-2">Status</label> *@
+                    <label class="text-muted ms-2">Status</label>
                 </div>
 
-                
+          
                 <div class="form-floating mb-3  col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input type="date" class="form-control bg-transparent" id="from_dateofService" placeholder="From Date of Service" asp-for="@Model.searchRecordFour">
                     <label for="datePickerId" class="ms-2 text-muted">From Date of Service</label>
                 </div>
 
 
-                
+          
                 <div class="form-floating mb-3  col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input type="date" class="form-control bg-transparent" id="to_dateofService" placeholder="To Date of Service" asp-for="@Model.searchRecordFive">
                     <label for="datePickerId" class="ms-2 text-muted">To Date of Service</label>
                 </div>
 
-                
+
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Provider Name" aria-label="Search" id="physician" asp-for="@Model.searchRecordSix">
-                    <label class="text-muted ms-2">Provider Name</label>
+                    <label class="text-muted ms-2">Physician Name</label>
                 </div>
 
-               
+   
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Email" aria-label="Search" id="email" asp-for="@Model.searchRecordSeven">
                     <label class="text-muted ms-2">Email</label>
                 </div>
 
-                
+        
                 <div class="form-floating mb-3 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                     <input class="form-control" type="search" placeholder="Phone Number" aria-label="Search" id="phone" asp-for="@Model.searchRecordEight">
                     <label class="text-muted ms-2">Phone Number</label>
@@ -101,7 +101,7 @@
                         <tr class="text-center">
                             <th class="col">Patient Name</th>
                             <th class="col">Requestor</th>
-                            <th class="col">Date Of Service</th>
+                            <th class="col">Date of Service</th>
                             <th class="col">Close Case Date</th>
                             <th class="col">Email</th>
                             <th class="col">Phone Number</th>
@@ -110,7 +110,7 @@
                             <th class="col">Request Status</th>
                             <th class="col">Physician</th>
                             <th class="col">Physician Notes</th>
-                            <th class="col">Cancelled By Provider Note</th>
+                            <th class="col">Cancelled by Provider Note</th>
                             <th class="col">Admin Note</th>
                             <th class="col">Patient Note</th>
                             <th class="col">Delete Permanently</th>
@@ -187,7 +187,7 @@
 
     function recordDltBtn(reqId) {
         $.ajax({
-            url: "Admin/recordDltBtn",
+            url: "/Admin/recordDltBtn",
             data: { reqId: reqId },
             type: 'POST',
             success: function (result) {
@@ -206,7 +206,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: "Admin/SearchRecords",
+            url: "/Admin/SearchRecords",
             data: arrayMain,
             type: 'GET',
             success: function (result) {
@@ -223,7 +223,7 @@
         event.preventDefault();
 
         $.ajax({
-            url: Admin/ScheduleExportAll",
+            url: "/Admin/ScheduleExportAll",
             data: arrayMain,
             type: 'POST',
             xhrFields: {

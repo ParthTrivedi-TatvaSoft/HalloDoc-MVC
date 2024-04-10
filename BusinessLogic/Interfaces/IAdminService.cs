@@ -21,7 +21,7 @@ namespace BusinessLogic.Interfaces
         StatusCountModel GetStatusCount();
 
 
-        ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId);
+        ViewCaseViewModel ViewCase(int reqClientId, int RequestTypeId, int ReqId);
 
         ViewNotesModel ViewNotes(int ReqId);
 
@@ -133,6 +133,14 @@ namespace BusinessLogic.Interfaces
         AddBusinessModel GetEditBusiness(int VendorId);
         List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel);
         List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
+        void DeleteRecords(int reqId);
+
+        List<GetRecordExplore> GetPatientRecordExplore(int userId);
+
+
+
+
+
         EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel);
 
         List<BlockHistory> BlockHistory(BlockHistory2 blockHistory2);
@@ -144,8 +152,10 @@ namespace BusinessLogic.Interfaces
         MonthWiseScheduling GetMonthTable(string date, int regionid, int status);
 
         Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
-
-        Task<CreateNewShift> ViewShift(int ShiftDetailId);
+        CreateNewShift ViewShift(int ShiftDetailId);
+        bool EditShift(CreateNewShift model, string email);
+        bool ReturnShift(int ShiftDetailId, string email);
+        bool DeleteShift(int ShiftDetailId, string email);
 
     }
 }

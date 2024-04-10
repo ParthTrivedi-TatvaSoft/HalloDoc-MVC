@@ -1,86 +1,42 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-
-
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 function myFunction() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-    var img = element.querySelector(".light")
+    var e1 = document.body;
+    e1.classList.toggle("dark-mode");
+
+    const e2 = document.getElementById('navbar');
+    e2.classList.toggle('dark-mode');
+
+    const e3 = document.getElementById('footr');
+    e3.classList.toggle('dark-mode');
+
+    const e4 = document.getElementById('main-cont');
+    e4.classList.toggle('dark-mode');
+
+
+
+
+    if (e1.classList.contains('dark-mode')) {
+        e2.style.backgroundColor = 'black';
+        e3.style.backgroundColor = 'black';
+        e4.style.backgroundColor = 'rgba(255, 255, 255, 0.884)';
+        e4.style.color = 'black';
+
+
+    } else {
+        e2.style.backgroundColor = 'white';
+        e3.style.backgroundColor = '';
+        e4.style.backgroundColor = '';
+        e4.style.color = ''
+
+    }
+
+    var img = e1.querySelector(".light")
     img.src.includes("dark") ? img.src = "../images/light.png" : img.src = "../images/dark.png";
 
-    //var e2 = document.getElementById('cont');
-    //e2.classList.toggle("dark-mode");
 
-    //if (element.classList.contains('dark-mode')) {
-    //    e2.style.backgroundColor = 'black';
-    //    e2.style.color = 'white';
-
-    //} else {
-    //    e2.style.backgroundColor = '';
-    //    e2.style.color = '';
-    //}
-}
-var modal = document.getElementById("myModal");
-
-
-var btn = document.getElementById("myBtn");
-
-var span = document.getElementsByClassName("close")[0];
-
-$(document).ready(function () {
-    if (modal != null) {
-        modal.style.display = "block";
-    }
-
-});
-
-
-// When the user clicks the button, open the modal
-
-if (btn != null) {
-    btn.onclick = function (e) {
-        modal.style.display = "block";
-    }
 
 }
-
-// When the user clicks on <span> (x), close the modal
-if (span != null) {
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-
-
-var temp = true;
-function password() {
-    if (temp) {
-        document.getElementById("icon_1").style.display = "none";
-        document.getElementById("icon_2").style.display = "flex";
-        document.getElementById('floatingPassword').type = 'text';
-        temp = false;
-    }
-    else {
-        document.getElementById("icon_1").style.display = "flex";
-        document.getElementById("icon_2").style.display = "none";
-        document.getElementById('floatingPassword').type = 'password'
-        temp = true;
-    }
-}
-
-
-
-   
 
 

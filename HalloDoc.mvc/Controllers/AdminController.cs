@@ -138,7 +138,7 @@ namespace HalloDoc.mvc.Controllers
             string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
                 "\"RequestDate\"," + "\"Phone\"," + "\"Notes\"," + "\"Address\","
                  + "\"Physician\"," + "\"DateOfService\"," + "\"Region\"," +
-                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + Environment.NewLine + Environment.NewLine;
+                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + "\"RequestId\"," + Environment.NewLine + Environment.NewLine;
 
             stringbuild.Append(header);
             int count = 1;
@@ -148,7 +148,7 @@ namespace HalloDoc.mvc.Controllers
                 string content = $"\"{count}\"," + $"\"{item.firstName}\"," + $"\"{item.intDate}\"," + $"\"{item.requestorFname}\"," +
                     $"\"{item.intDate}\"," + $"\"{item.mobileNo}\"," + $"\"{item.notes}\"," + $"\"{item.street}\"," +
                     $"\"{item.lastName}\"," + $"\"{item.intDate}\"," + $"\"{item.street}\"," +
-                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + Environment.NewLine;
+                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," +  Environment.NewLine;
 
                 count++;
                 stringbuild.Append(content);
@@ -160,7 +160,7 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
-        
+
         [CustomAuthorize("Admin")]
         public IActionResult admin_dashboard()
         {
@@ -192,10 +192,11 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+   
         public IActionResult viewnotes(int ReqId)
         {
             HttpContext.Session.SetInt32("RNId", ReqId);
-            ViewNotesModel data = _adminService.ViewNotes(ReqId);
+            var data = _adminService.ViewNotes(ReqId);
             return View(data);
         }
 
@@ -699,11 +700,11 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isSend = isSend });
 
         }
-        public IActionResult viewcase(int Requestclientid, int RequestTypeId)
+        public IActionResult ViewCase(int Requestclientid, int RequestTypeId, int ReqId)
         {
-            var model = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
+            var obj = _adminService.ViewCase(Requestclientid, RequestTypeId, ReqId);
 
-            return View(model);
+            return View(obj);
         }
 
 
@@ -965,6 +966,10 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
+
+
+
+
         public IActionResult Scheduling(SchedulingViewModel model)
         {
 
@@ -999,6 +1004,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<IActionResult> AddShift(SchedulingViewModel model, List<int> repeatdays)
         {
@@ -1007,13 +1013,35 @@ namespace HalloDoc.mvc.Controllers
             //var email = User.FindFirstValue(ClaimTypes.Email);
             await _adminService.CreateShift(model, email, repeatdays);
             TempData["Success"] = "Shift Created Successfully";
-            return RedirectToAction("admin_dashbaord");
+            return Json(new { iaAdded = true });
         }
 
-        public async Task<IActionResult> ViewShift(int ShiftDetailId)
+        public IActionResult ViewShift(int ShiftDetailId)
         {
-            var data = await _adminService.ViewShift(ShiftDetailId);
+            var data = _adminService.ViewShift(ShiftDetailId);
             return View("_viewshift", data);
+        }
+
+        public IActionResult ReturnShift(int ShiftDetailId)
+        {
+            var email = GetTokenEmail();
+            var isReturned = _adminService.ReturnShift(ShiftDetailId, email);
+            return Json(new { isReturned });
+        }
+
+        public IActionResult DeleteShift(int ShiftDetailId)
+        {
+            var email = GetTokenEmail();
+            var isDeleted = _adminService.DeleteShift(ShiftDetailId, email);
+            return Json(new { isDeleted });
+        }
+
+        public IActionResult EditViewShift(CreateNewShift model)
+        {
+            var email = GetTokenEmail();
+            bool isEditted = _adminService.EditShift(model, email);
+
+            return Json(new { isEditted });
         }
 
 
@@ -1128,6 +1156,17 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
+        public IActionResult recordDltBtn(int reqId)
+        {
+            _adminService.DeleteRecords(reqId);
+            _notyf.Success("Deleted Successfully!!");
+            return Ok();
+        }
+
+
+       
+
+
         [HttpGet]
         public IActionResult PatientRecords(PatientRecordsModel patientRecordsModel)
         {
@@ -1140,6 +1179,14 @@ namespace HalloDoc.mvc.Controllers
             }
 
             return PartialView("_patientrecord", model);
+        }
+
+        public IActionResult GetPatientRecordExplore(int userId)
+        {
+            
+            var _data = _adminService.GetPatientRecordExplore(userId);
+
+            return PartialView("_patientrecordexplore", _data);
         }
 
         public IActionResult EmailLogs(EmailSmsRecords2 recordsModel)

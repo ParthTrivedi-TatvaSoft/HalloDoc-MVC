@@ -153,11 +153,11 @@ namespace BusinessLogic.Services
         }
 
 
-        public ViewNotesModel ViewNotes(int ReqId)
+        public ViewNotesModel ViewNotes(int requestId)
         {
 
-            var requestNotes = _db.Requestnotes.Where(x => x.Requestid == ReqId).FirstOrDefault();
-            var statuslogs = _db.Requeststatuslogs.Where(x => x.Requestid == ReqId).ToList();
+            var requestNotes = _db.Requestnotes.Where(x => x.Requestid == requestId).FirstOrDefault();
+            var statuslogs = _db.Requeststatuslogs.Where(x => x.Requestid == requestId).ToList();
             ViewNotesModel model = new ViewNotesModel();
             if (model == null)
             {
@@ -165,7 +165,6 @@ namespace BusinessLogic.Services
                 model.PhysicianNotes = null;
                 model.AdminNotes = null;
             }
-
 
             if (requestNotes != null)
             {
@@ -216,25 +215,35 @@ namespace BusinessLogic.Services
         }
 
 
-        public ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId)
+        public ViewCaseViewModel ViewCase(int reqClientId, int RequestTypeId, int ReqId)
         {
-            Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
-            ViewCaseViewModel viewCaseViewModel = new()
+            var data = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == reqClientId);
+            var requestData = _db.Requests.FirstOrDefault(x => x.Requestid == data.Requestid);
+            var userData = _db.Users.FirstOrDefault(x => x.Userid == requestData.Userid);
+            var regionData = _db.Regions.FirstOrDefault(x => x.Regionid == data.Regionid);
+            var reqtypeData = _db.Requesttypes.FirstOrDefault(x => x.Requesttypeid == requestData.Requesttypeid);
+
+            var viewdata = new ViewCaseViewModel
             {
-                Requestclientid = obj.Requestclientid,
-                Firstname = obj.Firstname,
-                Lastname = obj.Lastname,
-                Email = obj.Email,
-                Phonenumber = obj.Phonenumber,
-                City = obj.City,
-                Street = obj.Street,
-                State = obj.State,
-                Zipcode = obj.Zipcode,
-                Room = obj.Address,
-                Notes = obj.Notes,
-                RequestTypeId = RequestTypeId
+                RequestId = ReqId,
+                Requestclientid = reqClientId,
+                Firstname = data.Firstname,
+                Lastname = data.Lastname,
+                ConfirmationNumber = requestData.Confirmationnumber,
+                Notes = data.Notes,
+                Address = data.Street +  data.City +  data.State +  data.Zipcode,
+                Email = data.Email,
+                Phonenumber = data.Phonenumber,
+                City = data.City,
+                State = data.State,
+                RequestTypeId = RequestTypeId,
+                Street = data.Street,
+                Zipcode = data.Zipcode,
+                RegionName = regionData.Name,
+                Requesttype = reqtypeData.Name,
+
             };
-            return viewCaseViewModel;
+            return viewdata;
         }
 
 
@@ -1162,7 +1171,7 @@ namespace BusinessLogic.Services
 
                     _req.Requesttypeid = 1;
                     _req.Userid = Convert.ToInt32(admin.Aspnetuserid);
-                    _req.Isurgentemailsent= new BitArray(1);
+                    _req.Isurgentemailsent = new BitArray(1);
                     _req.Firstname = admin.Firstname;
                     _req.Lastname = admin.Lastname;
                     _req.Phonenumber = admin.Mobile;
@@ -2162,10 +2171,10 @@ namespace BusinessLogic.Services
             }
         }
 
-        
 
 
-        
+
+
 
         public List<Healthprofessionaltype> GetProfession()
         {
@@ -2185,12 +2194,12 @@ namespace BusinessLogic.Services
                            BusinessId = t1.Vendorid,
                            BusinessName = t1.Vendorname,
                            ProfessionId = t2.Healthprofessionalid,
-                           ProfessionName = t2.Professionname,       
+                           ProfessionName = t2.Professionname,
                            Email = t1.Email,
                            PhoneNumber = t1.Phonenumber,
                            FaxNumber = t1.Faxnumber,
                            BusinessContact = t1.Businesscontact,
-                
+
 
 
                        });
@@ -2310,8 +2319,7 @@ namespace BusinessLogic.Services
 
         public List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel)
         {
-            //List<requestsRecordModel> listdata = new List<requestsRecordModel>();
-            //requestsRecordModel requestsRecordModel = new requestsRecordModel();
+
 
             var requestList = _db.Requests.Where(r => r.Isdeleted == null).Select(x => new RequestsRecordModel()
             {
@@ -2366,9 +2374,9 @@ namespace BusinessLogic.Services
             return requestList;
         }
 
-        
-       
-       
+
+
+
         public List<User> PatientRecords(PatientRecordsModel patientRecordsModel)
         {
 
@@ -2396,6 +2404,55 @@ namespace BusinessLogic.Services
 
             return users;
         }
+
+        public List<GetRecordExplore> GetPatientRecordExplore(int userId)
+        {
+
+            var dataMain = _db.Requests.Where(r => r.Userid == userId).Select(r => new GetRecordExplore()
+            {
+                requestid = r.Requestid,
+                requesttypeid = r.Requesttypeid,
+                requestclientid = _db.Requestclients.Where(x => x.Requestid == r.Requestid).Select(x => x.Requestclientid).First(),
+
+                createddate = r.Createddate.ToString("yyyy-MM-dd"),
+                confirmationnumber = r.Confirmationnumber,
+                providername = _db.Physicians.Where(x => x.Physicianid == r.Physicianid).Select(x => x.Firstname).First(),
+                status = r.Status,
+                fullname = r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Firstname).First() + " " + r.Requestclients.Where(x => x.Requestid == r.Requestid).Select(r => r.Lastname).First(),
+                concludedate = r.Status == 6 ? Convert.ToDateTime(r.Modifieddate).ToString("yyyy-MM-dd") : null, // Add this condition to check if the status is equal to 6,
+            }).ToList();
+
+            //var list = from t0 in _db.Users
+            //           join t1 in _db.Requests on t0.Userid equals t1.Userid
+            //           join t2 in _db.Requestclients on t1.Requestid equals t2.Requestid
+            //           join t3 in _db.Requestwisefiles on t1.Requestid equals t3.Requestid
+            //           where t0.Userid == userId
+            //           select new GetRecordExplore()
+            //           {
+            //               fullname = t0.Firstname + " " + t0.Lastname,
+            //               createddate= t1.Createddate,
+            //               confirmationnumber= t1.Confirmationnumber,
+            //               providername= _db.Physicians.FirstOrDefault(x => x.Physicianid == t1.Physicianid).Firstname ?? "-",
+            //               requestclientid= t2.Requestclientid,
+            //               requestid= t1.Requestid,
+            //               //DocumentCount = _context.Requestwisefiles.Where(x => x.Requestid == t2.Requestid).ToList().Count,
+            //           };
+
+
+            return dataMain;
+        }
+
+        public void DeleteRecords(int reqId)
+        {
+            var reqClient = _db.Requests.Where(r => r.Requestid == reqId).Select(r => r).First();
+
+            if (reqClient.Isdeleted == null)
+            {
+                reqClient.Isdeleted = new BitArray(1, true);
+                _db.SaveChanges();
+            }
+        }
+
 
         public EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel)
         {
@@ -2622,6 +2679,7 @@ namespace BusinessLogic.Services
                 physician = _db.Physicians.ToList();
             }
 
+            BitArray deletedBit = new BitArray(new[] { false });
 
             DayWiseScheduling day = new DayWiseScheduling
             {
@@ -2644,7 +2702,7 @@ namespace BusinessLogic.Services
             }
             else
             {
-                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).ToList();
+                day.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(x => x.Isdeleted.Equals(deletedBit)).ToList();
             }
 
             return day;
@@ -2854,11 +2912,11 @@ namespace BusinessLogic.Services
             }
         }
 
-        public async Task<CreateNewShift> ViewShift(int ShiftDetailId)
+        public CreateNewShift ViewShift(int ShiftDetailId)
         {
-            Shiftdetail? shiftDetails = await _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefaultAsync();
-            Physician? physicians = await _db.Physicians.Where(a => a.Physicianid == shiftDetails.Shift.Physicianid).FirstOrDefaultAsync();
-            Region? region = await _db.Regions.Where(a => a.Regionid == physicians!.Regionid).FirstOrDefaultAsync();
+            Shiftdetail? shiftDetails = _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefault();
+            Physician? physicians = _db.Physicians.Where(a => a.Physicianid == shiftDetails.Shift.Physicianid).FirstOrDefault();
+            Region? region = _db.Regions.Where(a => a.Regionid == physicians!.Regionid).FirstOrDefault();
             CreateNewShift model = new CreateNewShift()
             {
                 PhysicianId = physicians.Physicianid,
@@ -2870,6 +2928,56 @@ namespace BusinessLogic.Services
                 End = shiftDetails.Endtime,
             };
             return model;
+        }
+
+        public bool EditShift(CreateNewShift model, string email)
+        {
+            Aspnetuser? aspNetUser = _db.Aspnetusers.FirstOrDefault(a => a.Email == email);
+            Shiftdetail? shiftDetails = _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == model.shiftdetailid).FirstOrDefault();
+
+            if (shiftDetails != null)
+            {
+                shiftDetails.Shiftdate = model.ShiftDate;
+                shiftDetails.Starttime = model.Start;
+                shiftDetails.Endtime = model.End;
+                shiftDetails.Modifieddate = DateTime.Now;
+                shiftDetails.Modifiedby = aspNetUser.Id;
+                _db.Shiftdetails.Update(shiftDetails);
+            }
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool ReturnShift(int ShiftDetailId, string email)
+        {
+            Aspnetuser? aspNetUser = _db.Aspnetusers.FirstOrDefault(a => a.Email == email);
+            Shiftdetail? shiftDetails = _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefault();
+
+            if (shiftDetails != null)
+            {
+                shiftDetails!.Status = (int)StatusEnum.Unassigned;
+                shiftDetails.Modifieddate = DateTime.Now;
+                shiftDetails.Modifiedby = aspNetUser.Id;
+                _db.Shiftdetails.Update(shiftDetails);
+            }
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteShift(int ShiftDetailId, string email)
+        {
+            Aspnetuser? aspNetUser = _db.Aspnetusers.FirstOrDefault(a => a.Email == email);
+            Shiftdetail? shiftDetails = _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefault();
+            if (shiftDetails != null)
+
+            {
+                shiftDetails.Isdeleted = new BitArray(new[] { true });
+                shiftDetails.Modifieddate = DateTime.Now;
+                shiftDetails.Modifiedby = aspNetUser.Id;
+                _db.Shiftdetails.Update(shiftDetails);
+            }
+            _db.SaveChanges();
+            return true;
         }
 
     }
