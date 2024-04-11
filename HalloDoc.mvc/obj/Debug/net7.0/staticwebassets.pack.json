@@ -221,6 +221,10 @@
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\dark-mode.js",
+      "PackagePath": "staticwebassets\\js\\dark-mode.js"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

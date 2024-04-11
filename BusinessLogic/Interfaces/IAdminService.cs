@@ -84,6 +84,7 @@ namespace BusinessLogic.Interfaces
         bool CreateRequest(CreateRequestModel model, string sessionEmail);
 
 
+
         List<AccountAccess> AccountAccess();
 
         List<ProviderModel> GetProvider();
@@ -151,11 +152,18 @@ namespace BusinessLogic.Interfaces
         WeekWiseScheduling GetWeekTable(string date, int regionid, int status);
         MonthWiseScheduling GetMonthTable(string date, int regionid, int status);
 
+        void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId);
+
         Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
         CreateNewShift ViewShift(int ShiftDetailId);
         bool EditShift(CreateNewShift model, string email);
         bool ReturnShift(int ShiftDetailId, string email);
         bool DeleteShift(int ShiftDetailId, string email);
+
+        OnCallModal GetOnCallDetails(int regionId);
+        List<ShiftReview> GetShiftReview(int regionId, int callId);
+        bool DeleteShiftReview(int[] shiftDetailsId, string Aspid);
+        bool ApproveSelectedShift(int[] shiftDetailsId, string Aspid);
 
     }
 }

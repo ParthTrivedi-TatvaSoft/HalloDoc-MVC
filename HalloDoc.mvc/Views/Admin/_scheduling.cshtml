@@ -28,11 +28,11 @@
                     </select>
                 </div>
                 <div class="d-flex">
-                    <button class="p-2 mx-2 text-white btn-info border-0 shadow-none rounded d-flex align-items-center text-decoration-none" id="providerOnCallSchedulingbtn">
+                    <button onclick="provideroncall()" class="p-2 mx-2 text-white btn-info border-0 shadow-none rounded d-flex align-items-center text-decoration-none" id="providerOnCallSchedulingbtn">
                         <i class="bi bi-plus-square"></i>
                         <span class="d-none d-lg-block ps-2">Providers On Call</span>
                     </button>
-                    <button class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center">
+                    <button onclick="ShiftReview()" class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center">
                         <i class="bi bi-plus-square"></i>
                         <span class="d-none d-lg-block ps-2">Shifts For Review</span>
                     </button>
@@ -190,7 +190,7 @@
 @if (TempData["shiftalreadyassigned"] != null)
 {
     <script>
-        console.log("kdshgduhsghjfddsfdsfdsfdsf")
+      
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -266,12 +266,24 @@
         }
     }
 
-   
+    
 
 
 
     $(document).ready(function () {
-        
+        //$('.region').on('change', function () {
+        //    regionid = $(this).val();
+        //    $.ajax({
+        //        url: '/Scheduling/LoadSchedulingPartial',
+        //        data: { PartialName: currentPartial, date: filterDate.toISOString(), 'regionid': regionid },
+        //        success: function (data) {
+        //            $(".calander").html(data);
+        //        },
+        //        error: function (e) {
+        //            console.log(e);
+        //        }
+        //    });
+        //});
         loadSchedulingPartial('_DayTable');
         $('#prevDateBtn').on('click', function () {
             if (currentPartial == "_monthtable") {
@@ -361,5 +373,34 @@
         loadSchedulingPartial(currentPartial);
     });
 
+    function provideroncall() {
+        //var region = $('#regionDropDownScheduling').val();
+        $.ajax({
+            url: "/Admin/MdOnCallData",
+            type: "GET",
+            //data: { region: region },
+            success: function (data) {
+                $("#provider-tab-pane").html(data);
+                //$("#MDsRegion").val(region);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    function ShiftReview() {
+
+        $.ajax({
+            url: "/Admin/ShiftReview",
+            type: "GET",
+
+            success: function (data) {
+                $("#provider-tab-pane").html(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 </script>

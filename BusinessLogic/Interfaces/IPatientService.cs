@@ -12,8 +12,10 @@ namespace BusinessLogic.Interfaces
     public interface IPatientService
     {
         LoginResponseViewModel patient_login(LoginModel model);
-        Task<bool> IsEmailExists(string email);
-         void AddPatientInfo(PatientInfoModel patientInfoModel);
+        bool IsEmailExists(string email);
+        bool IsPasswordExists(string email);
+        bool CreateAccount(CreateAccountModel model);
+        void AddPatientInfo(PatientInfoModel patientInfoModel);
 
 
          void AddFamilyReq(FamilyReqModel familyReqModel);

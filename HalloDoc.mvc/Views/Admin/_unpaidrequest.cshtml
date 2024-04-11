@@ -33,7 +33,7 @@
             </button>
         </span>
     </div>
-    <div class="row mt-3 bg-white">
+    <div class="row mt-3 bg-white dark-mode1">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="my-search-input" placeholder="Search">
@@ -206,7 +206,7 @@
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("ViewCase",  new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId , ReqId=item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewCase
                                                 </a>

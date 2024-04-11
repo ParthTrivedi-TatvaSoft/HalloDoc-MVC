@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WzvEDo7cagQnYwrCt1jX+j8NRQz7wDHXOdIIwPiftEY=",
+  "Hash": "mSWInAhX3ZpdrwYEHNWzZWTHpFn+hwJUtrCgp3EENos=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -593,6 +593,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\dark-mode.js",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "js/dark-mode.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\dark-mode.js"
     },
     {
       "Identity": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\site.js",

@@ -42,16 +42,47 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> CheckEmailExists(string email)
+        public IActionResult CheckEmailExists(string email)
         {
-            var emailExists = await _patientService.IsEmailExists(email);
+            var emailExists = _patientService.IsEmailExists(email);
             return Json(new { emailExists });
         }
+        [HttpGet]
+        public IActionResult CheckPasswordExists(string email)
+        {
+            var passwordExists = _patientService.IsPasswordExists(email);
+            return Json(new { passwordExists });
+        }
 
+        public IActionResult create_account()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult create_account(CreateAccountModel createAccountModel)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isCreated = _patientService.CreateAccount(createAccountModel);
+                if (isCreated)
+                {
+                    _notyf.Success("Account Created Successfully !!");
+                    return RedirectToAction("patient_login", "Patient");
+                }
+                else
+                {
+                    _notyf.Error("Something Went Wrong !!");
+                    return RedirectToAction("create_account");
+                }
 
+            }
+            else
+            {
+                return View(createAccountModel);
+            }
+        }
 
 
         public IActionResult Index()

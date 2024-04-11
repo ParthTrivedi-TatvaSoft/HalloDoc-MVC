@@ -1,5 +1,151 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DataAccess.CustomModels;
+
+@model CreateAccountModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/patient_login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+</head>
+<body>
+
+    <div class="container  d-flex flex-column justify-content-center align-items-center">
+        <img class="float-right light" id="d-mode" role="button" onclick="myFunction()" src="/images/dark.png" alt="">
+        <img src="/images/hallodoc.png" alt="   " class="hallodoc-img">
+        <br><br>
+        <a href=""></a>
+        <p><a asp-controller="Patient" asp-action="patient_login" class="text-decoration-none">&lt; Back</a></p>
+        <h2>Create Your Account</h2>
+        <br>
+        <form class="login" method="post" onsubmit="return CreateAccValidate()">
+            <div class="  input-div form-floating mb-3">
+                <input asp-for="email" type="email" class="icon1 form-control" id="CreateAccEmail" placeholder="Username" oninput="createAccEmailCheck()">
+                <span asp-validation-for="email" class="text-danger"></span>
+                <label>Email </label>
+
+
+                <i class="icon bi bi-person "></i>
+
+            </div>
+            <div class=" input-div form-floating mb-3" id="passwordSection">
+                <input type="password" asp-for="password" class="icon2 form-control" id="floatingPassword" placeholder="Password">
+                <label>Password</label>
+                <span asp-validation-for="password" class="text-danger"></span>
+
+                <i class="icon bi bi-eye" onclick="password()" id="icon_1"></i>
+                <i class="icon bi bi-eye-slash-fill" onclick="password()" id="icon_2"></i>
+
+
+
+            </div>
+
+            <div class=" input-div form-floating mb-3" id="confirmPasswordSec">
+                <input type="password" asp-for="confirmPassword" class="icon2 form-control" id="floatingPassword" placeholder="Password">
+                <label>Confirm Password</label>
+                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+
+                <i class="icon bi bi-eye" onclick="password()" id="icon_1"></i>
+                <i class="icon bi bi-eye-slash-fill" onclick="password()" id="icon_2"></i>
+
+
+
+            </div>
+
+            
+
+            <button type="submit" asp-action="create_account" asp-controller="Patient">Create Account</button>
+            
+
+        </form>
+        <div id="message"></div>
+        <footer>Terms of Conditions | Privacy Policy</footer>
+
+    </div>
+
+
+
+    <script>
+
+        
+
+        function createAccEmailCheck() {
+
+            var email = $('#CreateAccEmail').val();
+            $.ajax({
+                url: '/Patient/CheckEmailExists',
+                type: 'GET',
+                contentType: 'application/json',
+                data: { email: email },
+                success: function (response) {
+                    if (response.emailExists) {
+                        IsPasswordExists();
+                    }
+
+
+
+
+                    else {
+                        //$('#isEmailExists').hide();
+                        $('#passwordSection').show();
+                        $('#confirmPasswordSec').show();
+
+                    }
+
+                }
+            });
+
+            function IsPasswordExists() {
+                var email = $('#CreateAccEmail').val();
+                $.ajax({
+                    url: '/Patient/CheckPasswordExists',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: { email: email },
+                    success: function (response) {
+                        if (response.passwordExists) {
+                            toastr.error("Account Already Exists on this Email Id!!");
+                            $('#passwordSection').hide();
+                            $('#confirmPasswordSec').hide();
+
+                        } else {
+                            $('#passwordSection').show();
+                            $('#confirmPasswordSec').show();
+
+                        }
+
+                    }
+                });
+            }
+        }
+
+        function CreateAccValidate() {
+            var email = $('#CreateAccEmail').val();
+            var pass = $('#password').val();
+            var confirmPass = $('#confirmPassword').val();
+            if (email != '' && (pass != '' && confirmPass != '')) {
+                return true;
+            }
+            return false;
+        }
+                //function validateForm() {
+                //    var password = document.getElementById("password").value;
+                //    var confirmPassword = document.getElementById("confirmPassword").value;
+
+                //    if (password !== confirmPassword) {
+                //        document.getElementById("passwordMatchError").style.display = "block";
+                //        return false; // Prevent form submission
+                //    }
+
+                //    // If passwords match, allow form submission
+                //    return true;
+                //}
+
+    </script>
+
+</body>
+</html>

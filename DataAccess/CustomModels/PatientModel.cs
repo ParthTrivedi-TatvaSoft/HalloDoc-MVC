@@ -12,38 +12,39 @@ namespace DataAccess.CustomModels
 {
     public class PatientInfoModel
     {
-        //[Required]
         public string? symptoms { get; set; }
 
-        [Required(ErrorMessage = "First Name Is Required")]
+        [Required(ErrorMessage = "First name is required")]
         public string firstName { get; set; }
-        [Required(ErrorMessage = "Last Name Is Required")]
         public string? lastName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Date Of Birth")]
-        public DateTime dob { get; set; }
+        [Required(ErrorMessage = "Date of Birth is required")]
+        public DateOnly dob { get; set; }
 
-        [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
+        [Required(ErrorMessage = "Please enter the patient's email address.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please enter a valid email address.")]
         public string email { get; set; }
-        public string? phNo  { get; set; }
-        public string? street { get; set; } 
-        public string? city { get; set; } 
-        public string? state { get; set; } 
-        public string? zipCode { get; set; } 
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone number must be 10 digits long")]
+        public string? phoneNo { get; set; }
+        public string? street { get; set; }
+        public string? city { get; set; }
+        public string? state { get; set; }
+        public string? zipCode { get; set; }
         public string? roomNo { get; set; }
         public string? country { get; set; }
-
-        //[StringLength(15, MinimumLength = 4, ErrorMessage = "Password Have 4 to 15 Char")]
 
         public string? password { get; set; }
 
         [Compare("password", ErrorMessage = "Password Missmatch")]
         public string? confirmPassword { get; set; }
-        public List<IFormFile>? File { get; set; }
-        public int requestId { get; set; }
+
+        public List<IFormFile>? file { get; set; }
+
+
     }
-    
+
 
     public class FamilyReqModel
     {

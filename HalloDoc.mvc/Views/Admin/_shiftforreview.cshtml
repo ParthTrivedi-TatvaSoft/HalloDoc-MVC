@@ -1,1 +1,251 @@
-﻿
+﻿@using DataAccess.CustomModels;
+@model ShiftReview2;
+
+<style>
+    .form-check-input:checked {
+        background-color: #0dcaf0 !important;
+        border-color: #0dcaf0 !important;
+    }
+</style>
+
+<div class="container">
+    <div class="mt-3 mb-2 d-flex justify-content-between align-items-center">
+        <h4 class="mb-4">Requested Shifts</h4>
+
+        <a onclick="ShowScheduling()"
+           class="btn shadow  btn-outline-info px-3 ">
+            &#60;</i> Back
+        </a>
+    </div>
+
+    <div class="border rounded shadow p-3 bg-white dark-mode1">
+
+        <div class="d-md-flex justify-content-between align-items-center mb-3">
+            <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">
+                <i type="search" class="bi bi-search px-2" style="position: absolute;"></i>
+                <select class="form-select border-0 roleDropdown ps-5" aria-label="Default select example" onchange="ShiftReview(this.value, 0)" id="regionValue">
+                    <option selected value="0">All Region</option>
+                    @foreach (var obj in Model.regions)
+                    {
+                        <option value="@obj.Regionid">
+                            @obj.Name
+                        </option>
+                    }
+                </select>
+            </form>
+
+            <div class="justify-content-between">
+                <button type="button" class="btn btn-success ms-1" onclick="ShiftReview1(@Model.regionId, 1)">
+                    <span class="d-md-block d-none">View Current Month Shifts</span>
+                    <span class="d-block d-md-none"><i class="bi bi-plus text-info fs-4"></i></span>
+                </button>
+
+                <button type="button" class="btn btn-success ms-1" id="approveBtn">
+                    <span class="d-md-block d-none">Approve Selected</span>
+                    <span class="d-block d-md-none"><i class="bi bi-plus text-info fs-4"></i></span>
+                </button>
+
+                <button type="button" class="btn btn-danger ms-1" id="deleteBtn">
+                    <span class="d-md-block d-none">Delete Selected</span>
+                    <span class="d-block d-md-none"><i class="bi bi-plus text-info fs-4"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive d-lg-block d-none">
+            <table class="table">
+                <thead class="bg-body-tertiary ">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" class="checkbox-main checkbox " name="selectall"
+                                   onchange="tickAll()" />
+                            <span class="ms-5">
+                                Staff
+                            </span>
+                        </th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Region</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                        @foreach (var obj in Model.ShiftReview)
+                        {
+                        <tr class="align-middle">
+                            <td class="first-col">
+                                <input type="checkbox" name="Mark" class="checkbox fileCheckbox" value="@obj.shiftDetailId"
+                                       onchange="allCheck()" />
+                                <span class="ms-5">
+                                        @obj.PhysicianName
+                                </span>
+                            </td>
+                            <td>@obj.ShiftDate</td>
+                            <td>@obj.ShiftTime</td>
+                            <td>@obj.ShiftRegion</td>
+                        </tr>
+                        }
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="border rounded shadow d-block d-lg-none">
+            <div class="accordion container-fluid p-0" id="accordionPanelsStayOpenExample">
+                <table class="w-100">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="checkbox-main checkbox " name="selectall"
+                                       onchange="tickAll()" />
+                            </th>
+                            <th class="d-none"></th>
+                        </tr>
+                    </thead>
+                    @{
+                        var counter = 1;
+                    }
+                    <tbody>
+                        @foreach (var obj in Model.ShiftReview)
+                        {
+                            <tr class="d-flex flex-column">
+                                <td>
+                                    <h2 class="accordion-header" id="flush-heading@(counter)"></h2>
+
+                                    <div class="accordion-button collapsed d-flex flex-column pb-0" data-bs-toggle="collapse"
+                                         data-bs-target="#flush-collapse@(counter)" aria-expanded="false"
+                                         aria-controls="flush-collapse@(counter)">
+
+                                        <div class="w-100 ">
+                                            <input type="checkbox" name="Mark" value="@obj.shiftDetailId" class="checkbox fileCheckbox me-3" onchange="allCheck()" />
+                                            <span class="fw-bolder ms-sm-5 ms-1">
+                                                @obj.PhysicianName
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div id="flush-collapse@(counter)" class="accordion-collapse collapse"
+                                         aria-labelledby="flush-heading@(counter)" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body main-flex pt-2">
+
+                                            <div class="inner-flex">
+                                                @obj.ShiftDate
+                                            </div>
+                                            <div class="inner-flex">
+                                                @obj.ShiftTime
+                                            </div>
+                                            <div class="inner-flex">
+                                                @obj.ShiftRegion
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js"></script>
+
+<script>
+    $('#approveBtn').click(function () {
+        var shiftDetailsId = [];
+        var regionId = $('#regionValue').val();
+
+        $('.fileCheckbox:checked').each(function () {
+            var fileId = $(this).val();
+            shiftDetailsId.push(fileId);
+        });
+
+        ApproveShift(shiftDetailsId, regionId);
+    });
+
+    $('#deleteBtn').click(function () {
+        var shiftDetailsId = [];
+        var regionId = $('#regionValue').val();
+
+        $('.fileCheckbox:checked').each(function () {
+            var fileId = $(this).val();
+            shiftDetailsId.push(fileId);
+        });
+
+        DeleteSelectedShift(shiftDetailsId, regionId);
+    });
+
+    function ShiftReview1(regionId, callId) {
+        $.ajax({
+            method: "GET",
+            url: "/Admin/ShiftReview",
+            data: { regionId: regionId, callId: callId },
+
+            success: function (result) {
+                $("#content").html(result);
+                $("#regionValue").val(regionId);
+            },
+
+            error: function () {
+                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
+            },
+        });
+    }
+
+    function ApproveShift(shiftDetailsId, regionId) {
+        event.preventDefault();
+
+        $.ajax({
+            method: "POST",
+            url: "/Admin/ApproveShift",
+            data: { shiftDetailsId: shiftDetailsId },
+
+            success: function (result) {
+                if (result.isApproved) {
+                    Swal.fire("Success", "Shift Approved", "success");
+                    ShiftReview(regionId);
+                } else {
+                    Swal.fire("Error", "Error!!", "error");
+
+                }
+            },
+
+            error: function () {
+                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
+            },
+        });
+    }
+
+    function DeleteSelectedShift(shiftDetailsId, regionId) {
+        event.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "/Admin/DeleteSelectedShift",
+            data: { shiftDetailsId: shiftDetailsId },
+            traditional: true,
+
+            success: function (result) {
+                if (result.isDeleted) {
+                    Swal.fire("Deleted!", "Shift Deleted", "success");
+                    ShiftReview(regionId);
+                } else {
+                    Swal.fire("Error", "Error in deleting!!", "error");
+
+                }
+            },
+
+            error: function () {
+                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
+            },
+        });
+    }
+
+
+</script>

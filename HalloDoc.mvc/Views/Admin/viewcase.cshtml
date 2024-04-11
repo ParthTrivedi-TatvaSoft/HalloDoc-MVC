@@ -6,7 +6,9 @@
 
 @model ViewCaseViewModel;
 
+
 <link rel="stylesheet" href="~/css/admin_dashboard.css">
+
 <nav class="bg-white navbr navbar navbar-expand w-100 ">
 
     <div class="container-fluid">
@@ -41,7 +43,11 @@
 
         </li>
         <li class="nav-item">
-            <img onclick="darkMode()" class="light" src="/images/dark.png" alt="">
+            <button type="button" class="btn shadow border-info ms-2"
+                    style="border-radius: 10px; border-color: aqua" id="colorButton">
+                <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+            </button>
         </li>
         </ul>
     </div>
@@ -224,6 +230,8 @@
                 }
             });
         }
+
+
     </script>
 
 

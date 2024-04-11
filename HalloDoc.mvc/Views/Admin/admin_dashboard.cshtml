@@ -86,7 +86,7 @@
 
 <body>
     <!-- navbar -->
-    <nav class="bg-white navbr navbar navbar-expand w-100 "> 
+    <nav class=" dark-mode1 bg-white navbr navbar navbar-expand w-100 ">
 
         <div class="container-fluid">
             <div class="d-flex align-items-center">
@@ -106,15 +106,15 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>First</span>
-                            <span>Last</span>
+                            <span>Parth</span>
+                            <span>Trivedi</span>
                         </span>
                     </li>
             </div>
             <li class="nav-item">
                 <a asp-action="Logout" asp-controller="Admin">
-                <button id="logout" class="px-2">
-                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
+                <button id="logout" class="px-2 dark-mode1">
+                    <span class=" d-none d-md-block ">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
                 </button>
                 </a>
 
@@ -133,10 +133,10 @@
     </nav>
 
     <hr class="m-0 hr_line d-none d-lg-block">
-    <nav class="navbr navbar navbar-expand-lg py-0 pt-2  bg-white" style="z-index: 10;">
+    <nav class=" navbar navbar-expand-lg py-0 pt-2 shadow bg-white dark-mode1" style="z-index: 10;">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class=" bg-white ps-5 nav nav-underline" id="myTab" role="tablist">
+                <ul class=" bg-white ps-5 nav nav-underline dark-mode1" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" onclick="ShowAllRequests()" id="home-tab" data-bs-toggle="tab"
                                 data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
@@ -271,7 +271,7 @@
             </div>
         </div>
     </nav>
-
+    @* <hr class="shadow" style="border: black 10px" /> *@
 
     <!-- tab content -->
     <div class="tab-content" id="myTabContent">
@@ -357,54 +357,55 @@
         $(document).ready(function () {
             ShowAllRequests();// On Page Load It Will show All Tab Heads
 
-            // Convert Table Rows To Accordions In Mobile view
-            if ($(window).width() < 768) {
-                $('.data-table tbody tr').each(function () {
-                    var name = $(this).find('td:eq(0)').text();
-                    var address = $(this).find('td:eq(5)').text();
-                    var requestor = $(this).find('td:eq(2)').text();
 
-                    var accordionItem = `
-                                            <div class="accordion-item">
+            //     if ($(window).width() < 768) {
+            //         $('.data-table tbody tr').each(function () {
+            //             var name = $(this).find('td:eq(0)').text();
+            //             var address = $(this).find('td:eq(5)').text();
+            //             var requestor = $(this).find('td:eq(2)').text();
 
-                                                <div class="accordion-content">
-                                                    <p><strong>Name:</strong> ${name}</p>
-                                                    <p><strong>Address:</strong> ${address}</p>
-                                                    <p><strong>Requestor:</strong> ${requestor}</p>
-                                                </div>
-                                            </div>
-                                        `;
+            //             var accordionItem = `
+            //                                     <div class="accordion-item">
 
-                    $('#accordionFlushExample').append(accordionItem);
-                });
-            }
-        });
+            //                                         <div class="accordion-content">
+            //                                             <p><strong>Name:</strong> ${name}</p>
+            //                                             <p><strong>Address:</strong> ${address}</p>
+            //                                             <p><strong>Requestor:</strong> ${requestor}</p>
+            //                                         </div>
+            //                                     </div>
+            //                                 `;
 
-        // Resize event listener to update accordion on window resize
-        $(window).resize(function () {
-            $('#accordionFlushExample').empty();
-            if ($(window).width() < 768) {
-                $('.data-table tbody tr').each(function () {
-                    var name = $(this).find('td:eq(0)').text();
-                    var address = $(this).find('td:eq(5)').text();
-                    var requestor = $(this).find('td:eq(2)').text();
+            //             $('#accordionFlushExample').append(accordionItem);
+            //         });
+            //     }
+            // });
 
 
-                    var accordionItem = `
-                                            <div class="accordion-item">
+            // $(window).resize(function () {
+            //     $('#accordionFlushExample').empty();
+            //     if ($(window).width() < 768) {
+            //         $('.data-table tbody tr').each(function () {
+            //             var name = $(this).find('td:eq(0)').text();
+            //             var address = $(this).find('td:eq(5)').text();
+            //             var requestor = $(this).find('td:eq(2)').text();
 
-                                                <div class="accordion-content">
-                                                    <p><strong>Name:</strong> ${name}</p>
-                                                    <p><strong>Address:</strong> ${address}</p>
-                                                    <p><strong>Requestor:</strong> ${requestor}</p>
-                                                </div>
-                                            </div>
-                                        `;
 
-                    $('#accordionFlushExample').append(accordionItem);
-                });
-            }
-        });
+            //             var accordionItem = `
+            //                                     <div class="accordion-item">
+
+            //                                         <div class="accordion-content">
+            //                                             <p><strong>Name:</strong> ${name}</p>
+            //                                             <p><strong>Address:</strong> ${address}</p>
+            //                                             <p><strong>Requestor:</strong> ${requestor}</p>
+            //                                         </div>
+            //                                     </div>
+            //                                 `;
+
+            //             $('#accordionFlushExample').append(accordionItem);
+            //         });
+            //     }
+            });
+        
 
 
         function changepage(CurrentPage, tabNo) {

@@ -36,7 +36,7 @@ namespace BusinessLogic.Services
             if (user == null)
                 return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "User Not Found" };
             if (user.Passwordhash == null)
-                return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "There is no Password with this Account" };
+                return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "There Is No Password With This Account" };
             if (user.Passwordhash == model.Password)
             {
                 var jwtToken = _jwtService.GetJwtToken(user);
@@ -44,23 +44,65 @@ namespace BusinessLogic.Services
                 return new LoginResponseViewModel() { Status = ResponseStatus.Success, Token = jwtToken };
             }
 
-            return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "Password does not match" };
+            return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "Password Does Not Match" };
         }
 
 
-        public Task<bool> IsEmailExists(string email)
+        public bool IsEmailExists(string email)
         {
             bool isExist = _db.Aspnetusers.Any(x => x.Email == email);
-            if (isExist)
-            {
-                return Task.FromResult(true);
-            }
-            return Task.FromResult(false);
+            return isExist;
         }
+
+        public bool IsPasswordExists(string email)
+        {
+            bool isExist = _db.Aspnetusers.Any(x => x.Email == email && x.Passwordhash != null);
+            return isExist;
+        }
+
+        public bool CreateAccount(CreateAccountModel model)
+        {
+            try
+            {
+                Aspnetuser asp = new();
+                User user = new();
+                var existUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == model.email);
+
+                if (existUser == null)
+                {
+                    asp.Id = Guid.NewGuid().ToString();
+                    asp.Email = model.email;
+                    asp.Username = model.email.Split('@')[0];
+                    asp.Passwordhash = model.password;
+                    asp.Createddate = DateTime.Now;
+                    _db.Aspnetusers.Add(asp);
+
+                    user.Aspnetuserid = asp.Id;
+                    user.Email = model.email;
+                    user.Firstname = asp.Username;
+                    user.Createdby = asp.Id;
+                    user.Createddate = DateTime.Now;
+                    _db.Users.Add(user);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    existUser.Passwordhash = model.password;
+                    _db.Aspnetusers.Update(existUser);
+                    _db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         public void AddPatientInfo(PatientInfoModel patientInfoModel)
         {
-
+            var stateMain = _db.Regions.Where(r => r.Name.ToLower() == patientInfoModel.state.ToLower().Trim()).FirstOrDefault();
 
             var aspnetuser = _db.Aspnetusers.Where(m => m.Email == patientInfoModel.email).FirstOrDefault();
             User u = new User();
@@ -70,9 +112,8 @@ namespace BusinessLogic.Services
                 aspnetuser1.Id = Guid.NewGuid().ToString();
                 aspnetuser1.Passwordhash = patientInfoModel.password;
                 aspnetuser1.Email = patientInfoModel.email;
-                string username = patientInfoModel.firstName + patientInfoModel.lastName;
-                aspnetuser1.Username = username;
-                aspnetuser1.Phonenumber = patientInfoModel.phNo;
+                aspnetuser1.Username = patientInfoModel.firstName + "_" + patientInfoModel.lastName;
+                aspnetuser1.Phonenumber = patientInfoModel.phoneNo;
                 aspnetuser1.Createddate = DateTime.Now;
                 aspnetuser1.Modifieddate = DateTime.Now;
                 _db.Aspnetusers.Add(aspnetuser1);
@@ -83,19 +124,19 @@ namespace BusinessLogic.Services
                 u.Firstname = patientInfoModel.firstName;
                 u.Lastname = patientInfoModel.lastName;
                 u.Email = patientInfoModel.email;
-                u.Mobile = patientInfoModel.phNo;
+                u.Mobile = patientInfoModel.phoneNo;
                 u.Street = patientInfoModel.street;
                 u.City = patientInfoModel.city;
                 u.State = patientInfoModel.state;
                 u.Zipcode = patientInfoModel.zipCode;
                 u.Createdby = patientInfoModel.firstName + patientInfoModel.lastName;
-                u.Intyear = patientInfoModel.dob.Year;
-                u.Intdate = patientInfoModel.dob.Day;
+                u.Intyear = int.Parse(patientInfoModel.dob.ToString("yyyy"));
+                u.Intdate = int.Parse(patientInfoModel.dob.ToString("dd"));
                 u.Strmonth = patientInfoModel.dob.ToString("MMM");
                 u.Createddate = DateTime.Now;
                 u.Modifieddate = DateTime.Now;
                 u.Status = (int)StatusEnum.Unassigned;
-                u.Regionid = 1;
+                u.Regionid = stateMain.Regionid;
 
                 _db.Users.Add(u);
                 _db.SaveChanges();
@@ -111,10 +152,10 @@ namespace BusinessLogic.Services
             request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
             request.Userid = u.Userid;
-            request.Isurgentemailsent = new BitArray(1);
+            request.Isurgentemailsent = new BitArray(1, false);
             request.Firstname = patientInfoModel.firstName;
             request.Lastname = patientInfoModel.lastName;
-            request.Phonenumber = patientInfoModel.phNo;
+            request.Phonenumber = patientInfoModel.phoneNo;
             request.Email = patientInfoModel.email;
 
 
@@ -138,7 +179,7 @@ namespace BusinessLogic.Services
             info.Notes = patientInfoModel.symptoms;
             info.Firstname = patientInfoModel.firstName;
             info.Lastname = patientInfoModel.lastName;
-            info.Phonenumber = patientInfoModel.phNo;
+            info.Phonenumber = patientInfoModel.phoneNo;
             info.Email = patientInfoModel.email;
             info.Street = patientInfoModel.street;
             info.City = patientInfoModel.city;
@@ -156,9 +197,9 @@ namespace BusinessLogic.Services
 
 
 
-            if (patientInfoModel.File != null)
+            if (patientInfoModel.file != null)
             {
-                foreach (IFormFile file in patientInfoModel.File)
+                foreach (IFormFile file in patientInfoModel.file)
                 {
                     if (file != null && file.Length > 0)
                     {
