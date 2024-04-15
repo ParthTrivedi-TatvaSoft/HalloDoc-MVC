@@ -36,6 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\PhysicianSign\" />
+    <Folder Include="wwwroot\PhysicianImages\2\" />
     <Folder Include="wwwroot\UploadedFiles\" />
   </ItemGroup>
 

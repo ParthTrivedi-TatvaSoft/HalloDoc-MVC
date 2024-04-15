@@ -14,6 +14,7 @@
     <title>login</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="~/css/admin_login.css">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,8 +32,12 @@
 
             <!-- right  -->
             <div class="col-lg-6 col-md-6 col-sm-12 right">
-                <img onclick="darkMode()" class="d-mode" src="/images/dark.png" alt="dark">
-                <form method="post" asp-controller="Admin" asp-action="admin_login" class="login">
+                <button type="button" class="d-mode btn shadow border-info ms-2"
+                        style="border-radius: 10px; border-color: aqua" id="colorButton">
+                    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+                </button>
+                <form method="post" asp-controller="Home" asp-action="admin_login" class="login">
                     <img id="logo" src="/images/hallodoc.png" alt="logo">
                     <h3>Login to your account</h3>
 
@@ -55,7 +60,7 @@
                  
                     <button>Log In</button>
 
-                    <a asp-action="admin_resetpassword" asp-controller="Admin" id="forget-pass">Forget Password?</a>
+                    <a asp-action="admin_resetpassword" asp-controller="Home" id="forget-pass">Forget Password?</a>
                 </form>
                 <footer>Terms of Conditions | Privacy Policy</footer>
             </div>

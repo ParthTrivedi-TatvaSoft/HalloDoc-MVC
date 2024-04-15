@@ -5,8 +5,44 @@
       "PackagePath": "staticwebassets\\HalloDoc.mvc.bundle.scp.css"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\10\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\10\\11116016_415.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\11\\7774236_3736765.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\2\\transfer.svg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
+      "PackagePath": "staticwebassets\\PhysicianSign\\2\\Screenshot (1).png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\11116016_415.jpg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\2\\Independent_Contractor.svg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7768657_3763028.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\7768657_3763028.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\7774236_3736765.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
+      "PackagePath": "staticwebassets\\UploadedFiles\\Fig26. Edit Physician Account.png"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
@@ -219,10 +255,6 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
-    },
-    {
-      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\dark-mode.js",
-      "PackagePath": "staticwebassets\\js\\dark-mode.js"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\js\\site.js",

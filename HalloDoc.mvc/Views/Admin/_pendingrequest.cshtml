@@ -19,10 +19,10 @@
             <button class="action-btn" onclick="location.href='@Url.Action("createrequest", "Admin")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
-            <button class="action-btn" id="exportPendingReq">
+            <button class="action-btn" onclick="ExpertDataTabWise(2)">
                 <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
             </button>
-            <button class="action-btn" onclick="ExportAll()">
+            <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
             <button class="action-btn" onclick="ShowRequestSupportPending()">
@@ -35,7 +35,7 @@
     <div class="row mt-3 bg-white dark-mode1">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" id="searchword" onkeypress="newReqSearchpending(event)" placeholder="Search">
                 <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
             </div>
         </div>
@@ -339,12 +339,7 @@ else
             }
         });
     }
-    $("#exportPendingReq").click(function () {
-        //alert("exportbtn was clicked.");
-        var request = @Html.Raw(Json.Serialize(Model));
-
-        Export(request);
-    });
+   
     $('#pendingRegionFilter').on('change', function () {
         var searchRegion = $('#pendingRegionFilter').val();
         $.ajax({
@@ -356,4 +351,40 @@ else
             }
         })
     })
+
+    function newReqSearchpending(event) {
+        var x = event.code;
+        if (x == "Enter") {
+            FilterDatapending(2);
+        }
+
+    }
+
+    function FilterDatapending(tabNo, reqType) {
+
+        var searchRegion = $('#pendingRegionFilter').val();
+        var searchword = $('#searchword').val();
+
+        let payload = {
+            regionId: searchRegion,
+            tabNo: tabNo,
+            searchWord: searchword,
+            requestTypeId: reqType
+        }
+        $.ajax({
+            url: '/Admin/FilterRegion',
+            type: 'GET',
+            data: payload,
+            success: function (response) {
+                $("#tab1").html(response);
+
+                $('#newRegionFilter').val(searchRegion);
+                $('#searchword').val(searchword);
+
+
+            }
+        })
+    }
+
+
 </script>

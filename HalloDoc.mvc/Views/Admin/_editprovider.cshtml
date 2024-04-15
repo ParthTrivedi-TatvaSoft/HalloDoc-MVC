@@ -58,16 +58,16 @@
 
 </style>
 
-
+@*<partial name="_Notification" />*@
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>Edit Physician Account</h4>
-        <button class="dark-mode1" onclick="ShowProvider()" id="back-btn">&lt; Back</button>
+        <button onclick="AccountAccess()" id="back-btn">&lt; Back</button>
 
     </div>
-
-    <div class="shadow border rounded my-3 bg-white dark-mode1">
+    @*  <form action="" class="shadow border rounded my-3" method="post"> *@
+    <div class="shadow border rounded my-3 dark-mode1 bg-white">
         <div class="mx-3 my-4 ">
             <form action=" " method="post" id="ResetPasswordForm">
                 <input type="hidden" id="providerEditOne" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
@@ -129,7 +129,7 @@
                             Cancel
                         </button>
                         <button type="button" id="providerResetPassword" onclick="providerEditResetPass('@Model.editPro.Email')"
-                                class="btn btn-outline-info ms-2">
+                                class="btn btn-outline-secondary border-info text-info ms-2">
                             Reset Password
                         </button>
                     </div>
@@ -221,7 +221,7 @@
             <form action=" " method="post" id="MailingForm">
                 <input id="providerEditThree" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
                 <div class="pt-4">
-                    <h4 class="mb-4">Mailing & Billing Information</h4>
+                    <h4 class="mb-4">Mailing And Billing Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="editPro.Address1"
@@ -284,7 +284,7 @@
             <form action=" " method="post" id="PhysicianBusinessInfoForm">
                 <input id="providerEditFour" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
                 <div class="pt-4">
-                    <h4 class="mb-4">Provider Profile</h4>
+                    <h4 class="mb-4">Provider Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input type="text" class="d4class form-control " id="Businessname" asp-for="editPro.Businessname"
@@ -310,11 +310,11 @@
                             @if (Model.editPro.PhotoValue != null)
                             {
                                 <div class="d-flex justify-content-center w-100 mt-2 mb-2">
-                                    <img src="~/UploadedFiles/@Model.editPro.PhotoValue" width="200px" alt="Profile">
+                                    <img src="~/PhysicianImages/@Model.editPro.PhyID/@Model.editPro.PhotoValue" width="200px" alt="Profile">
                                 </div>
                             }
                         </div>
-                       
+                        
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
@@ -331,7 +331,7 @@
                                 @if (Model.editPro.SignatureValue != null)
                                 {
                                     <div class="d-flex justify-content-center w-100 mt-2 mb-2">
-                                        <img src="~/UploadedFiles/@Model.editPro.SignatureValue" width="200px" alt="Signature">
+                                        <img src="~/PhysicianSign/@Model.editPro.PhyID/@Model.editPro.SignatureValue" width="200px" alt="Signature">
                                     </div>
                                 }
                             </div>
@@ -376,7 +376,7 @@
                         </div>
                         <span class="text-danger" id="errorSpan1"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
                             <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
@@ -392,7 +392,7 @@
                         </div>
                         <span class="text-danger" id="errorSpan2"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
                             <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
@@ -408,7 +408,7 @@
                         </div>
                         <span class="text-danger" id="errorSpan3"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
                             <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
@@ -424,7 +424,7 @@
                         </div>
                         <span class="text-danger" id="errorSpan4"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
                             <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
@@ -440,7 +440,7 @@
                         </div>
                         <span class="text-danger" id="errorSpan5"></span>
                         <div class="d-flex justify-content-center">
-                            <a type="button" href="~/UploadedFiles/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
                             <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
@@ -466,6 +466,7 @@
     </div>
 </div>
 
+@*<partial name="_ValidationScriptsPartial" />*@
 
 <script>
 
@@ -603,7 +604,7 @@
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
-                    toastr.error("For Reset Password You Need To Change Old Password");
+                    toastr.error("For reset password you need to change old password");
                 }
             },
             error: function () {
@@ -781,7 +782,7 @@
             },
 
             error: function () {
-                alert("Error In Edit Onboarding");
+                alert("error in edit onboarding");
             }
         });
     }
@@ -810,7 +811,7 @@
             type: 'POST',
             data: { phyId: phyId },
             success: function (result) {
-                ShowProvider();
+                showProvider();
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {

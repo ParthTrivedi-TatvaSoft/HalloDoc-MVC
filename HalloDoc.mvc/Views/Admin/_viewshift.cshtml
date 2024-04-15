@@ -54,7 +54,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-info text-white assign" onclick="returnShift()">Return</button>
-                    <button type="button" class="btn bg-info text-white assign d-none" onclick="editShift()" id="saveViewShift">save</button>
+                    <button type="button" class="btn bg-info text-white assign d-none" onclick="editShift()" id="saveViewShift">Save</button>
                     <button type="button" onclick="enableFieldsViewShift()" class="btn border border-info text-info" id="editViewShift">Edit</button>
                     <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal" onclick="deleteShift()">Delete</button>
                 </div>
@@ -82,7 +82,7 @@
                         ShowScheduling();
                     }
                     else {
-                        toastr.error("Unable to edit");
+                        toastr.error("Unable To Edit");
                     }
                 }
             })
@@ -104,7 +104,7 @@
                     ShowScheduling();
                 }
                 else {
-                    toastr.error("Unable to Return");
+                    toastr.error("Unable To Return");
                 }
             }
         })

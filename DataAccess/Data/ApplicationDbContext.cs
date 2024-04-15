@@ -169,10 +169,6 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Region).WithMany(p => p.Admins)
                 .HasForeignKey(d => d.Regionid)
                 .HasConstraintName("fk_admin3");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.Admins)
-                .HasForeignKey(d => d.Roleid)
-                .HasConstraintName("fk_admin4");
         });
 
         modelBuilder.Entity<Adminregion>(entity =>
@@ -205,7 +201,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("aspnetroles");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(128)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(256)
@@ -246,21 +242,27 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Aspnetuserrole>(entity =>
         {
-            entity.HasKey(e => e.Roleid).HasName("pk_aspnetuserrole");
+            entity.HasKey(e => e.Aspnetuserroleid).HasName("pk_aspnetuserroles");
 
             entity.ToTable("aspnetuserroles");
 
-            entity.Property(e => e.Roleid)
-                .ValueGeneratedNever()
-                .HasColumnName("roleid");
+            entity.Property(e => e.Aspnetuserroleid)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("aspnetuserroleid");
+            entity.Property(e => e.Roleid).HasColumnName("roleid");
             entity.Property(e => e.Userid)
                 .HasMaxLength(128)
                 .HasColumnName("userid");
 
+            entity.HasOne(d => d.Role).WithMany(p => p.Aspnetuserroles)
+                .HasForeignKey(d => d.Roleid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_aspnetuserroles2");
+
             entity.HasOne(d => d.User).WithMany(p => p.Aspnetuserroles)
                 .HasForeignKey(d => d.Userid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_aspnetuserrole");
+                .HasConstraintName("fk_aspnetuserroles1");
         });
 
         modelBuilder.Entity<Blockrequest>(entity =>

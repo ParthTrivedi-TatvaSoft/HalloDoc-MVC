@@ -1,0 +1,297 @@
+﻿@using DataAccess.CustomModels;
+@using DataAccess.Enums;
+@model DashboardModel;
+
+<div class="container-fluid pt-4">
+    <div class="d-flex justify-content-between">
+        <span class="fw-bold">
+            <span class="fs-4">Patients</span>
+            <span style="color: darkblue;">(Conclude)</span>
+        </span>
+        <span class="d-flex gap-1 gap-md-3">
+            <button class="action-btn">
+                <i class="bi bi-send"></i> <span class="d-none d-md-block">
+                    Send
+                    Link
+                </span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
+            </button>
+            <button class="action-btn" id="exportConcludeReq">
+                <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
+            </button>
+            <button class="action-btn" onclick="ExportAll()">
+                <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-person"></i> <span class="d-none d-md-block">
+                    Request
+                    DTY Support
+                </span>
+            </button>
+        </span>
+    </div>
+    <div class="row mt-3 ">
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
+                <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 pt-2">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option disabled selected>Regions</option>
+                    @foreach (var item in Model.regionList)
+                    {
+                        <option value=@item.Regionid>@item.Name</option>
+
+                    }
+                </select>
+                <label for="floatingSelect"><i class="bi bi-search"></i> All Regions</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
+
+            <div class="d-none d-md-block">
+                <div onclick="allElements()" style="cursor:pointer" class="border-2">All</div>
+            </div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="patientElements()"><div class="patient_circle"></div><span>Patient</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
+            <div class="d-flex align-items-center" style="cursor:pointer"><div class="vip_circle"></div><span> VIP</span></div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- table -->
+<div class="d-none d-md-block">
+    <table class="table table-hover data-table w-100">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Requestor</th>
+                <th scope="col">Requested Date</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Chats With</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.adminDashTableList != null && Model.adminDashTableList.Count > 0)
+            {
+                @foreach (var item in Model.adminDashTableList)
+                {
+                    if (item.status == 6)
+                    {
+                        var bgColor = "He";
+                        var role = "hello";
+
+                        @if (item.requestTypeId == (int)RequestTypeEnum.Business)
+                        {
+                            bgColor = "#d76879";
+                            role = "Business";
+                        }
+                        else if (item.requestTypeId == (int)RequestTypeEnum.Patient)
+                        {
+                            bgColor = "#60be5e";
+                            role = "Patient";
+
+
+                        }
+                        else if (item.requestTypeId == (int)RequestTypeEnum.Family)
+                        {
+                            bgColor = "#e69232";
+                            role = "FamilyFriend";
+
+                        }
+                        else if (item.requestTypeId == (int)RequestTypeEnum.Concierge)
+                        {
+                            bgColor = "#0b7ebf";
+                            role = "Concierge";
+                        }
+
+                        <tr class="tablerows  @role">
+                            @*1*@
+                            <td style="background:@bgColor">
+                                <div class="d-flex justify-content-between">
+
+                                    <span>@item.firstName @item.lastName</span>
+                                    <a href="">
+                                        <i class="bi bi-envelope text-white "></i>
+                                    </a>
+                                </div>
+                            </td>
+                            @*2*@
+                            <td style="background:@bgColor">Jun 16, 2023(0)</td>
+                            @*3*@
+                            <td style="background:@bgColor">@item.requestorFname @item.requestorLname</td>
+                            @*4*@
+                            <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
+                            @*@item.strMonth @item.intDate , @item.intYear*@
+                            @*5*@
+                            <td style="background:@bgColor">
+                                <div class="table_phone">
+                                    <a href="">
+                                        <i class="bi bi-telephone-fill text-white"></i>
+                                        @item.mobileNo
+                                    </a>
+                                </div>
+                                (@role)
+
+
+                            </td>
+                            @if ((item.street != null || item.city != null) || item.state != null)
+                            {
+                                <td style="background:@bgColor">@item.street, @item.city, @item.state </td>
+                            }
+                            else
+                            {
+                                <td style="background:@bgColor"> - </td>
+
+                            }
+
+                            @*7*@
+                            <td style="background:@bgColor">-</td>
+                            @*8*@
+                            <td style="background:@bgColor">
+
+                                <div class="d-flex">
+                                    <div class="dropdown mb-1 w-75">
+                                        <button class="btn text-white border border-white py-1"
+                                                type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="bi bi-person-fill"></i>
+                                            <span>
+                                                Patient
+                                            </span>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <div class="dropdown w-75">
+                                        <button class="btn text-white border border-white py-1"
+                                                type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="bi bi-person-badge-fill"></i>
+                                            <span>
+                                                Provider
+                                            </span>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </td>
+                            @*9*@
+                            <td style="background:@bgColor">
+                                <div>
+                                    <div class="dropdown mt-3">
+                                        <button class="btn text-white border border-white py-1  dropdown-toggle w-50 d-flex justify-content-around align-items-center"
+                                                id="chat_with_dropdown2" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <span>
+                                                Actions
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu table_dropdowns">
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("ViewCase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    ViewCase
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    ViewUploads
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    ViewNotes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    Orders
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    Doctor Notes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    Encounter
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" style="text-align: center;">No records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@if (Model.TotalPage > 1)
+{
+    <div class="page-container">
+        <ul class="pagination justify-content-center d-flex page-list">
+            <li class="page-item @(Model.CurrentPage <= 1 ? "d-none" : "")">
+                <a class="page-link border-0 m-2" onclick="changepage(@Model.CurrentPage - 1)"><i class="bi bi-chevron-double-left text-info page"></i></a>
+            </li>
+            @for (int CurrentPage = 1; CurrentPage <= Model.TotalPage; CurrentPage++)
+            {
+                <li class="m-2 btn @(CurrentPage == Model.CurrentPage ? "page-active" : "")" onclick="changepage(@CurrentPage,4)"><a class="text-decoration-none text-black curent-page-index" data-page="@CurrentPage">@CurrentPage</a></li>
+            }
+            <li class="page-item  @(Model.CurrentPage == Model.TotalPage ? "d-none" : "")">
+                <a class="page-link border-0 m-2" onclick="changepage(@Model.CurrentPage + 1)"><i class="bi bi-chevron-double-right text-info page"></i></a>
+            </li>
+        </ul>
+
+    </div>
+}
+else if (Model.TotalPage == 1)
+{
+}
+else
+{
+    <div class="text-center text-danger fw-bold h5">No record found</div>
+}
+<!-- accordions -->
+<div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
+</div>
+<script>
+    $("#exportConcludeReq").click(function () {
+        //alert("exportbtn was clicked.");
+        var request = @Html.Raw(Json.Serialize(Model));
+
+        Export(request);
+    });
+</script>

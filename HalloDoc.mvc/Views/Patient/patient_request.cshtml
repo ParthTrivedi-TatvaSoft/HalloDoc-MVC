@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pationt Request</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="~/css/friendfamily_request.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
@@ -25,7 +26,11 @@
         }
     </style>
 </head>
-
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
 <body>
     <partial name="_navbar" />
 
@@ -34,9 +39,7 @@
 
         <div class="navbar navbar-light justify-content-end">
             <a asp-controller="Patient" asp-action="submit_request">
-            <button class="back btn btn-outline-info m-2">
-                <span class="h6 p-0 m-0 text-center" >&#60; Back</span>
-            </button>
+                <button class="dark-mode1" id="back-btn">&lt; Back</button>
             </a>
         </div>
     </div>
@@ -82,7 +85,7 @@
                         <div class="input-div form-floating mb-3">
                             <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
                             <span asp-validation-for="email" class="text-danger"></span>
-                            <label for="floatingInput" class="hidenpass">Email</label>
+                            <label for="floatingInput" class="comman hidenpass">Email</label>
                         </div>
                     </div>
                     <div class="col-6">
@@ -94,15 +97,15 @@
                     <div id="passwordSection" class="col-6 " style="display:none">
                         <div class="input-div form-floating mb-3">
                             <input asp-for="password" type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput" class="hidenpass">Password</label>
                             <span asp-validation-for="password" class="text-danger"></span>
+                            <label for="floatingInput" class="comman hidenpass">Password</label>
                         </div>
                     </div>
                     <div id="confirmPasswordSec" class="col-6" style="display:none">
                         <div class="input-div form-floating mb-3">
                             <input asp-for="confirmPassword" type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput" class="hidenpass">Confirm Password</label>
-                           @*  <span asp-validation-for="confirmPassword" class="text-danger"></span> *@
+                            <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                            <label for="floatingInput" class="comman hidenpass">Confirm Password</label>
                         </div>
                     </div>
                 </div>

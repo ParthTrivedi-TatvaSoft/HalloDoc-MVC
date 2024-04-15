@@ -1,10 +1,65 @@
-﻿body {
-    background-color: #f4f4f4;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+﻿
+
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff !important;
 }
 
-.dark-mode body {
-    background-color: #333;
-    color: #f4f4f4;
+.dark-mode-two {
+    color: #fff !important;
+}
+
+
+html[data-bs-theme="dark"] nav.header {
+    background-color: rgb(42, 50, 56) !important;
+}
+
+html[data-bs-theme="dark"] .text-testing {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .modal-dark {
+    color: #212529 !important;
+}
+
+html[data-bs-theme="dark"] .dark-mode1 {
+    background-color: rgb(42, 50, 56) !important;
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .dark-mode2 {
+    background-color: rgb(42, 50, 56) !important;
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .new {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .Pending {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .Active {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .Conclude {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .ToClose {
+    color: white !important;
+}
+
+html[data-bs-theme="dark"] .Unpaid {
+    color: white !important;
+}
+
+
+.d-mode {
+    align-self: flex-end !important;
+    margin-top: 2rem !important;
+    margin-right: 2rem !important;
+    width: 2.8rem !important;
 }

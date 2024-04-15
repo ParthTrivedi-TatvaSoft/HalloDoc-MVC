@@ -20,14 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5fZGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HalloDoc/HalloDoc.mvc/Views/Admin/admin_login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5fbG9naW4uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HalloDoc/HalloDoc.mvc/Views/Admin/admin_resetpassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5fcmVzZXRwYXNzd29yZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/HalloDoc/HalloDoc.mvc/Views/Admin/closecase.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY2xvc2VjYXNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -228,6 +220,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc/HalloDoc.mvc/Views/Home/admin_login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxhZG1pbl9sb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Home/admin_resetpassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxhZG1pbl9yZXNldHBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc/HalloDoc.mvc/Views/Home/AgreementStatus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZ3JlZW1lbnRTdGF0dXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -300,12 +300,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxzdWJtaXRfcmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HalloDoc/HalloDoc.mvc/Views/Patient/user_profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFx1c2VyX3Byb2ZpbGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/HalloDoc/HalloDoc.mvc/Views/Patient/_profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxfcHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/provider_dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJccHJvdmlkZXJfZGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pactiverequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BhY3RpdmVyZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pallrequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BhbGxyZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pconcluderequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1Bjb25jbHVkZXJlcXVlc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pnewrequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BuZXdyZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Ppendingrequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BwZW5kaW5ncmVxdWVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pviewcase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B2aWV3Y2FzZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc/HalloDoc.mvc/Views/Provider/_Pviewnotes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B2aWV3bm90ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc/HalloDoc.mvc/Views/Shared/Error.cshtml]

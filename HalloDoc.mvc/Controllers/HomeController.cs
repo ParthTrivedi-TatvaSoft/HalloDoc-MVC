@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Services;
 using DataAccess.CustomModels;
 using DataAccess.Data;
 using DataAccess.Enums;
@@ -17,15 +18,62 @@ namespace HalloDoc.mvc.Controllers
         private readonly ApplicationDbContext _db;
         private readonly IAdminService _adminService;
         private readonly INotyfService _notyf;
+        private readonly IJwtService _jwtService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, IAdminService adminService,INotyfService notyfService)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, IAdminService adminService,INotyfService notyfService, IJwtService jwtService)
         {
             _logger = logger;
             _db = db;
             _adminService = adminService;
             _notyf = notyfService;
+            _jwtService = jwtService;
         }
+        [HttpGet]
+        public IActionResult admin_login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult admin_login(AdminLoginModel adminLoginModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var aspnetuser = _adminService.GetAspnetuser(adminLoginModel.email);
+                if (aspnetuser != null)
+                {
+                    adminLoginModel.password = adminLoginModel.password;
+                    if (aspnetuser.Passwordhash == adminLoginModel.password)
+                    {
+                        var jwtToken = _jwtService.GetJwtToken(aspnetuser);
+                        Response.Cookies.Append("jwt", jwtToken);
+                        int role = aspnetuser.Aspnetuserroles.Where(x => x.Userid == aspnetuser.Id).Select(x => x.Roleid).First();
+                        if (role == 1)
+                        {
+                            _notyf.Success("Logged In Successfully");
+                            return RedirectToAction("admin_dashboard", "Admin");
+                        }
+                        else
+                        {
+                            _notyf.Success("Logged In Successfully");
+                            return RedirectToAction("provider_dashboard", "Provider");
 
+                        }
+                    }
+                    else
+                    {
+                        _notyf.Error("Password Is Incorrect");
+
+                        return View();
+                    }
+                }
+                _notyf.Error("Email Is Incorrect");
+                return View();
+            }
+            else
+            {
+                return View(adminLoginModel);
+            }
+        }
         public IActionResult Index()
         {
             return View();

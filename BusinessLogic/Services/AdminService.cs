@@ -20,6 +20,8 @@ using System.Globalization;
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using OfficeOpenXml;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace BusinessLogic.Services
 {
@@ -64,10 +66,7 @@ namespace BusinessLogic.Services
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
                             Reqid = r.Requestid,
-                            regionId = rc.Regionid,
-                            reqintDate = r.Createddate.Day,
-                            reqintYear = r.Createddate.Year,
-                            reqstrMonth = r.Createddate.ToString("MMM"),
+                            regionId = rc.Regionid
                         };
 
 
@@ -138,18 +137,157 @@ namespace BusinessLogic.Services
                 ToCloseCount = requestsWithClients.Count(x => (x.Request.Status == (int)StatusEnum.Cancelled || x.Request.Status == (int)StatusEnum.CancelledByPatient) || x.Request.Status == (int)StatusEnum.Closed),
                 UnpaidCount = requestsWithClients.Count(x => x.Request.Status == (int)StatusEnum.Unpaid)
             };
-
             return statusCount;
+        }
 
+        public List<AdminDashTableModel> Export(int tabNo)
+        {
+            var query = from r in _db.Requests
+                        join rc in _db.Requestclients on r.Requestid equals rc.Requestid
+                        select new AdminDashTableModel
+                        {
+                            firstName = rc.Firstname,
+                            lastName = rc.Lastname,
+                            intDate = rc.Intdate,
+                            intYear = rc.Intyear,
+                            strMonth = rc.Strmonth,
+                            requestorFname = r.Firstname,
+                            requestorLname = r.Lastname,
+                            createdDate = r.Createddate,
+                            mobileNo = rc.Phonenumber,
+                            city = rc.City,
+                            state = rc.State,
+                            street = rc.Street,
+                            zipCode = rc.Zipcode,
+                            requestTypeId = r.Requesttypeid,
+                            status = r.Status,
+                            requestClientId = rc.Requestclientid,
+                            Reqid = r.Requestid,
+                            regionId = rc.Regionid
+                        };
+
+
+            if (tabNo == 1)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unassigned);
+            }
+
+            else if (tabNo == 2)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Accepted);
+            }
+            else if (tabNo == 3)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.MDEnRoute || x.status == (int)StatusEnum.MDOnSite);
+            }
+            else if (tabNo == 4)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Conclude);
+            }
+            else if (tabNo == 5)
+            {
+
+                query = query.Where(x => (x.status == (int)StatusEnum.Cancelled || x.status == (int)StatusEnum.CancelledByPatient) || x.status == (int)StatusEnum.Closed);
+            }
+            else if (tabNo == 6)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unpaid);
+            }
+            var result = query.ToList();
+            return result;
 
         }
 
-        public DashboardModel GetRequestByRegion(int regionId, int tabNo)
+        public DashboardModel GetRequestByRegion(FilterModel filterModel)
         {
-            DashboardModel model = new DashboardModel();
-            model = GetRequestsByStatus(tabNo, 1);
-            model.adminDashTableList = model.adminDashTableList.Where(x => x.regionId == regionId).ToList();
-            return model;
+
+            var query = from r in _db.Requests
+                        join rc in _db.Requestclients on r.Requestid equals rc.Requestid
+                        //where r.Status == status
+                        select new AdminDashTableModel
+                        {
+                            firstName = rc.Firstname,
+                            lastName = rc.Lastname,
+                            intDate = rc.Intdate,
+                            intYear = rc.Intyear,
+                            strMonth = rc.Strmonth,
+                            requestorFname = r.Firstname,
+                            requestorLname = r.Lastname,
+                            createdDate = r.Createddate,
+                            mobileNo = rc.Phonenumber,
+                            city = rc.City,
+                            state = rc.State,
+                            street = rc.Street,
+                            zipCode = rc.Zipcode,
+                            requestTypeId = r.Requesttypeid,
+                            status = r.Status,
+                            requestClientId = rc.Requestclientid,
+                            Reqid = r.Requestid,
+                            regionId = rc.Regionid
+                        };
+
+
+            if (filterModel.tabNo == 1)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unassigned);
+            }
+
+            else if (filterModel.tabNo == 2)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Accepted);
+            }
+            else if (filterModel.tabNo == 3)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.MDEnRoute || x.status == (int)StatusEnum.MDOnSite);
+            }
+            else if (filterModel.tabNo == 4)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Conclude);
+            }
+            else if (filterModel.tabNo == 5)
+            {
+
+                query = query.Where(x => (x.status == (int)StatusEnum.Cancelled || x.status == (int)StatusEnum.CancelledByPatient) || x.status == (int)StatusEnum.Closed);
+            }
+            else if (filterModel.tabNo == 6)
+            {
+
+                query = query.Where(x => x.status == (int)StatusEnum.Unpaid);
+            }
+
+            if (filterModel.regionId != null)
+            {
+                query = query.Where(x => x.regionId == filterModel.regionId);
+            }
+            if (filterModel.searchWord != null)
+            {
+                query = query.Where(x => x.firstName.Trim().ToLower().Contains(filterModel.searchWord.Trim().ToLower()));
+            }
+            if (filterModel.requestTypeId != null)
+            {
+                query = query.Where(x => x.requestTypeId == filterModel.requestTypeId);
+            }
+
+            var result = query.ToList();
+            int count = result.Count();
+            int TotalPage = (int)Math.Ceiling(count / (double)5);
+            result = result.Skip((filterModel.CurrentPage - 1) * 5).Take(5).ToList();
+
+            DashboardModel dashboardModel = new DashboardModel();
+            dashboardModel.adminDashTableList = result;
+            dashboardModel.regionList = _db.Regions.ToList();
+            dashboardModel.TotalPage = TotalPage;
+            dashboardModel.CurrentPage = filterModel.CurrentPage;
+            return dashboardModel;
         }
 
 
@@ -180,7 +318,7 @@ namespace BusinessLogic.Services
         }
 
 
-        public bool UpdateAdminNotes(string additionalNotes, int reqId)
+        public bool UpdateAdminNotes(string additionalNotes, int reqId, int aspNetRole)
         {
             var reqNotes = _db.Requestnotes.FirstOrDefault(x => x.Requestid == reqId);
             try
@@ -190,8 +328,17 @@ namespace BusinessLogic.Services
                 {
                     Requestnote rn = new Requestnote();
                     rn.Requestid = reqId;
-                    rn.Adminnotes = additionalNotes;
-                    rn.Createdby = "admin";
+                    if (aspNetRole == 1)
+                    {
+                        rn.Adminnotes = additionalNotes;
+                        rn.Createdby = "Admin";
+                    }
+                    else
+                    {
+                        rn.Physiciannotes = additionalNotes;
+                        rn.Createdby = "Physician";
+                    }
+
                     //here instead of admin , add id of the admin through which admin is loggedIn 
                     rn.Createddate = DateTime.Now;
                     _db.Requestnotes.Add(rn);
@@ -199,9 +346,17 @@ namespace BusinessLogic.Services
                 }
                 else
                 {
-                    reqNotes.Adminnotes = additionalNotes;
+                    if (aspNetRole == 1)
+                    {
+                        reqNotes.Adminnotes = additionalNotes;
+                        reqNotes.Modifiedby = "Admin";
+                    }
+                    else
+                    {
+                        reqNotes.Physiciannotes = additionalNotes;
+                        reqNotes.Modifiedby = "Physician";
+                    }
                     reqNotes.Modifieddate = DateTime.Now;
-                    reqNotes.Modifiedby = "admin";
                     //here instead of admin , add id of the admin through which admin is loggedIn 
                     _db.Requestnotes.Update(reqNotes);
                     _db.SaveChanges();
@@ -1101,7 +1256,34 @@ namespace BusinessLogic.Services
             }
         }
 
-        public bool CreateRequest(CreateRequestModel model, string sessionEmail)
+        public void SendRegistrationEmailCreateRequest(string email, string registrationLink)
+        {
+            string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
+            string senderPassword = "Parth@70160";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Create Account",
+                IsBodyHtml = true,
+                Body = $"Click The Following Link To Create Account: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
+        }
+        public bool CreateRequest(CreateRequestModel model, string sessionEmail, string createAccountLink)
         {
             CreateRequestModel _create = new CreateRequestModel();
 
@@ -1142,20 +1324,21 @@ namespace BusinessLogic.Services
                     user.State = model.state;
                     user.Street = model.street;
                     user.Zipcode = model.zipcode;
-                    user.Strmonth = model.dateofbirth.Substring(5, 2);
-                    user.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
-                    user.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                    user.Strmonth = model.dob.ToString("MMM");
+                    user.Intdate = int.Parse(model.dob.ToString("dd"));
+                    user.Intyear = int.Parse(model.dob.ToString("yyyy"));
                     user.Createdby = asp.Id;
                     user.Createddate = DateTime.Now;
                     user.Regionid = stateMain.Regionid;
                     _db.Users.Add(user);
                     _db.SaveChanges();
 
-                    string registrationLink = "http://localhost:5145/Home/CreateAccount?aspuserId=" + asp.Id;
+
+
 
                     try
                     {
-                        //SendRegistrationEmailCreateRequest(data.email, registrationLink);
+                        SendRegistrationEmailCreateRequest(model.email, createAccountLink);
                     }
                     catch (Exception e)
                     {
@@ -1184,9 +1367,12 @@ namespace BusinessLogic.Services
                 reqClient.Firstname = model.firstname;
                 reqClient.Lastname = model.lastname;
                 reqClient.Phonenumber = model.phone;
-                reqClient.Strmonth = model.dateofbirth.Substring(5, 2);
-                reqClient.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
-                reqClient.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                //reqClient.Strmonth = model.dateofbirth.Substring(5, 2);
+                //reqClient.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
+                //reqClient.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                reqClient.Intyear = int.Parse(model.dob.ToString("yyyy"));
+                reqClient.Intdate = int.Parse(model.dob.ToString("dd"));
+                reqClient.Strmonth = model.dob.ToString("MMM");
                 reqClient.Street = model.street;
                 reqClient.City = model.city;
                 reqClient.State = model.state;
@@ -1214,12 +1400,13 @@ namespace BusinessLogic.Services
 
         public List<ProviderModel> GetProvider()
         {
-
+            BitArray deletebit = new BitArray(new[] { true });
 
             var provider = from phy in _db.Physicians
                            join role in _db.Roles on phy.Roleid equals role.Roleid
                            join phynoti in _db.Physiciannotifications on phy.Physicianid equals phynoti.Pysicianid
                            orderby phy.Physicianid
+                            where phy.Isdeleted != deletebit
                            select new ProviderModel
                            {
                                phyId = phy.Physicianid,
@@ -1352,142 +1539,192 @@ namespace BusinessLogic.Services
             _db.SaveChanges();
         }
 
-        public void CreateProviderAccount(CreateProviderAccount model)
+        public CreateProviderAccount CreateProviderAccount(CreateProviderAccount obj, List<int> physicianRegions)
         {
-            List<string> validProfileExtensions = new() { ".jpeg", ".png", ".jpg" };
-            List<string> validDocumentExtensions = new() { ".pdf" };
+            CreateProviderAccount model = new CreateProviderAccount();
 
-            try
+            var aspUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == obj.Email);
+
+
+            if (aspUser == null && obj.latitude != null)
             {
-                Guid generatedId = Guid.NewGuid();
 
-                Aspnetuser aspUser = new()
-                {
-                    Id = generatedId.ToString(),
-                    Username = model.UserName,
-                    Passwordhash = model.Password,
-                    Email = model.Email,
-                    Phonenumber = model.Phone,
-                    Createddate = DateTime.Now,
-                }; _db.Aspnetusers.Add(aspUser);
+
+                Aspnetuser _user = new Aspnetuser();
+                Physician phy = new Physician();
+                Guid id = Guid.NewGuid();
+                _user.Id = id.ToString();
+                _user.Username = obj.username;
+                _user.Passwordhash = obj.password;
+                _user.Email = obj.Email;
+                _user.Phonenumber = obj.PhoneNumber;
+                _user.Createddate = DateTime.Now;
+
+                _db.Aspnetusers.Add(_user);
                 _db.SaveChanges();
 
 
-                Physician phy = new()
-                {
-                    Aspnetuserid = generatedId.ToString(),
-                    Firstname = model.FirstName,
-                    Lastname = model.LastName,
-                    Email = model.Email,
-                    Mobile = model.Phone,
-                    Medicallicense = model.MedicalLicenseNumber,
-                    Adminnotes = model.AdminNote,
-                    Address1 = model.Address1,
-                    Address2 = model.Address2,
-                    City = model.City,
-                    //Regionid = model.RegionId,
-                    Zip = model.Zip,
-                    Altphone = model.PhoneNumber,
-                    Createdby = "1",
-                    Createddate = DateTime.Now,
-                    Roleid = model.Role,
-                    Npinumber = model.NPINumber,
-                    Businessname = model.BusinessName,
-                    Businesswebsite = model.BusinessWebsite,
-                };
+
+                phy.Aspnetuserid = _user.Id;
+                phy.Firstname = obj.Firstname;
+                phy.Lastname = obj.Lastname;
+                phy.Email = obj.Email;
+                phy.Mobile = obj.PhoneNumber;
+                phy.Medicallicense = obj.MedicalLicesnse;
+                phy.Adminnotes = obj.Adminnotes;
+                phy.Address1 = obj.Address1;
+                phy.Address2 = obj.Address2;
+                phy.City = obj.city;
+                phy.Regionid = obj.Regionid;
+                phy.Zip = obj.zipcode;
+                phy.Altphone = obj.altPhone;
+                phy.Createdby = _user.Id;
+                phy.Createddate = _user.Createddate;
+                phy.Status = 1;
+                phy.Businessname = obj.Businessname;
+                phy.Businesswebsite = obj.BusinessWebsite;
+                phy.Roleid = obj.Roleid;
+                phy.Syncemailaddress = obj.SycnEmail;
 
                 _db.Physicians.Add(phy);
                 _db.SaveChanges();
 
 
-                Physiciannotification physiciannotification = new()
+
+                foreach (var item in physicianRegions)
                 {
-                    Pysicianid = phy.Physicianid,
-                    Isnotificationstopped = new BitArray(1, false),
-                };
-                _db.Physiciannotifications.Add(physiciannotification);
+                    var region = _db.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                    _db.Physicianregions.Add(new Physicianregion
+                    {
+                        Physicianid = phy.Physicianid,
+                        Regionid = region.Regionid,
+                    });
+                }
+                _db.SaveChanges();
+
+                Physiciannotification notification = new Physiciannotification();
+                notification.Pysicianid = phy.Physicianid;
+                notification.Isnotificationstopped = new BitArray(1, false);
+                _db.Physiciannotifications.Add(notification);
+                _db.SaveChanges();
+
+                Aspnetuserrole userRole = new Aspnetuserrole();
+                userRole.Userid = _user.Id;
+                userRole.Roleid = 3;
+
+                _db.Aspnetuserroles.Add(userRole);
                 _db.SaveChanges();
 
 
-                string path = Path.Combine(_environment.WebRootPath, "PhysicianImages", phy.Physicianid.ToString());
+                Physicianlocation _phyLoc = new Physicianlocation();
+                _phyLoc.Physicianid = phy.Physicianid;
+                _phyLoc.Latitude = obj.latitude;
+                _phyLoc.Longitude = obj.longitude;
+                _phyLoc.Createddate = DateTime.Now;
+                _phyLoc.Physicianname = phy.Firstname;
+                _phyLoc.Address = phy.Address1;
 
-                if (model.Photo != null)
-                {
-                    string fileExtension = Path.GetExtension(model.Photo.FileName);
-                    if (validProfileExtensions.Contains(fileExtension))
-                    {
-                        InsertFileAfterRename(model.Photo, path, "ProfilePhoto");
-                        phy.Photo = Path.GetFileName(model.Photo.FileName);
-
-                    }
-                }
-                if (model.ICA != null)
-                {
-                    string fileExtension = Path.GetExtension(model.ICA.FileName);
-                    if (validDocumentExtensions.Contains(fileExtension))
-                    {
-                        phy.Isagreementdoc = new BitArray(1, true);
-                        InsertFileAfterRename(model.ICA, path, "ICA");
-                    }
-                }
-                if (model.BGCheck != null)
-                {
-                    string fileExtension = Path.GetExtension(model.BGCheck.FileName);
-                    if (validDocumentExtensions.Contains(fileExtension))
-                    {
-                        phy.Isbackgrounddoc = new BitArray(1, true);
-                        InsertFileAfterRename(model.BGCheck, path, "BackgroundCheck");
-                    }
-                }
-                if (model.HIPAACompliance != null)
-                {
-                    string fileExtension = Path.GetExtension(model.HIPAACompliance.FileName);
-                    if (validDocumentExtensions.Contains(fileExtension))
-                    {
-                        phy.Isnondisclosuredoc = new BitArray(1, true);
-                        InsertFileAfterRename(model.HIPAACompliance, path, "HipaaCompliance");
-                    }
-                }
-                if (model.NDA != null)
-                {
-                    string fileExtension = Path.GetExtension(model.NDA.FileName);
-                    if (validDocumentExtensions.Contains(fileExtension))
-                    {
-                        phy.Isnondisclosuredoc = new BitArray(1, true);
-                        InsertFileAfterRename(model.NDA, path, "NDA");
-                    }
-                }
-                _db.Physicians.Update(phy);
+                _db.Physicianlocations.Add(_phyLoc);
                 _db.SaveChanges();
+
+
+                AddProviderDocuments(phy.Physicianid, obj.Photo, obj.ContractorAgreement, obj.BackgroundCheck, obj.HIPAA, obj.NonDisclosure);
+
+                model.flag = "done";
+                return model;
             }
-            catch (Exception e)
+            else if (aspUser != null)
             {
+                model.flag = "email";
+            }
+            else
+            {
+                model.flag = "zip";
+            }
 
-            };
-
-
+            return model;
         }
-        public void InsertFileAfterRename(IFormFile file, string path, string updateName)
+
+        public void AddProviderDocuments(int Physicianid, IFormFile Photo, IFormFile ContractorAgreement, IFormFile BackgroundCheck, IFormFile HIPAA, IFormFile NonDisclosure)
         {
-            if (!Directory.Exists(path))
+            var physicianData = _db.Physicians.FirstOrDefault(x => x.Physicianid == Physicianid);
+
+            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PhysicianFiles", Physicianid.ToString());
+            string photoDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PhysicianImages", Physicianid.ToString());
+
+            if (!Directory.Exists(directory))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(directory);
+            }
+            if (!Directory.Exists(photoDirectory))
+            {
+                Directory.CreateDirectory(photoDirectory);
             }
 
-            string[] oldfiles = Directory.GetFiles(path, updateName + ".*");
-            foreach (string f in oldfiles)
+            if (Photo != null)
             {
-                System.IO.File.Delete(f);
+                string path = Path.Combine(photoDirectory, Photo.FileName);
+                //string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Documents", Photo.FileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    Photo.CopyTo(fileStream);
+                }
+
+                physicianData.Photo = Photo.FileName;
             }
 
-            string extension = Path.GetExtension(file.FileName);
 
-            string fileName = updateName + extension;
+            if (ContractorAgreement != null)
+            {
+                string path = Path.Combine(directory, "Independent_Contractor" + Path.GetExtension(ContractorAgreement.FileName));
 
-            string fullPath = Path.Combine(path, fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    ContractorAgreement.CopyTo(fileStream);
+                }
 
-            using FileStream stream = new(fullPath, FileMode.Create);
-            file.CopyTo(stream);
+                physicianData.Isagreementdoc = new BitArray(1, true);
+            }
+
+            if (BackgroundCheck != null)
+            {
+                string path = Path.Combine(directory, "Background" + Path.GetExtension(BackgroundCheck.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    BackgroundCheck.CopyTo(fileStream);
+                }
+
+                physicianData.Isbackgrounddoc = new BitArray(1, true);
+            }
+
+            if (HIPAA != null)
+            {
+                string path = Path.Combine(directory, "HIPAA" + Path.GetExtension(HIPAA.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    HIPAA.CopyTo(fileStream);
+                }
+
+                physicianData.Istrainingdoc = new BitArray(1, true);
+            }
+
+            if (NonDisclosure != null)
+            {
+                string path = Path.Combine(directory, "Non_Disclosure" + Path.GetExtension(NonDisclosure.FileName));
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    NonDisclosure.CopyTo(fileStream);
+                }
+
+                physicianData.Isnondisclosuredoc = new BitArray(1, true);
+            }
+
+            _db.SaveChanges();
         }
         public EditProviderModel EditProviderProfile(int phyId, string tokenEmail)
         {
@@ -1495,49 +1732,50 @@ namespace BusinessLogic.Services
 
             var user = _db.Aspnetusers.Where(r => r.Email == phy.Email).First();
 
-            EditProviderModel obj = new EditProviderModel();
+            EditProviderModel _profile = new EditProviderModel()
+            {
+                //username = _context.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r.Username).First(),
+                Firstname = phy.Firstname,
+                Lastname = phy.Lastname,
+                Email = phy.Email,
+                PhoneNumber = phy.Mobile,
+                MedicalLicesnse = phy.Medicallicense,
+                NPInumber = phy.Npinumber,
+                SycnEmail = phy.Syncemailaddress,
+                Address1 = phy.Address1,
+                Address2 = phy.Address2,
+                city = phy.City,
+                zipcode = phy.Zip,
+                altPhone = phy.Altphone,
+                Businessname = phy.Businessname,
+                BusinessWebsite = phy.Businesswebsite,
+                Adminnotes = phy.Adminnotes,
+                statusId = (int)phy.Status,
+                PhyID = phyId,
+                Roleid = phy.Roleid,
+                Regionid = phy.Regionid,
+                PhotoValue = phy.Photo,
+                SignatureValue = phy.Signature,
+                IsContractorAgreement = phy.Isagreementdoc == null ? false : true,
+                IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true,
+                IsHIPAA = phy.Istrainingdoc == null ? false : true,
+                IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true,
+                IsLicenseDocument = phy.Islicensedoc == null ? false : true,
 
 
+                username = user.Username,
+                password = user.Passwordhash,
+            };
 
-            obj.Firstname = phy.Firstname;
-            obj.Lastname = phy.Lastname;
-            obj.Email = phy.Email;
-            obj.PhoneNumber = phy.Mobile;
-            obj.MedicalLicesnse = phy.Medicallicense;
-            obj.NPInumber = phy.Npinumber;
-            obj.SycnEmail = phy.Syncemailaddress;
-            obj.Address1 = phy.Address1;
-            obj.Address2 = phy.Address2;
-            obj.city = phy.City;
-            obj.zipcode = phy.Zip;
-            obj.altPhone = phy.Altphone;
-            obj.Businessname = phy.Businessname;
-            obj.BusinessWebsite = phy.Businesswebsite;
-            obj.Adminnotes = phy.Adminnotes;
-            obj.statusId = (int)phy.Status;
-            obj.PhyID = phyId;
-            obj.Roleid = phy.Roleid;
-            obj.Regionid = phy.Regionid;
-            obj.PhotoValue = phy.Photo;
-            obj.SignatureValue = phy.Signature;
-            obj.IsContractorAgreement = phy.Isagreementdoc == null ? false : true;
-            obj.IsBackgroundCheck = phy.Isbackgrounddoc == null ? false : true;
-            obj.IsHIPAA = phy.Istrainingdoc == null ? false : true;
-            obj.IsNonDisclosure = phy.Isnondisclosuredoc == null ? false : true;
-            obj.IsLicenseDocument = phy.Islicensedoc == null ? false : true;
-            obj.username = user.Username;
-            obj.password = user.Passwordhash;
-
-
-            return obj;
+            return _profile;
         }
+
 
 
         public List<Role> GetRoles()
         {
-            var roles = _db.Roles.ToList();
-
-
+            BitArray deletedBit = new BitArray(new[] { false });
+            var roles = _db.Roles.Where(x => x.Isdeleted.Equals(deletedBit)).ToList();
             return roles;
         }
         public List<Region> RegionTable()
@@ -1699,7 +1937,17 @@ namespace BusinessLogic.Services
 
             if (photo != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", photo.FileName);
+                string photoDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PhysicianImages", phyId.ToString());
+                if (!Directory.Exists(photoDirectory))
+                {
+                    Directory.CreateDirectory(photoDirectory);
+                }
+
+                string path = Path.Combine(photoDirectory, photo.FileName);
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
 
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -1711,7 +1959,18 @@ namespace BusinessLogic.Services
 
             if (signature != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", signature.FileName);
+                string signDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PhysicianSign", phyId.ToString());
+                if (!Directory.Exists(signDirectory))
+                {
+                    Directory.CreateDirectory(signDirectory);
+                }
+
+                string path = Path.Combine(signDirectory, signature.FileName);
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
 
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -1730,7 +1989,7 @@ namespace BusinessLogic.Services
 
             var physicianData = _db.Physicians.FirstOrDefault(x => x.Physicianid == dataMain.editPro.PhyID);
 
-            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", physicianData.Physicianid.ToString());
+            string directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "PhysicianFiles", physicianData.Physicianid.ToString());
 
             if (!Directory.Exists(directory))
             {
@@ -1829,19 +2088,14 @@ namespace BusinessLogic.Services
             return true;
 
         }
-
         public void editProviderDeleteAccount(int phyId)
         {
             var phy = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
+            BitArray deletedBit = new BitArray(1, true);
 
-            if (phy.Isdeleted == null)
-            {
-                phy.Isdeleted = new BitArray(1);
-                phy.Isdeleted[0] = true;
-
-                _db.SaveChanges();
-            }
-
+            phy.Isdeleted = deletedBit;
+            _db.Physicians.Update(phy);
+            _db.SaveChanges();
 
         }
 
@@ -2442,6 +2696,51 @@ namespace BusinessLogic.Services
             }
         }
 
+        public byte[] GenerateExcelFile(List<RequestsRecordModel> recordsModel)
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Requests");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Patient Name";
+                worksheet.Cells[1, 2].Value = "Requestor";
+                worksheet.Cells[1, 3].Value = "Date Of Service";
+                worksheet.Cells[1, 4].Value = "Close Case Date";
+                worksheet.Cells[1, 5].Value = "Email";
+                worksheet.Cells[1, 6].Value = "Phone Number";
+                worksheet.Cells[1, 7].Value = "Address";
+                worksheet.Cells[1, 8].Value = "Zip";
+                worksheet.Cells[1, 9].Value = "Physician";
+                worksheet.Cells[1, 10].Value = "Physician Notes";
+                worksheet.Cells[1, 11].Value = "Admin Note";
+                worksheet.Cells[1, 12].Value = "Patient Notes";
+
+                // Populate data
+                for (int i = 0; i < recordsModel.Count; i++)
+                {
+                    var rowData = recordsModel[i];
+                    worksheet.Cells[i + 2, 1].Value = rowData.patientname;
+                    worksheet.Cells[i + 2, 2].Value = rowData.requestor;
+                    worksheet.Cells[i + 2, 3].Value = rowData.dateOfService;
+                    worksheet.Cells[i + 2, 4].Value = rowData.closeCaseDate;
+                    worksheet.Cells[i + 2, 5].Value = rowData.email;
+                    worksheet.Cells[i + 2, 6].Value = rowData.contact;
+                    worksheet.Cells[i + 2, 7].Value = rowData.address;
+                    worksheet.Cells[i + 2, 8].Value = rowData.zip;
+                    worksheet.Cells[i + 2, 9].Value = rowData.physician;
+                    worksheet.Cells[i + 2, 10].Value = rowData.physicianNote;
+                    worksheet.Cells[i + 2, 11].Value = rowData.AdminNote;
+                    worksheet.Cells[i + 2, 12].Value = rowData.pateintNote;
+                }
+
+                // Convert package to bytes for download
+                return excelPackage.GetAsByteArray();
+            }
+        }
+
+
+
 
         public EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel)
         {
@@ -2463,7 +2762,7 @@ namespace BusinessLogic.Services
                             sentdate = item.Sentdate,
                             sent = item.Isemailsent[0] ? "Yes" : "No",
                             recipient = _db.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).First(),
-                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
                             senttries = item.Senttries,
                             confirmationNumber = item.Confirmationnumber,
                         };
@@ -2479,7 +2778,7 @@ namespace BusinessLogic.Services
                             sentdate = item.Sentdate,
                             sent = item.Isemailsent[0] ? "Yes" : "No",
                             recipient = _db.Physicians.Where(i => i.Physicianid == item.Physicianid).Select(i => i.Firstname).FirstOrDefault(),
-                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                            rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
                             senttries = item.Senttries,
                             confirmationNumber = item.Confirmationnumber,
                         };
@@ -2526,7 +2825,7 @@ namespace BusinessLogic.Services
                         sentdate = item.Sentdate,
                         sent = item.Issmssent[0] ? "Yes" : "No",
                         recipient = _db.Requestclients.Where(i => i.Requestid == item.Requestid).Select(i => i.Firstname).FirstOrDefault(),
-                        rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid.ToString()).Select(i => i.Name).First(),
+                        rolename = _db.Aspnetroles.Where(i => i.Id == item.Roleid).Select(i => i.Name).First(),
                         senttries = item.Senttries,
                         confirmationNumber = item.Confirmationnumber,
                     };
@@ -2768,6 +3067,84 @@ namespace BusinessLogic.Services
             return month;
         }
 
+       
+
+        public void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId)
+        {
+            var admin = _db.Admins.FirstOrDefault(x => x.Adminid == adminId);
+
+            var day = JsonSerializer.Deserialize<List<CheckBoxData>>(selectedDays);
+
+            var curDate = obj.StartDate;
+            var curDay = (int)obj.StartDate.DayOfWeek;
+
+            if (!obj.IsRepeat)
+            {
+                var shift = new Shift()
+                {
+                    Physicianid = obj.PhysicianId,
+                    Startdate = obj.StartDate,
+                    Isrepeat = new BitArray(0, false),
+                    Repeatupto = obj.RepeatUpto,
+                    Createdby = admin.Aspnetuserid,
+                    Createddate = DateTime.Now,
+                };
+                _db.Shifts.Add(shift);
+                _db.SaveChanges();
+            }
+            else
+            {
+                var shift = new Shift()
+                {
+                    Physicianid = obj.PhysicianId,
+                    Startdate = obj.StartDate,
+                    Isrepeat = new BitArray(1, true),
+                    Repeatupto = obj.RepeatUpto,
+                    Createdby = admin.Aspnetuserid,
+                    Createddate = DateTime.Now,
+                };
+                _db.Shifts.Add(shift);
+                _db.SaveChanges();
+
+
+                for (int i = 1; i <= obj.RepeatUpto; i++)
+                {
+                    foreach (var item in day)
+                    {
+                        if (item.Checked)
+                        {
+                            var shiftDay = 7 * i - curDay + item.Id;
+                            var shiftDate = curDate.AddDays(shiftDay);
+
+                            var shiftdetail = new Shiftdetail()
+                            {
+                                Shiftid = shift.Shiftid,
+                                Shiftdate = shiftDate,
+                                Starttime = obj.StartTime,
+                                Endtime = obj.EndTime,
+                                Status = (short)_db.Physicians.FirstOrDefault(x => x.Physicianid == obj.PhysicianId).Status,
+
+                            };
+                            _db.Shiftdetails.Add(shiftdetail);
+                            _db.SaveChanges();
+
+                            var shiftRegion = new Shiftdetailregion()
+                            {
+                                Regionid = obj.RegionId,
+                                Shiftdetailid = shiftdetail.Shiftdetailid,
+                            };
+                            _db.Shiftdetailregions.Add(shiftRegion);
+                            _db.SaveChanges();
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+
+
         public async Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays)
         {
             Aspnetuser? aspNetUser = _db.Aspnetusers.FirstOrDefault(a => a.Email == Email);
@@ -2900,82 +3277,6 @@ namespace BusinessLogic.Services
                 }
             }
         }
-
-        public void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId)
-        {
-            var admin = _db.Admins.FirstOrDefault(x => x.Adminid == adminId);
-
-            var day = JsonSerializer.Deserialize<List<CheckBoxData>>(selectedDays);
-
-            var curDate = obj.StartDate;
-            var curDay = (int)obj.StartDate.DayOfWeek;
-
-            if (!obj.IsRepeat)
-            {
-                var shift = new Shift()
-                {
-                    Physicianid = obj.PhysicianId,
-                    Startdate = obj.StartDate,
-                    Isrepeat = new BitArray(0, false),
-                    Repeatupto = obj.RepeatUpto,
-                    Createdby = admin.Aspnetuserid,
-                    Createddate = DateTime.Now,
-                };
-                _db.Shifts.Add(shift);
-                _db.SaveChanges();
-            }
-            else
-            {
-                var shift = new Shift()
-                {
-                    Physicianid = obj.PhysicianId,
-                    Startdate = obj.StartDate,
-                    Isrepeat = new BitArray(1, true),
-                    Repeatupto = obj.RepeatUpto,
-                    Createdby = admin.Aspnetuserid,
-                    Createddate = DateTime.Now,
-                };
-                _db.Shifts.Add(shift);
-                _db.SaveChanges();
-
-
-                for (int i = 1; i <= obj.RepeatUpto; i++)
-                {
-                    foreach (var item in day)
-                    {
-                        if (item.Checked)
-                        {
-                            var shiftDay = 7 * i - curDay + item.Id;
-                            var shiftDate = curDate.AddDays(shiftDay);
-
-                            var shiftdetail = new Shiftdetail()
-                            {
-                                Shiftid = shift.Shiftid,
-                                Shiftdate = shiftDate,
-                                Starttime = obj.StartTime,
-                                Endtime = obj.EndTime,
-                                Status = (short)_db.Physicians.FirstOrDefault(x => x.Physicianid == obj.PhysicianId).Status,
-
-                            };
-                            _db.Shiftdetails.Add(shiftdetail);
-                            _db.SaveChanges();
-
-                            var shiftRegion = new Shiftdetailregion()
-                            {
-                                Regionid = obj.RegionId,
-                                Shiftdetailid = shiftdetail.Shiftdetailid,
-                            };
-                            _db.Shiftdetailregions.Add(shiftRegion);
-                            _db.SaveChanges();
-                        }
-                    }
-                }
-            }
-
-        }
-        
-
-
 
         public CreateNewShift ViewShift(int ShiftDetailId)
         {
@@ -3112,15 +3413,23 @@ namespace BusinessLogic.Services
         }
         public bool ApproveSelectedShift(int[] shiftDetailsId, string Aspid)
         {
-            foreach (var shiftId in shiftDetailsId)
+            try
             {
-                var shift = _db.Shiftdetails.FirstOrDefault(i => i.Shiftdetailid == shiftId);
-                shift.Status = 2;
-                shift.Modifieddate = DateTime.Now;
-                shift.Modifiedby = Aspid;
+
+                foreach (var shiftId in shiftDetailsId)
+                {
+                    var shift = _db.Shiftdetails.FirstOrDefault(i => i.Shiftdetailid == shiftId);
+                    shift.Status = 2;
+                    shift.Modifieddate = DateTime.Now;
+                    shift.Modifiedby = Aspid;
+                }
+                _db.SaveChanges();
+                return true;
             }
-            _db.SaveChanges();
-            return true;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteShiftReview(int[] shiftDetailsId, string Aspid)
@@ -3129,10 +3438,10 @@ namespace BusinessLogic.Services
             {
                 var shift = _db.Shiftdetails.FirstOrDefault(i => i.Shiftdetailid == shiftId);
 
-                shift.Isdeleted[0] = true;
+                shift.Isdeleted = new BitArray(1, true);
                 shift.Modifieddate = DateTime.Now;
                 shift.Modifiedby = Aspid;
-
+                _db.Shiftdetails.Update(shift);
             }
             _db.SaveChanges();
             return true;

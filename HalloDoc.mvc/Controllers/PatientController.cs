@@ -92,41 +92,7 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-        //[HttpPost]
-        //public IActionResult patient_login(LoginModel loginModel)
-        //{
-
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        string passwordhash = loginModel.Password;
-        //        loginModel.Password = passwordhash;
-        //        var user = _loginService.Login(loginModel);
-
-        //        //var userId = user.Userid;
-        //        HttpContext.Session.SetInt32("UserId", user.Userid);
-
-        //        //the above data is coming from user table and storing in user object
-        //        if (user != null)
-        //        {
-        //            TempData["username"] = user.Firstname;
-        //            TempData["id"] = user.Lastname;
-        //            _notyf.Success("Logged In Successfully !!");
-        //            return RedirectToAction("patient_dashboard", "Patient");
-        //        }
-        //        else
-        //        {
-        //            _notyf.Error("Invalid Credentials");
-
-        //            //ViewBag.AuthFailedMessage = "Please enter valid username and password !!";
-        //        }
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return View(loginModel);
-        //    }
-        //}
+        
 
         [HttpPost]
         public IActionResult patient_login(LoginModel user)
@@ -156,26 +122,29 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult patient_request()
+        {
+            return View();
+        }
+
         [HttpPost]
-        
         public IActionResult patient_request(PatientInfoModel patientInfoModel)
         {
 
-            if (ModelState.IsValid)
-            {
 
-                _patientService.AddPatientInfo(patientInfoModel);
-                _notyf.Success(" Successfully !!");
-                return RedirectToAction("submit_request", "Patient");
-            }
-            else
+            if (patientInfoModel.password != null)
             {
-                _notyf.Error("Please Fill The Required Details");
+                patientInfoModel.password = patientInfoModel.password;
+            }
+            bool isValid = _patientService.AddPatientInfo(patientInfoModel);
+            if (!isValid)
+            {
+                _notyf.Error("Service is not available in entered Region");
                 return View(patientInfoModel);
             }
-
-
-
+            _notyf.Success("Submit Successfully !!");
+            return RedirectToAction("submit_request", "Patient");
 
         }
 
@@ -183,63 +152,76 @@ namespace HalloDoc.mvc.Controllers
 
 
 
+        [HttpGet]
+        public IActionResult friendfamily_request()
+        {
+            return View();
+        }
         [HttpPost]
-  
         public IActionResult friendfamily_request(FamilyReqModel familyReqModel)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string createAccountLink = baseUrl + Url.Action("create_account", "Patient");
+            bool isValid = _patientService.AddFamilyReq(familyReqModel, createAccountLink);
+            if (!isValid)
             {
-                _patientService.AddFamilyReq(familyReqModel);
-                _notyf.Success(" Successfully !!");
-                return RedirectToAction("submit_request", "Patient");
-
-            }
-            else
-            {
-                _notyf.Error("Please Fill The Required Details");
+                _notyf.Error("Service is not available in entered Region");
                 return View(familyReqModel);
             }
-
+            _notyf.Success("Submit Successfully !!");
+            return RedirectToAction("submit_request", "Patient");
+            //}
+            //else
+            //{
+            //    return View(familyReqModel);
+            //}
         }
 
 
 
+        [HttpGet]
+        public IActionResult concierge_request()
+        {
+            return View();
+        }
+
 
         [HttpPost]
- 
         public IActionResult concierge_request(ConciergeReqModel conciergeReqModel)
         {
-            if (ModelState.IsValid)
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string createAccountLink = baseUrl + Url.Action("create_account", "Patient");
+            bool isValid = _patientService.AddConciergeReq(conciergeReqModel, createAccountLink);
+            if (!isValid)
             {
-
-                _patientService.AddConciergeReq(conciergeReqModel);
-                _notyf.Success(" Successfully !!");
-                return RedirectToAction("submit_request", "Patient");
-            }
-            else
-            {
-
-                _notyf.Error("Please Fill The Required Details");
+                _notyf.Error("Service is not available in entered Region");
                 return View(conciergeReqModel);
             }
+            _notyf.Success("Submit Successfully !!");
+            return RedirectToAction("submit_request", "Patient");
+        }
 
+        [HttpGet]
+        public IActionResult business_request()
+        {
+            return View();
         }
 
         [HttpPost]
         public IActionResult business_request(BusinessReqModel businessReqModel)
         {
-            if (ModelState.IsValid)
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string createAccountLink = baseUrl + Url.Action("create_account", "Patient");
+            bool isValid = _patientService.AddBusinessReq(businessReqModel, createAccountLink);
+            if (!isValid)
             {
-
-                _patientService.AddBusinessReq(businessReqModel);
-                _notyf.Success(" Successfully !!");
-                return RedirectToAction("submit_request", "Patient");
-            }
-            else
-            {
-                _notyf.Error("Please Fill The Required Details");
+                _notyf.Error("Service is not available in entered Region");
                 return View(businessReqModel);
             }
+            _notyf.Success("Submit Successfully !!");
+            return RedirectToAction("submit_request", "Patient");
         }
 
 
@@ -256,22 +238,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult patient_request()
-        {
-            return View();
-        }
-        public IActionResult friendfamily_request()
-        {
-            return View();
-        }
-        public IActionResult concierge_request()
-        {
-            return View();
-        }
-        public IActionResult business_request()
-        {
-            return View();
-        }
+      
 
        
 

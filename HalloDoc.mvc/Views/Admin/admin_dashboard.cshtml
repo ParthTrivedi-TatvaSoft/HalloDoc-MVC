@@ -355,55 +355,8 @@
 
 
         $(document).ready(function () {
-            ShowAllRequests();// On Page Load It Will show All Tab Heads
+            ShowAllRequests();
 
-
-            //     if ($(window).width() < 768) {
-            //         $('.data-table tbody tr').each(function () {
-            //             var name = $(this).find('td:eq(0)').text();
-            //             var address = $(this).find('td:eq(5)').text();
-            //             var requestor = $(this).find('td:eq(2)').text();
-
-            //             var accordionItem = `
-            //                                     <div class="accordion-item">
-
-            //                                         <div class="accordion-content">
-            //                                             <p><strong>Name:</strong> ${name}</p>
-            //                                             <p><strong>Address:</strong> ${address}</p>
-            //                                             <p><strong>Requestor:</strong> ${requestor}</p>
-            //                                         </div>
-            //                                     </div>
-            //                                 `;
-
-            //             $('#accordionFlushExample').append(accordionItem);
-            //         });
-            //     }
-            // });
-
-
-            // $(window).resize(function () {
-            //     $('#accordionFlushExample').empty();
-            //     if ($(window).width() < 768) {
-            //         $('.data-table tbody tr').each(function () {
-            //             var name = $(this).find('td:eq(0)').text();
-            //             var address = $(this).find('td:eq(5)').text();
-            //             var requestor = $(this).find('td:eq(2)').text();
-
-
-            //             var accordionItem = `
-            //                                     <div class="accordion-item">
-
-            //                                         <div class="accordion-content">
-            //                                             <p><strong>Name:</strong> ${name}</p>
-            //                                             <p><strong>Address:</strong> ${address}</p>
-            //                                             <p><strong>Requestor:</strong> ${requestor}</p>
-            //                                         </div>
-            //                                     </div>
-            //                                 `;
-
-            //             $('#accordionFlushExample').append(accordionItem);
-            //         });
-            //     }
             });
         
 
@@ -511,21 +464,7 @@
             });
         }
 
-        // function showAssignCase(Reqid) {
-
-        //     $.ajax({
-        //         url: '/Admin/AssignCase',
-        //         type: 'GET',
-        //         data: {ReqId: Reqid },
-        //         success: function (response) {
-
-        //             $("#modelContent").html(response);
-
-        //             $('#assignModal').modal('show');
-
-        //         }
-        //     });
-        // }
+     
 
         function showBlockCase(reqId) {
             $.ajax({
@@ -609,11 +548,22 @@
 
 
 
-        function Export(reqList) {
+        function ExpertDataTabWise(tabNo) {
+            $.ajax({
+                url: '/Admin/GetRequest',
+                type: 'GET',
+                data: { tabNo: tabNo },
+                success: function (response) {
+                    console.log(response);
+                    Export(response);
+                }
+            });
+        }
+        function Export(response) {
             $.ajax({
                 method: "POST",
                 url: "/Admin/ExportReq",
-                data: { reqList: reqList },
+                data: { reqList: response },
 
                 success: function (resp) {
 
@@ -641,17 +591,7 @@
 
         }
 
-        function ExportAll() {
-            $.ajax({
-                url: '/Admin/GetRequestsByStatus',
-                type: 'GET',
-                data: { tabNo: 0 },
-                success: function (response) {
-                    console.log(response);
-                    Export(response);
-                }
-            });
-        }
+
 
        
 

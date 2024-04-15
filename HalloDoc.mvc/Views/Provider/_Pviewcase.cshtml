@@ -1,0 +1,189 @@
+﻿@using DataAccess.CustomModels;
+@using DataAccess.Enums;
+@{
+    ViewData["Title"] = "viewcase";
+}
+
+@model ViewCaseViewModel;
+
+<link rel="stylesheet" href="~/css/admin_dashboard.css">
+
+@{
+
+
+    var bgColor = "He";
+    var role = "hello";
+
+    @if (Model.RequestTypeId == (int)RequestTypeEnum.Business)
+    {
+        bgColor = "#d76879";
+        role = "Business";
+    }
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Patient)
+    {
+        bgColor = "#60be5e";
+        role = "Patient";
+
+
+    }
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Family)
+    {
+        bgColor = "#e69232";
+        role = "FamilyFriend";
+
+    }
+    else if (Model.RequestTypeId == (int)RequestTypeEnum.Concierge)
+    {
+        bgColor = "#0b7ebf";
+        role = "Concierge";
+    }
+}
+<div class=" container-fluid    ">
+    <!-- main part -->
+    <div class="container flex-column bg-body-dark d-flex align-items-center justify-content-center ">
+
+
+        <!--title and back  -->
+        <div class="row d-flex align-items-center justify-content-around w-100 my-4">
+            <div class="d-flex justify-content-between">
+                <div class="col-6 d-flex justify-content-start">
+                    <p class="d-flex">
+                        <span class="fw-bold fs-4"> New Request</span>
+                        <span class=" text-white boder rounded p-1 mx-2" style="background:@bgColor">@role</span>
+                    </p>
+                </div>
+                <button onclick="location.href='@Url.Action("provider_dashboard", "Provider")'" id="back-btn">&lt; Back</button>
+
+            </div>
+            <div class=" p-5 shadow mb-3 dark-mode1 bg-white ">
+
+                <!--Form-->
+                <form method="post">
+
+                    <!-- Patient Information  -->
+                    <h3>Patient Information</h3>
+
+                    <p>Confirmation Number</p>
+                    <h5 class="text-info">MD123523PASA0002</h5>
+                    <!-- text-area  -->
+
+                    <div class="col-12 form-floating mb-3 text-muted px-2">
+                        <textarea class="form-control dark-mode1 dclass" placeholder="Leave a comment here" id="floatingInput" disabled
+                                  style="height: 100px"></textarea>
+                        <label for="floatingTextarea" class="ms-2">Enter brief details symptoms(optional)</label>
+                    </div>
+
+                    <hr class="mt-4" />
+
+                    <div class="row g-1 ">
+
+                        <div class="col-12 col-md-6 form-floating mb-3 px-2 ">
+                            <input asp-for="Firstname" type="text" class="form-control dark-mode1"
+                                   id="floatingInput" placeholder="Firstname" disabled>
+                            <label for="floatingInput" class="form-label">Firstname</label>
+                        </div>
+                        <div class="col-12 col-md-6 form-floating mb-3 px-2 ">
+                            <input asp-for="Lastname" type="text" class="form-control dark-mode1 "
+                                   id="floatingInput" placeholder="Lastname" disabled>
+                            <label for="floatingInput" class="form-label">Lastname</label>
+                        </div>
+
+                        <div class="col-12 col-md-6 form-floating mb-3 text-muted px-2 ">
+                            <input asp-for="DateOfBirth" type="date" class="form-control dark-mode1 dclass" id="Date" placeholder="Date" readonly>
+                            <label for="Date" class="form-label ms-2">Date of Birth</label>
+                        </div>
+                        @* <div class="form-floating mb-3 col-10 col-md-5 ">
+                        <input asp-for="Phonenumber" type="tel" class=" form-control bg-transparent " id="floatingInput" disabled>
+                        <label for="floatingInput"><span class="text-tertiary "> Contact  </span></label>
+
+                        </div>*@
+                        <div class="col-10 col-md-5 form-floating mb-3 text-muted px-2 ">
+                            <input disabled asp-for="Phonenumber" style="height:58px" id="phoneEncounter"
+                                   class=" form-control dark-mode1 contact"
+                                   aria-label="Contact"
+                                   type="number" />
+                            <label for="floatingInput" class="form-label ms-2">Contact</label>
+                        </div>
+                        <div class="form-floating col-2 col-md-1 px-2 ">
+                            <a class="btn btn-outline-info p-3"><i class="bi bi-telephone text-info"></i></a>
+                        </div>
+
+                        <div class="form-floating mb-3 col-12 col-sm-6 px-2 ">
+                            <input asp-for="Email" type="email" class="form-control dark-mode1 emailInp" id="floatingInput1" disabled>
+                            <label for="floatingInput">Email</label>
+
+                        </div>
+                        <div class=" col-12 col-sm-6"></div>
+                    </div>
+
+
+                    <!-- Patient Location  -->
+                    <h3 class="mt-3">Patient Location</h3>
+                    <div class="row d-flex justify-content-center g-1  px-2 ">
+                        <div class="form-floating m- col-md-6 col-12">
+                            <input asp-for="City" type="text" class="form-control dark-mode1" id="floatingInput" disabled>
+                            <label for="floatingInput"><span class="text-tertiary ">Region</span></label>
+                        </div>
+                        <div class="form-floating mb-3 col-10 col-md-5  px-2 ">
+                            <input asp-for="Address" type="tel" class=" form-control dark-mode1 " id="floatingInput" disabled>
+                            <label for="floatingInput" class="ms-2 ">Business name / Address</label>
+
+                        </div>
+                        <div class="form-floating col-2 col-md-1 px-2 ">
+                            <a class="btn btn-outline-info p-3"><i class="bi bi-map text-info "></i></a>
+                        </div>
+                        <div class="form-floating mb-3 col-12 col-sm-6 px-2 ">
+                            <input asp-for="Room" type="text" class="form-control dark-mode1 emailInp" id="floatingInput1" value="3" disabled>
+                            <label for="floatingInput" class="ms-2 ">Room#</label>
+
+                        </div>
+                        <div class=" col-12 col-sm-6"></div>
+                    </div>
+
+
+
+
+                    <div class=" d-flex justify-content-end pe-3 ">
+                        <button type="button" class="btn btn-info btn-sm px-4 py-2 me-2">Accept</button>
+                        <button type="button" onclick="pShowViewNotes(@Model.RequestId)" class="btn btn-info btn-sm px-4 py-2 me-2">View Notes</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="viewCasePopUp"></div>
+    <script>
+        function AssignInViewCase(reqId) {
+
+            $.ajax({
+                url: '/Admin/AssignCase',
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+
+                    $("#viewCasePopUp").html(response);
+
+                    $('#assignModal').modal('show');
+
+                }
+            });
+        }
+        function CancelInViewCase(reqId) {
+            $.ajax({
+                url: '/Admin/CancelCase',
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+
+                    $("#viewCasePopUp").html(response);
+
+                    $('#cancelModal').modal('show');
+
+                }
+            });
+        }
+    </script>
+
+

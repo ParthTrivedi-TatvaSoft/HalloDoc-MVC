@@ -15,7 +15,7 @@ namespace BusinessLogic.Interfaces
     {
         Aspnetuser GetAspnetuser(string email);
         DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage);
-        DashboardModel GetRequestByRegion(int regionId, int tabNo);
+
 
 
         StatusCountModel GetStatusCount();
@@ -25,7 +25,7 @@ namespace BusinessLogic.Interfaces
 
         ViewNotesModel ViewNotes(int ReqId);
 
-        bool UpdateAdminNotes(string additionalNotes, int reqId);
+        bool UpdateAdminNotes(string additionalNotes, int reqId, int aspNetRole);
 
 
 
@@ -80,10 +80,8 @@ namespace BusinessLogic.Interfaces
         bool SubmitAdminInfo(MyProfileModel model, string tokenEmail);
         bool SubmitBillingInfo(MyProfileModel model, string tokenEmail);
         bool VerifyState(string state);
-
-        bool CreateRequest(CreateRequestModel model, string sessionEmail);
-
-
+        void SendRegistrationEmailCreateRequest(string email, string registrationLink);
+        bool CreateRequest(CreateRequestModel model, string sessionEmail, string createAccountLink);
 
         List<AccountAccess> AccountAccess();
 
@@ -114,7 +112,7 @@ namespace BusinessLogic.Interfaces
         List<Physicianlocation> GetPhysicianlocations();
         List<Role> GetRoles();
 
-        void CreateProviderAccount(CreateProviderAccount model);
+        CreateProviderAccount CreateProviderAccount(CreateProviderAccount obj, List<int> physicianRegions);
         bool providerResetPass(string email, string password);
         bool editProviderForm1(int phyId, int roleId, int statusId);
         bool editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray);
@@ -135,6 +133,8 @@ namespace BusinessLogic.Interfaces
         List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel);
         List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
         void DeleteRecords(int reqId);
+        byte[] GenerateExcelFile(List<RequestsRecordModel> recordsModel);
+
 
         List<GetRecordExplore> GetPatientRecordExplore(int userId);
 
@@ -164,6 +164,7 @@ namespace BusinessLogic.Interfaces
         List<ShiftReview> GetShiftReview(int regionId, int callId);
         bool DeleteShiftReview(int[] shiftDetailsId, string Aspid);
         bool ApproveSelectedShift(int[] shiftDetailsId, string Aspid);
-
+        DashboardModel GetRequestByRegion(FilterModel filterModel);
+        List<AdminDashTableModel> Export(int tabNo);
     }
 }

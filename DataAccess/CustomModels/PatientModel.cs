@@ -14,29 +14,35 @@ namespace DataAccess.CustomModels
     {
         public string? symptoms { get; set; }
 
-        [Required(ErrorMessage = "First name is required")]
+        [Required(ErrorMessage = "First Name Is Required")]
         public string firstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name Is Required")]
         public string? lastName { get; set; }
 
-        [Required(ErrorMessage = "Date of Birth is required")]
+        [Required(ErrorMessage = "Date Of Birth Is Required")]
         public DateOnly dob { get; set; }
 
-        [Required(ErrorMessage = "Please enter the patient's email address.")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please enter a valid email address.")]
+        [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string email { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone number must be 10 digits long")]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone Number Must Be 10 Digits Long")]
         public string? phoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
+
+        [Required(ErrorMessage = "State Is Required")]
         public string? state { get; set; }
         public string? zipCode { get; set; }
         public string? roomNo { get; set; }
         public string? country { get; set; }
 
+        [Required(ErrorMessage = "Password Is Required")]
         public string? password { get; set; }
 
+        [Required(ErrorMessage = "Confirm Password Is Required")]
         [Compare("password", ErrorMessage = "Password Missmatch")]
         public string? confirmPassword { get; set; }
 
@@ -48,85 +54,103 @@ namespace DataAccess.CustomModels
 
     public class FamilyReqModel
     {
-        public string? firstName { get; set; }
-        public string? lastName { get; set; }
-        public string? email { get; set; }
-        public string? phoneNo { get; set; }
-        public string? relation { get; set; }
-        public string? symptoms { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Your Name")]
-        public string patientFirstName { get; set; }
-        public string? patientLastName { get; set; }
-        public DateTime? patientDob { get; set; }
-        [Required(ErrorMessage = "Please enter the patient's email address.")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please enter a valid email address.")]
-        public string patientEmail { get; set; }
-        public string? patientPhoneNo { get; set; }
-        public string? street { get; set; }
-        public string? city { get; set; }
-        public string? state { get; set; }
-        public string? zipCode { get; set; }
-        public string? roomNo { get; set; }
-
-        public IFormFile? File { get; set; }
-
-
-
-    }
-
-    public class ConciergeReqModel
-    {
-        [Required(ErrorMessage = "Please Enter Your First Name")]
+        [Required(ErrorMessage = "First Name Is Required")]
         public string firstName { get; set; }
         public string? lastName { get; set; }
         public string? email { get; set; }
         public string? phoneNo { get; set; }
-        public string? hotelName { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Relation")]
+        public string? relation { get; set; }
         public string? symptoms { get; set; }
-        [Required(ErrorMessage = "Please Enter Patient's First Name")]
-        public string patientFirstName { get; set; }
+
+        [Required(ErrorMessage = "Patient First Name Is Required")]
+        public string? patientFirstName { get; set; }
         public string? patientLastName { get; set; }
-        public DateTime? patientDob { get; set; }
-        public string? patientEmail { get; set; } 
+        public DateOnly patientDob { get; set; }
+
+        [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
+        public string? patientEmail { get; set; }
         public string? patientPhoneNo { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Street")]
-        public string street { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Your City")]
-        public string city { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Your State")]
-        public string state { get; set; }
-        [Required(ErrorMessage = "Please Enter Your ZipCode")]
-        public string zipCode { get; set; }
+        public string? street { get; set; }
+        public string? city { get; set; }
+        [Required(ErrorMessage = "State Is Required")]
+        public string? state { get; set; }
+        public string? zipCode { get; set; }
         public int? roomNo { get; set; }
-
+        public List<IFormFile>? file { get; set; }
     }
 
-    public class BusinessReqModel
+
+    public class ConciergeReqModel
     {
+
+        [Required(ErrorMessage = "First Name Is Required")]
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public string? email { get; set; }
         public string? phoneNo { get; set; }
 
-        [Required(ErrorMessage ="Please Enter Business/Property Name")]
-        public string businessName { get; set; }
-        public string? caseNo { get; set; }
+        [Required(ErrorMessage = "Please Enter Hotel/Property Name")]
+        public string? hotelName { get; set; }
         public string? symptoms { get; set; }
+
+        [Required(ErrorMessage = "Patient First Name Is Required")]
         public string? patientFirstName { get; set; }
         public string? patientLastName { get; set; }
-        public DateTime? patientDob { get; set; }
+        [Required(ErrorMessage = "Patient Date of Birth Is Required")]
+        public DateOnly patientDob { get; set; }
+
+        [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
+        public string? patientEmail { get; set; }
+        public string? patientPhoneNo { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Street")]
+        public string street { get; set; }
+        [Required(ErrorMessage = "Please Enter City")]
+        public string city { get; set; }
+        [Required(ErrorMessage = "Please Enter State")]
+        public string state { get; set; }
+        [Required(ErrorMessage = "Please Enter ZipCode")]
+        public string? zipCode { get; set; }
+        public int? roomNo { get; set; }
+
+
+    }
+
+
+    public class BusinessReqModel
+    {
+
+        [Required(ErrorMessage = "First Name Is Required")]
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
+        public string? email { get; set; }
+        public string? phoneNo { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Business/Property Name")]
+        public string? businessName { get; set; }
+        public string? caseNo { get; set; }
+        public string? symptoms { get; set; }
+
+        [Required(ErrorMessage = "Patient First Name Is Required")]
+        public string? patientFirstName { get; set; }
+        public string? patientLastName { get; set; }
+        [Required(ErrorMessage = "Patient Date Of Birth Is Required")]
+        public DateOnly patientDob { get; set; }
+
+        [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string? patientEmail { get; set; }
         public string? patientPhoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
+        [Required(ErrorMessage = "State Is Required")]
         public string? state { get; set; }
         public string? zipCode { get; set; }
         public int? roomNo { get; set; }
-    
     }
 
 

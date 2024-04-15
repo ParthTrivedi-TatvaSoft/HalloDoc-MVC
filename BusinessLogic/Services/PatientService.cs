@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.Net.Mail;
+using System.Net;
 
 namespace BusinessLogic.Services
 {
@@ -100,9 +102,14 @@ namespace BusinessLogic.Services
         }
 
 
-        public void AddPatientInfo(PatientInfoModel patientInfoModel)
+
+        public bool AddPatientInfo(PatientInfoModel patientInfoModel)
         {
             var stateMain = _db.Regions.Where(r => r.Name.ToLower() == patientInfoModel.state.ToLower().Trim()).FirstOrDefault();
+            if (stateMain == null)
+            {
+                return false;
+            }
 
             var aspnetuser = _db.Aspnetusers.Where(m => m.Email == patientInfoModel.email).FirstOrDefault();
             User u = new User();
@@ -112,13 +119,16 @@ namespace BusinessLogic.Services
                 aspnetuser1.Id = Guid.NewGuid().ToString();
                 aspnetuser1.Passwordhash = patientInfoModel.password;
                 aspnetuser1.Email = patientInfoModel.email;
-                aspnetuser1.Username = patientInfoModel.firstName + "_" + patientInfoModel.lastName;
+                aspnetuser1.Username = patientInfoModel.firstName + " " + patientInfoModel.lastName;
                 aspnetuser1.Phonenumber = patientInfoModel.phoneNo;
                 aspnetuser1.Createddate = DateTime.Now;
                 aspnetuser1.Modifieddate = DateTime.Now;
                 _db.Aspnetusers.Add(aspnetuser1);
 
-
+                Aspnetuserrole role = new Aspnetuserrole();
+                role.Userid = aspnetuser1.Id;
+                role.Roleid = 2;
+                _db.Aspnetuserroles.Add(role);
 
                 u.Aspnetuserid = aspnetuser1.Id;
                 u.Firstname = patientInfoModel.firstName;
@@ -151,27 +161,16 @@ namespace BusinessLogic.Services
             request.Requesttypeid = (int)RequestTypeEnum.Patient;
             request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
-            request.Userid = u.Userid;
             request.Isurgentemailsent = new BitArray(1, false);
             request.Firstname = patientInfoModel.firstName;
             request.Lastname = patientInfoModel.lastName;
             request.Phonenumber = patientInfoModel.phoneNo;
             request.Email = patientInfoModel.email;
-
+            request.Userid = u.Userid;
 
 
             _db.Requests.Add(request);
             _db.SaveChanges();
-
-            var regionData = _db.Regions.Where(x => x.Regionid == u.Regionid).FirstOrDefault();
-
-
-            var count = (from req in _db.Requests where req.Userid == u.Userid && req.Createddate.Date == DateTime.Now.Date select req).Count();
-            request.Confirmationnumber = $"{regionData.Abbreviation.Substring(0, 2)}{request.Createddate.Day.ToString().PadLeft(2, '0')}{request.Createddate.Month.ToString().PadLeft(2, '0')}{(request.Createddate.Year % 100).ToString().PadLeft(2, '0')}{u.Lastname.ToUpper().Substring(0, 2)}{u.Firstname.ToUpper().Substring(0, 2)}{count.ToString().PadLeft(4, '0')}";
-
-            _db.Requests.Update(request);
-            _db.SaveChanges();
-
 
             Requestclient info = new Requestclient();
             info.Request = request;
@@ -185,11 +184,10 @@ namespace BusinessLogic.Services
             info.City = patientInfoModel.city;
             info.State = patientInfoModel.state;
             info.Zipcode = patientInfoModel.zipCode;
-            info.Intyear = patientInfoModel.dob.Year;
-            info.Intdate = patientInfoModel.dob.Day;
+            info.Intyear = int.Parse(patientInfoModel.dob.ToString("yyyy"));
+            info.Intdate = int.Parse(patientInfoModel.dob.ToString("dd"));
             info.Strmonth = patientInfoModel.dob.ToString("MMM");
-     
-            info.Regionid = 1;
+            info.Regionid = stateMain.Regionid;
 
             _db.Requestclients.Add(info)
 ;
@@ -228,22 +226,105 @@ namespace BusinessLogic.Services
                     };
                 }
             }
+
+            return true;
         }
 
-
-
-        public void AddFamilyReq(FamilyReqModel familyReqModel)
+        public void SendRegistrationEmailCreateRequest(string email, string registrationLink)
         {
+            string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
+            string senderPassword = "Parth@70160";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Create Account",
+                IsBodyHtml = true,
+                Body = $"Click The Following Link To Create Account: <a href='{registrationLink}'>{registrationLink}</a>"
+            };
+
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
+        }
+
+        public bool AddFamilyReq(FamilyReqModel familyReqModel, string createAccountLink)
+        {
+            var stateMain = _db.Regions.Where(x => x.Name.ToLower() == familyReqModel.state.ToLower().Trim()).FirstOrDefault();
+
+            if (stateMain == null)
+            {
+                return false;
+            }
+            User user = new User();
+            Aspnetuser asp = new Aspnetuser();
+            var existUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == familyReqModel.patientEmail);
+
+            if (existUser == null)
+            {
+                asp.Id = Guid.NewGuid().ToString();
+                asp.Username = familyReqModel.patientFirstName + "_" + familyReqModel.patientLastName;
+                asp.Email = familyReqModel.patientEmail;
+                asp.Phonenumber = familyReqModel.patientPhoneNo;
+                asp.Createddate = DateTime.Now;
+                _db.Aspnetusers.Add(asp);
+                _db.SaveChanges();
+
+                user.Aspnetuserid = asp.Id;
+                user.Firstname = familyReqModel.patientFirstName;
+                user.Lastname = familyReqModel.patientFirstName;
+                user.Email = familyReqModel.patientEmail;
+                user.Mobile = familyReqModel.patientPhoneNo;
+                user.City = familyReqModel.city;
+                user.State = familyReqModel.state;
+                user.Street = familyReqModel.street;
+                user.Zipcode = familyReqModel.zipCode;
+                user.Intyear = int.Parse(familyReqModel.patientDob.ToString("yyyy"));
+                user.Intdate = int.Parse(familyReqModel.patientDob.ToString("dd"));
+                user.Strmonth = familyReqModel.patientDob.ToString("MMM");
+                user.Createdby = asp.Id;
+                user.Createddate = DateTime.Now;
+                user.Regionid = stateMain.Regionid;
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+
+
+
+                try
+                {
+                    SendRegistrationEmailCreateRequest(familyReqModel.patientEmail, createAccountLink);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            else
+            {
+                user = _db.Users.Where(m => m.Email == familyReqModel.patientEmail).FirstOrDefault();
+            }
             Request request = new Request();
-            request.Requesttypeid = 3;
-            request.Status = 1;
+            request.Requesttypeid = (int)RequestTypeEnum.Family;
+            request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
-            request.Isurgentemailsent = new BitArray(1);
+            request.Isurgentemailsent = new BitArray(1, false);
             request.Firstname = familyReqModel.firstName;
             request.Lastname = familyReqModel.lastName;
             request.Phonenumber = familyReqModel.phoneNo;
             request.Email = familyReqModel.email;
             request.Relationname = familyReqModel.relation;
+            request.Userid = user.Userid;
 
             _db.Requests.Add(request);
             _db.SaveChanges();
@@ -259,59 +340,82 @@ namespace BusinessLogic.Services
             info.City = familyReqModel.city;
             info.State = familyReqModel.state;
             info.Zipcode = familyReqModel.zipCode;
-
-
-
-
-            if (familyReqModel.File != null && familyReqModel.File.Length > 0)
-            {
-                //get file name
-                var fileName = Path.GetFileName(familyReqModel.File.FileName);
-
-                //define path
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-                // Copy the file to the desired location
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    familyReqModel.File.CopyTo(stream);
-                }
-
-                Requestwisefile requestwisefile = new()
-                {
-                    Filename = fileName,
-                    Requestid = request.Requestid,
-                    Createddate = DateTime.Now
-                };
-
-
-
-
-
-                _db.Requestwisefiles.Add(requestwisefile);
-                _db.SaveChanges();
-            };
-
+            info.Regionid = stateMain.Regionid;
 
             _db.Requestclients.Add(info);
             _db.SaveChanges();
-
-
+            return true;
         }
 
         // aspnet user    user            req reqclient ....
-        public void AddConciergeReq(ConciergeReqModel conciergeReqModel)
+        public bool AddConciergeReq(ConciergeReqModel conciergeReqModel, string createAccountLink)
         {
+            var stateMain = _db.Regions.Where(x => x.Name.ToLower() == conciergeReqModel.state.ToLower().Trim()).FirstOrDefault();
+
+            if (stateMain == null)
+            {
+                return false;
+            }
+            User user = new User();
+            Aspnetuser asp = new Aspnetuser();
+            var existUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == conciergeReqModel.patientEmail);
+
+            if (existUser == null)
+            {
+                asp.Id = Guid.NewGuid().ToString();
+                asp.Username = conciergeReqModel.patientFirstName + "_" + conciergeReqModel.patientLastName;
+                asp.Email = conciergeReqModel.patientEmail;
+                asp.Phonenumber = conciergeReqModel.patientPhoneNo;
+                asp.Createddate = DateTime.Now;
+                _db.Aspnetusers.Add(asp);
+                _db.SaveChanges();
+
+                user.Aspnetuserid = asp.Id;
+                user.Firstname = conciergeReqModel.patientFirstName;
+                user.Lastname = conciergeReqModel.patientLastName;
+                user.Email = conciergeReqModel.patientEmail;
+                user.Mobile = conciergeReqModel.patientPhoneNo;
+                //user.City = conciergeReqModel.city;
+                //user.State = conciergeReqModel.state;
+                //user.Street = conciergeReqModel.street;
+                //user.Zipcode = conciergeReqModel.zipCode;
+                user.Intyear = int.Parse(conciergeReqModel.patientDob.ToString("yyyy"));
+                user.Intdate = int.Parse(conciergeReqModel.patientDob.ToString("dd"));
+                user.Strmonth = conciergeReqModel.patientDob.ToString("MMM");
+                user.Createdby = asp.Id;
+                user.Createddate = DateTime.Now;
+                user.Regionid = stateMain.Regionid;
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+
+
+
+                try
+                {
+                    SendRegistrationEmailCreateRequest(conciergeReqModel.patientEmail, createAccountLink);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            else
+            {
+                user = _db.Users.Where(m => m.Email == conciergeReqModel.patientEmail).FirstOrDefault();
+            }
+
             Request request = new Request();
-            request.Requesttypeid = 4;
-            request.Status = 1;
+            request.Requesttypeid = (int)RequestTypeEnum.Concierge;
+            request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
-            request.Isurgentemailsent = new BitArray(1);
+            request.Isurgentemailsent = new BitArray(1, false);
             request.Firstname = conciergeReqModel.firstName;
             request.Lastname = conciergeReqModel.lastName;
             request.Phonenumber = conciergeReqModel.phoneNo;
             request.Email = conciergeReqModel.email;
             request.Relationname = "Concierge";
+            request.Userid = user.Userid;
 
             _db.Requests.Add(request);
             _db.SaveChanges();
@@ -323,7 +427,7 @@ namespace BusinessLogic.Services
             info.Lastname = conciergeReqModel.patientLastName;
             info.Phonenumber = conciergeReqModel.patientPhoneNo;
             info.Email = conciergeReqModel.patientEmail;
-
+            info.Regionid = stateMain.Regionid;
 
 
             _db.Requestclients.Add(info);
@@ -332,7 +436,7 @@ namespace BusinessLogic.Services
             Concierge concierge = new Concierge();
             concierge.Conciergename = conciergeReqModel.firstName + " " + conciergeReqModel.lastName;
             concierge.Createddate = DateTime.Now;
-            concierge.Regionid = 1;
+            concierge.Regionid = stateMain.Regionid;
             concierge.Street = conciergeReqModel.street;
             concierge.City = conciergeReqModel.city;
             concierge.State = conciergeReqModel.state;
@@ -348,20 +452,75 @@ namespace BusinessLogic.Services
             _db.Requestconcierges.Add(reqCon);
             _db.SaveChanges();
 
+            return true;
         }
-
-        public void AddBusinessReq(BusinessReqModel businessReqModel)
+        public bool AddBusinessReq(BusinessReqModel businessReqModel, string createAccountLink)
         {
+            var stateMain = _db.Regions.Where(x => x.Name.ToLower() == businessReqModel.state.ToLower().Trim()).FirstOrDefault();
+
+            if (stateMain == null)
+            {
+                return false;
+            }
+            User user = new User();
+            Aspnetuser asp = new Aspnetuser();
+            var existUser = _db.Aspnetusers.FirstOrDefault(r => r.Email == businessReqModel.patientEmail);
+
+            if (existUser == null)
+            {
+                asp.Id = Guid.NewGuid().ToString();
+                asp.Username = businessReqModel.patientFirstName + "_" + businessReqModel.patientLastName;
+                asp.Email = businessReqModel.patientEmail;
+                asp.Phonenumber = businessReqModel.patientPhoneNo;
+                asp.Createddate = DateTime.Now;
+                _db.Aspnetusers.Add(asp);
+                _db.SaveChanges();
+
+                user.Aspnetuserid = asp.Id;
+                user.Firstname = businessReqModel.patientFirstName;
+                user.Lastname = businessReqModel.patientLastName;
+                user.Email = businessReqModel.patientEmail;
+                user.Mobile = businessReqModel.patientPhoneNo;
+                user.City = businessReqModel.city;
+                user.State = businessReqModel.state;
+                user.Street = businessReqModel.street;
+                user.Zipcode = businessReqModel.zipCode;
+                user.Intyear = int.Parse(businessReqModel.patientDob.ToString("yyyy"));
+                user.Intdate = int.Parse(businessReqModel.patientDob.ToString("dd"));
+                user.Strmonth = businessReqModel.patientDob.ToString("MMM");
+                user.Createdby = asp.Id;
+                user.Createddate = DateTime.Now;
+                user.Regionid = stateMain.Regionid;
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+
+
+
+                try
+                {
+                    SendRegistrationEmailCreateRequest(businessReqModel.patientEmail, createAccountLink);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            else
+            {
+                user = _db.Users.Where(m => m.Email == businessReqModel.patientEmail).FirstOrDefault();
+            }
             Request request = new Request();
-            request.Requesttypeid = 1;
-            request.Status = 1;
+            request.Requesttypeid = (int)RequestTypeEnum.Business;
+            request.Status = (int)StatusEnum.Unassigned;
             request.Createddate = DateTime.Now;
-            request.Isurgentemailsent = new BitArray(1);
+            request.Isurgentemailsent = new BitArray(1, false);
             request.Firstname = businessReqModel.firstName;
             request.Lastname = businessReqModel.lastName;
             request.Phonenumber = businessReqModel.phoneNo;
             request.Email = businessReqModel.email;
             request.Relationname = "Business";
+            request.Userid = user.Userid;
 
             _db.Requests.Add(request);
             _db.SaveChanges();
@@ -373,7 +532,12 @@ namespace BusinessLogic.Services
             info.Lastname = businessReqModel.patientLastName;
             info.Phonenumber = businessReqModel.patientPhoneNo;
             info.Email = businessReqModel.patientEmail;
-
+            info.Regionid = stateMain.Regionid;
+            info.Street = businessReqModel.street;
+            info.City = businessReqModel.city;
+            info.State = businessReqModel.state;
+            info.Zipcode = businessReqModel.zipCode;
+            info.Regionid = stateMain.Regionid;
             _db.Requestclients.Add(info);
             _db.SaveChanges();
 
@@ -393,9 +557,10 @@ namespace BusinessLogic.Services
 
             _db.Requestbusinesses.Add(requestbusiness);
             _db.SaveChanges();
-
-
+            return true;
         }
+
+
 
 
         public MedicalHistoryList GetMedicalHistory(int userid)
@@ -445,28 +610,7 @@ namespace BusinessLogic.Services
         }
 
 
-     //   public void AddFile(IFormFile file, int reqId)
-     //   {
-     //       var fileName = Path.GetFileName(file.FileName);
-
-     //       //define path
-     //       var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-
-     //       // Copy the file to the desired location
-     //       using (var stream = new FileStream(filePath, FileMode.Create))
-     //       {
-     //           file.CopyTo(stream)
-     //;
-     //       }
-     //       Requestwisefile requestwisefile = new()
-     //       {
-     //           Filename = fileName,
-     //           Requestid = reqId,
-     //           Createddate = DateTime.Now
-     //       };
-     //       _db.Requestwisefiles.Add(requestwisefile);
-     //       _db.SaveChanges();
-     //   }
+     
 
         public bool UploadDocuments(List<IFormFile> files, int reqId)
         {

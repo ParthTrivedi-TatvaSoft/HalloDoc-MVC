@@ -1,6 +1,6 @@
 ﻿@model DataAccess.CustomModels.PatientInfoModel;
 @{
-    ViewData["Title"] = "patient_request";
+    ViewData["Title"] = "patient_newrequest";
 }
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pationt Request</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="~/css/friendfamily_request.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
@@ -33,10 +34,8 @@
     <div class="container-fluid">
 
         <div class="navbar navbar-light justify-content-end">
-            <a asp-controller="Patient" asp-action="patient_dashboard">
-                <button class="back btn btn-outline-info m-2">
-                    <span class="h6 p-0 m-0 text-center">&#60; Back</span>
-                </button>
+            <a asp-controller="Patient" asp-action="submit_request">
+                <button class="dark-mode1" id="back-btn">&lt; Back</button>
             </a>
         </div>
     </div>

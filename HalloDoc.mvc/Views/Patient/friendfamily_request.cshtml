@@ -12,6 +12,7 @@
     <title>Pationt Request</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/friendfamily_request.css">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
@@ -38,7 +39,7 @@
     <div id="myModal" class="modal">
 
 
-        <div class="modal-content d-flex flex-column justify-content-evenly align-items-center">
+        <div class=" dark-mode1 modal-content d-flex flex-column justify-content-evenly align-items-center">
             <div></div>
             <img class="alert" id="info-icon" src="/images/info.png" alt="info">
             <h5>Information</h5>
@@ -59,9 +60,7 @@
 
         <div class="navbar navbar-light justify-content-end">
             <a asp-controller="Patient" asp-action="submit_request">
-            <button class="back btn btn-outline-info m-2" >
-                <span class="h6 p-0 m-0 text-center">&#60; Back</span>
-            </button>
+                <button class="dark-mode1" id="back-btn">&lt; Back</button>
             </a>
         </div>
     </div>
@@ -74,6 +73,7 @@
 
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                     <input type="text" asp-for="firstName" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <span asp-validation-for="firstName" class="text-danger"></span>
                     <label for="floatingInput" class="comman">Your First Name</label>
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
@@ -94,6 +94,7 @@
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
                     <input type="text" asp-for="relation" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <span asp-validation-for="relation" class="text-danger"></span>
                     <label for="floatingInput"  class="comman">Relation With Patient</label>
                 </div>
             </div>
@@ -129,6 +130,7 @@
 
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
                     <input type="email" asp-for="patientEmail" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <span asp-validation-for="patientEmail" class="text-danger"></span>
                     <label for="floatingInput" class="comman">Email</label>
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
@@ -169,7 +171,7 @@
             <div class="form mb-3 col-lg-12 col-md-12 col-sm-12 d-flex">
 
                 <div class="input-group mb-3">
-                    <input type="file" asp-for="File" class="form-control" id="formFileLg" type="file" multiple>
+                    <input type="file" asp-for="file" class="form-control" id="formFileLg" type="file" multiple>
                     <label class="input-group-text bg-primary text-white" for="inputGroupFile02">
                         <i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload
                     </label>
@@ -193,8 +195,11 @@
     <footer id="footr">
         <p>Terms of Conditions | Privacy Policy</p>
     </footer>
-    <script src="./js/custom.js"></script>
+   
     <script>
+
+
+
         const phoneInputField = document.querySelectorAll("input[type='tel']");
         for (var i = 0; i < phoneInputField.length; i++) {
             const phoneInput = window.intlTelInput(phoneInputField[i], {
@@ -202,6 +207,39 @@
                     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
             });
         }
+
+
+            $(document).ready(function () {
+                modal.style.display = "block";
+            });
+
+
+        var modal = document.getElementById("myModal");
+
+
+        var btn = document.getElementById("myBtn");
+
+
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    
     </script>
 
 </body>

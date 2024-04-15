@@ -15,15 +15,7 @@ namespace BusinessLogic.Interfaces
         bool IsEmailExists(string email);
         bool IsPasswordExists(string email);
         bool CreateAccount(CreateAccountModel model);
-        void AddPatientInfo(PatientInfoModel patientInfoModel);
-
-
-         void AddFamilyReq(FamilyReqModel familyReqModel);
-
-
-        void AddConciergeReq(ConciergeReqModel conciergeReqModel);
-
-        void AddBusinessReq(BusinessReqModel businessReqModel);
+        bool AddPatientInfo(PatientInfoModel patientInfoModel);
 
         MedicalHistoryList GetMedicalHistory(int userid);
         Profile GetProfile(int userid);
@@ -33,13 +25,10 @@ namespace BusinessLogic.Interfaces
     
 
         public DocumentModel GetAllDocById(int requestId);
-
-
-
-
-
-
-
+        void SendRegistrationEmailCreateRequest(string email, string registrationLink);
+        bool AddFamilyReq(FamilyReqModel familyReqModel, string createAccountLink);
+        bool AddConciergeReq(ConciergeReqModel conciergeReqModel, string createAccountLink);
+        bool AddBusinessReq(BusinessReqModel businessReqModel, string createAccountLink);
     }
 
 

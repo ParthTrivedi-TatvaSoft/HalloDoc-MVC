@@ -10,12 +10,17 @@
     <title>Create Account</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/patient_login.css">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 </head>
 <body>
 
     <div class="container  d-flex flex-column justify-content-center align-items-center">
-        <img class="float-right light" id="d-mode" role="button" onclick="myFunction()" src="/images/dark.png" alt="">
+        <button type="button" class="btn shadow border-info ms-2"
+                style="border-radius: 10px; border-color: aqua" id="colorButton">
+            <i id="moon" class="bi bi-moon text-info fs-5"></i>
+            <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+        </button>
         <img src="/images/hallodoc.png" alt="   " class="hallodoc-img">
         <br><br>
         <a href=""></a>

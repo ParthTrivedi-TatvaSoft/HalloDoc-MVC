@@ -44,6 +44,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.1.1, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.3.0, )"

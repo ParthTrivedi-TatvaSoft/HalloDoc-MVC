@@ -8,55 +8,14 @@
 
 
 <link rel="stylesheet" href="~/css/admin_dashboard.css">
+<link rel="stylesheet" href="~/css/darkmode.css" />
 
-<nav class="bg-white navbr navbar navbar-expand w-100 ">
-
-    <div class="container-fluid">
-        <div class="d-flex align-items-center">
-            <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <img class="navbar-brand ms-3" id="logo" src="/images/hallodoc.png" alt="logo">
-
-        </div>
-        <div>
-            <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
-                <div class="d-none d-sm-flex  justify-content-center align-items-center ">
-                <li class="nav-item">
-                    <span>Welcome</span>
-                </li>
-                <li class="nav-item p-2 fw-bolder">
-                    <span class="d-flex gap-1">
-                        <span>First</span>
-                        <span>Last</span>
-                    </span>
-                </li>
-        </div>
-        <li class="nav-item">
-            <a asp-action="admin_dashboard" asp-controller="Admin">
-            <button id="logout" class="px-2">
-                <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
-            </button>
-            </a>
-
-        </li>
-        <li class="nav-item">
-            <button type="button" class="btn shadow border-info ms-2"
-                    style="border-radius: 10px; border-color: aqua" id="colorButton">
-                <i id="moon" class="bi bi-moon text-info fs-5"></i>
-                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
-            </button>
-        </li>
-        </ul>
-    </div>
-    </div>
-
-
-    <!-- tabs -->
-</nav>
-
+<link rel="stylesheet" href="~/css/darkmode.css" />
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
 @{
 
 
@@ -103,14 +62,14 @@
             <div class="col-6 d-flex justify-content-end">
                 <div class="col-6 d-flex justify-content-end">
                     <div>
-                        <button id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
+                        <button class="dark-mode1" id="back-btn" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'">&lt; Back</button>
                     </div>
                 </div>
 
 
             </div>
 
-            <div class=" p-5 shadow mb-3 bg-white ">
+            <div class=" p-5 shadow mb-3 bg-white dark-mode1 ">
 
                 <!--Form-->
                 <form method="post">
@@ -122,7 +81,7 @@
                     <h5 class="text-info">@Model.ConfirmationNumber</h5>
                     <!-- text-area  -->
                     <div class="form-floating">
-                        <textarea class="form-control h-75 " id="floatingTextarea" disabled></textarea>
+                        <textarea class="form-control h-75 dark-mode1 " id="floatingTextarea" disabled></textarea>
                         <label for="floatingTextarea" value="Fever">
                             <span class="text-tertiary"> Enter brief details symptoms(optional)</span>
                         </label>
@@ -131,21 +90,21 @@
                     <hr class="mt-4" />
 
                     <div class="row g-1 ">
-                        <div class="form-floating my-3 col-12 col-md-6">
-                            <input asp-for="Firstname" type="text" class="form-control " id="floatingInput" disabled>
+                        <div class="form-floating my-3 col-12 col-md-6 ">
+                            <input asp-for="Firstname" type="text" class="form-control dark-mode1" id="floatingInput" disabled>
                             <label for="floatingInput"><span class="text-tertiary ">First Name</span></label>
                         </div>
                         <div class="form-floating my-3 col-12 col-md-6">
-                            <input asp-for="Lastname" type="text" class="form-control  " id="floatingInput" disabled>
+                            <input asp-for="Lastname" type="text" class="form-control dark-mode1  " id="floatingInput" disabled>
                             <label for="floatingInput"><span class="text-tertiary ">Last Name</span></label>
                         </div>
 
                         <div class="form-floating col-12 col-md-6">
-                            <input asp-for="DateOfBirth" type="date" class="form-control  " id="floatingInput" disabled>
+                            <input asp-for="DateOfBirth" type="date" class="form-control  dark-mode1" id="floatingInput" disabled>
                             <label for="floatingInput"><span class="text-tertiary "> Date of birth</span></label>
                         </div>
                         <div class="form-floating mb-3 col-10 col-md-5 ">
-                            <input asp-for="Phonenumber" type="tel" class=" form-control bg-transparent " id="floatingInput" disabled>
+                            <input asp-for="Phonenumber" type="tel" class=" form-control  dark-mode1" id="floatingInput" disabled>
                             <label for="floatingInput"><span class="text-tertiary "> Contact  </span></label>
 
                         </div>
@@ -154,7 +113,7 @@
                         </div>
 
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                            <input asp-for="Email" type="email" class="form-control bg-transparent emailInp" id="floatingInput1" disabled>
+                            <input asp-for="Email" type="email" class="form-control  emailInp dark-mode1" id="floatingInput1" disabled>
                             <label for="floatingInput" class="ms-2 ">Email</label>
 
                         </div>
@@ -166,11 +125,11 @@
                     <h3 class="mt-3">Patient Location</h3>
                     <div class="row d-flex justify-content-center g-1 ">
                         <div class="form-floating m- col-md-6 col-12">
-                            <input asp-for="City" type="text" class="form-control" id="floatingInput" disabled>
+                            <input asp-for="City" type="text" class="form-control dark-mode1" id="floatingInput" disabled>
                             <label for="floatingInput"><span class="text-tertiary ">Region</span></label>
                         </div>
                         <div class="form-floating mb-3 col-10 col-md-5 ">
-                            <input asp-for="Address" type="tel" class=" form-control bg-transparent " id="floatingInput" disabled>
+                            <input asp-for="Address" type="tel" class=" form-control dark-mode1" id="floatingInput" disabled>
                             <label for="floatingInput" class="ms-2 ">Business name / Address</label>
 
                         </div>
@@ -178,7 +137,7 @@
                             <a class="btn btn-outline-info p-3"><i class="bi bi-map text-info "></i></a>
                         </div>
                         <div class="form-floating mb-3 col-12 col-sm-6">
-                            <input asp-for="Room" type="text" class="form-control bg-transparent emailInp" id="floatingInput1" value="3" disabled>
+                            <input asp-for="Room" type="text" class="form-control emailInp dark-mode1" id="floatingInput1" value="3" disabled>
                             <label for="floatingInput" class="ms-2 ">Room#</label>
 
                         </div>

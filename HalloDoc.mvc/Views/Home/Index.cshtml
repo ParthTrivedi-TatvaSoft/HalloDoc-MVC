@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-
+<link rel="stylesheet" href="~/css/darkmode.css" />
 <style>
     .main {
     height: 100vh;
@@ -67,6 +67,7 @@
     bottom: 10%;
 }
 
+ 
 </style>
 
 <div class="d-flex justify-content-center align-items-center" style="margin-top:-20px">
@@ -80,7 +81,11 @@
                 </div>
 
                 <div>
-                    <img onclick="toggleDarkMode()" class="light" src="../images/dark.png" alt="" id="changeicon">
+                    <button type="button" class="btn shadow border-info ms-2"
+                            style="border-radius: 10px; border-color: aqua" id="colorButton">
+                        <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                        <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+                    </button>
                 </div>
             </div>
 
@@ -99,7 +104,7 @@
                     </button>
                 </a>
 
-                <a asp-controller="Admin" asp-action="admin_login">
+                <a asp-controller="Home" asp-action="admin_login">
                     <button class="btn w-100 p-2 border-0 fw-medium" style="background-color: orange; color: white;"
                             type="button">
                         Admin

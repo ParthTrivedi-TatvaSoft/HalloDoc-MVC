@@ -2,17 +2,25 @@
 @model Order;
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<link rel="stylesheet" href="~/css/darkmode.css" />
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
+
 <div class="container">
     <div class="d-flex justify-content-between pt-3">
         <h2>Send Order</h2>
-        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+        <button class="dark-mode1" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
 
     </div>
-    <form class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white" >
+    <form class="mt-3 border rounded-3 shadow pt-3 px-3 bg-white dark-mode1" >
         <div class="row">
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <select class="form-select text-secondary py-0" aria-label="Floating label select example" id="Healthprofessionalid">
+                    <select class="form-select text-secondary py-0 dark-mode1" aria-label="Floating label select example" id="Healthprofessionalid">
                         <option disabled selected>Select Profession*</option>
                         @if (Model.Profession != null)
                         {
@@ -29,7 +37,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <select class="form-select text-secondary py-0" id="Vendorid" aria-label="Floating label select example">
+                    <select class="form-select text-secondary py-0 dark-mode1" id="Vendorid" aria-label="Floating label select example">
                         <option disabled selected>Select Business*</option>
 
                     </select>
@@ -40,25 +48,25 @@
 
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input asp-for="BusineesContact" type="text" class="form-control" id="businessContact" disabled />
+                    <input asp-for="BusineesContact" type="text" class="form-control dark-mode1" id="businessContact" disabled />
                     <label for="floatingInput" class="">Business Contact</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input asp-for="email" type="email" class="form-control" id="businessEmail" disabled />
+                    <input asp-for="email" type="email" class="form-control dark-mode1" id="businessEmail" disabled />
                     <label for="floatingInput">Email</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="text" asp-for="faxnumber" class="form-control" id="businessFaxNumber" disabled />
+                    <input type="text" asp-for="faxnumber" class="form-control dark-mode1" id="businessFaxNumber" disabled />
                     <label for="floatingInput" class="">Fax Number</label>
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="order details" id="orderDetail" style="height: 100px"></textarea>
+                    <textarea class="form-control dark-mode1" placeholder="order details" id="orderDetail" style="height: 100px"></textarea>
                     <label for="floatingTextarea2" class="">
                         Prescription or Order details*
                     </label>
@@ -68,7 +76,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-floating">
-                    <select class="form-select" id="RefilNo" aria-label="Floating label select example">
+                    <select class="form-select dark-mode1" id="RefilNo" aria-label="Floating label select example">
                         <option disabled selected>Not Required</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>

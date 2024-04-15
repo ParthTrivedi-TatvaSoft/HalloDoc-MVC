@@ -1,0 +1,79 @@
+﻿@using DataAccess.CustomModels;
+@model StatusCountModel;
+
+<div class="status-tab row mt-3 mx-0  mx-md-3">
+    <div class="col-4 col-md-2 p-1 p-md-3 ">
+        <button class=" statustablinks darkblue" id="newTable" onclick="openTab(event, 'tab1')">
+            <div class="d-flex flex-column align-items-start">
+                <span class="d-flex gap-2">
+                    <i class="d-none d-md-block bi bi-plus-circle-dotted"></i> New
+                </span>
+                <span class="fs-5 fw-bolder">
+                    @Model.NewCount
+                </span>
+
+            </div>
+        </button>
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks lightblue" onclick="openTab(event, 'tab2')">
+            <div class="d-flex flex-column align-items-start">
+                <span class="d-flex gap-2">
+                    <i class="d-none d-md-block bi bi-person-exclamation"></i> Pending
+                </span>
+                <span class="fs-5 fw-bolder">
+                    @Model.PendingCount
+                </span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2  p-1 p-md-3">
+        <button class="col-md-2 statustablinks green" onclick="openTab(event, 'tab3')">
+            <div class="d-flex flex-column align-items-start">
+                <span class="d-flex gap-2">
+                    <i class="d-none d-md-block bi bi-check2-circle"></i> Active
+                </span>
+                <span class="fs-5 fw-bolder">
+                    @Model.ActiveCount
+                </span>
+
+            </div>
+        </button>
+
+    </div>
+    <div class="col-4 col-md-2 p-1 p-md-3">
+        <button class="col-md-2 statustablinks pink" onclick="openTab(event, 'tab4')">
+            <div class="d-flex flex-column align-items-start">
+                <span class="d-flex gap-2">
+                    <i class="d-none d-md-block bi bi-arrow-clockwise"></i> Conclude
+                </span>
+                <span class="fs-5 fw-bolder">
+                    @Model.ConcludeCount
+                </span>
+
+            </div>
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+
+<div id="tab1" class="statustabcontent">
+</div>
+
+<div id="tab2" class="statustabcontent">
+</div>
+
+<div id="tab3" class="statustabcontent">
+</div>
+<div id="tab4" class="statustabcontent">
+</div>
+
+
+

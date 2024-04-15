@@ -18,10 +18,10 @@
             <button class="action-btn" onclick="location.href='@Url.Action("createrequest", "Admin")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
-            <button class="action-btn" id="exportNewReq">
+            <button class="action-btn" id="exportNewReq" onclick="ExpertDataTabWise(1)">
                 <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
             </button>
-            <button class="action-btn" onclick="ExportAll()">
+            <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
             <button class="action-btn" onclick="ShowRequestSupportNew()">
@@ -35,13 +35,13 @@
     <div class="row mt-3 bg-white dark-mode1">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
+                <input type="text" class="form-control" id="searchword" onkeypress="newReqSearch(event)" placeholder="Search">
                 <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
             </div>
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="newRegionFilter" aria-label="Floating label select example">
+                <select class="form-select" id="newRegionFilter" onchange="FilterData(1)" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -57,13 +57,12 @@
         <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
 
             <div class="d-none d-md-block">
-                <div onclick="allElements()" style="cursor:pointer" class="border-2">All</div>
+                <div onclick="FilterData(1)" style="cursor:pointer" class="border-2">All</div>
             </div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="patientElements()"><div class="patient_circle"></div><span>Patient</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
-
+            <div class="d-flex align-items-center" id="requestTypePatient" style="cursor:pointer" onclick="FilterData(1,2)"><div class="patient_circle"></div><span>Patient</span></div>
+            <div class="d-flex align-items-center" id="requestTypeFamily" style="cursor:pointer" onclick="FilterData(1,3)"><div class="family_circle"></div><span>Friend/Family</span></div>
+            <div class="d-flex align-items-center" id="requestTypeBusiness" style="cursor:pointer" onclick="FilterData(1,1)"><div class="business_circle"></div><span> Business</span></div>
+            <div class="d-flex align-items-center" id="requestTypeConcierge" style="cursor:pointer" onclick="FilterData(1,4)"><div class="concierge_circle"></div><span> Concierge</span></div>
 
         </div>
     </div>
@@ -250,9 +249,9 @@
             }
             else
             {
-                <tr>
+               @*  <tr>
                     <td colspan="3" style="text-align: center;">No records found.</td>
-                </tr>
+                </tr> *@
             }
 
 
@@ -394,7 +393,6 @@
 
     </table>
 </div>
-
 @if (Model.TotalPage > 1)
 {
     <div class="page-container">
@@ -418,9 +416,9 @@ else if (Model.TotalPage == 1)
 }
 else
 {
-    <div class="text-center text-danger fw-bold h5">No record found</div>
+    <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
-
+<div id="modelContent"></div>
 <style>
 
     .page-active {
@@ -435,154 +433,149 @@ else
 </style>
 
 <script>
-    $("#exportNewReq").click(function () {
-        alert("exportbtn was clicked.");
-        var request = @Html.Raw(Json.Serialize(Model));
-
-        Export(request);
-    });
+   
 
   
 
-    function allElements() {
+    // function allElements() {
 
-        let a = document.getElementsByClassName("Patient");
-        console.log(a)
+    //     let a = document.getElementsByClassName("Patient");
+    //     console.log(a)
 
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "table-row";
-        }
+    //     for (let i = 0; i < a.length; i++) {
+    //         a[i].style.display = "table-row";
+    //     }
 
-        let b = document.getElementsByClassName("FamilyFriend");
+    //     let b = document.getElementsByClassName("FamilyFriend");
 
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "table-row";
-        }
+    //     for (let i = 0; i < b.length; i++) {
+    //         b[i].style.display = "table-row";
+    //     }
 
-        let c = document.getElementsByClassName("Concierge");
+    //     let c = document.getElementsByClassName("Concierge");
 
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "table-row";
-        }
-
-
-        let d = document.getElementsByClassName("Business");
+    //     for (let i = 0; i < c.length; i++) {
+    //         c[i].style.display = "table-row";
+    //     }
 
 
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "table-row";
-        }
-    }
-
-    function patientElements() {
-        let b = document.getElementsByClassName("FamilyFriend");
-        let c = document.getElementsByClassName("Concierge");
-        let d = document.getElementsByClassName("Business");
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
+    //     let d = document.getElementsByClassName("Business");
 
 
-        let a = document.getElementsByClassName("Patient");
+    //     for (let i = 0; i < d.length; i++) {
+    //         d[i].style.display = "table-row";
+    //     }
+    // }
 
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "table-row";
-        }
+    // function patientElements() {
+    //     let b = document.getElementsByClassName("FamilyFriend");
+    //     let c = document.getElementsByClassName("Concierge");
+    //     let d = document.getElementsByClassName("Business");
 
+    //     for (let i = 0; i < b.length; i++) {
+    //         b[i].style.display = "none";
+    //     }
 
-    }
+    //     for (let i = 0; i < c.length; i++) {
+    //         c[i].style.display = "none";
+    //     }
 
-
-    function familyFriendElements() {
-        let a = document.getElementsByClassName("Patient");
-        let c = document.getElementsByClassName("Concierge");
-        let d = document.getElementsByClassName("Business");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
-
-        let b = document.getElementsByClassName("FamilyFriend");
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "table-row";
-        }
-
-    }
+    //     for (let i = 0; i < d.length; i++) {
+    //         d[i].style.display = "none";
+    //     }
 
 
-    function conciergeElements() {
-        let a = document.getElementsByClassName("Patient");
-        let b = document.getElementsByClassName("FamilyFriend");
-        let d = document.getElementsByClassName("Business");
+    //     let a = document.getElementsByClassName("Patient");
 
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "none";
-        }
+    //     for (let i = 0; i < a.length; i++) {
+    //         a[i].style.display = "table-row";
+    //     }
 
 
-        let c = document.getElementsByClassName("Concierge");
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "table-row";
-        }
-
-    }
-
-    function businessElements() {
-
-        let a = document.getElementsByClassName("Patient");
-        let b = document.getElementsByClassName("FamilyFriend");
-        let c = document.getElementsByClassName("Concierge");
-
-        for (let i = 0; i < a.length; i++) {
-            a[i].style.display = "none";
-        }
-
-        for (let i = 0; i < b.length; i++) {
-            b[i].style.display = "none";
-        }
-
-        for (let i = 0; i < c.length; i++) {
-            c[i].style.display = "none";
-        }
+    // }
 
 
+    // function familyFriendElements() {
+    //     let a = document.getElementsByClassName("Patient");
+    //     let c = document.getElementsByClassName("Concierge");
+    //     let d = document.getElementsByClassName("Business");
 
-        let d = document.getElementsByClassName("Business");
+    //     for (let i = 0; i < a.length; i++) {
+    //         a[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < c.length; i++) {
+    //         c[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < d.length; i++) {
+    //         d[i].style.display = "none";
+    //     }
+
+    //     let b = document.getElementsByClassName("FamilyFriend");
+
+    //     for (let i = 0; i < b.length; i++) {
+    //         b[i].style.display = "table-row";
+    //     }
+
+    // }
 
 
-        for (let i = 0; i < d.length; i++) {
-            d[i].style.display = "table-row";
-        }
+    // function conciergeElements() {
+    //     let a = document.getElementsByClassName("Patient");
+    //     let b = document.getElementsByClassName("FamilyFriend");
+    //     let d = document.getElementsByClassName("Business");
+
+    //     for (let i = 0; i < a.length; i++) {
+    //         a[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < b.length; i++) {
+    //         b[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < d.length; i++) {
+    //         d[i].style.display = "none";
+    //     }
 
 
-    }
+    //     let c = document.getElementsByClassName("Concierge");
+
+    //     for (let i = 0; i < c.length; i++) {
+    //         c[i].style.display = "table-row";
+    //     }
+
+    // }
+
+    // function businessElements() {
+
+    //     let a = document.getElementsByClassName("Patient");
+    //     let b = document.getElementsByClassName("FamilyFriend");
+    //     let c = document.getElementsByClassName("Concierge");
+
+    //     for (let i = 0; i < a.length; i++) {
+    //         a[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < b.length; i++) {
+    //         b[i].style.display = "none";
+    //     }
+
+    //     for (let i = 0; i < c.length; i++) {
+    //         c[i].style.display = "none";
+    //     }
+
+
+
+    //     let d = document.getElementsByClassName("Business");
+
+
+    //     for (let i = 0; i < d.length; i++) {
+    //         d[i].style.display = "table-row";
+    //     }
+
+
+    // }
 
 
     function showAssignCase(Reqid) {
@@ -646,18 +639,7 @@ else
         });
     }
 
-    $('#newRegionFilter').on('change', function () {
-        var searchRegion = $('#newRegionFilter').val();
-        $.ajax({
-            url: '/Admin/FilterRegion',
-            type: 'GET',
-            data: { regionId: searchRegion, tabNo: 1 },
-            success: function (response) {
-                $("#tab1").html(response);
-            }
-        })
-    })
-
+    
     function sendLink() {
         $.ajax({
             url: '/Admin/SendLink',
@@ -670,6 +652,40 @@ else
         })
     }
 
+
+    function newReqSearch(event) {
+        var x = event.code;
+        if (x == "Enter") {
+            FilterData(1);
+        }
+
+    }
+
+    function FilterData(tabNo, reqType) {
+
+        var searchRegion = $('#newRegionFilter').val();
+        var searchword = $('#searchword').val();
+
+        let payload = {
+            regionId: searchRegion,
+            tabNo: tabNo,
+            searchWord: searchword,
+            requestTypeId: reqType
+        }
+        $.ajax({
+            url: '/Admin/FilterRegion',
+            type: 'GET',
+            data: payload,
+            success: function (response) {
+                $("#tab1").html(response);
+
+                $('#newRegionFilter').val(searchRegion);
+                $('#searchword').val(searchword);
+
+
+            }
+        })
+    }
 
 
 
