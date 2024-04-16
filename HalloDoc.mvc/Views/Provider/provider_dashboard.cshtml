@@ -526,7 +526,7 @@
 
         function ProviderShowMyProfile() {
             $.ajax({
-                url: '/Provider/ShowMyProfile',
+                url: '/Provider/ProviderProfile',
                 type: 'GET',
                 success: function (response) {
                     $("#profile-tab-pane").html(response);

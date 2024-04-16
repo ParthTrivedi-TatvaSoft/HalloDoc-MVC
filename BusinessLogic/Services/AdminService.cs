@@ -1726,6 +1726,12 @@ namespace BusinessLogic.Services
 
             _db.SaveChanges();
         }
+
+        //var phy = _db.Physicians.Where(r => r.Aspnetuserid == aspnetid).Select(r => r).First();
+
+    
+
+
         public EditProviderModel EditProviderProfile(int phyId, string tokenEmail)
         {
             var phy = _db.Physicians.Where(r => r.Physicianid == phyId).Select(r => r).First();
@@ -1770,7 +1776,13 @@ namespace BusinessLogic.Services
             return _profile;
         }
 
+        public List<Role> GetRoles(int AccType)
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
+            var roles = _db.Roles.Where(x => (x.Accounttype == 2) && (x.Isdeleted.Equals(deletedBit))).ToList();
 
+            return roles;
+        }
 
         public List<Role> GetRoles()
         {
@@ -2136,7 +2148,90 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
+        public List<AccountMenu> GetAccountMenu(int accounttype, int roleid)
+        {
 
+            var menu = _db.Menus.Where(r => r.Accounttype == accounttype).ToList();
+
+
+            var rolemenu = _db.Rolemenus.ToList();
+
+            var checkedMenu = menu.Select(r1 => new AccountMenu
+            {
+                menuid = r1.Menuid,
+                name = r1.Name,
+                ExistsInTable = rolemenu.Any(r2 => r2.Roleid == roleid && r2.Menuid == r1.Menuid),
+
+            }).ToList();
+
+            return checkedMenu;
+
+        }
+
+        public AccountAccess GetEditAccessData(int roleid)
+        {
+            var role = _db.Roles.FirstOrDefault(i => i.Roleid == roleid);
+            if (role != null)
+            {
+                var roledata = new AccountAccess()
+                {
+                    Name = role.Name,
+                    RoleId = roleid,
+                    AccountType = role.Accounttype,
+                };
+                return roledata;
+            }
+            return null;
+        }
+        public bool SetEditAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string sessionEmail)
+        {
+            try
+            {
+                var user = _db.Aspnetusers.Where(r => r.Email == sessionEmail).Select(r => r).First();
+
+                var role = _db.Roles.FirstOrDefault(x => x.Roleid == accountAccess.RoleId);
+                if (role != null)
+                {
+                    role.Name = accountAccess.Name;
+                    role.Accounttype = (short)accountAccess.AccountType;
+                    role.Modifiedby = user.Id;
+                    role.Modifieddate = DateTime.Now;
+
+                    _db.SaveChanges();
+
+                    var rolemenu = _db.Rolemenus.Where(i => i.Roleid == accountAccess.RoleId).ToList();
+                    if (rolemenu != null)
+                    {
+                        _db.Rolemenus.RemoveRange(rolemenu);
+                    }
+
+                    if (AccountMenu != null)
+                    {
+                        foreach (int menuid in AccountMenu)
+                        {
+                            _db.Rolemenus.Add(new Rolemenu
+                            {
+                                Roleid = role.Roleid,
+                                Menuid = menuid,
+                            });
+                        }
+                        _db.SaveChanges();
+                    }
+                }
+                return true;
+
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+        public List<Aspnetrole> GetAccountType()
+        {
+            var role = _db.Aspnetroles.ToList();
+            return role;
+        }
         public CreateAccess FetchRole(short selectedValue)
         {
             if (selectedValue == 0)

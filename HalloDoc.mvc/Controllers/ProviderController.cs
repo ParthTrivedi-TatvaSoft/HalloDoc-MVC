@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -18,15 +20,17 @@ namespace HalloDoc.mvc.Controllers
         private readonly IAdminService _adminService;
         private readonly IPatientService _patientService;
         private readonly IJwtService _jwtService;
+        private readonly IProviderService _providerService;
 
 
-        public ProviderController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService, IJwtService jwtService)
+        public ProviderController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService, IJwtService jwtService, IProviderService providerService)
         {
             _logger = logger;
             _notyf = notyfService;
             _adminService = adminService;
             _patientService = patientService;
             _jwtService = jwtService;
+            _providerService = providerService;
         }
 
 
@@ -157,13 +161,13 @@ namespace HalloDoc.mvc.Controllers
             return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
         }
 
-        //public IActionResult ViewCase(int reqClientId, int RequestTypeId , int ReqId)
-        //{
-        //    var model = _adminService.ViewCaseViewModel(reqClientId, RequestTypeId ,ReqId);
+        public IActionResult ViewCase(int Requestclientid, int RequestTypeId ,int ReqId)
+        {
+            var model = _adminService.ViewCase(Requestclientid, RequestTypeId ,ReqId);
 
-        //    return PartialView("_PViewCase", model);
-        //}
-
+            return View("_Pviewcase", model);
+        }
+            
         [HttpPost]
         public IActionResult UpdateNotes(ViewNotesModel model)
         {
@@ -176,7 +180,7 @@ namespace HalloDoc.mvc.Controllers
         {
 
             ViewNotesModel data = _adminService.ViewNotes(ReqId);
-            return PartialView("_PViewNotes", data);
+            return PartialView("_Pviewnotes", data);
         }
 
         public IActionResult CancelCase(int reqId)
@@ -224,30 +228,32 @@ namespace HalloDoc.mvc.Controllers
             bool isAssigned = _adminService.SubmitAssignCase(assignCaseModel);
             if (isAssigned)
             {
-                _notyf.Success("Assigned successfully");
+                _notyf.Success("Assigned Successfully");
                 return RedirectToAction("provider_dashboard", "Provider");
             }
             return View();
         }
 
-        public IActionResult BlockCase(int reqId)
+        [HttpGet]
+        public IActionResult TranferRequest(int reqId)
         {
 
-            var model = _adminService.BlockCase(reqId);
-            return PartialView("_BlockCase", model);
+            TransferRequest model = new();
+            model.ReqId = reqId;
+            return PartialView("_Ptransferrequest", model);
         }
 
         [HttpPost]
-        public IActionResult SubmitBlockCase(BlockCaseModel blockCaseModel, int reqId)
+        public IActionResult TranferRequest(TransferRequest model)
         {
-            blockCaseModel.ReqId = reqId;
-            bool isBlocked = _adminService.SubmitBlockCase(blockCaseModel);
-            if (isBlocked)
+
+            bool isTranferred = _providerService.TransferRequest(model);
+            if (isTranferred)
             {
-                _notyf.Success("Blocked Successfully");
+                _notyf.Success("Tranferred Successfully");
                 return RedirectToAction("provider_dashboard", "Provider");
             }
-            _notyf.Error("BlockCase Failed");
+            _notyf.Error("Tranferred Failed");
             return RedirectToAction("provider_dashboard", "Provider");
         }
 
@@ -354,6 +360,106 @@ namespace HalloDoc.mvc.Controllers
             var order = _adminService.FetchProfession();
             order.ReqId = reqId;
             return View(order);
+        }
+
+        public string GetTokenEmail()
+        {
+            var token = HttpContext.Request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return "";
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            return emailClaim.Value;
+        }
+
+        public string GetLoginId()
+        {
+            var token = HttpContext.Request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return "";
+            }
+            var loginId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "aspNetUserId");
+            return loginId.Value;
+        }
+
+
+        [HttpGet]
+        public IActionResult ShowMyProfile()
+        {
+            var request = HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return Json("Token Expired");
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+
+            var model = _adminService.MyProfile(emailClaim.Value);
+            return PartialView("_myprofile", model);
+        }
+
+        public IActionResult ProviderProfile(int phyId)
+        {
+            var tokenemail = GetTokenEmail();
+            if (tokenemail != null)
+            {
+
+                EditProviderModel2 model = new EditProviderModel2();
+                model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
+                model.regions = _adminService.RegionTable();
+                model.physicianregiontable = _adminService.PhyRegionTable(phyId);
+                model.roles = _adminService.GetRoles();
+                return PartialView("_editprovider", model);
+            }
+            _notyf.Error("Token Expired,Login Again");
+            return RedirectToAction("admin_login", "Home");
+        }
+
+
+        [HttpPost]
+        public IActionResult providerEditFirst(string password, int phyId, string email)
+        {
+            bool editProvider = _adminService.providerResetPass(email, password);
+            return Json(new { indicate = editProvider, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm1(int phyId, int roleId, int statusId)
+        {
+            bool editProviderForm1 = _adminService.editProviderForm1(phyId, roleId, statusId);
+            return Json(new { indicate = editProviderForm1, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
+        {
+            bool editProviderForm2 = _adminService.editProviderForm2(fname, lname, email, phone, medical, npi, sync, phyId, phyRegionArray);
+            return Json(new { indicate = editProviderForm2, phyId = phyId });
+        }
+        [HttpPost]
+        public IActionResult editProviderForm3(EditProviderModel2 payloadMain)
+        {
+            bool editProviderForm3 = _adminService.editProviderForm3(payloadMain);
+            return Json(new { indicate = editProviderForm3, phyId = payloadMain.editPro.PhyID });
+        }
+        [HttpPost]
+        public IActionResult PhysicianBusinessInfoEdit(EditProviderModel2 payloadMain)
+        {
+            bool editProviderForm4 = _adminService.PhysicianBusinessInfoUpdate(payloadMain);
+            return Json(new { indicate = editProviderForm4, phyId = payloadMain.editPro.PhyID });
+
+
+        }
+        [HttpPost]
+        public IActionResult UpdateOnBoarding(EditProviderModel2 payloadMain)
+        {
+            var editProviderForm5 = _adminService.EditOnBoardingData(payloadMain);
+            return Json(new { indicate = editProviderForm5, phyId = payloadMain.editPro.PhyID });
+        }
+        public IActionResult editProviderDeleteAccount(int phyId)
+        {
+            _adminService.editProviderDeleteAccount(phyId);
+            return Ok();
         }
     }
 }

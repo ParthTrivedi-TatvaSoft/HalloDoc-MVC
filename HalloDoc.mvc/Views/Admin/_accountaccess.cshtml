@@ -26,7 +26,7 @@
                 @if (Model.Count == 0)
                 {
                     <tr>
-                        <td colspan="3" style="text-align: center;">No records found.</td>
+                        <td colspan="3" style="text-align: center;">No Records Found.</td>
                     </tr>
                 }
                 @foreach (var item in Model)
@@ -43,7 +43,7 @@
                         </td>
                         
                         <td>
-                            <button type="button" class="btn btn-outline-info">Edit</button>
+                            <button type="button" class="btn btn-outline-info" onclick="GetEditAccess(@item.AccountType,@item.RoleId)">Edit</button>
                             <button type="button" class="btn btn-outline-info" onclick="deleteRole(@item.RoleId)">Delete</button>
                         </td>
                     </tr>
@@ -89,6 +89,22 @@
             success: function (response) {
                 $("#access-tab-pane").html(response);
             }
+        });
+    }
+
+    function GetEditAccess(accounttypeid, roleid) {
+        event.preventDefault();
+        $.ajax({
+            method: "GET",
+            url: "/Admin/GetEditAccess",
+            data: { accounttypeid: accounttypeid, roleid: roleid },
+            success: function (res) {
+                $("#access-tab-pane").html(res);
+            },
+
+            error: function () {
+                alert("Error");
+            },
         });
     }
 </script>

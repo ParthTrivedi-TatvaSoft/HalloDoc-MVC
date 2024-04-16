@@ -63,7 +63,7 @@
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>Edit Physician Account</h4>
-        <button onclick="AccountAccess()" id="back-btn">&lt; Back</button>
+        <button onclick="ShowProvider()" id="back-btn">&lt; Back</button>
 
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
@@ -581,10 +581,10 @@
         var x = document.getElementById("providerEditPassword");
         if (x.type === "password") {
             x.type = "text";
-            console.log("hi1")
+            
         } else {
             x.type = "password";
-            console.log("hi2")
+      
         }
     }
 
@@ -604,7 +604,7 @@
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
-                    toastr.error("For reset password you need to change old password");
+                    toastr.error("For Reset Password You Need To Change Old Password");
                 }
             },
             error: function () {
@@ -704,12 +704,12 @@
         var tagToDisplayMessage = document.getElementById('errormessgespan');
         if (fileName) {
             if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
-                alert("wrong");
+                alert("Wrong");
                 tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
                 return false;
             }
             else {
-                alert("right");
+                alert("Right");
                 tagToDisplayMessage.innerText = "";
                 return true;
             }
@@ -758,7 +758,7 @@
             },
 
             error: function () {
-                alert("Oops!", "Something is Wrong !!!", "error");
+                alert("Oops!", "Something Is Wrong !!!", "error");
             }
         });
     }
@@ -782,7 +782,7 @@
             },
 
             error: function () {
-                alert("error in edit onboarding");
+                alert("Error In Edit Onboarding");
             }
         });
     }
@@ -811,7 +811,7 @@
             type: 'POST',
             data: { phyId: phyId },
             success: function (result) {
-                showProvider();
+                ShowProvider();
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {

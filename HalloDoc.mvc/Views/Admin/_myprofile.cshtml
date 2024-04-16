@@ -68,7 +68,7 @@
                     </div>
                 </form>
 
-                <form >
+                <form id="myProfileSecondForm">
                     <div class="pt-4">
                         <h4 class="mb-4">Administrator Information</h4>
                         <div class="row mb-3">
@@ -158,7 +158,7 @@
                     </div>
                 </form>
 
-                <form >
+                <form id="myProfileThirdForm">
                     <div class="pt-4">
                         <h4 class="mb-4">Mailing And Billing Information</h4>
                         <div class="row mb-3">
@@ -286,59 +286,59 @@
 
     function resetPass() {
         var password = $('#floatingPassword2').val();
-        if(password==""){
+        if (password == "") {
             toastr.error("First Enter Password");
             return;
         }
         $.ajax({
-            url:'/Admin/ResetPassword',
-            type:'POST',
-            data:{resetPassword:password},
-            success:function(response){
-                if(response.isReset==true){
+            url: '/Admin/ResetPassword',
+            type: 'POST',
+            data: { resetPassword: password },
+            success: function (response) {
+                if (response.isReset == true) {
                     toastr.success("Reset Successfully");
                 }
-                else{
+                else {
                     toastr.error("Failed To Reset");
                 }
             }
         })
     }
 
-    function submitAdminInfo(){
+    function submitAdminInfo() {
         let payload = {
             fname: $("#floatingInputFirstAdmin").val(),
             lname: $("#floatingInputLastAdmin").val(),
             email: $("#floatingInputemailAdmin").val(),
             confirm_email: $("#floatingInputConfirmEmailAdmin").val(),
             mobile_no: $("#phoneMyProfile").val(),
-           
+
         };
 
-       
 
-        //if ($("#myProfileSecondForm").valid()) {
-        $.ajax({
-            url: '/Admin/SubmitAdminInfo',
-            type: 'POST',
-            data: payload,
-            success: function (response) {
-                if (response.isSubmit == true) {
-                    toastr.success("Data Updated")
-                       
-                    //document.getElementById("userNameMain").innerHTML = result.userChangeHeader;
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
-        //}
+
+        if ($("#myProfileSecondForm").valid()) {
+            $.ajax({
+                url: '/Admin/SubmitAdminInfo',
+                type: 'POST',
+                data: payload,
+                success: function (response) {
+                    if (response.isSubmit == true) {
+                        toastr.success("Data Updated")
+
+                        //document.getElementById("userNameMain").innerHTML = result.userChangeHeader;
+                    } else {
+                        toastr.error("Change Atleast One Field");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
     }
 
-    function submitBillingInfo(){
+    function submitBillingInfo() {
         var payload = {
             addr1: $("#floatingInputAddress1").val(),
             addr2: $("#floatingInputAddress2").val(),
@@ -348,27 +348,27 @@
         };
 
 
-        //if ($("#myProfileThirdForm").valid()) {
+        if ($("#myProfileThirdForm").valid()) {
             $.ajax({
                 url: "/Admin/SubmitBillingInfo",
                 type: 'POST',
                 data: payload,
                 success: function (response) {
-                    if (response.isRegionExists==false){
-                        toastr.error("State doesn't exists !!");
+                    if (response.isRegionExists == false) {
+                        toastr.error("State Doesn't Exists !!");
                     }
                     else if (response.isSubmit == true) {
                         toastr.success("Data Updated");
-                        
+
                     } else {
-                        toastr.error("Change Atleast One Field");
+                        toastr.error("Change atleast one field");
                     }
                 },
                 error: function () {
                     alert("Error");
                 },
             });
-        //}
+        }
     }
 
     const phoneInputField1 = document.getElementById("phone1");

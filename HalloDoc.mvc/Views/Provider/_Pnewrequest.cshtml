@@ -166,10 +166,10 @@
                                             </li>
 
                                             <li>
-                                                <button class="dropdown-item" onclick="pShowViewCase(@item.requestClientId,@item.requestTypeId)">
+                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId , ReqId=item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewCase
-                                                </button>
+                                                </a>
                                             </li>
                                             <li>
                                                 <button class="dropdown-item" onclick="pShowViewNotes(@item.Reqid)">
@@ -548,33 +548,7 @@ else
 
     }
 
-        //client side pagination
-        //$(document).ready(function () {
-
-        //    $('.data-table').DataTable({
-        //        "initComplete": function (settings, json) {
-
-        //            $('#my-search-input').val(settings.oPreviousSearch.sSearch);
-
-        //            $('#my-search-input').on('keyup', function () {
-        //                var searchValue = $(this).val();
-        //                settings.oPreviousSearch.sSearch = searchValue;
-        //                settings.oApi._fnReDraw(settings);
-        //            });
-        //        },
-        //        "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-        //        "pageLength": 5,
-        //        language: {
-        //            oPaginate: {
-        //                sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
-        //                sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
-
-        //            }
-        //        }
-        //    });
-        //    // $('.dataTables_length').hide();
-        //    $('.dataTables_filter').hide();
-        //});
+        
 
 
 

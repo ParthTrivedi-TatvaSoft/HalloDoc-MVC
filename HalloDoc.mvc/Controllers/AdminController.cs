@@ -769,7 +769,7 @@ namespace HalloDoc.mvc.Controllers
             {
                 model.providerModels = _adminService.GetProviderByRegion(regionId);
             }
-            return PartialView("_Provider", model);
+            return PartialView("_provider", model);
         }
 
 
@@ -810,7 +810,7 @@ namespace HalloDoc.mvc.Controllers
                 return PartialView("_editprovider", model);
             }
             _notyf.Error("Token Expired,Login Again");
-            return RedirectToAction("admin_login");
+            return RedirectToAction("admin_login","Home");
         }
 
         [HttpPost]
@@ -866,6 +866,38 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isDeleted = isDeleted });
         }
 
+        public IActionResult GetEditAccess(int accounttypeid, int roleid)
+        {
+            var roledata = _adminService.GetEditAccessData(roleid);
+            var Accounttype = _adminService.GetAccountType();
+            var menu = _adminService.GetAccountMenu(accounttypeid, roleid);
+            accessModel adminAccessCm = new accessModel
+            {
+                Aspnetroles = Accounttype,
+                AccountMenu = menu,
+                CreateAccountAccess = roledata,
+            };
+            return PartialView("_editaccessrole", adminAccessCm);
+        }
+        public IActionResult FilterEditRolesMenu(int accounttypeid, int roleid)
+        {
+            var menu = _adminService.GetAccountMenu(accounttypeid, roleid);
+            var htmlcontent = "";
+            foreach (var obj in menu)
+            {
+                htmlcontent += $"<div class='form-check form-check-inline px-2 mx-3'><input class='form-check-input d2class' {(obj.ExistsInTable ? "checked" : "")} name='AccountMenu' type='checkbox' id='{obj.menuid}' value='{obj.menuid}'/><label class='form-check-label' for='{obj.menuid}'>{obj.name}</label></div>";
+            }
+            return Content(htmlcontent);
+        }
+
+        [HttpPost]
+        public IActionResult SetEditAccessAccount(accessModel adminAccessCm, List<int> AccountMenu)
+        {
+            var sessionEmail = GetTokenEmail();
+            bool isEdited = _adminService.SetEditAccessAccount(adminAccessCm.CreateAccountAccess, AccountMenu, sessionEmail);
+
+            return Json(new { isEdited });
+        }
 
         [HttpGet]
         public IActionResult CreateAccess()
@@ -1082,7 +1114,7 @@ namespace HalloDoc.mvc.Controllers
         {
             CreateProviderAccount data = new();
             data.regions = _adminService.RegionTable();
-            data.roles = _adminService.GetRoles();
+            data.roles = _adminService.GetRoles(2);
             return PartialView("_createprovideraccount", data);
         }
 

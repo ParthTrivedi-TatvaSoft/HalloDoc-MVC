@@ -1,0 +1,839 @@
+﻿@using DataAccess.CustomModels;
+@model EditProviderModel2;
+
+@functions {
+    public string editStatusName(short status)
+    {
+        switch (status)
+        {
+            case 1: return "Active";
+            case 2: return "Pending";
+            case 3: return "Not Active";
+            default: return "Active";
+        }
+    }
+}
+
+@functions {
+    public string editRoleNameMain(int role)
+    {
+        switch (role)
+        {
+            case 1: return "Doctor";
+            case 2: return "Nurse";
+            default: return "Doctor";
+        }
+    }
+}
+
+<style>
+
+    .regionbtn {
+        box-shadow: none !important;
+        border-color: #0dcaf0 !important;
+        color: #0dcaf0 !important;
+    }
+
+    .iti {
+        width: 100%;
+    }
+
+    .iti__country-list {
+        z-index: 3 !important;
+    }
+
+    .form_doc {
+        position: absolute;
+        width: 80px;
+        margin-top: 4px;
+        opacity: 0;
+    }
+
+    .form_doc_mobile {
+        position: absolute;
+        width: 45px;
+        margin-top: 4px;
+        opacity: 0;
+    }
+
+</style>
+
+
+
+<div class="container">
+    <div class=" mt-2 d-flex justify-content-between align-items-center">
+        <h4>My Profile</h4>
+
+        @* <button onclick="providers()"
+        class="btn shadow  btn-outline-secondary border-info text-info px-3 ">
+        <i class="fa-solid fa-angle-left fs-6"></i> Back
+        </button> *@
+
+    </div>
+    @*  <form action="" class="shadow border rounded my-3" method="post"> *@
+    <div class="shadow border rounded my-3 dark-mode1 bg-white">
+        <div class="mx-3 my-4 ">
+            <form action=" " method="post" id="ResetPasswordForm">
+                <input type="hidden" id="providerEditOne" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div style="float:right;">
+                    <button type="button" id="providerReqeustAdmin"
+                            class="btn btn-outline-secondary border-info text-info ms-2">
+                        Request To Admin
+                    </button>
+                </div>
+                <div class="mt-3">
+                    <h4 class="my-4 pt-4">Account Information</h4>
+
+                    <div class="row">
+                        <div class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating  ">
+                            <input type="text" class="form-control " id="floatingInputUsername" placeholder="User Name" disabled aria-label="User Name" asp-for="editPro.username">
+                            <label class="ms-2 " for="floatingInputUsername">User Name</label>
+                        </div>
+                        <div style="position: relative;"
+                             class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
+                            <input asp-for="editPro.password" value="@Model.editPro.password" type="password" class="form-control inputs" placeholder="Password"
+                                   id="providerEditPassword" />
+                            <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
+                            <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
+                                    type="button">
+                                <i class="fa-regular fa-eye" onclick="ProviderEditPasswordVisible2()"
+                                   id="providerEditPasswordBtn"></i>
+                            </button>
+                            @* <span asp-validation-for="@Model._myProfile.password" class="text-danger"></span> *@
+                        </div>
+                        @*  <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden1" hidden /> *@
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <select class="form-select form-control d1class" disabled id="providerEditStatus" asp-for="editStatusName(@Model.editPro.statusId)" value="editStatusName(@Model.editPro.statusId)">
+                                <option value="1">Active</option>
+                                <option value="2">Pending</option>
+                                <option value="3">Not Active</option>
+                            </select>
+                            <label for="status" class="ms-2 ">Status</label>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <select class="form-select form-control d1class" disabled id="providerEditRole" asp-for="editRoleNameMain(@Model.editPro.Roleid)" value="editRoleNameMain(@Model.editPro.Roleid)">
+                                @if (Model.roles != null && Model.roles.Count > 0)
+                                {
+                                    @foreach (var obj in Model.roles)
+                                    {
+                                        <option value="@obj.Roleid">
+                                            @obj.Name
+                                        </option>
+                                    }
+                                }
+                            </select>
+
+                            <label for="Role" class="ms-2 ">Role</label>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" id="editBtn1" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(1)">
+                            Edit
+                        </button>
+
+                        <button type="button" id="submitBtn1" class="btn btn-info text-white SaveBtn me-2" onclick="editProviderForm1(@Model.editPro.PhyID)">Save</button>
+
+                        <button type="reset" id="cancelBtn1" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(1)">
+                            Cancel
+                        </button>
+                        <button type="button" id="providerResetPassword" onclick="providerEditResetPass('@Model.editPro.Email')"
+                                class="btn btn-outline-secondary border-info text-info ms-2">
+                            Reset Password
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form action=" " method="post" id="AdministratorForm">
+                <input id="providerEditTwo" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div class="pt-4">
+                    <h4 class="mb-4">Physician Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                            <input type="text" class="d2class form-control " id="editProviderFirstName" asp-for="editPro.Firstname"
+                                   placeholder="First Name" aria-label="First Name">
+                            <label class="ms-2 " for="floatingInputFirstName">First Name</label>
+                        </div>
+                        @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden2" hidden /> *@
+                        @* <input asp-for="@Model.AdminProfile.Aspnetuserid" id="hidden3" hidden /> *@
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
+                            <input type="text" class="d2class form-control " id="editProviderLastName" asp-for="editPro.Lastname"
+                                   placeholder="Last Name" aria-label="Last Name">
+                            <label class="ms-2  " for="floatingInputLast">Last Name</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="email" class="d2class form-control " id="editProviderEmail" asp-for="editPro.Email"
+                                   placeholder="Email" aria-label="Email">
+
+                            <label class="ms-2 " for="floatingInputemail">Email</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input style="height:58px;" id="editProviderPhoneNumber" asp-for="editPro.PhoneNumber"
+                                   class="form-control contact d2class"
+                                   aria-label="Contact"
+                                   type="number" />
+                            @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d2class form-control " id="editProviderMedicalLicense" asp-for="editPro.MedicalLicesnse"
+                                   placeholder="MedicalLicense" aria-label="MedicalLicense">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="MedicalLicense">MedicalLicense #</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d2class form-control " id="editProviderNPINumber" asp-for="editPro.NPInumber"
+                                   placeholder="NPINumber" aria-label="NPINumber">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="NPINumber">NPI Number</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="email" class="d2class form-control " id="editProviderSynchronizationEmail" asp-for="editPro.SycnEmail"
+                                   placeholder="SynchronizationEmail" aria-label="SynchronizationEmail">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="SynchronizationEmail">Synchronization Email Address</label>
+                        </div>
+                        <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <button class="btn border d-flex align-items-center w-100 regionbtn d2class" type="button" style="height:58px" data-bs-toggle="dropdown" aria-expanded="false">
+                                Select Region
+                            </button>
+                            <div class="dropdown-menu d1class">
+                                @if (Model.physicianregiontable is not null && Model.physicianregiontable.Count > 0)
+                                {
+                                    @foreach (var region in Model.physicianregiontable)
+                                    {
+                                        <div class="dropdown-item">
+                                            <input type="checkbox" @(region.ExistsInTable ? "checked" : "") name="physicianRegions" id="@region.Regionid" value="@region.Regionid" class="region-checkbox me-1">
+                                            <label for="@region.Regionid">@region.Name</label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mt-3 mb-3">
+                        <button type="button" id="editBtn2" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(2)">
+                            Edit
+                        </button>
+
+                        <button onclick=" editProviderForm2(@Model.editPro.PhyID)" type="button" id="submitBtn2" class="btn btn-info text-white SaveBtn ">Save</button>
+
+                        <button type="reset" id="cancelBtn2" class="btn btn-outline-info CancelBtn "
+                                onclick="disableFields(2)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form action=" " method="post" id="MailingForm">
+                <input id="providerEditThree" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div class="pt-4">
+                    <h4 class="mb-4">Mailing And Billing Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputAddress1" asp-for="editPro.Address1"
+                                   placeholder="Address1" aria-label="Address1">
+                            @* <span class="text-danger" asp-validation-for="@Model.AdminProfile.Address1"></span> *@
+                            <label class="ms-2 " for="floatingInputAddress1">Address1</label>
+                        </div>
+                        @* <input asp-for="@Model.AdminProfile.AdminId" id="hidden4" hidden /> *@
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputAddress2" asp-for="editPro.Address2"
+                                   placeholder="Address2" aria-label="Address2">
+                            <label class="ms-2 " for="floatingInputAddress2">Address2</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputCity" asp-for="editPro.city"
+                                   placeholder="City" aria-label="City">
+                            <label class="ms-2 " for="floatingInputCity">City</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <select class="d3class form-select regionDropdown" id="state" aria-label="Region" asp-for="editPro.Regionid">
+                                @foreach (var obj in Model.regions)
+                                {
+                                    <option value="@obj.Regionid">
+                                        @obj.Name
+                                    </option>
+                                }
+                            </select>
+                            <label for="state" class="ms-2 ">State</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d3class form-control " id="floatingInputZipCode" asp-for="editPro.zipcode"
+                                   placeholder="Zip Code" aria-label="Zip Code">
+
+                            <label class="ms-2" for="floatingInputZipCode">Zip</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input style="height:58px;" id="providerMobileTwo" asp-for="editPro.altPhone"
+                                   class="form-control contact d3class"
+                                   aria-label="Contact"
+                                   type="number" />
+                            @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mb-3">
+                        <button type="button" id="editBtn3" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(3)">
+                            Edit
+                        </button>
+
+                        <button onclick="editProviderForm3(@Model.editPro.PhyID)" type="button" id="submitBtn3" class="btn btn-info text-white SaveBtn">Save</button>
+
+                        <button type="reset" id="cancelBtn3" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(3)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form action=" " method="post" id="PhysicianBusinessInfoForm">
+                <input id="providerEditFour" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div class="pt-4">
+                    <h4 class="mb-4">Provider Information</h4>
+                    <div class="row mb-3">
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d4class form-control " id="Businessname" asp-for="editPro.Businessname"
+                                   placeholder="Businessname" aria-label="Businessname">
+                            <span class="text-danger"></span>
+                            <label class="ms-2 " for="Businessname">Business Name</label>
+                        </div>
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <input type="text" class="d4class form-control " id="Businesswebsite" asp-for="editPro.BusinessWebsite"
+                                   placeholder="Businesswebsite" aria-label="Businesswebsite">
+                            <label class="ms-2 " for="Businesswebsite">Business website</label>
+                        </div>
+
+
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
+                            <div>
+                                <div class="input-group rounded d-flex">
+                                    <input asp-for="editPro.Photo" type="file" class="d4class form-control py-3" id="fileUploadInp">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" disabled id="upload-btn" onclick="checkFileExtension()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Profile</span></button>
+                                </div>
+                            </div>
+                            <span class="text-danger" id="errormessgespan"></span>
+                            @if (Model.editPro.PhotoValue != null)
+                            {
+                                <div class="d-flex justify-content-center w-100 mt-2 mb-2">
+                                    <img src="~/PhysicianImages/@Model.editPro.PhyID/@Model.editPro.PhotoValue" width="200px" alt="Profile">
+                                </div>
+                            }
+                        </div>
+
+                        <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+                            <div class="  form-floating mb-3 d-flex">
+                                <div class="input-group">
+                                    <input asp-for="editPro.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                                    <button style="cursor:pointer;" class="btn btn-info text-white d4class" type="button" id="upload-btn2" onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1 "></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                                </div>
+                                <button style="cursor:pointer;" type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
+                                    <i class="bi bi-pen me-1"></i><span>Create</span>
+                                </button>
+
+                            </div>
+                            <span class="text-danger" id="errormessgespan2"></span>
+                            <div class="  mb-3 d-flex">
+                                @if (Model.editPro.SignatureValue != null)
+                                {
+                                    <div class="d-flex justify-content-center w-100 mt-2 mb-2">
+                                        <img src="~/PhysicianSign/@Model.editPro.PhyID/@Model.editPro.SignatureValue" width="200px" alt="Signature">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class=" col-12 form-floating mb-3">
+                            <textarea class="form-control d4class" rows="5" placeholder="Admin Notes" id="AdminNotes" asp-for="editPro.Adminnotes"></textarea>
+                            <label class="ms-2" for="AdminNotes">
+                                Admin Notes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-flex justify-content-end justify-content-md-end mb-3">
+                        <button type="button" id="editBtn4" class="btn btn-info text-white EditBtn"
+                                onclick="enableFields(4)">
+                            Edit
+                        </button>
+
+                        <button type="button" onclick="PhysicianBusinessInfoEdit()" id="submitBtn4" class="btn btn-info text-white SaveBtn">Save</button>
+
+                        <button type="button" id="cancelBtn4" class="btn btn-outline-info CancelBtn"
+                                onclick="disableFields(4)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <hr class="w-100" />
+
+            <form method="post" id="OnboardingEditForm">
+                <input id="providerEditFive" type="hidden" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div class="pt-4">
+                    <h4 class="mb-4">Onboarding</h4>
+                    <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="1" id="Onboarding1" @(Model.editPro.IsContractorAgreement ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding1">
+                                Independent Contractor Agreement
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan1"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile1">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="2" id="Onboarding2" @(Model.editPro.IsBackgroundCheck ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding2">
+                                Background Check
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan2"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile2">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="3" id="Onboarding3" @(Model.editPro.IsHIPAA ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding3">
+                                HIPAA Compliance
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan3"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile3">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="4" id="Onboarding4" @(Model.editPro.IsNonDisclosure ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding4">
+                                Non-disclouser Agreement
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan4"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile4">Upload</label>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
+                        <div class="form-check d-flex">
+                            <input class="form-check-input ms-1 p-2 Onboarding" type="checkbox" value="5" id="Onboarding5" @(Model.editPro.IsLicenseDocument ? "checked" : "")>
+                            <label class="form-check-label ms-3 fw-bolder" for="Onboarding5">
+                                License Document
+                            </label>
+                        </div>
+                        <span class="text-danger" id="errorSpan5"></span>
+                        <div class="d-flex justify-content-center">
+                            <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
+                                View
+                            </a>
+                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
+                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile5">Upload</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="w-100" />
+                <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
+
+                    <button type="button" onclick="UpdateOnBoarding()" id="savebtn" class="btn btn-info text-white me-1">Save</button>
+
+                    <button type="button" id="DeleteAccount" class="btn btn-danger" onclick="DeletePhysicianAccount(@Model.editPro.PhyID)">
+                        Delete Account
+                    </button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+@*<partial name="_ValidationScriptsPartial" />*@
+
+<script>
+
+    $(document).ready(function () {
+        $('.onBoardInpFile').change(function () {
+            var checkbox = $(this).closest('.onBoardContainer').find('.Onboarding');
+            var buttonId = checkbox.prop('value');
+            var file = this.files[0];
+
+            if (file) {
+                var blobUrl = URL.createObjectURL(file);
+
+                checkbox.prop('checked', true);
+                $('#OnboardingView' + buttonId).show();
+                $('#OnboardingView' + buttonId).prop('href', blobUrl);
+            }
+            else {
+                checkbox.prop('checked', false);
+                $('#OnboardingView' + buttonId).hide();
+            }
+        });
+
+        $('.Onboarding').each(function () {
+            var checkboxId = $(this).attr('id');
+            var buttonId = $(this).attr('value');
+
+            if ($(this).is(':checked')) {
+                $('#OnboardingView' + buttonId).show();
+            } else {
+                $('#OnboardingView' + buttonId).hide();
+            }
+        });
+    });
+
+
+    function disableFields(formid) {
+        document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
+            element.disabled = true;
+        });
+        // Hide the submit and cancel buttons, show the edit button
+        document.getElementById('submitBtn' + formid).style.display = 'none';
+        document.getElementById('cancelBtn' + formid).style.display = 'none';
+        document.getElementById('editBtn' + formid).style.display = 'block';
+    }
+
+    function enableFields(formid) {
+        document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
+            element.disabled = false;
+        });
+        // Show the submit and cancel buttons, hide the edit button
+        document.getElementById('submitBtn' + formid).style.display = 'block';
+        document.getElementById('cancelBtn' + formid).style.display = 'block';
+        document.getElementById('editBtn' + formid).style.display = 'none';
+    }
+    disableFields(1);
+    disableFields(2);
+    disableFields(3);
+    disableFields(4);
+
+    function showPassword() {
+
+        const togglePassword = document.querySelector("#togglePassword2");
+        const password = document.querySelector("#floatingPassword2");
+
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    }
+
+    $(document).ready(function () {
+        $('#inputGroupFile').on('change', function () {
+            if (checkForm() == true) {
+                var inputValue = $('#inputGroupFile').val();
+
+                if (inputValue != "") {
+                    $("#upload-admin-btn").removeClass("d-none");
+                }
+                else {
+                    $("#upload-admin-btn").addClass("d-none");
+                }
+            }
+
+        });
+    });
+
+    var providerEditMbl = document.querySelector("#editProviderPhoneNumber");
+    var providerEditMblMain = window.intlTelInput(providerEditMbl, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+
+    var providerEditMblTwo = document.querySelector("#providerMobileTwo");
+    var providerEditMblTwoMain = window.intlTelInput(providerEditMblTwo, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    function ProviderEditPasswordVisible2() {
+        let a = document.getElementById("providerEditPasswordBtn")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("providerEditPassword");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+
+    function providerEditResetPass(email) {
+       
+        var editPass = $("#providerEditPassword").val();
+        var editStatus = $("#providerEditStatus").val();
+        var editRole = $("#providerEditRole").val();
+        var editPhyId = $("#providerEditOne").val();
+
+        $.ajax({
+            url: "/Provider/providerEditFirst",
+            type: 'POST',
+            data: { password: editPass, phyId: editPhyId, email: email },
+            success: function (result) {
+                editProvider(result.phyId);
+                if (result.indicate == true) {
+                    toastr.success("Password Reset Successfully");
+                } else {
+                    toastr.error("For Reset Password You Need To Change Old Password");
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function editProviderForm1(phyId) {
+        var statusId = $("#providerEditStatus").val();
+        var roleId = $("#providerEditRole").val();
+        $.ajax({
+            url: "/Provider/editProviderForm1",
+            type: 'POST',
+            data: { phyId: phyId, roleId: roleId, statusId: statusId },
+            success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+    function editProviderForm2(phyId) {
+        // var payloadMain = $("#AdministratorForm").serializeArray();
+
+        var fname = $("#editProviderFirstName").val();
+        var lname = $("#editProviderLastName").val();
+        var email = $("#editProviderEmail").val();
+        var phone = $("#editProviderPhoneNumber").val();
+        var medical = $("#editProviderMedicalLicense").val();
+        var npi = $("#editProviderNPINumber").val();
+        var sync = $("#editProviderSynchronizationEmail").val();
+
+
+
+        var phyRegionArray = [];
+        var checkedBoxes = $('.region-checkbox:checkbox:checked');
+        console.log(phyRegionArray)
+        $.each(checkedBoxes, function () {
+            phyRegionArray.push(parseInt(this.value))
+        });
+
+
+        $.ajax({
+            url: "/Provider/editProviderForm2",
+            type: 'POST',
+            data: { fname: fname, lname: lname, email: email, phone: phone, medical: medical, npi: npi, sync: sync, phyId: phyId, phyRegionArray },
+            success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+    function editProviderForm3(phyId) {
+        var payloadMain = $("#MailingForm").serializeArray();
+
+        $.ajax({
+            url: "/Provider/editProviderForm3",
+            type: 'POST',
+            data: payloadMain,
+            success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+
+
+
+    function checkFileExtension() {
+        var fileName = document.getElementById('fileUploadInp').value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errormessgespan');
+        if (fileName) {
+            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
+                alert("wrong");
+                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
+                return false;
+            }
+            else {
+                alert("right");
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    function checkFileExtension2() {
+        var fileName = document.getElementById('fileUploadInp2').value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errormessgespan2');
+        if (fileName) {
+            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
+                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
+                return false;
+            }
+            else {
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+
+
+    function PhysicianBusinessInfoEdit() {
+
+        $.ajax({
+            method: "POST",
+            url: "/Provider/PhysicianBusinessInfoEdit",
+            data: new FormData($('#PhysicianBusinessInfoForm')[0]),
+            processData: false,
+            contentType: false,
+
+            success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+            },
+
+            error: function () {
+                alert("Oops!", "Something Is Wrong !!!", "error");
+            }
+        });
+    }
+
+
+    function UpdateOnBoarding() {
+        $.ajax({
+            method: "POST",
+            url: "/Provider/UpdateOnBoarding",
+            data: new FormData($('#OnboardingEditForm')[0]),
+            processData: false,
+            contentType: false,
+
+            success: function (result) {
+                if (result.indicate == true) {
+                    editProvider(result.phyId);
+                    toastr.success("Data Updated Successfully");
+                } else {
+                    toastr.error("Change Atleast One Field");
+                }
+            },
+
+            error: function () {
+                alert("Error In Edit Onboarding");
+            }
+        });
+    }
+
+    function checkOnboardingFiles(inputid) {
+        var fileName = document.getElementById('inputOnboardFile' + inputid).value.toLowerCase();
+        var tagToDisplayMessage = document.getElementById('errorSpan' + inputid);
+        if (fileName) {
+            if (!(fileName.endsWith('.pdf'))) {
+                tagToDisplayMessage.innerText = "Please Upload File With .pdf extension";
+                return false;
+            }
+            else {
+                tagToDisplayMessage.innerText = "";
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+
+    function DeletePhysicianAccount(phyId) {
+        $.ajax({
+            url: "/Provider/editProviderDeleteAccount",
+            type: 'POST',
+            data: { phyId: phyId },
+            success: function (result) {
+                ShowProvider();
+                toastr.success("Account Deleted Successfully");
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+</script>
+
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" crossorigin="anonymous"></script>
+<script src="~/js/countriesinput.js"></script>
+ *@

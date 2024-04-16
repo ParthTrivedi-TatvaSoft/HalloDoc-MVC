@@ -85,6 +85,13 @@ namespace BusinessLogic.Interfaces
 
         List<AccountAccess> AccountAccess();
 
+        AccountAccess GetEditAccessData(int roleid);
+
+        bool SetEditAccessAccount(AccountAccess accountAccess, List<int> AccountMenu, string sessionEmail);
+
+        List<AccountMenu> GetAccountMenu(int accounttype, int roleid);
+
+        List<Aspnetrole> GetAccountType();
         List<ProviderModel> GetProvider();
         List<ProviderModel> GetProviderByRegion(int regionId);
 
@@ -166,5 +173,6 @@ namespace BusinessLogic.Interfaces
         bool ApproveSelectedShift(int[] shiftDetailsId, string Aspid);
         DashboardModel GetRequestByRegion(FilterModel filterModel);
         List<AdminDashTableModel> Export(int tabNo);
+        List<Role> GetRoles(int AccType);
     }
 }

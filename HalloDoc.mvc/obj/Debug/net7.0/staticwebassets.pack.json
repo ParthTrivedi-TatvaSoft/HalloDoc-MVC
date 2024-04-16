@@ -21,8 +21,40 @@
       "PackagePath": "staticwebassets\\PhysicianImages\\2\\transfer.svg"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\4\\7774236_3736765.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\5\\LesfImage.png",
+      "PackagePath": "staticwebassets\\PhysicianImages\\5\\LesfImage.png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg",
+      "PackagePath": "staticwebassets\\PhysicianSign\\11\\7768657_3763028.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg",
+      "PackagePath": "staticwebassets\\PhysicianSign\\2\\7768657_3763028.jpg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
       "PackagePath": "staticwebassets\\PhysicianSign\\2\\Screenshot (1).png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\4\\11116016_415.jpg",
+      "PackagePath": "staticwebassets\\PhysicianSign\\4\\11116016_415.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg",
+      "PackagePath": "staticwebassets\\PhysicianSign\\5\\Fig1. Platform login page.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\6\\LesfImage.png",
+      "PackagePath": "staticwebassets\\PhysicianSign\\6\\LesfImage.png"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
@@ -211,6 +243,30 @@
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\11116016_415.jpg",
+      "PackagePath": "staticwebassets\\images\\11116016_415.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\7768657_3763028.jpg",
+      "PackagePath": "staticwebassets\\images\\7768657_3763028.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\7774236_3736765.jpg",
+      "PackagePath": "staticwebassets\\images\\7774236_3736765.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\Fig Contact your Provider.jpg",
+      "PackagePath": "staticwebassets\\images\\Fig Contact your Provider.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\Fig33. Month wise Scheduling.jpg",
+      "PackagePath": "staticwebassets\\images\\Fig33. Month wise Scheduling.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\LesfImage.png",
+      "PackagePath": "staticwebassets\\images\\LesfImage.png"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",

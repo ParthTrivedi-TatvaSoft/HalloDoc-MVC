@@ -4,7 +4,29 @@
 
 @using DataAccess.CustomModels;
 @model ViewNotesModel;
+<style>
+    .svg {
+        height: 30px;
+        width: 30px
+    }
 
+    .container {
+        display: flex;
+    }
+
+    .notes {
+        height: 45px;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        padding-top: 5px;
+        padding-left: 5px;
+    }
+
+        .notes:hover {
+            cursor: pointer;
+        }
+
+</style>
 
 <link rel="stylesheet" href="~/css/AdminViewNote.css" />
 <div class="container-fluid d-flex justify-content-center row ">
@@ -33,7 +55,7 @@
                     <div class="col-md-6 col-12">
                         <div class="dropdown  mt-3 ">
                             <button class="btn dark-mode1 shadow dropdown-toggle w-100 text-start notes text-black border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="~/images/transfer-horizontal-svgrepo-com.svg" class="svg mx-2" />
+                                <img src="~/images/transfer.svg" class="svg mx-2" />
                                 Transfer Notes
                             </button>
                             @if (Model.TransferNotesList != null && Model.TransferNotesList.Count > 0)
@@ -69,7 +91,7 @@
                             <div class="form-floating  mt-3">
                                 <textarea style="height:100px" class="form-control dark-mode1" placeholder="Leave a comment here" id="notes" asp-for="AdditionalNotes"></textarea>
                                 <label for="floatingTextarea2">
-                                    Admin Notes
+                                    Physician Notes
 
                                 </label>
                                 <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
@@ -105,7 +127,7 @@
                     }
                     else {
 
-                        toastr.error("Something went wrong");
+                        toastr.error("Something Went Wrong");
                     }
 
                 },
