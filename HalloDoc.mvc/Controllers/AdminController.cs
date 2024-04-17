@@ -736,6 +736,7 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_requestsupport");
         }
 
+        
 
         public IActionResult FilterRegion(FilterModel filterModel)
         {
@@ -743,8 +744,14 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_newrequest", list);
         }
 
+        public IActionResult FilterRegionPending(FilterModel filterModel)
+        {
+            var list = _adminService.GetRequestByRegion(filterModel);
+            return PartialView("_pendingrequest", list);
+        }
 
-        
+
+
 
         [HttpGet]
         public IActionResult ShowProvider()
@@ -1036,14 +1043,14 @@ namespace HalloDoc.mvc.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddShift(SchedulingViewModel model, List<int> repeatdays)
+        public IActionResult AddShift(SchedulingViewModel model, List<int> repeatdays)
         {
             var email = GetTokenEmail();
 
             //var email = User.FindFirstValue(ClaimTypes.Email);
-            await _adminService.CreateShift(model, email, repeatdays);
+            var isAdded = _adminService.CreateShift(model, email, repeatdays);
             TempData["Success"] = "Shift Created Successfully";
-            return Json(new { iaAdded = true });
+            return Json(new { isAdded });
         }
 
         public IActionResult ViewShift(int ShiftDetailId)
@@ -1126,10 +1133,9 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { flag = createprovideraccount.flag });
         }
 
-        public IActionResult BusinessTable(string vendor, string profession, string Name)
+        public IActionResult BusinessTable(string vendor, string profession)
         {
-
-            var obj = _adminService.BusinessTable(vendor, profession,Name);
+            var obj = _adminService.BusinessTable(vendor, profession);
             return PartialView("_businesstable", obj);
         }
 
@@ -1155,6 +1161,13 @@ namespace HalloDoc.mvc.Controllers
             }
 
 
+        }
+
+        [HttpGet]
+        public IActionResult SearchVendor(string vendor, string profession)
+        {
+            var obj = _adminService.BusinessTable(vendor, profession);
+            return PartialView("_BusinessTable", obj);
         }
 
         public IActionResult AddVendor()

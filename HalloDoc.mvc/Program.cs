@@ -51,6 +51,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ILoginService,LoginService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 
 //builder.Services.AddSingleton<IEmailSender, EmailSender>();
@@ -92,6 +93,8 @@ app.Use(async (context, next) =>
     }
 
     await next.Invoke();
+
+
 });
 
 app.UseHttpsRedirection();

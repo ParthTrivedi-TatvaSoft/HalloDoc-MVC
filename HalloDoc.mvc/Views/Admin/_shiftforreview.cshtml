@@ -155,7 +155,7 @@
     </div>
 </div>
 
-<script src="~/js/site.js"></script>
+
 
 <script>
     $('#approveBtn').click(function () {
@@ -228,6 +228,10 @@
 
     function DeleteSelectedShift(shiftDetailsId, regionId) {
         event.preventDefault();
+        if (shiftDetailsId.length == 0) {
+            Swal.fire("Warning", "Atleast Select 1 Shift!!", "error");
+            return false;
+        }
         $.ajax({
             method: "POST",
             url: "/Admin/DeleteSelectedShift",

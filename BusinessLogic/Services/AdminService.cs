@@ -2520,13 +2520,13 @@ namespace BusinessLogic.Services
             return obj;
         }
 
-        public List<BusinessTableModel> BusinessTable(string vendor, string profession, string Name)
+        public List<BusinessTableModel> BusinessTable(string vendor, string profession)
         {
             BitArray deletedBit = new BitArray(1, false);
+
             var obj = (from t1 in _db.Healthprofessionals
                        join t2 in _db.Healthprofessionaltypes on t1.Profession equals t2.Healthprofessionalid
-                       where t1.Isdeleted == deletedBit &&
-                       ((string.IsNullOrEmpty(Name) || t1.Vendorname.ToUpper().Contains(Name.ToUpper())))
+                       where t1.Isdeleted == deletedBit
                        select new BusinessTableModel
                        {
                            BusinessId = t1.Vendorid,
@@ -2536,10 +2536,7 @@ namespace BusinessLogic.Services
                            Email = t1.Email,
                            PhoneNumber = t1.Phonenumber,
                            FaxNumber = t1.Faxnumber,
-                           BusinessContact = t1.Businesscontact,
-
-
-
+                           BusinessContact = t1.Businesscontact
                        });
             var objList = obj.ToList();
             if (vendor != null)
@@ -2552,7 +2549,7 @@ namespace BusinessLogic.Services
             }
             return objList;
         }
-
+      
         public bool AddBusiness(AddBusinessModel obj)
         {
             try
@@ -3477,7 +3474,6 @@ namespace BusinessLogic.Services
 
             return onCallModal;
         }
-
         public List<ShiftReview> GetShiftReview(int regionId, int callId)
         {
             BitArray deletedBit = new BitArray(new[] { false });

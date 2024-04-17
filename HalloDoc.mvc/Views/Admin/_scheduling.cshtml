@@ -255,14 +255,15 @@
                 success: function (response) {
                     if (response.isAdded) {
                         toastr.success("New Shift Added");
+                        $('#addShiftModal').modal('hide');
                     } else {
-                        toastr.error("Already Assigned Shift In Created Timezone");
+                        toastr.error("Already assigned shift in created timezone");
                     }
                     ShowScheduling();
                 },
                 error: function (e) {
                     console.log(e);
-                    alert("Error In Adding Shift");
+                    alert("Error in adding shift");
                 }
 
             })

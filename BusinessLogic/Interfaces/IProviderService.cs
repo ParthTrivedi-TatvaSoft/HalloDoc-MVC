@@ -10,5 +10,7 @@ namespace BusinessLogic.Interfaces
     public interface IProviderService
     {
         bool TransferRequest(TransferRequest model);
+        MonthWiseScheduling PhysicianMonthlySchedule(string date, int status, string aspnetuserid);
+        int GetPhysicianId(string userid);
     }
 }

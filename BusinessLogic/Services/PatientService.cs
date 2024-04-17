@@ -15,6 +15,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Services
 {
@@ -30,6 +31,7 @@ namespace BusinessLogic.Services
             _env = env;
             _jwtService = jwtService;
         }
+
 
         public LoginResponseViewModel patient_login(LoginModel model)
         {
@@ -49,7 +51,11 @@ namespace BusinessLogic.Services
             return new LoginResponseViewModel() { Status = ResponseStatus.Failed, Message = "Password Does Not Match" };
         }
 
-
+        public Aspnetuser GetAspnetuser(string email)
+        {
+            var aspNetUser = _db.Aspnetusers.Include(x => x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
+            return aspNetUser;
+        }
         public bool IsEmailExists(string email)
         {
             bool isExist = _db.Aspnetusers.Any(x => x.Email == email);
@@ -562,10 +568,9 @@ namespace BusinessLogic.Services
 
 
 
-
-        public MedicalHistoryList GetMedicalHistory(int userid)
+         public MedicalHistoryList GetMedicalHistory(string email)
         {
-            var user = _db.Users.FirstOrDefault(x => x.Userid == userid);
+            var user = _db.Users.FirstOrDefault(x => x.Email == email);
 
 
             var medicalhistory = (from request in _db.Requests
@@ -580,13 +585,14 @@ namespace BusinessLogic.Services
                                       createdDate = groupedFiles.Select(x => x.Request.Createddate).FirstOrDefault(),
                                       currentStatus = groupedFiles.Select(x => x.Request.Status).FirstOrDefault(),
                                       document = groupedFiles.Select(x => x.Filename.ToString()).ToList(),
-                                      ConfirmationNumber = groupedFiles.Select(x => x.Request.Confirmationnumber).FirstOrDefault(),
+                                      ConfirmationNumber = groupedFiles.Select(x => x.Request.Confirmationnumber).FirstOrDefault()
                                   }).ToList();
+
 
             MedicalHistoryList medicalHistoryList = new()
             {
                 medicalHistoriesList = medicalhistory,
-                id = userid,
+                id = user.Userid,
                 firstName = user.Firstname,
                 lastName = user.Lastname
             };
@@ -709,6 +715,22 @@ namespace BusinessLogic.Services
                 }
             }
             catch (Exception ex) { return false; }
+        }
+
+        public PatientInfoModel FetchData(string email)
+        {
+            User? user = _db.Users.FirstOrDefault(i => i.Email == email);
+            var BirthDay = user.Intdate;
+            var BirthMonth = user.Strmonth;
+            var BirthYear = user.Intyear;
+            var userdata = new PatientInfoModel()
+            {
+                firstName = user.Firstname,
+                lastName = user.Lastname,
+                email = user.Email,
+                phoneNo = user.Mobile,
+            };
+            return userdata;
         }
 
 

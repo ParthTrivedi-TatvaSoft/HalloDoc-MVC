@@ -99,13 +99,13 @@
     function GetScheduling() {
         $.ajax({
             method: "GET",
-            url: "/adminDashboard/GetScheduling",
+            url: "/Admin/GetScheduling",
             success: function (res) {
                 $("#provider-tab-pane").html(res);
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
             },
         });
     }
@@ -121,7 +121,7 @@
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something is Wrong !!!", "error");
+                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
             },
         });
     }

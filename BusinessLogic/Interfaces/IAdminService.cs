@@ -131,7 +131,7 @@ namespace BusinessLogic.Interfaces
         List<UserAccess> FetchAccess(short selectedValue);
 
 
-        List<BusinessTableModel> BusinessTable(string vendor, string profession, string Name);
+        List<BusinessTableModel> BusinessTable(string vendor, string profession);
         bool AddBusiness(AddBusinessModel obj);
         List<Healthprofessionaltype> GetProfession();
         bool RemoveBusiness(int VendorId);

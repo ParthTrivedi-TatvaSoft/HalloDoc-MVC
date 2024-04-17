@@ -13,6 +13,8 @@ using System.Net.Mail;
 using System.Net;
 using DataAccess.Enums;
 using HalloDoc.mvc.Auth;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -25,17 +27,19 @@ namespace HalloDoc.mvc.Controllers
         private readonly IPatientService _patientService;
         private readonly IHttpContextAccessor _contx;
         private readonly INotyfService _notyf;
+        private readonly IJwtService _jwtService;
         private readonly ApplicationDbContext _db;
         
 
 
 
-        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf, ApplicationDbContext db )
+        public PatientController(ILogger<PatientController> logger, ILoginService loginService, IPatientService patientService, IHttpContextAccessor contx, INotyfService notyf, ApplicationDbContext db ,IJwtService jwtService)
         {
             _logger = logger;
             _loginService = loginService;
             _patientService = patientService;
             _contx = _contx;
+            _jwtService = jwtService;
             _notyf = notyf;
             _db = db;
             
@@ -92,34 +96,53 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-        
 
-        [HttpPost]
-        public IActionResult patient_login(LoginModel user)
-        {
-            if (ModelState.IsValid)
-            {
-                LoginResponseViewModel? result = _patientService.patient_login(user);
-                if (result.Status == ResponseStatus.Success)
-                {
-                    HttpContext.Session.SetString("Email", user.Email);
-                    Response.Cookies.Append("jwt", result.Token);
-                    TempData["Success"] = "Login Successfully";
-                    return RedirectToAction("patient_dashboard", "Patient");
-                }
-                else
-                {
-                    ModelState.AddModelError("", result.Message);
-                    TempData["Error"] = result.Message;
-                    return View();
-                }
-            }
-            return View();
-        }
 
+        [HttpGet]
         public IActionResult patient_login()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult patient_login(LoginModel model)
+
+        {
+            if (ModelState.IsValid)
+            {
+                var aspnetuser = _patientService.GetAspnetuser(model.Email);
+                if (aspnetuser != null)
+                {
+                    
+                    if (aspnetuser.Passwordhash == model.Password)
+                    {
+                        var jwtToken = _jwtService.GetJwtToken(aspnetuser);
+                        Response.Cookies.Append("PatientJwt", jwtToken);
+
+                        _notyf.Success("Logged In Successfully");
+                        return RedirectToAction("patient_dashboard", "Patient");
+
+                    }
+                    else
+                    {
+                        _notyf.Error("Password Is Incorrect");
+
+                        return View();
+                    }
+                }
+                _notyf.Error("Email Is Incorrect");
+                return View();
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult PatientLogout()
+        {
+            Response.Cookies.Delete("PatientJwt");
+            return RedirectToAction("patient_login", "Patient");
         }
 
         [HttpGet]
@@ -231,36 +254,12 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-       
+
         public IActionResult forgot_password()
         {
             return View();
         }
-
-
       
-
-       
-
-        public IActionResult patient_newrequest()
-        {
-            return View();
-        }
-
-
-        public IActionResult someoneelse_newrequest()
-        {
-            return View();
-        }
-
-
-
-
-
-
-
-       
-
 
 
         public IActionResult PatientResetPasswordEmail(Aspnetuser user)
@@ -324,33 +323,23 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-        //public IActionResult patient_dashboard()
-        //{
-        //    int? userid = HttpContext.Session.GetInt32("UserId");
-
-        //    var infos = _patientService.GetMedicalHistory((int)userid);
-
-        //    return View(infos);
-        //}
-
-        [CustomAuthorize("User")]
+       
+        //[CustomAuthorize("User")]
         public IActionResult patient_dashboard()
         {
-            var email = HttpContext.Session.GetString("Email");
-            var userdata = _db.Users.Where(x => x.Email == email).FirstOrDefault();
-            var medical = _patientService.GetMedicalHistory(userdata.Userid);
+            var email = GetTokenEmail();
+            if (email == "")
+            {
+                return RedirectToAction("patient_login");
+            }
+            var infos = _patientService.GetMedicalHistory(email);
 
-
-            return View(medical);
+            return View(infos);
         }
 
-        public IActionResult PatientLogout()
-        {
-            Response.Cookies.Delete("jwt");
-            return RedirectToAction("patient_login", "Patient");
-        }
+        
 
-        [CustomAuthorize("User")]
+
         public IActionResult document_list(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);
@@ -416,6 +405,39 @@ namespace HalloDoc.mvc.Controllers
                 return RedirectToAction("patient_dashboard");
             }
         }
-       
+
+        public string GetTokenEmail()
+        {
+            var token = HttpContext.Request.Cookies["PatientJwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return "";
+            }
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            return emailClaim.Value;
+        }
+        public string GetLoginId()
+        {
+            var token = HttpContext.Request.Cookies["PatientJwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                return "";
+            }
+            var loginId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "aspNetUserId");
+            return loginId.Value;
+        }
+
+        public IActionResult patient_newrequest()
+        {
+            var email = GetTokenEmail();
+            PatientInfoModel Reqobj = _patientService.FetchData(email);
+
+            return View(Reqobj);
+        }
+        public IActionResult someoneelse_newrequest()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 
 <div class="container">
-    <div class="justify-content-between d-flex container-fluid  position-relative ">
+    <div class="justify-content-between d-flex">
         <div class="">
             <h3 class="fw-bolder mt-3">
                 Vendor(s)
@@ -9,25 +9,25 @@
         </div>
 
     </div>
-    <div class=" border-0  py-1 mx-3 mt-3 rounded">
+    <div class=" border-0  py-1 mt-3 rounded">
         <div class="row">
             <div class="d-flex normal-input rounded align-items-center ml-auto col-2 mx-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="current" viewBox="0 0 50 50">
-                    <path d="M 21 3 C 11.654545 3 4 10.654545 4 20 C 4 29.345455 11.654545 37 21 37 C 24.701287 37 28.127393 35.786719 30.927734 33.755859 L 44.085938 46.914062 L 46.914062 44.085938 L 33.875 31.046875 C 36.43682 28.068316 38 24.210207 38 20 C 38 10.654545 30.345455 3 21 3 z M 21 5 C 29.254545 5 36 11.745455 36 20 C 36 28.254545 29.254545 35 21 35 C 12.745455 35 6 28.254545 6 20 C 6 11.745455 12.745455 5 21 5 z">
-                    </path>
-                </svg>
-                <input type="search" id="searchVendor" class="form-control border border-0" placeholder="Search Vendors">
+
+                <div class="form-floating mb-3">
+                    <input type="search" onkeypress="partnersearch(event)" class="form-control" id="searchVendor" placeholder="Search Vendors">
+                    <label for="floatingInput"><i class="bi bi-search"></i> Search Vendors</label>
+                </div>
             </div>
             <div class="d-flex normal-input rounded align-items-center ml-auto col-2 mx-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="current" viewBox="0 0 50 50">
-                    <path d="M 21 3 C 11.654545 3 4 10.654545 4 20 C 4 29.345455 11.654545 37 21 37 C 24.701287 37 28.127393 35.786719 30.927734 33.755859 L 44.085938 46.914062 L 46.914062 44.085938 L 33.875 31.046875 C 36.43682 28.068316 38 24.210207 38 20 C 38 10.654545 30.345455 3 21 3 z M 21 5 C 29.254545 5 36 11.745455 36 20 C 36 28.254545 29.254545 35 21 35 C 12.745455 35 6 28.254545 6 20 C 6 11.745455 12.745455 5 21 5 z">
-                    </path>
-                </svg>
-                <input type="search" id="search" class="form-control border border-0" placeholder="All Professionals">
+
+                <div class="form-floating mb-3">
+                    <input type="search" onkeypress="partnersearch(event)" class="form-control" id="searchProfession" placeholder="All Professionals">
+                    <label for="floatingInput"><i class="bi bi-search"></i> All Professionals</label>
+                </div>
             </div>
             <div class="col-md-5"></div>
             <div class="col-md-2 mt-2">
-                <button class="float-end btn btn-outline-info mx-2 " style="float right width:fit-content " onclick="AddVendor()">
+                <button class="btn btn-outline-info mx-2" style="width:fit-content" onclick="AddVendor()">
                     Add Vendor
                 </button>
             </div>
@@ -40,11 +40,11 @@
 
 </div>
 
-<script>
+@*<script>
     $('.admin-tab').removeClass("active");
     $('#partner-tab').addClass("active");
 </script>
-
+*@
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -55,8 +55,8 @@
                 $('#businessTable').html(result);
             },
             error: function (error) {
-              
-                alert('Error Fetching Details')
+                console.log(error);
+        
             },
         });
     });
@@ -71,26 +71,37 @@
             }
         });
     }
+    var searchVendor = document.getElementById("searchVendor");
 
-</script>
- 
-<script>
-    //search box
-    $("#searchVendor").keyup(function (e) {
-        var Name = $(this).val();
+    searchVendor.addEventListener("keydown", function (e) {
+        if (e.code === 13) {
+            searchVendor();
+        }
+    });
+    function partnersearch(event) {
+        var x = event.code;
+        if (x == "Enter") {
+            searchBusiness();
+        }
+
+    }
+
+    function searchBusiness() {
+        var vendor = $('#searchVendor').val();
+        var profession = $('#searchProfession').val();
+
         $.ajax({
-            url: '/Admin/BusinessTable',
-            type: 'POST',
-            data: {
-                Name: Name
-            },
+            url: '/Admin/SearchVendor',
+            type: 'GET',
+            data: { vendor: vendor, profession: profession },
             success: function (result) {
                 $('#businessTable').html(result);
             },
-            error: function (error) {
-                console.log(error);
-                alert('error fetching details')
-            },
-        })
-    })
+            error: function (e) {
+         
+                console.log(e);
+            }
+        });
+    }
+
 </script>

@@ -362,6 +362,9 @@ namespace HalloDoc.mvc.Controllers
             return View(order);
         }
 
+      
+
+     
         public string GetTokenEmail()
         {
             var token = HttpContext.Request.Cookies["jwt"];
@@ -372,7 +375,6 @@ namespace HalloDoc.mvc.Controllers
             var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
             return emailClaim.Value;
         }
-
         public string GetLoginId()
         {
             var token = HttpContext.Request.Cookies["jwt"];
@@ -384,39 +386,50 @@ namespace HalloDoc.mvc.Controllers
             return loginId.Value;
         }
 
+        public IActionResult Scheduling(SchedulingViewModel model)
+        {
+
+            model.regions = _adminService.RegionTable().ToList();
+            return PartialView("_Pmyscheduling", model);
+        }
+        public IActionResult LoadSchedulingPartial(string date, int regionid, int status)
+        {
+            var aspnetuserid = GetLoginId();
+            var month = _providerService.PhysicianMonthlySchedule(date, status, aspnetuserid);
+            return PartialView("_Pmonthlyschedule", month);
+
+        }
+
+        [HttpPost]
+        public IActionResult AddShift(SchedulingViewModel model, List<int> repeatdays)
+        {
+            var email = GetTokenEmail();
+
+            //var email = User.FindFirstValue(ClaimTypes.Email);
+            var isAdded = _adminService.CreateShift(model, email, repeatdays);
+            return Json(new { isAdded });
+        }
+
+        public IActionResult ViewShift(int ShiftDetailId)
+        {
+            var data = _adminService.ViewShift(ShiftDetailId);
+            return View("_Pviewshift", data);
+        }
 
         [HttpGet]
-        public IActionResult ShowMyProfile()
+        public IActionResult MyProfile()
         {
-            var request = HttpContext.Request;
-            var token = request.Cookies["jwt"];
-            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
-            {
-                return Json("Token Expired");
-            }
-            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
-
-            var model = _adminService.MyProfile(emailClaim.Value);
-            return PartialView("_myprofile", model);
-        }
-
-        public IActionResult ProviderProfile(int phyId)
-        {
+            var userid = GetLoginId();
             var tokenemail = GetTokenEmail();
-            if (tokenemail != null)
-            {
+            int phyId = _providerService.GetPhysicianId(userid);
+            EditProviderModel2 model = new EditProviderModel2();
+            model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
+            model.regions = _adminService.RegionTable();
+            model.physicianregiontable = _adminService.PhyRegionTable(phyId);
+            model.roles = _adminService.GetRoles();
+            return PartialView("_Pmyprofile", model);
 
-                EditProviderModel2 model = new EditProviderModel2();
-                model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
-                model.regions = _adminService.RegionTable();
-                model.physicianregiontable = _adminService.PhyRegionTable(phyId);
-                model.roles = _adminService.GetRoles();
-                return PartialView("_editprovider", model);
-            }
-            _notyf.Error("Token Expired,Login Again");
-            return RedirectToAction("admin_login", "Home");
         }
-
 
         [HttpPost]
         public IActionResult providerEditFirst(string password, int phyId, string email)
@@ -424,42 +437,12 @@ namespace HalloDoc.mvc.Controllers
             bool editProvider = _adminService.providerResetPass(email, password);
             return Json(new { indicate = editProvider, phyId = phyId });
         }
-        [HttpPost]
-        public IActionResult editProviderForm1(int phyId, int roleId, int statusId)
+        public IActionResult RequestAdmin()
         {
-            bool editProviderForm1 = _adminService.editProviderForm1(phyId, roleId, statusId);
-            return Json(new { indicate = editProviderForm1, phyId = phyId });
+          
+            return View("_Prequestadmin");
         }
-        [HttpPost]
-        public IActionResult editProviderForm2(string fname, string lname, string email, string phone, string medical, string npi, string sync, int phyId, int[] phyRegionArray)
-        {
-            bool editProviderForm2 = _adminService.editProviderForm2(fname, lname, email, phone, medical, npi, sync, phyId, phyRegionArray);
-            return Json(new { indicate = editProviderForm2, phyId = phyId });
-        }
-        [HttpPost]
-        public IActionResult editProviderForm3(EditProviderModel2 payloadMain)
-        {
-            bool editProviderForm3 = _adminService.editProviderForm3(payloadMain);
-            return Json(new { indicate = editProviderForm3, phyId = payloadMain.editPro.PhyID });
-        }
-        [HttpPost]
-        public IActionResult PhysicianBusinessInfoEdit(EditProviderModel2 payloadMain)
-        {
-            bool editProviderForm4 = _adminService.PhysicianBusinessInfoUpdate(payloadMain);
-            return Json(new { indicate = editProviderForm4, phyId = payloadMain.editPro.PhyID });
 
 
-        }
-        [HttpPost]
-        public IActionResult UpdateOnBoarding(EditProviderModel2 payloadMain)
-        {
-            var editProviderForm5 = _adminService.EditOnBoardingData(payloadMain);
-            return Json(new { indicate = editProviderForm5, phyId = payloadMain.editPro.PhyID });
-        }
-        public IActionResult editProviderDeleteAccount(int phyId)
-        {
-            _adminService.editProviderDeleteAccount(phyId);
-            return Ok();
-        }
     }
 }

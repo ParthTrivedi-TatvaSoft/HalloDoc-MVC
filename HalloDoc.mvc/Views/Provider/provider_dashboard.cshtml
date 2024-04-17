@@ -113,7 +113,7 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>Physician</span>
+                            <span>Keval Trivedi</span>
                             <span></span>
                         </span>
                     </li>
@@ -157,7 +157,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
-                                aria-selected="false" onClick="ProviderShowMyProfile()">
+                                aria-selected="false" onClick="pMyProfile()">
                             My Profile
                         </button>
                     </li>
@@ -524,12 +524,22 @@
             });
         }
 
-        function ProviderShowMyProfile() {
+        function pMyProfile() {
+
             $.ajax({
-                url: '/Provider/ProviderProfile',
+                url: "/Provider/MyProfile",
                 type: 'GET',
-                success: function (response) {
-                    $("#profile-tab-pane").html(response);
+
+                success: function (result) {
+
+                    $('#profile-tab-pane').html(result);
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+
+                        window.location.reload();
+                    }
+                    console.error(error);
                 }
             });
         }
@@ -546,7 +556,17 @@
         }
 
 
-
+        function RequestToAdmin()
+        {
+            $.ajax({
+                url:'/Provider/RequestAdmin',
+                type: 'GET',
+                success: function (response) {
+                    $('#modelContent').html(response);
+                    $("#RequestAdminModel").html(response);
+                }
+            })
+        }
 
         function ProviderShowScheduling() {
             $.ajax({
@@ -557,7 +577,6 @@
                 }
             });
         }
-
 
 
 
