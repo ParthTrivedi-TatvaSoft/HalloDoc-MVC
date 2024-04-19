@@ -1,0 +1,53 @@
+﻿@{
+    var requestId = ViewBag.reqid;
+}
+
+<div class="modal" id="pcaremodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title">Select Type Of Care</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-info mx-2 encBtn" data-encountertype="1">HouseCall</button>
+                <button type="button" class="btn btn-outline-info mx-2 encBtn" data-encountertype="2">Consult</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveEncounterType()">Save changes</button>
+                <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var requestId = @requestId;
+    var encounterType = 0;
+    $(".encBtn").click(function () {
+        encounterType = $(this).data("encountertype");
+        $(".encBtn").removeClass("btn-info");
+        $(this).addClass("btn-info");
+    })
+
+    function saveEncounterType() {
+        if (encounterType == 0)
+            return false;
+        $.ajax({
+            url: "/Provider/EncounterTypeModalSubmit",
+            data: {
+                requestId: requestId,
+                encounterType: encounterType
+            },
+            type: 'POST',
+            success: function () {
+                $('#encountertypeModal').modal('toggle');
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    }
+</script>

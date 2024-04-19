@@ -66,7 +66,10 @@ namespace BusinessLogic.Services
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
                             Reqid = r.Requestid,
-                            regionId = rc.Regionid
+                            regionId = rc.Regionid,
+                            callType = r.Calltype,
+                            phyId = r.Physicianid ?? null
+
                         };
 
 
@@ -163,7 +166,9 @@ namespace BusinessLogic.Services
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
                             Reqid = r.Requestid,
-                            regionId = rc.Regionid
+                            regionId = rc.Regionid,
+                            callType = r.Calltype,
+                            phyId = r.Physicianid ?? null
                         };
 
 
@@ -228,7 +233,9 @@ namespace BusinessLogic.Services
                             status = r.Status,
                             requestClientId = rc.Requestclientid,
                             Reqid = r.Requestid,
-                            regionId = rc.Regionid
+                            regionId = rc.Regionid,
+                            callType = r.Calltype,
+                            phyId = r.Physicianid ?? null
                         };
 
 
@@ -291,11 +298,11 @@ namespace BusinessLogic.Services
         }
 
 
-        public ViewNotesModel ViewNotes(int requestId)
+        public ViewNotesModel ViewNotes(int ReqId)
         {
 
-            var requestNotes = _db.Requestnotes.Where(x => x.Requestid == requestId).FirstOrDefault();
-            var statuslogs = _db.Requeststatuslogs.Where(x => x.Requestid == requestId).ToList();
+            var requestNotes = _db.Requestnotes.Where(x => x.Requestid == ReqId).FirstOrDefault();
+            var statuslogs = _db.Requeststatuslogs.Where(x => x.Requestid == ReqId).ToList();
             ViewNotesModel model = new ViewNotesModel();
             if (model == null)
             {
@@ -303,6 +310,7 @@ namespace BusinessLogic.Services
                 model.PhysicianNotes = null;
                 model.AdminNotes = null;
             }
+
 
             if (requestNotes != null)
             {
@@ -316,7 +324,6 @@ namespace BusinessLogic.Services
 
             return model;
         }
-
 
         public bool UpdateAdminNotes(string additionalNotes, int reqId, int aspNetRole)
         {
@@ -370,35 +377,26 @@ namespace BusinessLogic.Services
         }
 
 
-        public ViewCaseViewModel ViewCase(int reqClientId, int RequestTypeId, int ReqId)
+        public ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId)
         {
-            var data = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == reqClientId);
-            var requestData = _db.Requests.FirstOrDefault(x => x.Requestid == data.Requestid);
-            var userData = _db.Users.FirstOrDefault(x => x.Userid == requestData.Userid);
-            var regionData = _db.Regions.FirstOrDefault(x => x.Regionid == data.Regionid);
-            var reqtypeData = _db.Requesttypes.FirstOrDefault(x => x.Requesttypeid == requestData.Requesttypeid);
-
-            var viewdata = new ViewCaseViewModel
+            Requestclient obj = _db.Requestclients.FirstOrDefault(x => x.Requestclientid == Requestclientid);
+            ViewCaseViewModel viewCaseViewModel = new()
             {
-                RequestId = ReqId,
-                Requestclientid = reqClientId,
-                Firstname = data.Firstname,
-                Lastname = data.Lastname,
-                ConfirmationNumber = requestData.Confirmationnumber,
-                Notes = data.Notes,
-                Address = data.Street +  data.City +  data.State +  data.Zipcode,
-                Email = data.Email,
-                Phonenumber = data.Phonenumber,
-                City = data.City,
-                State = data.State,
-                RequestTypeId = RequestTypeId,
-                Street = data.Street,
-                Zipcode = data.Zipcode,
-                RegionName = regionData.Name,
-                Requesttype = reqtypeData.Name,
-
+                RequestId = obj.Requestid,
+                Requestclientid = obj.Requestclientid,
+                Firstname = obj.Firstname,
+                Lastname = obj.Lastname,
+                Email = obj.Email,
+                Phonenumber = obj.Phonenumber,
+                City = obj.City,
+                Street = obj.Street,
+                State = obj.State,
+                Zipcode = obj.Zipcode,
+                Room = obj.Address,
+                Notes = obj.Notes,
+                RequestTypeId = RequestTypeId
             };
-            return viewdata;
+            return viewCaseViewModel;
         }
 
 
@@ -490,14 +488,13 @@ namespace BusinessLogic.Services
             {
 
                 var req = _db.Requests.Where(x => x.Requestid == assignCaseModel.ReqId).FirstOrDefault();
-                req.Status = (int)StatusEnum.Accepted;
                 req.Physicianid = assignCaseModel.selectPhysicianId;
                 req.Modifieddate = DateTime.Now;
 
 
                 Requeststatuslog rsl = new Requeststatuslog();
                 rsl.Requestid = (int)assignCaseModel.ReqId;
-                rsl.Status = (int)StatusEnum.Accepted;
+                rsl.Status = (int)StatusEnum.Unassigned;
                 rsl.Notes = assignCaseModel.description;
                 rsl.Physicianid = assignCaseModel.selectPhysicianId;
                 rsl.Createddate = DateTime.Now;
@@ -1107,6 +1104,7 @@ namespace BusinessLogic.Services
             return myProfileMain;
         }
 
+
         public bool ResetPassword(string tokenEmail, string resetPassword)
         {
             try
@@ -1324,10 +1322,10 @@ namespace BusinessLogic.Services
                     user.State = model.state;
                     user.Street = model.street;
                     user.Zipcode = model.zipcode;
-                    user.Strmonth = model.dob.ToString("MMM");
-                    user.Intdate = int.Parse(model.dob.ToString("dd"));
-                    user.Intyear = int.Parse(model.dob.ToString("yyyy"));
-                    user.Createdby = asp.Id;
+                    user.Strmonth = model.dateofbirth.Substring(5, 2);
+                    user.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
+                    user.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
+                    user.Createdby = admin.Adminid.ToString();
                     user.Createddate = DateTime.Now;
                     user.Regionid = stateMain.Regionid;
                     _db.Users.Add(user);
@@ -1367,12 +1365,9 @@ namespace BusinessLogic.Services
                 reqClient.Firstname = model.firstname;
                 reqClient.Lastname = model.lastname;
                 reqClient.Phonenumber = model.phone;
-                //reqClient.Strmonth = model.dateofbirth.Substring(5, 2);
-                //reqClient.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
-                //reqClient.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
-                reqClient.Intyear = int.Parse(model.dob.ToString("yyyy"));
-                reqClient.Intdate = int.Parse(model.dob.ToString("dd"));
-                reqClient.Strmonth = model.dob.ToString("MMM");
+                reqClient.Strmonth = model.dateofbirth.Substring(5, 2);
+                reqClient.Intdate = Convert.ToInt16(model.dateofbirth.Substring(8, 2));
+                reqClient.Intyear = Convert.ToInt16(model.dateofbirth.Substring(0, 4));
                 reqClient.Street = model.street;
                 reqClient.City = model.city;
                 reqClient.State = model.state;
@@ -1612,6 +1607,7 @@ namespace BusinessLogic.Services
                 Aspnetuserrole userRole = new Aspnetuserrole();
                 userRole.Userid = _user.Id;
                 userRole.Roleid = 3;
+                userRole.Roleid = (int)AspNetRole.physician;
 
                 _db.Aspnetuserroles.Add(userRole);
                 _db.SaveChanges();
@@ -2374,14 +2370,7 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
-        public CreateAdminAccount RegionList()
-        {
-            CreateAdminAccount obj = new()
-            {
-                RegionList = _db.Regions.ToList(),
-            };
-            return obj;
-        }
+        
 
         public bool CreateAdminAccount(CreateAdminAccount obj, string email)
         {
@@ -2429,6 +2418,7 @@ namespace BusinessLogic.Services
 
                 _db.Admins.Add(admin);
                 _db.SaveChanges();
+
 
 
 

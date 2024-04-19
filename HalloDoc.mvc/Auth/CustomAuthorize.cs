@@ -22,7 +22,7 @@ namespace HalloDoc.mvc.Auth
             var jwtServices = context.HttpContext.RequestServices.GetService<IJwtService>();
             if (jwtServices == null)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admin_login" }));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "admin_login" }));
                 return;
             }
 
@@ -32,14 +32,14 @@ namespace HalloDoc.mvc.Auth
 
             if (token == null || !jwtServices.ValidateToken(token, out JwtSecurityToken jwtToken))
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admin_login" }));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "admin_login" }));
                 return;
             }
             var roleClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role);
 
             if (roleClaim == null)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "admin_login" }));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "admin_login" }));
                 return;
             }
 

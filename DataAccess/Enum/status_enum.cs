@@ -17,6 +17,7 @@ namespace DataAccess.Enums
         CancelledByPatient = 7,
         Closed = 8,
         Unpaid = 9,
-        Clear = 10
+        Clear = 10,
+        Assigned = 11
     }
 }

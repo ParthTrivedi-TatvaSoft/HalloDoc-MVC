@@ -9,6 +9,8 @@ using HalloDoc.mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -74,7 +76,69 @@ namespace HalloDoc.mvc.Controllers
                 return View(adminLoginModel);
             }
         }
+
+        public IActionResult AdminResetPasswordEmail(Aspnetuser user)
+        {
+
+            var usr = _db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email);
+            if (usr != null)
+            {
+                string Id = _db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email).Id;
+                string resetPasswordUrl = GenerateResetPasswordUrl(Id);
+                SendEmail(user.Email, "Reset Your Password", $"Hello, Reset Your Password Using This Link: {resetPasswordUrl}");
+            }
+            else
+            {
+                _notyf.Error("Email Id Not Registered");
+                return RedirectToAction("admin_resetpassword", "Home");
+            }
+
+
+            return RedirectToAction("admin_login");
+        }
+
+
+        private string GenerateResetPasswordUrl(string userId)
+        {
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string resetPasswordPath = Url.Action("admin_resetpassword", new { id = userId });
+            return baseUrl + resetPasswordPath;
+        }
+
+        private Task SendEmail(string email, string subject, string message)
+        {
+            var mail = "tatva.dotnet.parthtrivedi@outlook.com";
+            var password = "Parth@70160";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+        }
+
+        // Handle the reset password URL in the same controller or in a separate one
+        public IActionResult admin_resetpassword(string id)
+        {
+            var aspuser = _db.Aspnetusers.FirstOrDefault(x => x.Id == id);
+            return View(aspuser);
+        }
+
+        [HttpPost]
+        public IActionResult admin_resetpassword(Aspnetuser aspnetuser)
+        {
+            var aspuser = _db.Aspnetusers.FirstOrDefault(x => x.Id == aspnetuser.Id);
+            aspuser.Passwordhash = aspnetuser.Passwordhash;
+            _db.Aspnetusers.Update(aspuser);
+            _db.SaveChanges();
+            return RedirectToAction("admin_login");
+        }
+
+
+        
         public IActionResult Index()
+
         {
             return View();
         }

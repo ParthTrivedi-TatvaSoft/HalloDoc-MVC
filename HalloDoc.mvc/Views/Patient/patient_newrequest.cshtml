@@ -6,7 +6,8 @@
     ViewData["Title"] = "patient_newrequest";
 }
 
-@model PatientInfoModel
+@model PatientInfoModel;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,25 +17,34 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/patient_request.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    
 
     <title>Create Patient Request</title>
 </head>
-
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
 <body>
-
+    <partial name="_navbar"/>
     <div class="d-flex flex-column justify-content-between min-vh-100">
 
 
         <div class="container d-flex justify-content-between my-4">
             <h3>Submit Information</h3>
-            <button onclick="location.href='@Url.Action("patient_dashboard", "Patient")'" id="back-btn">&lt; Back</button>
+            <button class="dark-mode1" onclick="location.href='@Url.Action("patient_dashboard", "Patient")'" id="back-btn">&lt; Back</button>
         </div>
 
 
-        <form method="post" enctype="multipart/form-data" asp-controller="Patient" asp-action="AddPatient" class="container mb-5 p-4" id="main-cont">
+        <form method="post" enctype="multipart/form-data"  class="container mb-5 p-4" id="main-cont">
 
             <div class="row">
                 <h5 class="col-12">Patient Information</h5>
@@ -47,7 +57,7 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="firstName" type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input asp-for="firstName" type="text" class="form-control" id="floatingInput" placeholder="" disabled >
                         <label for="floatingInput">First Name</label>
                         <span asp-validation-for="firstName" class="text-danger"></span>
                     </div>
@@ -55,7 +65,7 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="lastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input asp-for="lastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"  >
                         <label for="floatingInput">Last Name</label>
                     </div>
                 </div>
@@ -73,14 +83,14 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+                        <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
                         <label for="floatingInput">Email</label>
                         <span asp-validation-for="email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="phoneNo" type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput">
+                        <input asp-for="phoneNo" type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
 
                     </div>
                 </div>
@@ -107,6 +117,7 @@
                     <div class="input-div form-floating mb-3">
                         <input asp-for="state" type="text" class="form-control" id="floatingInput" placeholder="">
                         <label for="floatingInput">State</label>
+                        <span asp-validation-for="state" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-6">
@@ -146,10 +157,13 @@
                 <div class="col-12 mb-4">
                     <input asp-for="file" class="form-control form-control-lg " id="formFileLg" type="file" multiple>
                 </div>
-                <div class="col-12">
-                    <button id="cancel" type="reset" class="btn my-2">Cancel</button>
-                    <button id="submit" type="submit" class="btn m-2">Submit</button>
+                <div class="d-flex justify-content-end gap-2">
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-outline-primary">Cancel</button>
+
                 </div>
+
             </div>
 
         </form>

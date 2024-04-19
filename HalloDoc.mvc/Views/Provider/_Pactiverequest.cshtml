@@ -18,18 +18,7 @@
             <button class="action-btn">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
-            <button class="action-btn" id="exportActiveReq">
-                <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
-            </button>
-            <button class="action-btn" onclick="ExportAll()">
-                <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
-            </button>
-            <button class="action-btn">
-                <i class="bi bi-person"></i> <span class="d-none d-md-block">
-                    Request
-                    DTY Support
-                </span>
-            </button>
+
         </span>
     </div>
     <div class="row mt-3 ">
@@ -76,13 +65,11 @@
         <thead class="table-secondary">
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Date Of Birth</th>
-                <th scope="col">Requestor</th>
-                <th scope="col">Requested Date</th>
+
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
-                <th scope="col">Notes</th>
-                <th scope="col">Chats With</th>
+                <th scope="col">Status</th>
+
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -132,13 +119,7 @@
                                     </a>
                                 </div>
                             </td>
-                            @*2*@
-                            <td style="background:@bgColor">Jun 16, 2023(0)</td>
-                            @*3*@
-                            <td style="background:@bgColor">@item.requestorFname @item.requestorLname</td>
-                            @*4*@
-                            <td style="background:@bgColor">Nov 20, 2023 335h 1m 01m</td>
-                            @*@item.strMonth @item.intDate , @item.intYear*@
+
                             @*5*@
                             <td style="background:@bgColor">
                                 <div class="table_phone">
@@ -162,38 +143,31 @@
                             }
 
                             @*7*@
-                            <td style="background:@bgColor">-</td>
-                            @*8*@
-                            <td style="background:@bgColor">
+                            @if (item.callType == 0)
+                            {
 
-                                <div class="d-flex">
-                                    <div class="dropdown mb-1 w-75">
-                                        <button class="btn text-white border border-white py-1"
-                                                type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="bi bi-person-fill"></i>
-                                            <span>
-                                                Patient
-                                            </span>
-                                        </button>
+                                <td style="background:@bgColor">-</td>
+                            }
+                            else
+                            {
+                                <td style="background:@bgColor">
+                                    <div class="d-flex">
+                                        <div class="dropdown mb-1 w-75">
+                                            <button class="btn text-white border bg-primary py-1"
+                                                    type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false" onclick="housecall(@item.Reqid)">
+                                                <span>
+                                                    House Call
+                                                </span>
+                                            </button>
 
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <div class="dropdown w-75">
-                                        <button class="btn text-white border border-white py-1"
-                                                type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="bi bi-person-badge-fill"></i>
-                                            <span>
-                                                Provider
-                                            </span>
-                                        </button>
+                                        </div>
 
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                            }
+
+
                             @*9*@
                             <td style="background:@bgColor">
                                 <div>
@@ -207,7 +181,7 @@
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("ViewCase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewCase
                                                 </a>
@@ -236,12 +210,26 @@
                                                     Doctors Notes
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                    Encounter
-                                                </a>
-                                            </li>
+
+                                            @if (item.callType == 0)
+                                            {
+                                                <li>
+                                                    <button class="dropdown-item" onclick="pcaremodal(@item.Reqid)">
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                        Encounter
+                                                    </button>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" href="@Url.Action("PEncounterForm", new {ReqId = item.Reqid})">
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                        Encounter
+                                                    </a>
+                                                </li>
+                                            }
+
                                         </ul>
                                     </div>
                                 </div>
@@ -252,9 +240,9 @@
             }
             else
             {
-                <tr>
-                    <td colspan="3" style="text-align: center;">No records found.</td>
-                </tr>
+               @*  <tr>
+                    <td colspan="3" style="text-align: center;">No Records Found.</td>
+                </tr> *@
             }
         </tbody>
     </table>
@@ -282,16 +270,50 @@ else if (Model.TotalPage == 1)
 }
 else
 {
-    <div class="text-center text-danger fw-bold h5">No record found</div>
+    <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
-<script>
-    $("#exportActiveReq").click(function () {
-        //alert("exportbtn was clicked.");
-        var request = @Html.Raw(Json.Serialize(Model));
 
-        Export(request);
-    });
+<div id="modelContentcare"></div>
+<script>
+    function housecall(reqId) {
+        $.ajax({
+            url: "/Provider/HouseCallSubmit",
+            data: {
+                requestId: reqId,
+
+            },
+            type: 'POST',
+            success: function () {
+
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    }
+
+    function pcaremodal(requestid) {
+        event.preventDefault();
+        console.log(requestid);
+        $.ajax({
+            method: "GET",
+            url: "/Provider/pcaremodal",
+            async: false,
+            data: { reqId: requestid },
+
+            success: function (result) {
+          
+                $('#modelContentcare').html(result);
+                $('#pcaremodal').modal('show');
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        })
+    }
 </script>

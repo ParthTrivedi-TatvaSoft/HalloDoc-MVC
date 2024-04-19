@@ -206,40 +206,44 @@
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("ViewCase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                <a class="dropdown-item" href="@Url.Action("ConcludeCare", new {ReqId = item.Reqid})">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                    Conclude Care
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewCase
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item" asp-controller="Provider" asp-action="PViewDocument" asp-route-reqId=@item.Reqid>
                                                     <i class="bi bi-file-earmark-text"></i>
-                                                    ViewUploads
+                                                    View Uploads
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <button class="dropdown-item" onclick="pShowViewNotes(@item.Reqid)">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewNotes
-                                                </a>
+                                                </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                    Orders
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                    Doctor Notes
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                    Encounter
-                                                </a>
+                                                @if (item.isFinalized == false || item.isFinalized == null)
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("PEncounterForm", new {ReqId = item.Reqid})">
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                        Encounter
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <button class="dropdown-item" onclick="encounterDownload(@item.Reqid)">
+                                                        Encounter
+                                                    </button>
+                                                }
+
                                             </li>
                                         </ul>
 
@@ -252,9 +256,9 @@
             }
             else
             {
-                <tr>
+               @*  <tr>
                     <td colspan="3" style="text-align: center;">No records found.</td>
-                </tr>
+                </tr> *@
             }
         </tbody>
     </table>
@@ -282,11 +286,31 @@ else if (Model.TotalPage == 1)
 }
 else
 {
-    <div class="text-center text-danger fw-bold h5">No record found</div>
+    <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
+
+<div id="displayModals"></div>
+
+<script>
+    function encounterDownload(reqId) {
+        $.ajax({
+            url: "/Provider/DownloadEncounterPopUp",
+            data: { reqId: reqId },
+            type: 'GET',
+            success: function (result) {
+                $('#displayModals').html(result);
+                $('#downloadEncounterModal').modal('toggle');
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    }
+</script>
 <script>
     $("#exportConcludeReq").click(function () {
         //alert("exportbtn was clicked.");
@@ -294,4 +318,48 @@ else
 
         Export(request);
     });
+
+    function activeEncounter(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/Provider/concludeEncounter",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function activeOrders(reqid) {
+        console.log(reqid)
+        $.ajax({
+            url: "/Provider/activeOrders",
+            data: { data: reqid },
+            type: 'GET',
+            success: function (result) {
+                $("#content").html(result);
+            },
+            error: function () {
+                alert('Error loading partial view');
+            }
+        });
+    }
+
+
+    function concludecare(reqId) {
+        $.ajax({
+            url: '/Provider/Cancludecare',
+            type: 'GET',
+            Data: { reqId: reqId }
+                    success: function (response) {
+                $("#displayModalse").html(response);
+            }
+        });
+    }
+
 </script>

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Provider Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="~/css/admin_dashboard.css">
 
@@ -113,7 +114,7 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>Keval Trivedi</span>
+                            <span>Physician</span>
                             <span></span>
                         </span>
                     </li>
@@ -437,14 +438,14 @@
 
         function pShowTransferCase(reqId) {
             $.ajax({
-                url: '/Provider/TransferCase',
+                url: '/Provider/TranferRequest',
                 type: 'GET',
                 data: { reqId: reqId },
                 success: function (response) {
 
-                    $("#modelContent2").html(response);
+                    $("#pmodelContent2").html(response);
 
-                    $('#transferModal').modal('show');
+                    $('#providerTransferModal').modal('show');
 
                 }
             });

@@ -136,6 +136,7 @@ namespace HalloDoc.mvc.Controllers
             var list = _adminService.Export(tabNo);
             return Json(list);
         }
+      
         [HttpPost]
         public string ExportReq(List<AdminDashTableModel> reqList)
         {
@@ -144,7 +145,7 @@ namespace HalloDoc.mvc.Controllers
             string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
                 "\"RequestDate\"," + "\"Phone\"," + "\"Notes\"," + "\"Address\","
                  + "\"Physician\"," + "\"DateOfService\"," + "\"Region\"," +
-                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + Environment.NewLine + Environment.NewLine;
+                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + "\"RequestId\"," + Environment.NewLine + Environment.NewLine;
 
             stringbuild.Append(header);
             int count = 1;
@@ -154,7 +155,7 @@ namespace HalloDoc.mvc.Controllers
                 string content = $"\"{count}\"," + $"\"{item.firstName}\"," + $"\"{item.intDate}\"," + $"\"{item.requestorFname}\"," +
                     $"\"{item.intDate}\"," + $"\"{item.mobileNo}\"," + $"\"{item.notes}\"," + $"\"{item.street}\"," +
                     $"\"{item.lastName}\"," + $"\"{item.intDate}\"," + $"\"{item.street}\"," +
-                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\","  + Environment.NewLine;
+                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + $"\"{item.Reqid}\"," + Environment.NewLine;
 
                 count++;
                 stringbuild.Append(content);
@@ -165,7 +166,6 @@ namespace HalloDoc.mvc.Controllers
             return finaldata;
 
         }
-
 
 
         [CustomAuthorize("Admin")]
@@ -199,7 +199,7 @@ namespace HalloDoc.mvc.Controllers
             return View();
         }
 
-        public IActionResult ViewNote(int ReqId)
+        public IActionResult viewnotes(int ReqId)
         {
             HttpContext.Session.SetInt32("RNId", ReqId);
             ViewNotesModel data = _adminService.ViewNotes(ReqId);
@@ -669,7 +669,6 @@ namespace HalloDoc.mvc.Controllers
         [HttpPost]
         public IActionResult createrequest(CreateRequestModel model)
         {
-            
             var request = HttpContext.Request;
             var token = request.Cookies["jwt"];
             if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
@@ -684,7 +683,7 @@ namespace HalloDoc.mvc.Controllers
             if (isSaved)
             {
                 _notyf.Success("Request Created");
-                return RedirectToAction("admin_dashboard");
+                return RedirectToAction("admin-dashboard");
             }
             else
             {
@@ -722,13 +721,12 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isSend = isSend });
 
         }
-        public IActionResult ViewCase(int Requestclientid, int RequestTypeId, int ReqId)
+        public IActionResult ViewCase(int Requestclientid, int RequestTypeId)
         {
-            var obj = _adminService.ViewCase(Requestclientid, RequestTypeId, ReqId);
+            var model = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
 
-            return View(obj);
+            return View(model);
         }
-
 
 
         public IActionResult RequestSupport()
@@ -954,34 +952,30 @@ namespace HalloDoc.mvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult AdminAccount()
+        public IActionResult CreateAdminAccount()
         {
-           
             CreateAdminAccount obj = new CreateAdminAccount();
             obj.RegionList = _adminService.RegionTable();
             return PartialView("_createadminaccount", obj);
         }
 
         [HttpPost]
-        public IActionResult AdminAccount(CreateAdminAccount model)
+        public IActionResult AdminAccount(CreateAdminAccount model, List<int> AdminRegion)
         {
-            
             var email = GetTokenEmail();
-           
-            
-               var isCreated = _adminService.CreateAdminAccount(model,email);
-                if (isCreated)
-                {
-                    _notyf.Success("Account Created");
-                    return RedirectToAction("admin_dashboard");
-                }
-                else
-                {
-                    _notyf.Error("Somethng Went Wrong!!");
-                    return PartialView("_createadminaccount");
-                }
-           
-           
+            var isCreated = _adminService.CreateAdminAccount(model, email);
+            if (isCreated)
+            {
+                _notyf.Success("Account Created!!");
+                return RedirectToAction("admin_dashboard");
+            }
+            else
+            {
+                _notyf.Error("Somethng Went Wrong!!");
+                CreateAdminAccount obj = new CreateAdminAccount();
+                obj.RegionList = _adminService.RegionTable();
+                return PartialView("_createadminaccount", obj);
+            }
         }
 
         [HttpGet]

@@ -84,10 +84,12 @@
 
 
             <div class="row mt-2">
+                <div class="input-div col-lg-6 col-md-12 col-sm-12">
+                    <input asp-for="phoneNo" type="number" name="phone" class="form-control p-3 ps-5" id="phoneNo">
 
-                <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12">
-                    <input type="tel" asp-for="phoneNo" class="form-control p-3 ps-5" class="phoneNumber" placeholder="(201) 555-0123">
                 </div>
+
+                
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 ">
                     <input type="text" asp-for="email"  class="form-control" id="floatingPassword" placeholder="">
                     <label for="floatingPassword"  class="comman">Your Email</label>
@@ -120,7 +122,7 @@
                     <label for="floatingInput" class="comman">Last Name</label>
                 </div>
                 <div class="form-floating mb-3 col-lg-6 col-md-12 col-sm-12 mt-2">
-                    <input type="date" asp-for="patientDob" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="date" asp-for="patientDob" class="form-control" id="datePicker" placeholder="name@example.com">
                     <label for="floatingInput" class="comman">Date of Birth</label>
                 </div>
             </div>
@@ -200,13 +202,12 @@
 
 
 
-        const phoneInputField = document.querySelectorAll("input[type='tel']");
-        for (var i = 0; i < phoneInputField.length; i++) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            });
-        }
+        const phoneInputField = document.getElementById("phoneNo");
+
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
 
 
             $(document).ready(function () {
@@ -238,6 +239,15 @@
                 modal.style.display = "none";
             }
         }
+
+        // Get today's date
+        var today = new Date();
+
+        // Format the date in YYYY-MM-DD for setting as max attribute
+        var formattedDate = today.toISOString().split('T')[0];
+
+        // Set the max attribute of the date picker to today's date
+        document.getElementById("datePicker").setAttribute("max", formattedDate);
 
     
     </script>

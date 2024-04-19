@@ -149,7 +149,7 @@
 
                     <div class=" d-flex justify-content-end pe-3 ">
                         <button type="button" onclick="AssignInViewCase(@Model.RequestId)" class="btn btn-info btn-sm px-4 py-2 me-2">Assign</button>
-                        <button type="button" onclick="location.href='@Url.Action("viewnotes","Admin",new {ReqId = Model.RequestId})'" class="btn btn-info btn-sm px-4 py-2 me-2">View Notes</button>
+                        <button type="button" onclick="location.href='@Url.Action("viewnotes",new {ReqId = Model.RequestId})'" class="btn btn-info btn-sm px-4 py-2 me-2">View Notes</button>
                         <button type="button" onclick="CancelInViewCase(@Model.RequestId)" class="btn btn-danger btn-sm px-4 py-2 me-2">Cancel</button>
                     </div>
 
@@ -158,11 +158,24 @@
             </div>
         </div>
     </div>
-    <div id="viewCasePopUp"/>
-    
+    <div id="viewCasePopUp"></div>
     <script>
+        function AssignInViewCase(reqId) {
+
+            $.ajax({
+                url: '/Admin/AssignCase',
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+
+                    $("#viewCasePopUp").html(response);
+
+                    $('#assignModal').modal('show');
+
+                }
+            });
+        }
         function CancelInViewCase(reqId) {
-      
             $.ajax({
                 url: '/Admin/CancelCase',
                 type: 'GET',
@@ -176,23 +189,7 @@
                 }
             });
         }
-
-        function AssignInViewCase(reqId) {
-        
-            $.ajax({
-                url: '/Admin/AssignCase',
-                type: 'GET',
-                data: { reqId: reqId },
-                success: function (response) {
-                    $("#viewCasePopUp").html(response);
-                    $('#assignModal').modal('show');
-                }
-            });
-        }
-
-
     </script>
-
 
 
 

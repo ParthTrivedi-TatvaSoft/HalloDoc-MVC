@@ -1,5 +1,15 @@
 ﻿@using DataAccess.CustomModels
 @model Profile;
+
+<script>
+    const phoneInputField = document.querySelectorAll("input[type='tel']");
+    for (var i = 0; i < phoneInputField.length; i++) {
+        const phoneInput = window.intlTelInput(phoneInputField[i], {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+</script>
 <form method="post" asp-action="SaveEditProfile" asp-controller="Patient" enctype="multipart/form-data" class="container my-5 p-4 dark-mode1" id="main-cont">
     <h3 class="col-12">General Information</h3>
     <div class="row ">
@@ -22,7 +32,7 @@
         </div>
         <div class="col-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="DateOfBirth" type="date" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
+                <input asp-for="DateOfBirth" type="date" class="form-control" id="datePicker" placeholder="name@example.com" disabled>
                 <label for="floatingInput">Date Of Birth</label>
             </div>
         </div>
@@ -45,9 +55,8 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="input-div form-floating mb-3">
-                <input type="tel" asp-for="PhoneNo" class="form-control p-3 ps-5" id="floatingInput" disabled>
-
+            <div class="form-floating mb-3 ">
+                <input asp-for="PhoneNo" type="number" name="phone" class="form-control p-3 ps-5"  id="phoneNo" placeholder="(201) 555-0123" disabled>
             </div>
         </div>
         <div class="col-6">
@@ -109,7 +118,7 @@
 </form>
 
 <script>
-
+   
     //script for edit and save button
     $(document).ready(function () {
         $('#editButton').click(function () {
@@ -135,4 +144,20 @@
 
         window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
     }
+
+    const phoneInputField = document.getElementById("phoneNo");
+
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    // Get today's date
+    var today = new Date();
+
+    // Format the date in YYYY-MM-DD for setting as max attribute
+    var formattedDate = today.toISOString().split('T')[0];
+
+    // Set the max attribute of the date picker to today's date
+    document.getElementById("datePicker").setAttribute("max", formattedDate);
+
 </script>

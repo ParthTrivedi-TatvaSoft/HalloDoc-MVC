@@ -10,6 +10,7 @@ using DataAccess.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Rotativa.AspNetCore;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -92,6 +93,13 @@ app.Use(async (context, next) =>
         context.Response.Headers.Add("Expires", "0");
     }
 
+    if (context.Request.Path.StartsWithSegments("/Provider"))
+    {
+        context.Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+        context.Response.Headers.Add("Pragma", "no-cache");
+        context.Response.Headers.Add("Expires", "0");
+    }
+
     await next.Invoke();
 
 
@@ -106,6 +114,7 @@ app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
 app.UseNotyf();
+app.UseRotativa();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

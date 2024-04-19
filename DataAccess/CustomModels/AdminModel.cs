@@ -73,6 +73,11 @@ namespace DataAccess.CustomModels
 
         public int? regionId { get; set; }
 
+        public int? callType { get; set; }
+        public int? phyId { get; set; }
+
+        public bool? isFinalized { get; set; }
+
     }
 
 
@@ -163,6 +168,8 @@ namespace DataAccess.CustomModels
         public int? ReqId { get; set; }
 
         public List<IFormFile>? uploadedFiles { get; set; }
+
+        public string? ProviderNote { get; set; }
 
     }
 
@@ -323,7 +330,7 @@ namespace DataAccess.CustomModels
 
     }
 
-   
+
     public class CreateRequestModel
     {
 
@@ -349,9 +356,8 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Please Enter Your Last Name")]
         public string? lastname { get; set; }
 
-
         [Required(ErrorMessage = "Please Enter Your Date Of Birth")]
-        public DateOnly dob { get; set; }
+        public string? dateofbirth { get; set; }
 
         [Required(ErrorMessage = "Please Enter Your Email")]
         public string? email { get; set; }
@@ -366,6 +372,7 @@ namespace DataAccess.CustomModels
 
         public bool? indicate { get; set; }
     }
+
 
 
     public class ProviderModel
@@ -552,35 +559,36 @@ namespace DataAccess.CustomModels
 
     public class CreateProviderAccount
     {
-
+        [Required(ErrorMessage = "Usernaame Is Required")]
         public string? username { get; set; }
-
+        [Required(ErrorMessage = "Password Is Required")]
         public string? password { get; set; }
-
+        [Required(ErrorMessage = "Email Is Required")]
         public string? Email { get; set; }
+        [Compare("Email", ErrorMessage = "Email Missmatch")]
         public string? Con_Email { get; set; }
-
+        [Required(ErrorMessage = "PhoneNumber Is Required")]
         public string? PhoneNumber { get; set; }
 
         public string? Status { get; set; }
 
-
+        [Required(ErrorMessage = "City Is Required")]
         public string? city { get; set; }
 
         public string? country { get; set; }
-
+        [Required(ErrorMessage = "Zipcode Is Required")]
         public string? zipcode { get; set; }
-
+        [Required(ErrorMessage = "Firstname Is Required")]
         public string? Firstname { get; set; }
-
+        [Required(ErrorMessage = "Lastname Is Required")]
         public string? Lastname { get; set; }
 
         public int? Regionid { get; set; }
 
         public int? Roleid { get; set; }
-
+        [Required(ErrorMessage = "MedicalLicense No Is Required")]
         public string? MedicalLicesnse { get; set; }
-
+        [Required(ErrorMessage = "NPInumber Is Required")]
         public string? NPInumber { get; set; }
 
         public string? SycnEmail { get; set; }
@@ -590,8 +598,9 @@ namespace DataAccess.CustomModels
         public string? BusinessWebsite { get; set; }
 
         public string? Adminnotes { get; set; }
-
+        [Required(ErrorMessage = "Address1 Is Required")]
         public string? Address1 { get; set; }
+        [Required(ErrorMessage = "Address2 Is Required")]
         public string? Address2 { get; set; }
 
         public int PhyID { get; set; }
@@ -656,40 +665,31 @@ namespace DataAccess.CustomModels
 
 
 
+
     public class CreateAdminAccount
     {
-        [Required(ErrorMessage = "UserName Is Required")]
         public string? UserName { get; set; }
-        [Required(ErrorMessage = "Password Is Required")]
         public string? AdminPassword { get; set; }
         public short? Status { get; set; }
-       
         public string? Role { get; set; }
-        [Required(ErrorMessage = "First Name Is Required")]
         public string? FirstName { get; set; }
-        [Required(ErrorMessage = "Last Name Is Required")]
         public string? LastName { get; set; }
         public string? AdminPhone { get; set; }
-        [Required(ErrorMessage = "Email Is Required")]
+
+        [Required(ErrorMessage = "Email is required")]
         public string? Email { get; set; }
-
-        [Compare("Email", ErrorMessage = "Email MissMatch")]
+        [Compare("Email", ErrorMessage = "Email Missmatch")]
         public string? ConfirmEmail { get; set; }
-
-
-
         public List<Region>? RegionList { get; set; }
-
         public IEnumerable<int> AdminRegion { get; set; }
-
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Zip { get; set; }
         public string? BillingPhone { get; set; }
+        public int[] RegionArray { get; set; }
     }
-
     public class UserAccess
     {
         public short? accType { get; set; }
@@ -715,12 +715,12 @@ namespace DataAccess.CustomModels
         public int ProfessionId { get; set; }
         public string ProfessionName { get; set; }
 
-        [Required(ErrorMessage = "Business Name is required")]
+        [Required(ErrorMessage = "Business Name Is Required")]
         public string BusinessName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Fax Number is required")]
+        [Required(ErrorMessage = "Fax Number Is Required")]
         public string FaxNumber { get; set; }
         public string BusinessContact { get; set; }
 

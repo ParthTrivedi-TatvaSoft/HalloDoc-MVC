@@ -15,11 +15,12 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="~/css/admin_login.css">
     <link rel="stylesheet" href="~/css/darkmode.css" />
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
 </head>
+
+
 
 <body>
     <div class="contianer-fluid">
@@ -41,45 +42,33 @@
                     <img id="logo" src="/images/hallodoc.png" alt="logo">
                     <h3>Login to your account</h3>
 
-                    <div class="input-div form-floating mb-3">
+                    <div class="input-div form-floating ">
                         <input asp-for="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email</label>
-                    <span asp-validation-for="email" class="text-danger"></span>
-                      
-   
-
                     </div>
+                    <span asp-validation-for="email" class="text-danger"></span>
               
                     <div class="input-div form-floating">
                         <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
-                    <span asp-validation-for="password" class="text-danger"></span>
                         
 
                     </div>
+                    <span asp-validation-for="password" class="text-danger"></span>
                  
                     <button>Log In</button>
 
-                    <a asp-action="admin_resetpassword" asp-controller="Home" id="forget-pass">Forget Password?</a>
+                    <a asp-controller="Home" asp-action="admin_resetpassword" id="forget-pass">Forget Password?</a>
                 </form>
+                
                 <footer>Terms of Conditions | Privacy Policy</footer>
             </div>
         </div>
     </div>
-
-
+@* 
+    <partial name="_ValidationScriptsPartial" /> *@
     <!-- script  -->
-    <script>
-        function darkMode() {
-            var element = document.body;
-            element.classList.toggle("dark-mode");
-
-            var img = element.querySelector(".d-mode");
-            img.src.includes("dark") ? img.src = "../images/light.png" : img.src = "../images/dark.png";
-        }
-
-       
-    </script>
+    
 </body>
 
 </html>
@@ -92,4 +81,7 @@
     <script type="text/javascript">
         toastr.error('@TempData["Error"]');
     </script>
+
+
 }
+

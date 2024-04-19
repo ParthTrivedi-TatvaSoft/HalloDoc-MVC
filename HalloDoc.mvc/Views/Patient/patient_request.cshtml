@@ -67,7 +67,7 @@
                     <label for="floatingPassword" class="comman">Last Name</label>
                 </div>
                 <div class="form-floating  col-lg-6 col-md-12 col-sm-12 mt-3">
-                        <input asp-for="dob" type="date" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input asp-for="dob" type="date" class="form-control" id="datePicker" placeholder="name@example.com">
                         <span asp-validation-for="dob" class="text-danger"></span>
                     <label for="floatingInput" class="comman">Date of Birth</label>
                 </div>
@@ -90,7 +90,8 @@
                     </div>
                     <div class="col-6">
                         <div class="input-div form-floating mb-3">
-                            <input type="tel" asp-for="phoneNo" class="form-control p-3 ps-5" placeholder="(201) 555-0123">
+                            <input asp-for="phoneNo" type="number" name="phone" class="form-control  p-3 ps-5" id="phoneNo">
+
                         </div>
                         
                     </div>
@@ -195,13 +196,23 @@
     </script>
     <script src="./js/custom.js"></script>
     <script>
-        const phoneInputField = document.querySelectorAll("input[type='tel']");
-        for (var i = 0; i < phoneInputField.length; i++) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            });
-        }
+        const phoneInputField = document.getElementById("phoneNo");
+
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+
+            // Get today's date
+            var today = new Date();
+
+        // Format the date in YYYY-MM-DD for setting as max attribute
+        var formattedDate = today.toISOString().split('T')[0];
+
+        // Set the max attribute of the date picker to today's date
+        document.getElementById("datePicker").setAttribute("max", formattedDate);
+
     </script>
 </body>
 

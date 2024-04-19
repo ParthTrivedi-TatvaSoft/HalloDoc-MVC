@@ -1,11 +1,6 @@
 ﻿@using DataAccess.CustomModels;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<!-- Remove duplicate inclusion of jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Initialize jQuery Validate after jQuery -->
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 @model SendLinkModel;
 <style>
@@ -43,6 +38,7 @@
                     <div class="form-floating mt-3">
                         <!-- Ensure correct input type for phone number -->
                         <input asp-for="phoneNo" style="height:58px" id="phoneSendLink" class="form-control contact" aria-label="Contact" type="tel" />
+                        <label class=" text-secondary" for="floatingInputLast">Phone Number</label>
                         <span asp-validation-for="phoneNo" class="text-danger"></span>
                     </div>
                     <div class="form-floating mt-3">
@@ -52,7 +48,7 @@
                     </div>
                 </div>
                 <div class="m-3 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-info confirm-btn text-white">
+                    <button type="button" onclick="submitSendLink()" class="btn btn-info confirm-btn text-white">
                         Send
                     </button>
                     <button id="sendLinkCancelBtn" type="button" class="btn cancel-btn border-info text-info ms-3" data-bs-dismiss="modal">
@@ -67,48 +63,43 @@
 <partial name="_ValidationScriptsPartial" />
 
 <script>
+    //$(document).ready(function () {
+    //    // Initialize form validation
+    //    $("#SendLinkFormMain").validate({
+    //        // Add your validation rules here if needed
+    //    });
 
-    // const phoneInputField = document.querySelectorAll("input[type='tel']");
-    // for (var i = 0; i < phoneInputField.length; i++) {
-    //     const phoneInput = window.intlTelInput(phoneInputField[i], {
-    //         utilsScript:
-    //             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    //     });
-    // }
+    //    // Form submission handler
+    //    $("#SendLinkFormMain").submit(function (event) {
+    //        event.preventDefault(); // Prevent default form submission
 
-    $(document).ready(function () {
-        // Initialize form validation
-        $("#SendLinkFormMain").validate({
-            // Add your validation rules here if needed
-        });
+    //        // Check if the form is valid
 
-        // Form submission handler
-        $("#SendLinkFormMain").submit(function (event) {
-            event.preventDefault(); // Prevent default form submission
+    //    });
+    //});
 
-            // Check if the form is valid
-            if ($(this).valid()) {
-                var formData = $(this).serialize(); // Serialize form data
+    function submitSendLink() {
+        if ($('#SendLinkFormMain').valid()) {
+            var formData = $('#SendLinkFormMain').serializeArray(); // Serialize form data
 
-                // AJAX call
-                $.ajax({
-                    url: '/Admin/SendLink',
-                    type: 'POST',
-                    data: formData,
-                    success: function (result) {
-                        if (result.isSend == true) {
-                            $("#sendLinkCancelBtn").click();
-                            toastr.success("Mail sent successfully");
-                        } else {
-                            alert("Please enter a valid email");
-                            $("#sendLinkCancelBtn").click();
-                        }
-                    },
-                    error: function () {
-                        alert("Error");
+            // AJAX call
+            $.ajax({
+                url: '/Admin/SendLink',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if (result.isSend == true) {
+                        $("#sendLinkCancelBtn").click();
+                        toastr.success("Mail sent successfully");
+                    } else {
+                        alert("Please enter a valid email");
+                        $("#sendLinkCancelBtn").click();
                     }
-                });
-            }
-        });
-    });
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+    }
 </script>

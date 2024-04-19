@@ -1,94 +1,93 @@
 ﻿@using DataAccess.CustomModels;
 @model CreateRequestModel;
-<link rel="stylesheet" href="~/css/darkmode.css" />
 
+<link rel="stylesheet" href="~/css/darkmode.css">
+<partial name="_ValidationScriptsPartial" />
 
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
 <div class="container">
 
     <div class=" mt-4 d-flex justify-content-between align-items-center">
         <h4>Submit Information</h4>
-        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" class="back-btn dark-mode1">&lt; Back</button>
     </div>
-    <button hidden type="button" class="btn shadow border-info ms-2"
-            style="border-radius: 10px; border-color: aqua" id="colorButton">
-        <i id="moon" class="bi bi-moon text-info fs-5"></i>
-        <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
-    </button>
+
     <form class="shadow border rounded my-3 bg-white dark-mode1" id="CreateRequestForm" method="post" onsubmit="return CheckRegion()">
         <div class="mx-3 my-4 ">
             <h5 class="mb-3 mt-2">Patient</h5>
 
             <div class="row mb-3">
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   firstname" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputFName"
+                    <input asp-for="   firstname" type="text" class="form-control dark-mode1" id="floatingInputFName"
                            placeholder="Firstname">
-                    <span asp-validation-for="firstname" class="text-danger"></span>
                     <label for="floatingInputFName" class="ms-2">First Name</label>
+                    <span asp-validation-for="firstname" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   lastname" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputLName"
+                    <input asp-for="   lastname" type="text" class="form-control  dark-mode1" id="floatingInputLName"
                            placeholder="LastName">
-                    <span asp-validation-for="lastname" class="text-danger"></span>
                     <label for="floatingInputLName" class="ms-2">Last Name</label>
+                    <span asp-validation-for="lastname" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   phone" type="tel" class="form-control bg-transparent dark-mode1" id="floatingInputPhone" placeholder="number">
-                    <span asp-validation-for="phone" class="text-danger"></span>
+                    <input asp-for="   phone" type="tel" class="form-control  dark-mode1" id="floatingInputPhone" placeholder="number">
                     <label for="floatingInputPhone" class="ms-2">Phone Number</label>
+                    <span asp-validation-for="phone" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   email" type="email" class="form-control bg-transparent dark-mode1" id="floatingInputEmail"
+                    <input asp-for="   email" type="email" class="form-control  dark-mode1" id="floatingInputEmail"
                            placeholder="name@example.com">
-                    <span asp-validation-for="email" class="text-danger"></span>
                     <label for="floatingInputEmail" class="ms-2">Email</label>
+                    <span asp-validation-for="email" class="text-danger"></span>
 
 
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="dob" type="date" class="form-control bg-transparent dark-mode1 " id="datePickerId" placeholder="DateOfBirth">
-                    <span asp-validation-for="dob" class="text-danger"></span>
+                    <input asp-for="   dateofbirth" type="date" class="form-control  dark-mode1" id="datePickerId" placeholder="DateOfBirth">
                     <label for="datePickerId" class="ms-2">Date Of Birth</label>
-
+                    <span asp-validation-for="dateofbirth" class="text-danger"></span>
 
                 </div>
             </div>
-
             <h5 class="mb-3 mt-3">Patient Location</h5>
             <div class="row mb-3">
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="street" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputStreet"
+                    <input asp-for="street" type="text" class="form-control  dark-mode1" id="floatingInputStreet"
                            placeholder="street">
-                    <span asp-validation-for="street" class="text-danger"></span>
                     <label for="floatingInputStreet" class="ms-2">Street</label>
+                    <span asp-validation-for="street" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="city" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputCity" placeholder="city">
+                    <input asp-for="city" type="text" class="form-control  dark-mode1" id="floatingInputCity" placeholder="city">
                     <label for="floatingInputCity" class="ms-2">City</label>
                     <span asp-validation-for="city" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="state" onchange="stateOnChange()" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputState" placeholder="state">
-                    <span asp-validation-for="state" class="text-danger"></span>
+                    <input asp-for="state" onchange="stateOnChange()" type="text" class="form-control dark-mode1" id="floatingInputState" placeholder="state">
                     <label for="floatingInputState" class="ms-2">State</label>
+                    <span asp-validation-for="state" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="zipcode" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputZipcode"
+                    <input asp-for="zipcode" type="text" class="form-control  dark-mode1" id="floatingInputZipcode"
                            placeholder="zipcode">
-                    <span asp-validation-for="zipcode" class="text-danger"></span>
                     <label for="floatingInputZipcode" class="ms-2">Zip Code (Optional)</label>
+                    <span asp-validation-for="zipcode" class="text-danger"></span>
                 </div>
 
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="room" type="text" class="form-control bg-transparent dark-mode1" id="floatingInputRoom" placeholder="room">
-                    <span asp-validation-for="room" class="text-danger"></span>
+                    <input asp-for="room" type="text" class="form-control  dark-mode1" id="floatingInputRoom" placeholder="room">
                     <label for="floatingInputRoom" class="ms-2">Room # (Optional)</label>
+                    <span asp-validation-for="room" class="text-danger"></span>
                 </div>
-
                 <div class="col form-floating mb-3">
                     <button type="button" onclick="verifyRequestState()" class="btn btn-outline border-info p-3 text-info me-2">
                         <span>Verify</span>
@@ -98,11 +97,10 @@
                         <span>Map</span>
                     </button>
                 </div>
-
             </div>
             <h5 class="mb-3 mt-2">Notes</h5>
             <div class="form-floating mb-3">
-                <textarea asp-for="admin_notes" class="form-control bg-transparent border border-2 h-100 dark-mode1" rows="5"
+                <textarea asp-for="admin_notes" class="form-control dark-mode1 border border-2 h-100" rows="5"
                           placeholder="Leave a comment here" id="floatingTextareaNotes"></textarea>
                 <label for="floatingTextareaNotes" class="text-wrap">Admin Notes(Optional)</label>
             </div>
@@ -112,17 +110,15 @@
             </div>
         </div>
     </form>
-
 </div>
 
 
-<script>
-    
-    function verifyRequestState() {
 
+<script>
+
+    function verifyRequestState() {
         var state = $("#floatingInputState").val();
         console.log(state);
-
         $.ajax({
             url: "/Admin/VerifyState",
             type: 'GET',
@@ -141,25 +137,21 @@
         });
     }
 
-   
-
     function stateOnChange() {
         document.getElementById("floatingInputState").style.border = "1px solid #dee2e6";
     }
-
     function createReqMap() {
         var street = $("#floatingInputStreet").val();
         var city = $("#floatingInputCity").val();
         var state = $("#floatingInputState").val();
         var zipcode = $("#floatingInputZipcode").val();
+        var url = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+        window.open(url, "_blank");
 
-        window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
     }
-
     function CheckRegion() {
         var state = $("#floatingInputState").val();
         console.log(state);
-
         $.ajax({
             url: "/Admin/VerifyState",
             type: 'GET',

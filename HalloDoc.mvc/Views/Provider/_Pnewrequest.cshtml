@@ -15,7 +15,7 @@
                     Link
                 </span>
             </button>
-            <button class="action-btn" onclick="location.href='@Url.Action("createrequest", "Provider")'">
+            <button class="action-btn" onclick="location.href='@Url.Action("CreateRequest", "Provider")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
 
@@ -159,17 +159,17 @@
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
                                             <li>
-                                                <button class="dropdown-item" onclick="pShowAssignCase(@item.Reqid)">
+                                                <button class="dropdown-item" onclick="ConfirmAccept(@item.Reqid)">
                                                     <i class="bi bi-card-checklist"></i>
                                                     Accept
                                                 </button>
                                             </li>
 
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("viewcase", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId , ReqId=item.Reqid})">
+                                                <button class="dropdown-item" onclick="pShowViewCase(@item.requestClientId,@item.requestTypeId)">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     ViewCase
-                                                </a>
+                                                </button>
                                             </li>
                                             <li>
                                                 <button class="dropdown-item" onclick="pShowViewNotes(@item.Reqid)">
@@ -189,9 +189,9 @@
             }
             else
             {
-                <tr>
+               @*  <tr>
                     <td colspan="9" style="text-align: center;">No Records Found.</td>
-                </tr>
+                </tr> *@
             }
 
 
@@ -353,7 +353,7 @@ else if (Model.TotalPage == 1)
 }
 else
 {
-    <div class="text-center text-danger fw-bold h5">No record found</div>
+    <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
 <div id="modelContent"></div>
 
@@ -548,9 +548,81 @@ else
 
     }
 
-        
+    //client side pagination
+    //$(document).ready(function () {
 
+    //    $('.data-table').DataTable({
+    //        "initComplete": function (settings, json) {
 
+    //            $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+    //            $('#my-search-input').on('keyup', function () {
+    //                var searchValue = $(this).val();
+    //                settings.oPreviousSearch.sSearch = searchValue;
+    //                settings.oApi._fnReDraw(settings);
+    //            });
+    //        },
+    //        "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+    //        "pageLength": 5,
+    //        language: {
+    //            oPaginate: {
+    //                sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+    //                sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+
+    //            }
+    //        }
+    //    });
+    //    // $('.dataTables_length').hide();
+    //    $('.dataTables_filter').hide();
+    //});
+
+    function ConfirmAccept(requestId) {
+        Swal.fire({
+            title: "Are You Sure Want To Accept The Request?",
+            showDenyButton: true,
+            confirmButtonText: "Accept",
+            confirmButtonColor: "#198754",
+            denyButtonText: `Cancel`
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    method: "GET",
+                    url: "/Provider/AcceptCase",
+                    data: { requestId: requestId },
+
+                    success: function (res) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Request Accepted Succesfully !",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        ProviderDashboard(res);
+
+                    },
+
+                    error: function (xhr, status, error) {
+                        if (xhr.status === 401) {
+
+                            window.location.reload();
+                        }
+                        console.error(error);
+                    }
+                });
+            }
+            else if (result.isDenied) {
+                Swal.fire({
+                    position: "top-end",
+                    title: "Changes are not saved",
+                    icon: "info",
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
+            }
+        });
+    }
 
 
 

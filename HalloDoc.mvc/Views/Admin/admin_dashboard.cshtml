@@ -549,22 +549,24 @@
 
 
         function ExpertDataTabWise(tabNo) {
+            console.log("b");
             $.ajax({
                 url: '/Admin/GetRequest',
                 type: 'GET',
                 data: { tabNo: tabNo },
                 success: function (response) {
-                    console.log(response);
                     Export(response);
                 }
             });
         }
-        function Export(response) {
-            $.ajax({
-                method: "POST",
-                url: "/Admin/ExportReq",
-                data: { reqList: response },
 
+        function Export(reqList) {
+            debugger
+            $.ajax({
+                url: '/Admin/ExportReq',
+                type: 'POST',
+                data: {reqList : reqList},
+                datatype: "json",
                 success: function (resp) {
 
                     const blob = new Blob([resp], { type: 'text/csv' });
@@ -583,8 +585,9 @@
                     document.body.removeChild(anchor);
                 },
 
-                error: function () {
-                    alert("in error");
+                error: function (e) {
+                    alert(e);
+                    console.log(e);
                 }
 
             });
@@ -643,12 +646,13 @@
 
         function CreateAdminAccount() {
             $.ajax({
-                url: '/Admin/AdminAccount',
+                url: '/Admin/CreateAdminAccount',
                 type: 'GET',
                 success: function (response) {
                     $("#access-tab-pane").html(response);
-                }, error: function (e) {
-                    alert(e);
+                },
+                error: function (e) {
+                    alert("error loading partial view");
                 }
             });
         }

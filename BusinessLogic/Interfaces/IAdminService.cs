@@ -21,7 +21,7 @@ namespace BusinessLogic.Interfaces
         StatusCountModel GetStatusCount();
 
 
-        ViewCaseViewModel ViewCase(int reqClientId, int RequestTypeId, int ReqId);
+        ViewCaseViewModel ViewCaseViewModel(int Requestclientid, int RequestTypeId);
 
         ViewNotesModel ViewNotes(int ReqId);
 
@@ -106,9 +106,9 @@ namespace BusinessLogic.Interfaces
 
         List<PhysicianRegionTable> PhyRegionTable(int phyId);
 
-        bool CreateAdminAccount(CreateAdminAccount createNewAccount,string email);
+        bool CreateAdminAccount(CreateAdminAccount obj, string email);
 
-        CreateAdminAccount RegionList();
+        
 
         bool DeleteRole(int roleId);
 

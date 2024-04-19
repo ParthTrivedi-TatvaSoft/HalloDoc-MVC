@@ -1,0 +1,37 @@
+﻿@{
+    var reqId = ViewBag.reqId;
+}
+
+<div class="modal" id="downloadEncounterModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title">Encounter Form</h5>
+                <button id="closeidp" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-block justify-content-center align-items-center" style="height: auto;">
+                <div class="d-block text-center">
+                    <h5>Encounter Form is finalized successfully!</h5>
+                </div>
+                <div class="d-block text-center">
+                    <a type="button" class="btn btn-info mx-2" onclick="downloadEncounterForm(@reqId)">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function downloadEncounterForm(reqId) {
+
+        window.location.href = './DownloadEncounterPDF?reqId=' + reqId
+        Swal.fire({
+            title: "pdf Download!",
+            text: "You clicked the button!",
+            icon: "success"
+        });
+        $("#closeidp").click();
+
+    }
+
+
+</script>

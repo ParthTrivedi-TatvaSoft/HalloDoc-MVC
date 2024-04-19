@@ -133,6 +133,10 @@
                                     <a href="">
                                         <i class="bi bi-envelope text-white "></i>
                                     </a>
+                                    @if (item.phyId != null && item.status == 1)
+                                    {
+                                        <span class="text-white border px-1" style=" border-radius:5px;">Case Assigned</span>
+                                    }
                                 </div>
                             </td>
                             @*2*@
@@ -208,12 +212,20 @@
                                             </span>
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
-                                            <li>
-                                                <button class="dropdown-item" onclick="showAssignCase(@item.Reqid)">
-                                                    <i class="bi bi-card-checklist"></i>
-                                                    Assign Case
-                                                </button>
-                                            </li>
+                                          
+                                            @if (item.phyId != null && item.status == 1)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <button class="dropdown-item" onclick="showAssignCase(@item.Reqid)">
+                                                        <i class="fa-regular fa-building"></i>
+                                                        Assign Case
+                                                    </button>
+                                                </li>
+                                            }
                                             <li>
                                                 <button class="dropdown-item" onclick="showCancelCase(@item.Reqid)">
                                                     <i class="bi bi-x-circle"></i>

@@ -57,6 +57,14 @@
       "PackagePath": "staticwebassets\\PhysicianSign\\6\\LesfImage.png"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
+      "PackagePath": "staticwebassets\\Rotativa\\wkhtmltoimage.exe"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
+      "PackagePath": "staticwebassets\\Rotativa\\wkhtmltopdf.exe"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\11116016_415.jpg"
     },
@@ -73,8 +81,20 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\7774236_3736765.jpg"
     },
     {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\Fig Contact your Provider.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\Fig1. Platform login page.jpg"
+    },
+    {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig26. Edit Physician Account.png"
+    },
+    {
+      "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg",
+      "PackagePath": "staticwebassets\\UploadedFiles\\Fig39. Provider Location.jpg"
     },
     {
       "Id": "D:\\HalloDoc\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",

@@ -28,7 +28,7 @@
             <button class="action-btn">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
-                    Support
+                    DTY Support
                 </span>
             </button>
         </span>
@@ -206,19 +206,19 @@
                                         </button>
                                         <ul class="dropdown-menu table_dropdowns">
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("viewcase","Provider",  new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})">
+                                                <button class="dropdown-item" onclick="pShowViewCase(@item.requestClientId,@item.requestTypeId)">
                                                     <i class="bi bi-file-earmark-text"></i>
-                                                    View Case
-                                                </a>
+                                                    ViewCase
+                                                </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" asp-controller="Provider" asp-action="ViewUploads" asp-route-reqId=@item.Reqid>
+                                                <a class="dropdown-item" asp-controller="Provider" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     View Uploads
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("viewnote","Provider", new {ReqId = item.Reqid})">
+                                                <a class="dropdown-item" href="@Url.Action("ViewNote","Provider", new {ReqId = item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     View Notes
                                                 </a>
@@ -252,9 +252,9 @@
             }
             else
             {
-                <tr>
-                    <td colspan="3" style="text-align: center;">No records found.</td>
-                </tr>
+               @*  <tr>
+                    <td colspan="3" style="text-align: center;">No Records Found.</td>
+                </tr> *@
             }
 
         </tbody>
@@ -285,7 +285,7 @@ else
 {
     <div class="text-center text-danger fw-bold h5">No record found</div>
 }
-<div id="modelContent2"></div>
+<div id="pmodelContent2"></div>
 
 <!-- accordions -->
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">

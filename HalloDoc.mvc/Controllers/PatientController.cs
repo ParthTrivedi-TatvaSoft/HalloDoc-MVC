@@ -180,6 +180,7 @@ namespace HalloDoc.mvc.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult friendfamily_request(FamilyReqModel familyReqModel)
         {
@@ -263,7 +264,6 @@ namespace HalloDoc.mvc.Controllers
 
 
         public IActionResult PatientResetPasswordEmail(Aspnetuser user)
-
         {
 
             var usr =_db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email);
@@ -271,7 +271,7 @@ namespace HalloDoc.mvc.Controllers
             {
                 string Id = _db.Aspnetusers.FirstOrDefault(x => x.Email == user.Email).Id;
                 string resetPasswordUrl = GenerateResetPasswordUrl(Id);
-                SendEmail(user.Email, "Reset Your Password", $"Hello, reset your password using this link: {resetPasswordUrl}");
+                SendEmail(user.Email, "Reset Your Password", $"Hello, Reset Your Password Using This Link: {resetPasswordUrl}");
             }
             else
             {
@@ -434,10 +434,59 @@ namespace HalloDoc.mvc.Controllers
 
             return View(Reqobj);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult patient_newrequest(PatientInfoModel patientInfoModel)
+        {
+
+
+            if (patientInfoModel.password != null)
+            {
+                patientInfoModel.password = patientInfoModel.password;
+            }
+            bool isValid = _patientService.AddPatientInfo(patientInfoModel);
+            if (!isValid)
+            {
+                _notyf.Error("Service Is Not Available In Entered Region");
+                return View(patientInfoModel);
+            }
+            _notyf.Success("Submit Successfully !!");
+            return RedirectToAction("patient_dashboard", "Patient");
+
+        }
         public IActionResult someoneelse_newrequest()
         {
             return View();
         }
+
+        
+
+        [HttpPost]
+        public IActionResult someoneelse_newrequest(FamilyReqModel model)
+        {
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string createAccountLink = baseUrl + Url.Action("create_account", "Patient");
+            var loginid = GetLoginId();
+            bool issubmitted = _patientService.SomeElseReq(model, createAccountLink, loginid);
+            if (issubmitted)
+            {
+                _notyf.Success("Submitted Successfully");
+                return RedirectToAction("patient_dashboard");
+            }
+            else
+            {
+                _notyf.Error("Something Is Wrong");
+                return View(model);
+            }
+
+
+
+        }
+
+
+
+
 
     }
 }

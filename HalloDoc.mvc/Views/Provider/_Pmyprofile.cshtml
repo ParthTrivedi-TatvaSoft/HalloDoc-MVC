@@ -63,7 +63,7 @@
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>My Profile</h4>
-        <button class="dark-mode1" onclick="location.href='@Url.Action("provider_dashboard", "Provider")'" id="back-btn">&lt; Back</button>
+        <button id="back-btn">&lt; Back</button>
 
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
@@ -81,7 +81,7 @@
                         </div>
                         <div style="position: relative;"
                              class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
-                            <input asp-for="editPro.password" value="@Model.editPro.password" type="password" class="form-control d1class inputs" disabled placeholder="Password"
+                            <input asp-for="editPro.password" value="@Model.editPro.password" type="password" class="form-control inputs" placeholder="Password"
                                    id="providerEditPassword" />
                             <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                             <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
@@ -95,7 +95,7 @@
 
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        
+
                         <button type="button" id="providerResetPassword" onclick="providerEditResetPass('@Model.editPro.Email')"
                                 class="btn btn-outline-secondary border-info text-info ms-2">
                             Reset Password
@@ -162,19 +162,7 @@
 
                         </div>
                     </div>
-                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mt-3 mb-3">
-                        <button type="button" id="editBtn2" class="btn btn-info text-white EditBtn"
-                                onclick="enableFields(2)">
-                            Edit
-                        </button>
 
-                        <button onclick=" editProviderForm2(@Model.editPro.PhyID)" type="button" id="submitBtn2" class="btn btn-info text-white SaveBtn ">Save</button>
-
-                        <button type="reset" id="cancelBtn2" class="btn btn-outline-info CancelBtn "
-                                onclick="disableFields(2)">
-                            Cancel
-                        </button>
-                    </div>
                 </div>
             </form>
 
@@ -225,19 +213,7 @@
                             @* <span asp-validation-for="ff_phone" class="text-danger"></span> *@
                         </div>
                     </div>
-                    <div class="d-grid gap-2 d-flex justify-content-end  justify-content-md-end mb-3">
-                        <button type="button" id="editBtn3" class="btn btn-info text-white EditBtn"
-                                onclick="enableFields(3)">
-                            Edit
-                        </button>
 
-                        <button onclick="editProviderForm3(@Model.editPro.PhyID)" type="button" id="submitBtn3" class="btn btn-info text-white SaveBtn">Save</button>
-
-                        <button type="reset" id="cancelBtn3" class="btn btn-outline-info CancelBtn"
-                                onclick="disableFields(3)">
-                            Cancel
-                        </button>
-                    </div>
                 </div>
             </form>
 
@@ -274,21 +250,7 @@
                                 </div>
                             }
                         </div>
-                        @*   <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
 
-                        <div>
-                        <div class="input-group rounded d-flex">
-                        <input asp-for="@Model._providerEdit.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
-                        <button class="btn btn-info text-white" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Sign</span></button>
-                        </div>
-                        <span class="text-danger" id="errormessgespan2"></span>
-                        </div>
-                        <div>
-                        <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
-                        <i class="bi bi-pen me-1"></i><span>Create</span>
-                        </button>
-                        </div>
-                        </div> *@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
@@ -318,19 +280,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 d-flex justify-content-end justify-content-md-end mb-3">
-                        <button type="button" id="editBtn4" class="btn btn-info text-white EditBtn"
-                                onclick="enableFields(4)">
-                            Edit
-                        </button>
 
-                        <button type="button" onclick="PhysicianBusinessInfoEdit()" id="submitBtn4" class="btn btn-info text-white SaveBtn">Save</button>
-
-                        <button type="button" id="cancelBtn4" class="btn btn-outline-info CancelBtn"
-                                onclick="disableFields(4)">
-                            Cancel
-                        </button>
-                    </div>
                 </div>
 
             </form>
@@ -353,8 +303,7 @@
                             <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Independent_Contractor.pdf" target="_blank" id="OnboardingView1" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.ContractorAgreement" id="inputOnboardFile1" onchange="checkOnboardingFiles(1)">
-                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile1">Upload</label>
+
                         </div>
                     </div>
                     <div class="mb-3 d-md-flex align-items-center justify-content-between onBoardContainer">
@@ -369,8 +318,7 @@
                             <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Background.pdf" target="_blank" id="OnboardingView2" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.BackgroundCheck" id="inputOnboardFile2" onchange="checkOnboardingFiles(2)">
-                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile2">Upload</label>
+
                         </div>
                     </div>
                     <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
@@ -385,8 +333,7 @@
                             <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/HIPAA.pdf" target="_blank" id="OnboardingView3" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.HIPAA" id="inputOnboardFile3" onchange="checkOnboardingFiles(3)">
-                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile3">Upload</label>
+
                         </div>
                     </div>
                     <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
@@ -401,8 +348,7 @@
                             <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Non_Disclosure.pdf" target="_blank" id="OnboardingView4" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.NonDisclosure" id="inputOnboardFile4" onchange="checkOnboardingFiles(4)">
-                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile4">Upload</label>
+
                         </div>
                     </div>
                     <div class="mb-3 d-flex align-items-center justify-content-between onBoardContainer">
@@ -417,14 +363,12 @@
                             <a type="button" href="~/PhysicianFiles/@Model.editPro.PhyID/Licence.pdf" target="_blank" id="OnboardingView5" class="btn btn-info text-white me-2" style="display:none">
                                 View
                             </a>
-                            <input type="file" hidden class="form-control onBoardInpFile" asp-for="editPro.LicenseDocument" id="inputOnboardFile5" onchange="checkOnboardingFiles(5)">
-                            <label class="input-group-text me-3 input-group-text bg-info text-white" for="inputOnboardFile5">Upload</label>
+
                         </div>
                     </div>
                 </div>
 
-                <hr class="w-100" />
-               
+
 
             </form>
 
@@ -467,31 +411,17 @@
             }
         });
     });
-
-
     function disableFields(formid) {
         document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
             element.disabled = true;
         });
-        // Hide the submit and cancel buttons, show the edit button
-        document.getElementById('submitBtn' + formid).style.display = 'none';
-        document.getElementById('cancelBtn' + formid).style.display = 'none';
-        document.getElementById('editBtn' + formid).style.display = 'block';
-    }
 
-    function enableFields(formid) {
-        document.querySelectorAll('.d' + formid + 'class').forEach(function (element) {
-            element.disabled = false;
-        });
-        // Show the submit and cancel buttons, hide the edit button
-        document.getElementById('submitBtn' + formid).style.display = 'block';
-        document.getElementById('cancelBtn' + formid).style.display = 'block';
-        document.getElementById('editBtn' + formid).style.display = 'none';
     }
     disableFields(1);
     disableFields(2);
     disableFields(3);
     disableFields(4);
+
 
     function showPassword() {
 
@@ -556,7 +486,7 @@
     }
 
     function providerEditResetPass(email) {
-      
+    
         var editPass = $("#providerEditPassword").val();
         var editStatus = $("#providerEditStatus").val();
         var editRole = $("#providerEditRole").val();
@@ -567,7 +497,7 @@
             type: 'POST',
             data: { password: editPass, phyId: editPhyId, email: email },
             success: function (result) {
-                // editProvider(result.phyId);
+           
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
@@ -580,204 +510,15 @@
         });
     }
 
-    function editProviderForm1(phyId) {
-        var statusId = $("#providerEditStatus").val();
-        var roleId = $("#providerEditRole").val();
-        $.ajax({
-            url: "/Admin/editProviderForm1",
-            type: 'POST',
-            data: { phyId: phyId, roleId: roleId, statusId: statusId },
-            success: function (result) {
-                if (result.indicate == true) {
-                    // editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
-    }
-
-
-    function editProviderForm2(phyId) {
-        // var payloadMain = $("#AdministratorForm").serializeArray();
-
-        var fname = $("#editProviderFirstName").val();
-        var lname = $("#editProviderLastName").val();
-        var email = $("#editProviderEmail").val();
-        var phone = $("#editProviderPhoneNumber").val();
-        var medical = $("#editProviderMedicalLicense").val();
-        var npi = $("#editProviderNPINumber").val();
-        var sync = $("#editProviderSynchronizationEmail").val();
-
-
-
-        var phyRegionArray = [];
-        var checkedBoxes = $('.region-checkbox:checkbox:checked');
-        console.log(phyRegionArray)
-        $.each(checkedBoxes, function () {
-            phyRegionArray.push(parseInt(this.value))
-        });
-
-
-        $.ajax({
-            url: "/Admin/editProviderForm2",
-            type: 'POST',
-            data: { fname: fname, lname: lname, email: email, phone: phone, medical: medical, npi: npi, sync: sync, phyId: phyId, phyRegionArray },
-            success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
-    }
-
-
-    function editProviderForm3(phyId) {
-        var payloadMain = $("#MailingForm").serializeArray();
-
-        $.ajax({
-            url: "/Admin/editProviderForm3",
-            type: 'POST',
-            data: payloadMain,
-            success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
-    }
 
 
 
 
-    function checkFileExtension() {
-        var fileName = document.getElementById('fileUploadInp').value.toLowerCase();
-        var tagToDisplayMessage = document.getElementById('errormessgespan');
-        if (fileName) {
-            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
-                alert("wrong");
-                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
-                return false;
-            }
-            else {
-                alert("right");
-                tagToDisplayMessage.innerText = "";
-                return true;
-            }
-        }
-        else {
-            return true;
-        }
-    }
-
-    function checkFileExtension2() {
-        var fileName = document.getElementById('fileUploadInp2').value.toLowerCase();
-        var tagToDisplayMessage = document.getElementById('errormessgespan2');
-        if (fileName) {
-            if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
-                tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
-                return false;
-            }
-            else {
-                tagToDisplayMessage.innerText = "";
-                return true;
-            }
-        }
-        else {
-            return true;
-        }
-    }
 
 
 
-    function PhysicianBusinessInfoEdit() {
-
-        $.ajax({
-            method: "POST",
-            url: "/Admin/PhysicianBusinessInfoEdit",
-            data: new FormData($('#PhysicianBusinessInfoForm')[0]),
-            processData: false,
-            contentType: false,
-
-            success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-
-            error: function () {
-                alert("Oops!", "Something is Wrong !!!", "error");
-            }
-        });
-    }
 
 
-    function UpdateOnBoarding() {
-        $.ajax({
-            method: "POST",
-            url: "/Admin/UpdateOnBoarding",
-            data: new FormData($('#OnboardingEditForm')[0]),
-            processData: false,
-            contentType: false,
 
-            success: function (result) {
-                if (result.indicate == true) {
-                    editProvider(result.phyId);
-                    toastr.success("Data Updated Successfully");
-                } else {
-                    toastr.error("Change Atleast One Field");
-                }
-            },
-
-            error: function () {
-                alert("error in edit onboarding");
-            }
-        });
-    }
-
-    function checkOnboardingFiles(inputid) {
-        var fileName = document.getElementById('inputOnboardFile' + inputid).value.toLowerCase();
-        var tagToDisplayMessage = document.getElementById('errorSpan' + inputid);
-        if (fileName) {
-            if (!(fileName.endsWith('.pdf'))) {
-                tagToDisplayMessage.innerText = "Please Upload File with .pdf extension";
-                return false;
-            }
-            else {
-                tagToDisplayMessage.innerText = "";
-                return true;
-            }
-        }
-        else {
-            return true;
-        }
-    }
-
-   
 
 </script>
-
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" crossorigin="anonymous"></script>
-<script src="~/js/countriesinput.js"></script>
- *@

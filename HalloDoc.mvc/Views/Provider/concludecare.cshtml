@@ -1,0 +1,327 @@
+﻿﻿@using DataAccess.CustomModels;
+
+@model ViewUploadModel;
+
+
+<style>
+    #downloadSelected {
+        color: rgb(0, 183, 255);
+        background-color: white;
+        border: 1px solid rgb(0, 183, 255);
+        border-radius: 5px;
+    }
+
+        #downloadSelected:hover {
+            background-color: rgb(0, 183, 255);
+            color: white;
+        }
+</style>
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/darkmode.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<link rel="stylesheet" href="~/css/patient_dashboard.css">
+
+
+<nav class="navbar navbar-expand w-100 dark-mode1">
+
+    <div class="container-fluid">
+        <div class="d-flex align-items-center">
+            <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img class="navbar-brand ms-3" id="logo" src="~/img/hallodoc.png" alt="logo" style="height:100px">
+
+        </div>
+        <div>
+            <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
+                <div class="d-none d-sm-flex  justify-content-center align-items-center ">
+                <li class="nav-item">
+                    <span class="">Welcome</span>
+                </li>
+                <li class="nav-item p-2 fw-bolder">
+                    <span class="d-flex gap-1">
+                        <span class="dark-mode1">Physician</span>
+                        <span class="dark-mode1"></span>
+                    </span>
+                </li>
+        </div>
+        <li class="nav-item">
+            <a asp-conroller="Admin" asp-action="Logout">
+                <button onclick="location.href='@Url.Action("provider_dashboard", "Provider")'" class="px-2 btn btn-outline-info mx-2 float-end">
+                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
+                </button>
+
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn shadow border-info ms-2"
+                    style="border-radius: 10px; border-color: aqua" id="colorButton">
+                <i id="moon" class="bi bi-moon text-info fs-5"></i>
+                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+            </button>
+        </li>
+        </ul>
+    </div>
+    </div>
+
+
+    <!-- tabs -->
+</nav>
+
+<div class="container my-5 bg-white dark-mode1">
+
+    <div class="container bg-white dark-mode1 p-4 ">
+        <div class="d-flex justify-content-between mb-4">
+            <h2 class="">Documents</h2>
+            <button class="mx-bg-opacity-25 dark-mode1" id="downloadSelected" onclick="location.href='@Url.Action("provider_dashboard", "Provider")'">&lt; Back</button>
+
+        </div>
+        <div class="row">
+            <p class="col-12">Patient Name</p>
+            <p class="col-12">
+                <span class="fw-bolder fs-4">@Model.firstName @Model.lastName </span>
+                <span>(f34r34t5gvr44)</span>
+            </p>
+
+            <!-- row--- -->
+        </div>
+
+        <!-- ----container    -->
+    </div>
+
+    <form method="post" asp-action="UploadFiles" asp-controller="Admin" class="input-group my-5 mt-3" enctype="multipart/form-data">
+        @*<input name="file" type="file" class="form-control" id="formFileLg" multiple>*@
+        <input asp-for="uploadedFiles" type="file" class="form-control form-control-lg" id="formFileLg" multiple>
+        <button type="submit" class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</button>
+        <br />
+    </form>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+
+            <h3>Documents</h3>
+            <div class="d-flex gap-2">
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table dataTable table-hover" id="data-table" aria-describedby="data-table_info">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll" onclick="toggleCheckboxes()">
+                    </th>
+                    <th class="sorting" data-value="Description">
+                        File
+                    </th>
+
+                    <th>
+                        Upload Date<i class="bi bi-arrow-up-short"></i>
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.files.Count > 0)
+                {
+                    @foreach (var item in Model.files)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selectedFiles" value="@item.Filename">
+                            </td>
+
+                            <td>
+                                <i class="bi bi-file-earmark-fill" style="color:red"></i>
+                                @item.Filename
+                            </td>
+
+                            <td>@item.Createddate.ToString("MMM dd, yyyy")</td>
+                            <td>
+
+                                <a href="~/UploadedFiles/@item.Filename" class="btn px-2 py-1 btn-outline-info shadow-none night-mode-btn" download>
+                                    <i class="bi bi-cloud-download"></i>
+                                </a>
+                                <a class="btn ms-2 px-2 py-1 btn-outline-info shadow-none night-mode-btn" asp-controller="Admin" asp-action="DeleteFileById" asp-route-id="@item.Requestwisefileid">
+                                    @*onclick="deleteFile(@item.Requestwisefileid)"*@
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" style="text-align: center;">No records found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <hr style="border: black 20px" />
+    <form asp-action="ConcludeCareSubmit">
+        <div>
+            <input asp-for="@Model.ReqId" hidden />
+            <h6>Provider Notes</h6>
+            <div class="form-floating">
+                <textarea class="form-control" asp-for="ProviderNote" placeholder="Leave a comment here" id="providerNote" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Provider Notes</label>
+            </div>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary my-3">Conclude Care</button>
+        </div>
+    </form>
+</div>
+
+@* <script>
+    function concludeCareSubmit() {
+        console.log("POp");
+        var reqId = @Model.ReqId;
+        var providerNote = $('#providerNote').val();
+        alert(providerNote);
+        $.ajax({
+            url: '/provider/concludecaresubmit',
+            type: 'POST',
+            data: { ReqId: reqId, Providernote: providerNote },
+            success: function (response) {
+
+            },
+            Error: function (response) {
+                alert("bndfjd");
+            }
+
+        });
+</script> *@
+<script>
+
+
+    function toggleCheckboxes() {
+        var checkboxes = document.getElementsByName('selectedFiles');
+        var selectAllCheckbox = document.getElementById('selectAll');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = selectAllCheckbox.checked;
+        }
+    }
+
+    function downloadSelectedFiles() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please Select At Least One File To Download.');
+            return;
+        }
+
+        // Construct URLs for all selected files and initiate download
+        for (var j = 0; j < selectedFiles.length; j++) {
+
+            var fileUrl = '/UploadedFiles/' + selectedFiles[j];
+            var link = document.createElement('a');
+            link.href = fileUrl;
+            link.setAttribute('download', ''); // This attribute triggers the download
+            link.click(); // Simulate a click event to initiate the download
+        }
+
+    }
+
+    function deleteAllFiles() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please select at least one file to Delete.');
+            return;
+        }
+
+        var confirmDelete = confirm("Are You Sure You Want To Delete All Selected Files?");
+        if (!confirmDelete) {
+            return;
+        }
+        deleteSelectedFiles(selectedFiles);
+
+    }
+
+    function deleteSelectedFiles(selectedFiles) {
+        $.ajax({
+            url: '/Admin/DeleteAllFiles',
+            type: 'POST',
+            data: { selectedFiles: selectedFiles },
+            success: function (response) {
+
+                window.location.reload();
+
+            }
+        });
+    }
+
+    function sendMail() {
+        var selectedFiles = [];
+        var checkboxes = document.getElementsByName('selectedFiles');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedFiles.push(checkboxes[i].value);
+            }
+        }
+
+        // If no files are selected, return
+        if (selectedFiles.length === 0) {
+            alert('Please select at least one file to Send.');
+            return;
+        }
+
+        var confirmDelete = confirm("Are You Sure You Want To Send All Selected Files?");
+        if (!confirmDelete) {
+            return;
+        }
+
+        sendSelectedFiles(selectedFiles);
+    }
+    function sendSelectedFiles(selectedFiles) {
+        $.ajax({
+            url: '/Admin/SendAllFiles',
+            type: 'POST',
+            data: { selectedFiles: selectedFiles },
+            success: function (response) {
+
+                window.location.reload();
+
+            }
+        });
+    }
+
+
+
+</script>

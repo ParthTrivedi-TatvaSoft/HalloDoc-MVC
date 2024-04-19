@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Rotativa.AspNetCore;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -53,12 +54,16 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult GetCount()
         {
-            var statusCountModel = _adminService.GetStatusCount();
-            return PartialView("_Pallrequest", statusCountModel);
+            var aspid = GetLoginId();
+            var phyid = _providerService.GetPhysicianId(aspid);
+            var statusCountModel = _providerService.GetStatusCount(phyid);
+            return PartialView("_PallRequest", statusCountModel);
         }
         public IActionResult GetRequestsByStatus(int tabNo, int CurrentPage)
         {
-            var list = _adminService.GetRequestsByStatus(tabNo, CurrentPage);
+            var aspid = GetLoginId();
+            var phyid = _providerService.GetPhysicianId(aspid);
+            var list = _providerService.GetRequestsByStatus(tabNo, CurrentPage, phyid);
 
             if (tabNo == 0)
             {
@@ -83,6 +88,7 @@ namespace HalloDoc.mvc.Controllers
 
             return View();
         }
+
 
         public IActionResult FilterRegion(FilterModel filterModel)
         {
@@ -161,13 +167,13 @@ namespace HalloDoc.mvc.Controllers
             return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
         }
 
-        public IActionResult ViewCase(int Requestclientid, int RequestTypeId ,int ReqId)
+        public IActionResult viewcase(int Requestclientid, int RequestTypeId)
         {
-            var model = _adminService.ViewCase(Requestclientid, RequestTypeId ,ReqId);
+            var model = _adminService.ViewCaseViewModel(Requestclientid, RequestTypeId);
 
-            return View("_Pviewcase", model);
+            return PartialView("_PViewCase", model);
         }
-            
+
         [HttpPost]
         public IActionResult UpdateNotes(ViewNotesModel model)
         {
@@ -180,7 +186,14 @@ namespace HalloDoc.mvc.Controllers
         {
 
             ViewNotesModel data = _adminService.ViewNotes(ReqId);
-            return PartialView("_Pviewnotes", data);
+            return View("_Pviewnotes", data);
+        }
+
+        public IActionResult AcceptCase(int requestId)
+        {
+            var loginUserId = GetLoginId();
+            _providerService.AcceptCase(requestId, loginUserId);
+            return Ok();
         }
 
         public IActionResult CancelCase(int reqId)
@@ -200,7 +213,7 @@ namespace HalloDoc.mvc.Controllers
 
             if (isCancelled)
             {
-                _notyf.Success("Cancelled successfully");
+                _notyf.Success("Cancelled Successfully");
                 return RedirectToAction("provider_dashboard");
             }
             _notyf.Error("Cancellation Failed");
@@ -258,7 +271,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult ViewUploads(int reqId)
+        public IActionResult viewuploads(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);
             var model = _adminService.GetAllDocById(reqId);
@@ -355,7 +368,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Order(int reqId)
+        public IActionResult orders(int reqId)
         {
             var order = _adminService.FetchProfession();
             order.ReqId = reqId;
@@ -442,6 +455,136 @@ namespace HalloDoc.mvc.Controllers
           
             return View("_Prequestadmin");
         }
+
+        public IActionResult pcaremodal(int reqId)
+        {
+            ViewBag.reqid = reqId;
+            return PartialView("_Pcaremodel");
+        }
+        [HttpPost]
+        public IActionResult EncounterTypeModalSubmit(int requestId, short encounterType)
+        {
+            _providerService.CallType(requestId, encounterType);
+            return Ok();
+        }
+        [HttpGet]
+   
+        public IActionResult PEncounterForm(int reqId)
+        {
+            ViewBag.reqId = reqId;
+            var form = _adminService.EncounterForm(reqId);
+            return View(form);
+        }
+        [HttpPost]
+        public IActionResult PEncounterForm(EncounterFormModel model)
+        {
+            bool isSaved = _adminService.SubmitEncounterForm(model);
+            if (isSaved)
+            {
+                _notyf.Success("Saved!!");
+            }
+            else
+            {
+                _notyf.Error("Failed");
+            }
+            return RedirectToAction("PEncounterForm", new { ReqId = model.reqid });
+        }
+
+
+        [HttpPost]
+        public IActionResult HouseCallSubmit(int requestId)
+        {
+            _providerService.housecall(requestId);
+            return RedirectToAction("provider_dashboard");
+        }
+
+        public IActionResult Finalizesubmit(int reqid)
+        {
+            _providerService.finalizesubmit(reqid);
+            return RedirectToAction("provider_dashboard");
+        }
+        public IActionResult DownloadEncounterPopUp(int reqId)
+        {
+            ViewBag.reqId = reqId;
+            return PartialView("_Pdownloadmodel");
+        }
+        public IActionResult DownloadEncounterPDF([FromQuery] int reqId)
+        {
+            var data = _adminService.EncounterForm(reqId);
+            return new ViewAsPdf("pdfpartial", data)
+            {
+                FileName = "EncounterForm.pdf"
+            };
+            //return PartialView("_PConcludeRequest");
+        }
+
+        public IActionResult ConcludeCare(int reqId)
+        {
+            HttpContext.Session.SetInt32("rid", reqId);
+            var model = _adminService.GetAllDocById(reqId);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CUploadFiles(ViewUploadModel model)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            if (model.uploadedFiles == null)
+            {
+                _notyf.Error("First Upload Files");
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+            bool isUploaded = _adminService.UploadFiles(model.uploadedFiles, rid);
+            if (isUploaded)
+            {
+                _notyf.Success("Uploaded Successfully");
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+            else
+            {
+                _notyf.Error("Upload Failed");
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+        }
+
+        public IActionResult CDeleteFileById(int id)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            bool isDeleted = _adminService.DeleteFileById(id);
+            if (isDeleted)
+            {
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+            else
+            {
+                _notyf.Error("SomeThing Went Wrong");
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+        }
+
+        public IActionResult CDeleteAllFiles(List<string> selectedFiles)
+        {
+            var rid = (int)HttpContext.Session.GetInt32("rid");
+            bool isDeleted = _adminService.DeleteAllFiles(selectedFiles, rid);
+            if (isDeleted)
+            {
+                _notyf.Success("Deleted Successfully");
+                return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+            }
+            _notyf.Error("SomeThing Went Wrong");
+            return RedirectToAction("concludecare", "Provider", new { reqId = rid });
+
+        }
+
+        [HttpPost]
+        public IActionResult ConcludeCareSubmit(int ReqId, string ProviderNote)
+        {
+            _providerService.concludecaresubmit(ReqId, ProviderNote);
+            return RedirectToAction("provider_dashboard");
+        }
+
+       
+
 
 
     }

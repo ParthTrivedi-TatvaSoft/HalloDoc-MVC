@@ -27,8 +27,8 @@ namespace DataAccess.CustomModels
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string email { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone Number Must Be 10 Digits Long")]
+        [Required(ErrorMessage = "Phone Number Is Required")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? phoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
@@ -58,6 +58,7 @@ namespace DataAccess.CustomModels
         public string firstName { get; set; }
         public string? lastName { get; set; }
         public string? email { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? phoneNo { get; set; }
 
         [Required(ErrorMessage = "Please Enter Relation")]
@@ -72,6 +73,8 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string? patientEmail { get; set; }
+
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? patientPhoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
@@ -90,6 +93,7 @@ namespace DataAccess.CustomModels
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public string? email { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? phoneNo { get; set; }
 
         [Required(ErrorMessage = "Please Enter Hotel/Property Name")]
@@ -105,6 +109,7 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string? patientEmail { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? patientPhoneNo { get; set; }
 
         [Required(ErrorMessage = "Please Enter Street")]
@@ -128,6 +133,7 @@ namespace DataAccess.CustomModels
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public string? email { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? phoneNo { get; set; }
 
         [Required(ErrorMessage = "Please Enter Business/Property Name")]
@@ -144,6 +150,7 @@ namespace DataAccess.CustomModels
         [Required(ErrorMessage = "Please Enter The Patient's Email Address.")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Please Enter A Valid Email Address.")]
         public string? patientEmail { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone Number Is Not Valid")]
         public string? patientPhoneNo { get; set; }
         public string? street { get; set; }
         public string? city { get; set; }
@@ -161,11 +168,7 @@ namespace DataAccess.CustomModels
         public DateTime createdDate { get; set; }
         public int currentStatus { get; set; }
         public List<string> document { get; set; }
-        public int? IntDate { get; set; }
-        public string StrMonth { get; set; }
-        public int? IntYear { get; set; }
-        public string ConfirmationNumber { get; set; }
-
+        public int docCount { get; set; }
 
     }
     public class MedicalHistoryList
@@ -174,7 +177,6 @@ namespace DataAccess.CustomModels
         public int? id { get; set; }
         public string? firstName { get; set; }
         public string? lastName { get; set; }
-
     }
 
     public class DocumentModel
@@ -184,7 +186,7 @@ namespace DataAccess.CustomModels
         public string? lastName { get; set; }
         public int? ReqId { get; set; }
         public List<IFormFile>? uploadedFiles { get; set; }
-        public string? ConfirmationNumber { get; set; }
+     
     }
 
 

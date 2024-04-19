@@ -32,6 +32,7 @@ namespace BusinessLogic.Interfaces
         bool AddBusinessReq(BusinessReqModel businessReqModel, string createAccountLink);
 
         public PatientInfoModel FetchData(string email);
+        bool SomeElseReq(FamilyReqModel model, string createAccountLink, string loginid);
     }
 
 

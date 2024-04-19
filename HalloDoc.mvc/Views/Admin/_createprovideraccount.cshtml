@@ -278,8 +278,7 @@
 
 </div>
 
-@* <partial name="_ValidationScriptsPartial" />
- *@
+<partial name="_ValidationScriptsPartial" />
 <script>
 
     $(document).ready(function () {
@@ -411,6 +410,7 @@
     }
 
 
+
     function CreatePhysicianAccountForm() {
 
         event.preventDefault();
@@ -420,30 +420,32 @@
         var payload = $('#CreatePhysicianAccountForm');
         event.preventDefault();
         //setTimeout(() => {
-        $.ajax({
-            url: "/Admin/CreateProviderAccount",
-            type: 'POST',
-            data: new FormData($('#CreatePhysicianAccountForm')[0]),
-            processData: false,
-            contentType: false,
+        if ($('#CreatePhysicianAccountForm').valid()) {
+            $.ajax({
+                url: "/Admin/CreateProviderAccount",
+                type: 'POST',
+                data: new FormData($('#CreatePhysicianAccountForm')[0]),
+                processData: false,
+                contentType: false,
 
-            success: function (result) {
-                if (result.flag == "done") {
-                    createProviderAccount();
-                    toastr.success("Account Created Successfully");
-                } else if (result.flag == "email") {
-                    toastr.error("Email Already Exists!!");
-                } else {
-                    toastr.error("Enter Data!!");
-                }
-            },
-            error: function () {
-                alert("Error");
-            },
-        });
+                success: function (result) {
+                    if (result.flag == "done") {
+                        createProviderAccount();
+                        toastr.success("Account Created Successfully");
+                    } else if (result.flag == "email") {
+                        toastr.error("Email Already Exists!!");
+                    } else {
+                        toastr.error("Zipcode Not Valid!!");
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        }
+
         // }, 1000);
     }
-
 
     function fetchCoordinates(postalCode) {
         var apiUrl = 'https://nominatim.openstreetmap.org/search?postalcode=' + postalCode + '&format=json';
