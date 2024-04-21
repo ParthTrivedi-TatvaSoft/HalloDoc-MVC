@@ -58,19 +58,23 @@
 
 </style>
 
-@*<partial name="_Notification" />*@
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>My Profile</h4>
-        <button id="back-btn">&lt; Back</button>
-
+        @*         <button id="back-btn">&lt; Back</button>
+        *@
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
     <div class="shadow border rounded my-3 dark-mode1 bg-white">
         <div class="mx-3 my-4 ">
             <form action=" " method="post" id="ResetPasswordForm">
                 <input type="hidden" id="providerEditOne" asp-for="editPro.PhyID" value="@Model.editPro.PhyID" />
+                <div style="float:right;">
+                    <button onclick="providerReqeustAdminMain()" type="button" id="providerReqeustAdmin" class="btn btn-outline-secondary border-info text-info ms-2">
+                        Request To Admin
+                    </button>
+                </div>
                 <div class="mt-3">
                     <h4 class="my-4 pt-4">Account Information</h4>
 
@@ -81,7 +85,7 @@
                         </div>
                         <div style="position: relative;"
                              class="mb-3 col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating ">
-                            <input asp-for="editPro.password" value="@Model.editPro.password" type="password" class="form-control inputs" placeholder="Password"
+                            <input asp-for="editPro.password" value="@Model.editPro.password" type="password" class="form-control d1class inputs" disabled placeholder="Password"
                                    id="providerEditPassword" />
                             <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                             <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
@@ -375,9 +379,11 @@
 
         </div>
     </div>
+    <div id="RequestToAdminMain">
+    </div>
 </div>
 
-@*<partial name="_ValidationScriptsPartial" />*@
+
 
 <script>
 
@@ -486,18 +492,18 @@
     }
 
     function providerEditResetPass(email) {
-    
+        
         var editPass = $("#providerEditPassword").val();
         var editStatus = $("#providerEditStatus").val();
         var editRole = $("#providerEditRole").val();
         var editPhyId = $("#providerEditOne").val();
 
         $.ajax({
-            url: "/Admin/providerEditFirst",
+            url: "/Provider/providerEditFirst",
             type: 'POST',
             data: { password: editPass, phyId: editPhyId, email: email },
             success: function (result) {
-           
+                
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
@@ -506,6 +512,21 @@
             },
             error: function () {
                 alert("Error");
+            },
+        });
+    }
+
+    function providerReqeustAdminMain() {
+        let action = "/Provider/RequestAdmin";
+        $.ajax({
+            url: action,
+            type: 'GET',
+            success: function (result) {
+                $('#RequestToAdminMain').html(result);
+                $('#EditPremissionModalBox').modal('show');
+            },
+            error: function () {
+                toastr.error("Error To Load Partial View");
             },
         });
     }

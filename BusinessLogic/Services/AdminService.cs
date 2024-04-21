@@ -42,6 +42,16 @@ namespace BusinessLogic.Services
             var aspNetUser = _db.Aspnetusers.Include(x => x.Aspnetuserroles).FirstOrDefault(x => x.Email == email);
             return aspNetUser;
         }
+
+        public LoginDetail GetLoginDetail(string email)
+        {
+            var admin = _db.Admins.Where(x => x.Email == email).FirstOrDefault();
+            LoginDetail model = new();
+            model.firstName = admin.Firstname;
+            model.lastName = admin.Lastname;
+            return model;
+        }
+
         public DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage)
         {
             var query = from r in _db.Requests
@@ -875,7 +885,7 @@ namespace BusinessLogic.Services
                 rsl.Requestid = req.Requestid;
                 rsl.Status = (int)StatusEnum.MDEnRoute;
                 rsl.Createddate = DateTime.Now;
-                rsl.Notes = "Agreement accepted by patient";
+                rsl.Notes = "Agreement Accepted By Patient";
                 _db.Requests.Update(req);
                 _db.Requeststatuslogs.Add(rsl);
                 _db.SaveChanges();
@@ -1409,7 +1419,7 @@ namespace BusinessLogic.Services
                                lastName = phy.Lastname,
                                status = phy.Status.ToString(),
                                role = role.Name,
-                               onCallStatus = "un available",
+                               onCallStatus = "Un Available",
                                notification = phynoti.Isnotificationstopped[0],
                            };
             var result = provider.ToList();
@@ -2370,9 +2380,9 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
-        
 
-        public bool CreateAdminAccount(CreateAdminAccount obj, string email)
+
+        public bool CreateAdminAccount(CreateAdminAccount obj, List<int> AdminRegion, string email)
         {
             var emailExists = _db.Aspnetusers.Where(x => x.Email == obj.Email).Any();
             if (emailExists)
@@ -2396,6 +2406,13 @@ namespace BusinessLogic.Services
                 _db.Aspnetusers.Add(aspnetuser);
                 _db.SaveChanges();
 
+
+                Aspnetuserrole aspnetuserrole = new Aspnetuserrole();
+                aspnetuserrole.Userid = aspnetuser.Id;
+                aspnetuserrole.Roleid = (int)AspNetRole.admin;
+                _db.Aspnetuserroles.Add(aspnetuserrole);
+                _db.SaveChanges();
+
                 var aspnetId = _db.Aspnetusers.Where(x => x.Email == email).Select(x => x.Id).First();
                 Admin admin = new Admin();
 
@@ -2404,10 +2421,11 @@ namespace BusinessLogic.Services
                 admin.Firstname = obj.FirstName;
                 admin.Lastname = obj.LastName;
                 admin.Email = obj.Email;
-
+                admin.Status = 1;
                 admin.Mobile = obj.AdminPhone;
                 admin.Address1 = obj.Address1;
-
+                admin.Regionid = obj.regionId;
+                admin.Roleid = obj.roleId;
                 admin.Address2 = obj.Address2;
                 admin.Zip = obj.Zip;
                 admin.Altphone = obj.BillingPhone;
@@ -2422,7 +2440,7 @@ namespace BusinessLogic.Services
 
 
 
-                var AdminRegions = obj.AdminRegion.ToList();
+                var AdminRegions = AdminRegion.ToList();
                 for (int i = 0; i < AdminRegions.Count; i++)
                 {
                     Adminregion adminregion = new()
@@ -2441,6 +2459,7 @@ namespace BusinessLogic.Services
 
 
         }
+
 
 
 

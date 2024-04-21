@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="~/css/admin_login.css">
     <link rel="stylesheet" href="~/css/darkmode.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 
 </head>
@@ -45,12 +48,14 @@
                     <div class="input-div form-floating ">
                         <input asp-for="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email</label>
+                        <i class="icon bi bi-person "></i>
                     </div>
                     <span asp-validation-for="email" class="text-danger"></span>
               
                     <div class="input-div form-floating">
                         <input asp-for="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
+                        <i class="icon bi bi-eye bg-transparent" id="passwordIcon"></i>
                         
 
                     </div>
@@ -65,9 +70,24 @@
             </div>
         </div>
     </div>
-@* 
-    <partial name="_ValidationScriptsPartial" /> *@
-    <!-- script  -->
+
+
+    <script>
+        var temp = true;
+        $(document).on("click", "#passwordIcon", function () {
+            if (temp) {
+                $(this).addClass("bi-eye-slash");
+                $(this).removeClass("bi-eye");
+                $("#floatingPassword").prop("type", "text");
+            }
+            else {
+                $(this).addClass("bi-eye");
+                $(this).removeClass("bi-eye-slash");
+                $("#floatingPassword").prop("type", "password");
+            }
+            temp = !temp;
+        })
+    </script>
     
 </body>
 

@@ -1,0 +1,174 @@
+﻿@using DataAccess.CustomModels;
+@using DataAccess.Enums;
+
+@model SendAgreementModel;
+
+@{
+    var color = "He";
+    var role = "hello";
+
+    @if (Model.reqType == (int)RequestTypeEnum.Business)
+    {
+        color = "#d76879";
+        role = "Business";
+    }
+    else if (Model.reqType == (int)RequestTypeEnum.Patient)
+    {
+        color = "#60be5e";
+        role = "Patient";
+
+
+    }
+    else if (Model.reqType == (int)RequestTypeEnum.Family)
+    {
+        color = "#e69232";
+        role = "FamilyFriend";
+
+    }
+    else if (Model.reqType == (int)RequestTypeEnum.Concierge)
+    {
+        color = "#0b7ebf";
+        role = "Concierge";
+    }
+}
+<div class="modal fade" id="PSendAgreementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title text-light" id="exampleModalLabel">Send Agreement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="px-lg-1 py-1 rounded d-md-flex align-items-center ms-2">
+                    <svg height="15" width="15" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle fill=@color r="45" cx="50" cy="50" stroke="grey" stroke-width="3" />
+                    </svg>
+                    <h6 class="fs-6 ms-lg-2 m-auto">@role</h6>
+                </div>
+                <div class="mb-3 text-secondary">
+                    <p>To send agreement, please make sure that you are updating the correct contact information below for the responsible party</p>
+                </div>
+
+
+                <div class="col-12 form-group mt-3 form-floating">
+
+                    <input asp-for="PhoneNumber" type="tel" class="form-control border border-dark" id="phoneNumber">
+                    <label for="exampleFormControlInput1">Phone Number</label>
+                    <small id="phoneRequired" class="d-none" style="color:red">Phone Number is required</small>
+
+                </div>
+                <div class="col-12 form-group mt-3 form-floating">
+                    <input asp-for="Email" type="email" class="form-control border border-dark" id="email">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <small id="emailRequired" class="d-none" style="color:red">Email is required</small>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn text-light" id="sendAgreement" style="background-color:#00B7FF">Confirm</button>
+                <button type="reset" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modelContent"></div>
+<style>
+    .inputFields {
+        border: 0.5rem;
+        border-radius: 5px;
+    }
+</style>
+
+<script>
+
+    $('#phoneNumber').on('input', function () {
+        let phoneNumber = $("#phoneNumber").val();
+        if (phoneNumber != "") {
+            $("#phoneRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#phoneRequired").addClass('d-block').removeClass('d-none');
+
+        }
+    });
+
+    $('#email').on('input', function () {
+        let email = $("#email").val();
+        if (email != "") {
+            $("#emailRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#emailRequired").addClass('d-block').removeClass('d-none');
+
+        }
+    });
+
+
+    $('#sendAgreement').click(function () {
+        var phnNo = $("#phoneNumber").val();
+        if (phnNo != "") {
+            $("#phoneRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#phoneRequired").addClass('d-block').removeClass('d-none');
+
+        }
+
+        var email = $("#email").val();
+        if (email != "") {
+            $("#emailRequired").addClass('d-none').removeClass('d-block');
+        }
+        else {
+            $("#emailRequired").addClass('d-block').removeClass('d-none');
+
+        }
+
+        var Reqid = @Model.Reqid;
+
+        if (phnNo != "" && email != "") {
+            var payload = {
+                PhoneNumber: phnNo,
+                Email: email,
+                Reqid: Reqid
+            }
+
+            $.ajax({
+                url: "/Provider/SendAgreement",
+                type: "POST",
+                data: payload,
+                success: function (response) {
+                    if (response.isSend) {
+                        toastr.success("Agreement Sent");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                    }
+                    else {
+                        toastr.error("Sending Failed");
+                    }
+                }
+                //error: function(err){
+                //    console.log(err);
+                //    toastr.error("Something went wrong");
+                //}
+            })
+
+            //window.location.href=redirectUrl;
+            //$.ajax({
+            //    url: "/Admin/SendAgreement",
+            //    data: payload,
+            //    type: 'POST',
+            //    success: function (result) {
+            //        $('#display').html(result);
+            //        $('#sendAgreementModal').modal('show');
+            //        location.reload();
+            //    },
+            //    error: function (error) {
+            //        console.log(error);
+            //        alert('Something Went Wrong ')
+            //    },
+            //});
+        }
+    });
+</script>

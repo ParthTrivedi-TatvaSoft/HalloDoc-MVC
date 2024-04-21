@@ -1,14 +1,12 @@
 ﻿@using DataAccess.CustomModels;
 @model CreateAdminAccount;
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="container">
     <div class=" d-flex justify-content-between mt-4">
         <h4>
             Create Admin Account
         </h4>
-        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" class="dark-mode1" id="back-btn">&lt; Back</button>
+        <button onclick="ShowAllRequests()" id="back-btn">&lt; Back</button>
     </div>
     <div class="justify-content-center shadow bg-white dark-mode1 my-4">
         <div class="viewCaseForm form-floating patient-request-form p-3">
@@ -19,6 +17,7 @@
                         <div class="form-floating">
                             <input asp-for="UserName" type="text" class="form-control" id="AdminUserName">
                             <label for="">User Name</label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -26,16 +25,17 @@
                         <div class="form-floating">
                             <input asp-for="AdminPassword" type="password" class="form-control" id="AdminPassword">
                             <label for="floatingSelectGrid">Password</label>
+                            <span asp-validation-for="AdminPassword" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <select class="form-select mb-3" id="role">
-                                <option>Active</option>
-                                <option>InActive</option>
-                                <option>Pending</option>
+                        <div class="form-floating ">
+                            <select asp-for="roleId" class="form-select mb-3" id="role">
+                                <option value="1">Active</option>
+                                <option value="2">InActive</option>
                             </select>
                             <label for="">Role</label>
+                            <span asp-validation-for="roleId" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -47,31 +47,35 @@
                         <div class="form-floating">
                             <input asp-for="FirstName" type="text" class="form-control" id="AdminFirstName">
                             <label for="">First Name</label>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input asp-for="LastName" type="text" class="form-control" id="AdminLastName">
                             <label for="floatingSelectGrid">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="email" asp-for="Email" class="form-control" id="AdminEmail">
                             <label for="">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="email" asp-for="ConfirmEmail" class="form-control" id="AdminConfirmEmail" onblur="confirmEmail()">
                             <label for="">Confirm Email</label>
-                            <span class="d-none" style="color:red" id="EmailConfirmVedidation">Email And Confirm Email is Not Matching</span>
+                            <span asp-validation-for="ConfirmEmail" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <input type="tel" asp-for="AdminPhone" class="patientPhone form-control w-100 h-100">
-                            <label for="">Phone</label>
+                        <div class="form-floating ">
+                            <input type="number" asp-for="AdminPhone" id="phone1" class=" form-control p-3 ps-5">
+                            <span asp-validation-for="AdminPhone" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6 d-flex justify-content-start flex-wrap mt-4">
@@ -91,43 +95,49 @@
                 <div class="row g-2 m-1">
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" asp-for="Address1" class="form-control" placeholder="">
+                            <input type="text" asp-for="Address1" class="form-control" placeholder="Address1">
                             <label for="">Address1</label>
+                            <span asp-validation-for="Address1" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" asp-for="Address2" class="form-control" placeholder="">
+                            <input type="text" asp-for="Address2" class="form-control" placeholder="Address2">
                             <label for="floatingSelectGrid">Address2</label>
+                            <span asp-validation-for="Address2" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" asp-for="City" placeholder="">
+                            <input type="text" class="form-control" asp-for="City" placeholder="City">
                             <label for="">City</label>
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating phone-div w-100 h-100 ">
-                            <select class="form-select border-0" aria-label="Default select example">
+                            <select asp-for="regionId" class="form-select border-0" aria-label="Default select example">
+                                <option disabled selected>Regions</option>
                                 @foreach (var items in Model.RegionList)
                                 {
                                     <option value="@items.Regionid" selected>@items.Name</option>
                                 }
                             </select>
                             <label for="">Select A Region</label>
+                            <span asp-validation-for="regionId" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" asp-for="Zip" class="form-control" placeholder="">
+                            <input type="text" asp-for="Zip" class="form-control" placeholder="zip">
                             <label for="">Zip</label>
+                            <span asp-validation-for="Zip" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-floating phone-div w-100 h-100 ">
-                            <input type="tel" asp-for="BillingPhone" class="patientPhone form-control w-100 h-100" placeholder="">
-                            <label for="">Phone</label>
+                        <div class="form-floating ">
+                            <input type="tel" asp-for="BillingPhone" class=" form-control p-3 ps-5" id="phone2" placeholder="">
+                            <span asp-validation-for="BillingPhone" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -139,56 +149,52 @@
 
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
-</script>
-<script>
-    function confirmEmail() {
-        var email = document.getElementById("AdminEmail").value
-        var confemail = document.getElementById("AdminConfirmEmail").value
-        if (email != confemail) {
-            $('#EmailConfirmVedidation').addClass("d-block").removeClass("d-none");
-            // alert('Email Not Matching!');
-        }
-        else {
-            $('#EmailConfirmVedidation').addClass("d-block").removeClass("d-none");
-        }
-    }
+<partial name="_ValidationScriptsPartial" />
 
-    $('.admin-tab').removeClass("active");
-    $('#access-tab').addClass("active");
+
+<script>
+    const createAdminphoneInputField = document.getElementById("phone1");
+
+    const createAdminphoneInput = window.intlTelInput(createAdminphoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    const createAdminphoneInputField2 = document.getElementById("phone2");
+
+    const createAdminphoneInput2 = window.intlTelInput(createAdminphoneInputField2, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
 
     function createAdminPostFor() {
 
-        var payload = $("#CreateAdminAccountForm").serializeArray();
-        //var RegionArray = [];
-        //var checkedBoxes = $('.region-checkbox:checkbox:checked');
-        //console.log(RegionArray);
-        //; $.each(checkedBoxes, function () {
-        //    RegionArray.push(parseInt(this.value))
-        //});
-        //console.log(payload2);
-        //payload2.push({ name: 'RegionArray', value: RegionArray });
-        //if ($("#myProfileThirdForm").valid()) {
-        $.ajax({
-            url: "/Admin/AdminAccount",
-            type: 'POST',
-            data: payload,
-            success: function (response) {
-                //     if (response.isRegionExists == false) {
-                //         toastr.error("State doesn't exists !!");
-                //     }
-                //     else if (response.isSubmit == true) {
-                //         toastr.success("Data Updated");
-                //     } else {
-                //         toastr.error("Change atleast one field");
-                //     }
-            },
+        if ($('#CreateAdminAccountForm').valid()) {
+            var payload = $("#CreateAdminAccountForm").serializeArray();
+            $.ajax({
+                url: "/Admin/AdminAccount",
+                type: 'POST',
+                data: payload,
+                success: function (response) {
+                    if (response.isCreated) {
+                        toastr.success("Admin Created");
+                        window.location.reload();
+                    }
+                    else {
+                        toastr.error("Something went wrong");
+                    }
+                },
 
-            error: function (e) {
-                alert("Error");
-            },
-        });
-        //}
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+
+                        window.location.reload();
+                    }
+                    console.error(error);
+                }
+            });
+        }
+
+
     }
 </script>

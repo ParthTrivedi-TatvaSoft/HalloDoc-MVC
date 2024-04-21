@@ -30,54 +30,7 @@
 <link rel="stylesheet" href="~/css/patient_dashboard.css">
 
 
-<nav class="navbar navbar-expand w-100 dark-mode1">
 
-    <div class="container-fluid">
-        <div class="d-flex align-items-center">
-            <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation" style="height: 50%;">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <img class="navbar-brand ms-3" id="logo" src="~/img/hallodoc.png" alt="logo" style="height:100px">
-
-        </div>
-        <div>
-            <ul class="navbar-nav ms-auto d-flex flex-nowrap align-items-center gap-2">
-                <div class="d-none d-sm-flex  justify-content-center align-items-center ">
-                <li class="nav-item">
-                    <span class="">Welcome</span>
-                </li>
-                <li class="nav-item p-2 fw-bolder">
-                    <span class="d-flex gap-1">
-                        <span class="dark-mode1">Physician</span>
-                        <span class="dark-mode1"></span>
-                    </span>
-                </li>
-        </div>
-        <li class="nav-item">
-            <a asp-conroller="Admin" asp-action="Logout">
-                <button onclick="location.href='@Url.Action("provider_dashboard", "Provider")'" class="px-2 btn btn-outline-info mx-2 float-end">
-                    <span class=" d-none d-md-block">Logout</span><i class="bi bi-box-arrow-right d-md-none d-block"></i>
-                </button>
-
-            </a>
-
-        </li>
-        <li class="nav-item">
-            <button type="button" class="btn shadow border-info ms-2"
-                    style="border-radius: 10px; border-color: aqua" id="colorButton">
-                <i id="moon" class="bi bi-moon text-info fs-5"></i>
-                <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
-            </button>
-        </li>
-        </ul>
-    </div>
-    </div>
-
-
-    <!-- tabs -->
-</nav>
 
 <div class="container my-5 bg-white dark-mode1">
 

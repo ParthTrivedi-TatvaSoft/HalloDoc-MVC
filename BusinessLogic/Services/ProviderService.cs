@@ -8,6 +8,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -21,6 +23,15 @@ namespace BusinessLogic.Services
         public ProviderService(ApplicationDbContext db)
         {
             _db = db;
+        }
+
+        public LoginDetail GetLoginDetail(string email)
+        {
+            var phy = _db.Physicians.Where(x => x.Email == email).FirstOrDefault();
+            LoginDetail model = new();
+            model.firstName = phy.Firstname;
+            model.lastName = phy.Lastname;
+            return model;
         }
 
         public bool TransferRequest(TransferRequest model)
@@ -266,6 +277,69 @@ namespace BusinessLogic.Services
             return statusCount;
 
 
+        }
+
+        public void SendRegistrationEmailCreateRequest(string email, string note, string sessionEmail)
+        {
+            string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
+            string senderPassword = "Parth@70160";
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Request Note To Admin",
+                IsBodyHtml = true,
+                Body = $"Note: '{note}'"
+            };
+
+            Emaillog emailLog = new Emaillog()
+            {
+                Subjectname = mailMessage.Subject,
+                Emailtemplate = "Sender : " + senderEmail + "Reciver :" + email + "Subject : " + mailMessage.Subject + "Message : " + "FileSent",
+                Emailid = email,
+                Roleid = 3,
+                Physicianid = _db.Physicians.Where(r => r.Email == sessionEmail).Select(r => r.Physicianid).First(),
+                Createdate = DateTime.Now,
+                Sentdate = DateTime.Now,
+                Isemailsent = new BitArray(1, true),
+                Confirmationnumber = sessionEmail.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                Senttries = 1,
+            };
+
+
+            _db.Emaillogs.Add(emailLog);
+            _db.SaveChanges();
+
+
+            mailMessage.To.Add(email);
+
+            client.Send(mailMessage);
+        }
+
+        public void RequestAdmin(RequestAdmin model, string sessionEmail)
+        {
+            var email = _db.Admins.ToList();
+
+            foreach (var item in email)
+            {
+                try
+                {
+                    SendRegistrationEmailCreateRequest(item.Email, model.Note, sessionEmail);
+                   
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
     }
 }

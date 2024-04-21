@@ -4,7 +4,9 @@
     ViewData["Title"] = "patient_login";
 }
 @model DataAccess.CustomModels.LoginModel;
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,9 +49,8 @@
                 <input type="password" asp-for="Password" class="icon2 form-control" id="floatingPassword" placeholder="Password">
                 <span asp-validation-for="Password" class="text-danger"></span>
                 <label >Password</label>
-                
-                <i class="icon bi bi-eye" onclick="password()" id="icon_1"></i>
-                <i class="icon bi bi-eye-slash-fill" onclick="password()" id="icon_2"></i>
+
+                <i class="icon bi bi-eye bg-transparent" id="passwordIcon"></i>
                 
 
 
@@ -72,11 +73,25 @@
     <footer>Terms of Conditions | Privacy Policy</footer>
 
 
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="./js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js"></script>
     
+    
+    <script src="~/js/site.js"></script>
+    <script>
+    var temp = true;
+    $(document).on("click", "#passwordIcon", function () {
+    if (temp) {
+    $(this).addClass("bi-eye-slash");
+    $(this).removeClass("bi-eye");
+                $("#floatingPassword").prop("type", "text");
+    }
+    else {
+    $(this).addClass("bi-eye");
+    $(this).removeClass("bi-eye-slash");
+                $("#floatingPassword").prop("type", "password");
+    }
+    temp = !temp;
+    })
+    </script>
 </body>
 
 

@@ -1,7 +1,7 @@
 ﻿@using DataAccess.CustomModels;
 @model TransferRequest;
 
-@*Block Case Model*@
+
 <div class="modal fade" id="providerTransferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <form method="post" asp-controller="Provider" asp-action="TranferRequest" class="modal-content" onsubmit="return tranferValidation()">
@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <input asp-for="ReqId" hidden />
                 <div class="mb-3">
-                    <p>This request will be transferred to Admin.</p>
+                    <p>This Request Will Be Transferred To Admin.</p>
                 </div>
                 <div class="mb-3">
                     <textarea class="form-control" id="reason" asp-for="description" placeholder="Description"></textarea>

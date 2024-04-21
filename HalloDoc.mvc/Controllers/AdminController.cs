@@ -137,9 +137,12 @@ namespace HalloDoc.mvc.Controllers
             return Json(list);
         }
       
-        [HttpPost]
-        public string ExportReq(List<AdminDashTableModel> reqList)
+        
+        public string ExportReq(int tabNo)
         {
+            var reqList = _adminService.Export(tabNo);
+           
+
             StringBuilder stringbuild = new StringBuilder();
 
             string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
@@ -171,10 +174,11 @@ namespace HalloDoc.mvc.Controllers
         [CustomAuthorize("Admin")]
         public IActionResult admin_dashboard()
         {
-            return View();
+            var email = GetTokenEmail();
+            var model = _adminService.GetLoginDetail(email);
+            return View(model);
         }
 
-        
 
 
         public IActionResult admin_resetpassword()
@@ -956,6 +960,7 @@ namespace HalloDoc.mvc.Controllers
         {
             CreateAdminAccount obj = new CreateAdminAccount();
             obj.RegionList = _adminService.RegionTable();
+
             return PartialView("_createadminaccount", obj);
         }
 
@@ -963,20 +968,10 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult AdminAccount(CreateAdminAccount model, List<int> AdminRegion)
         {
             var email = GetTokenEmail();
-            var isCreated = _adminService.CreateAdminAccount(model, email);
-            if (isCreated)
-            {
-                _notyf.Success("Account Created!!");
-                return RedirectToAction("admin_dashboard");
-            }
-            else
-            {
-                _notyf.Error("Somethng Went Wrong!!");
-                CreateAdminAccount obj = new CreateAdminAccount();
-                obj.RegionList = _adminService.RegionTable();
-                return PartialView("_createadminaccount", obj);
-            }
+            var isCreated = _adminService.CreateAdminAccount(model, AdminRegion, email);
+            return Json(new { isCreated });
         }
+
 
         [HttpGet]
         public IActionResult ShowUserAccess(short selectedValue)
@@ -1126,6 +1121,9 @@ namespace HalloDoc.mvc.Controllers
             var createprovideraccount = _adminService.CreateProviderAccount(obj, physicianregions);
             return Json(new { flag = createprovideraccount.flag });
         }
+
+
+
 
         public IActionResult BusinessTable(string vendor, string profession)
         {

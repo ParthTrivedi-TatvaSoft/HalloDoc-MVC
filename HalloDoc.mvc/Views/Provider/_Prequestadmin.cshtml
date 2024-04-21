@@ -1,49 +1,59 @@
 ﻿@using DataAccess.CustomModels;
+@model RequestAdmin;
 
-
-
-<div class="modal fade" id="AdminRequestModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <form method="post" asp-controller="Admin" asp-action="SubmitBlockCase" class="modal-content" onsubmit="return checkValidation()">
-            <div class="modal-header" style="background-color:#00B7FF">
-                <h5 class="modal-title text-light" id="exampleModalLabel">Confirm Block</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div class="modal fade" id="EditPremissionModalBox" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="EditPremissionModalBoxLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 22%;">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 text-white" id="EditPremissionModalBoxLabel">Request To Administrator</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <h5>Patient Name: </h5>
+            <form method="post" id="EditPremissionForm">
+                <div class="modal-body text-secondary">
+                    Need To Send Message To Edit !!!
                 </div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="reason"  placeholder="Reason for Block Patient"></textarea>
-                    <small id="reasonRequired" class="d-none" style="color:red">Reason Is Required</small>
+                <div class="form-floating m-3 text-secondary">
+                    <textarea asp-for="Note" class="form-control" placeholder="Description"
+                              id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Message</label>
+                    <span class="text-danger" asp-validation-for="Note"></span>
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
-                <button type="button" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </form>
+                <div class="m-3 d-flex justify-content-end">
+                    <button type="button" onclick="RequestAdminMail()" class="btn btn-info confirm-btn text-white">Send</button>
+                    <button type="button" class="btn cancel-btn border-info text-info ms-3"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+
+
+<partial name="_ValidationScriptsPartial" />
+
+
 <script>
-    $('#reason').on('input', function () {
-        let reason = $("#reason").val();
-        if (reason != "") {
-            $("#reasonRequired").addClass('d-none').removeClass('d-block');
-        } else {
-            $("#reasonRequired").addClass('d-block').removeClass('d-none');
+    function RequestAdminMail() {
+        if ($('#EditPremissionForm').valid()) {
+            $.ajax({
+                url: "/Provider/RequestAdmin",
+                method: "POST",
+                data: $("#EditPremissionForm").serialize(),
+                success: function (result) {
+                    pMyProfile();
+                    $('#EditPremissionModalBox').modal('hide');
+                    toastr.success("Mail Sent Successfully");
+                },
+                error: function () {
+                    toastr.error("Error");
+                },
+            });
         }
-    });
-    function checkValidation() {
-        let reason = $("#reason").val();
-        if (reason == "") {
-            $("#reasonRequired").addClass('d-block').removeClass('d-none');
-            return false;
-        } else {
-            $("#reasonRequired").addClass('d-none').removeClass('d-block');
-        }
-        return true;
     }
+
+
 </script>

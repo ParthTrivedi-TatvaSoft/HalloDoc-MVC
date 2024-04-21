@@ -212,13 +212,13 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" asp-controller="Provider" asp-action="viewuploads" asp-route-reqId=@item.Reqid>
+                                                <a class="dropdown-item" asp-controller="Provider" asp-action="Pviewuploads" asp-route-reqId=@item.Reqid>
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     View Uploads
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("ViewNote","Provider", new {ReqId = item.Reqid})">
+                                                <a class="dropdown-item" href="@Url.Action("Pviewnotes", new {ReqId = item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     View Notes
                                                 </a>
@@ -230,13 +230,13 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">
+                                                <button class="dropdown-item" onclick="pShowCancelCase(@item.Reqid)">
                                                     <i class="bi bi-x-circle"></i>
                                                     Cancel Case
-                                                </a>
+                                                </button>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" style="cursor:pointer" onclick="pShowSendAgreement(@item.Reqid,@item.requestTypeId)">
+                                                <a class="dropdown-item" style="cursor:pointer" onclick="PShowSendAgreement(@item.Reqid,@item.requestTypeId)">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     Send Agreement
                                                 </a>

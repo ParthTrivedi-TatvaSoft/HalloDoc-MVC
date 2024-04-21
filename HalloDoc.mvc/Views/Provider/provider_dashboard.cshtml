@@ -4,6 +4,7 @@
     ViewData["Title"] = "provider_dashboard";
 }
 
+@model LoginDetail;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,8 +115,8 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>Physician</span>
-                            <span></span>
+                            <span>@Model.firstName</span>
+                            <span>@Model.lastName</span>
                         </span>
                     </li>
             </div>
@@ -364,35 +365,6 @@
             });
         }
 
-
-
-        function pShowCancelCase(reqId) {
-            $.ajax({
-                url: '/Provider/CancelCase',
-                type: 'GET',
-                data: { reqId: reqId },
-                success: function (response) {
-
-                    $("#modelContent").html(response);
-
-                    $('#cancelModal').modal('show');
-
-                }
-            });
-        }
-
-        function pShowViewNotes(reqId) {
-            $.ajax({
-                url: '/Provider/ViewNote',
-                type: 'GET',
-                data: { ReqId: reqId },
-                success: function (response) {
-
-                    $("#home-tab-pane").html(response);
-
-                }
-            });
-        }
         function pShowViewCase(reqClientId, reqTypeId) {
             $.ajax({
                 url: '/Provider/ViewCase',
@@ -405,6 +377,54 @@
                 }
             });
         }
+
+
+        function pShowCancelCase(reqId) {
+            $.ajax({
+                url: '/Provider/CancelCase',
+                type: 'GET',
+                data: { reqId: reqId },
+                success: function (response) {
+
+                    $("#pmodelContent2").html(response);
+
+                    $('#PCancelModal').modal('show');
+
+                }
+            });
+        }
+
+        function PShowSendAgreement(reqId, reqType) {
+            var role = null;
+            if (reqType == 1) {
+                role = 'Business';
+            }
+            if (reqType == 2) {
+                role = 'Patient';
+            }
+            if (reqType == 3) {
+                role = 'Family';
+            }
+            if (reqType == 4) {
+                role = 'Concierge';
+            }
+
+            $.ajax({
+                url: '/Provider/SendAgreement',
+                type: 'GET',
+                data: { reqId: reqId, reqType: reqType },
+                success: function (response) {
+
+                    $("#pmodelContent2").html(response);
+
+                    $('#PSendAgreementModal').modal('show');
+
+                }
+            });
+        }
+
+        
+        
         function pShowAssignCase(reqId) {
 
             $.ajax({
@@ -451,34 +471,6 @@
             });
         }
 
-        function pShowSendAgreement(reqId, reqType) {
-            var role = null;
-            if (reqType == 1) {
-                role = 'Business';
-            }
-            if (reqType == 2) {
-                role = 'Patient';
-            }
-            if (reqType == 3) {
-                role = 'Family';
-            }
-            if (reqType == 4) {
-                role = 'Concierge';
-            }
-            console.log(reqType);
-            $.ajax({
-                url: '/Provider/SendAgreement',
-                type: 'GET',
-                data: { reqId: reqId, reqType: reqType },
-                success: function (response) {
-
-                    $("#modelContent2").html(response);
-
-                    $('#sendAgreementModal').modal('show');
-
-                }
-            });
-        }
 
         function Export(reqList) {
             $.ajax({

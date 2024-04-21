@@ -1,0 +1,69 @@
+﻿@using DataAccess.CustomModels;
+@model CancelCaseModel;
+@*cancel case model *@
+<div class="modal fade" id="PCancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form class="modal-content" method="post" asp-action="SubmitCancelCase" asp-controller="Provider" asp-route-reqId=@Model.reqId onsubmit="return CancelValidation()">
+
+            <div class="modal-header" style="background-color:#00B7FF">
+                <h5 class="modal-title text-light" id="exampleModalLabel">Confirm Cancellation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <h5>Patient Name:@Model.PatientFName @Model.PatientLName</h5>
+                </div>
+                <div class="mb-3 ">
+
+                    <select class="form-select" aria-label="Default select example" id="reason" asp-for="casetag">
+                        <option disabled selected>Reasons for Cancellation</option>
+
+                        @foreach (var item in Model.casetaglist)
+                        {
+                            <option value="@item.Casetagid">@item.Name</option>
+                        }
+
+
+                    </select>
+                    <small id="reasonRequired" class="d-none" style="color:red">Reason Is Required</small>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" asp-for="notes" id="notes" placeholder="Provide Additional Notes"></textarea>
+                    <small id="notesRequired" class="d-none" style=" color:red">Note Is Required</small>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn text-light" style="background-color:#00B7FF">Confirm</button>
+                <button type="button" class="btn border border-info" style="color:#00B7FF" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+
+    function CancelValidation() {
+        var reason = $("#reason").val();
+
+        if (reason == null) {
+            $("#reasonRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#reasonRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        var notes = $("#notes").val();
+        if (notes == "") {
+            $("#notesRequired").addClass('d-block').removeClass('d-none');
+        } else {
+            $("#notesRequired").addClass('d-none').removeClass('d-block');
+        }
+
+        if (reason != null && notes != "") {
+            return true;
+        }
+        return false;
+    }
+
+</script>

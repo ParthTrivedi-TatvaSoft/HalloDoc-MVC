@@ -2,7 +2,18 @@
 @model CreateProviderAccount;
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@* <style>
+    .regionbtn {
+        &:focus
 
+    {
+        box-shadow: none !important;
+        border-color: #0dcaf0 !important;
+        color: #0dcaf0 !important;
+    }
+
+    }
+</style> *@
 
 <style>
     .iti {
@@ -28,16 +39,16 @@
             <form method="post" id="CreatePhysicianAccountForm" onsubmit="return checkOnboardingFiles(1) && checkOnboardingFiles(2) && checkOnboardingFiles(3) && checkOnboardingFiles(4) && CreatePhysicianAccountForm()">
                 <div class="mt-3">
                     <h4 class="my-4 pt-4">Account Information</h4>
-                    <input type="hidden" id="longitude" asp-for="@Model.longitude" />
-                    <input type="hidden" id="latitude" asp-for="@Model.latitude" />
+                    <input id="longitude" asp-for="@Model.longitude" value="@Model.longitude" hidden />
+                    <input id="latitude" asp-for="@Model.latitude" value="@Model.latitude" hidden />
                     <div class="row">
                         <div class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating  ">
                             <input type="text" asp-for="@Model.username" class="form-control" id="floatingInputUsername" placeholder="User Name" aria-label="User Name">
                             <label class="ms-2 " for="floatingInputUsername">User Name</label>
-                            <span class="text-danger" asp-validation-for="@Model.username"></span>
+                            <span class="text-danger" asp-validation-for="username"></span>
                         </div>
                         <div style="position:relative" class="mb-3 col-xl-4 col-lg-4 col-md-6 col-sm-12 form-floating ">
-                            <input asp-for="@Model.password" type="password" class="form-control inputs" placeholder="Password"
+                            <input asp-for="password" type="password" class="form-control inputs" placeholder="Password"
                                    id="providerCreatePassword" />
                             <label for="exampleInputPassword1" class=" ms-2 innertext small">Password</label>
                             <button class="btn show-password" style="right: 15px;position: absolute;top: 18%;"
@@ -45,6 +56,7 @@
                                 <i class="fa-regular fa-eye" onclick="ProviderCreatePasswordVisible2()"
                                    id="providerCreatePasswordBtn"></i>
                             </button>
+                            <span asp-validation-for="password" class="text-danger"></span>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 form-floating mb-3 ">
                             <select class="form-select form-control" id="Role" asp-for="@Model.Roleid">
@@ -56,6 +68,8 @@
                                     </option>
                                 }
                             </select>
+                            <span asp-validation-for="Roleid" class="text-danger"></span>
+
                             <label for="Role" class="ms-2 ">Role</label>
                         </div>
                     </div>
@@ -66,42 +80,41 @@
                     <h4 class="mb-4">Administrator Information</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 ">
-                            <input asp-for="@Model.Firstname" type="text" class=" form-control " id="floatingInputFirstName"
+                            <input asp-for="Firstname" type="text" class=" form-control " id="floatingInputFirstName"
                                    placeholder="First Name" aria-label="First Name">
                             <label class="ms-2 " for="floatingInputFirstName">First Name</label>
                             <span class="text-danger" asp-validation-for="Firstname"></span>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  form-floating mb-3 ">
-                            <input asp-for="@Model.Lastname" type="text" class=" form-control " id="floatingInputLast"
+                            <input asp-for="Lastname" type="text" class=" form-control " id="floatingInputLast"
                                    placeholder="Last Name" aria-label="Last Name">
                             <label class="ms-2  " for="floatingInputLast">Last Name</label>
                             <span class="text-danger" asp-validation-for="Lastname"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.Email" type="email" class="form-control " id="ProfileInputemail" placeholder="Email" aria-label="Email">
+                            <input asp-for="Email" type="email" class="form-control " id="ProfileInputemail" placeholder="Email" aria-label="Email">
                             <label class="ms-2 " for="floatingInputemail">Email</label>
                             <span class="text-danger" asp-validation-for="Email"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input style="height:58px;" id="CreateProviderPhoneNumberOne" asp-for="PhoneNumber"
-                                   class="form-control contact "
-                                   aria-label="Contact"
+                            <input style="height:58px;" id="phone1" asp-for="PhoneNumber"
+                                   class="form-control  "
                                    type="number" />
                             <span class="text-danger" asp-validation-for="PhoneNumber"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.MedicalLicesnse" type="text" class=" form-control " id="MedicalLicense"
+                            <input asp-for="MedicalLicesnse" type="text" class=" form-control " id="MedicalLicense"
                                    placeholder="MedicalLicense" aria-label="MedicalLicense">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="MedicalLicense">MedicalLicense #</label>
-                            <span class="text-danger" asp-validation-for="@Model.MedicalLicesnse"></span>
+                            <span class="text-danger" asp-validation-for="MedicalLicesnse"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.NPInumber" type="text" class=" form-control " id="NPINumber"
+                            <input asp-for="NPInumber" type="text" class=" form-control " id="NPINumber"
                                    placeholder="NPINumber" aria-label="NPINumber">
                             <span class="text-danger"></span>
                             <label class="ms-2 " for="NPINumber">NPI Number</label>
-                            <span class="text-danger" asp-validation-for="@Model.NPInumber"></span>
+                            <span class="text-danger" asp-validation-for="NPInumber"></span>
                         </div>
                         <div class="d-md-flex form-floating mb-3">
                             @foreach (var obj in Model.regions)
@@ -129,7 +142,7 @@
                                    placeholder="Address2" aria-label="Address2">
                             <label class="ms-2 " for="floatingInputAddress2">Address2</label>
                             <span class="text-danger" asp-validation-for="Address2"></span>
-                        </div>-
+                        </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <input asp-for="@Model.city" type="text" class=" form-control " id="floatingInputCity"
                                    placeholder="City" aria-label="City">
@@ -138,7 +151,7 @@
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <select class=" form-select " id="state" asp-for="Regionid" aria-label="Region">
-                                <option value="" selected disabled>Select Region</option>
+                                <option selected disabled>Select Region</option>
                                 @foreach (var obj in Model.regions)
                                 {
                                     <option value="@obj.Regionid">
@@ -150,17 +163,18 @@
                             <span class="text-danger" asp-validation-for="@Model.Regionid"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.zipcode" type="text" class=" form-control " id="floatingInputZipCode"
+                            <input asp-for="zipcode" type="text" class=" form-control " id="floatingInputZipCode"
                                    placeholder="Zip Code" aria-label="Zip Code">
 
                             <label class="ms-2" for="floatingInputZipCode">Zip</label>
-                            <span class="text-danger" asp-validation-for="@Model.zipcode"></span>
+                            <span class="text-danger" asp-validation-for="zipcode"></span>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input style="height:58px;" id="CreateProviderPhoneNumberTwo" asp-for="@Model.PhoneNumber"
-                                   class="form-control contact "
-                                   aria-label="Contact"
+                            <input style="height:58px;" id="phone2" asp-for="altPhone"
+                                   class="form-control "
                                    type="number" />
+                            <span asp-validation-for="altPhone" class="text-danger"></span>
+
                         </div>
                     </div>
                 </div>
@@ -169,15 +183,17 @@
                     <h4 class="mb-4">Provider Profile</h4>
                     <div class="row mb-3">
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.Businessname" type="text" class=" form-control " id="Businessname"
+                            <input asp-for="Businessname" type="text" class=" form-control " id="Businessname"
                                    placeholder="Businessname" aria-label="Businessname">
-                            <span class="text-danger"></span>
+                            <span asp-validation-for="Businessname" class="text-danger"></span>
                             <label class="ms-2 " for="Businessname">Business Name</label>
                         </div>
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
-                            <input asp-for="@Model.BusinessWebsite" type="text" class=" form-control " id="Businesswebsite"
+                            <input asp-for="BusinessWebsite" type="text" class=" form-control " id="Businesswebsite"
                                    placeholder="Businesswebsite" aria-label="Businesswebsite">
                             <label class="ms-2 " for="Businesswebsite">Business website</label>
+                            <span asp-validation-for="BusinessWebsite" class="text-danger"></span>
+
                         </div>
                         <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating mb-3 ">
                             <div>
@@ -189,10 +205,12 @@
                             </div>
                         </div>
                         <div class=" col-12 form-floating mb-3">
-                            <textarea asp-for="@Model.Adminnotes" class="form-control " rows="5" placeholder="Admin Notes" id="AdminNotes"></textarea>
+                            <textarea asp-for="Adminnotes" class="form-control " rows="5" placeholder="Admin Notes" id="AdminNotes"></textarea>
                             <label class="ms-2" for="AdminNotes">
                                 Admin Notes
                             </label>
+                            <span asp-validation-for="Adminnotes" class="text-danger"></span>
+
                         </div>
                     </div>
                 </div>
@@ -279,7 +297,21 @@
 </div>
 
 <partial name="_ValidationScriptsPartial" />
+
 <script>
+    const CreateProviderphoneInputField = document.getElementById("phone1");
+
+    const CreateProviderphoneInput = window.intlTelInput(CreateProviderphoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    const CreateProviderphoneInputField2 = document.getElementById("phone2");
+
+    const CreateProviderphoneInput2 = window.intlTelInput(CreateProviderphoneInputField2, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
 
     $(document).ready(function () {
         $('.onBoardInpFile').change(function () {
@@ -375,18 +407,6 @@
         }
     }
 
-    var CreateProviderPhoneNumberOne = document.querySelector("#CreateProviderPhoneNumberOne");
-    var CreateProviderPhoneNumberOneMain = window.intlTelInput(CreateProviderPhoneNumberOne, {
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-
-
-    var CreateProviderPhoneNumberTwo = document.querySelector("#CreateProviderPhoneNumberTwo");
-    var CreateProviderPhoneNumberTwoMain = window.intlTelInput(CreateProviderPhoneNumberTwo, {
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
 
     function ProviderCreatePasswordVisible2() {
         let a = document.getElementById("providerCreatePasswordBtn")
@@ -409,45 +429,69 @@
         }
     }
 
+    function anyRegionCheckboxChecked() {
+        // Select all checkboxes with the class 'region-check'
+        var checkboxes = $('.region-check');
+
+        // Check if any of the checkboxes are checked
+        return checkboxes.is(':checked');
+    }
+
+    // Run the function initially when the page loadsl
+    console.log(anyRegionCheckboxChecked());
+
+    // Add an event listener to check/uncheck status when the input changes
+    $('.region-check').on('change', function () {
+        console.log(anyRegionCheckboxChecked());
+    });
 
 
     function CreatePhysicianAccountForm() {
-
         event.preventDefault();
+
         var zipcode = $("#floatingInputZipCode").val();
 
         fetchCoordinates(zipcode);
+
         var payload = $('#CreatePhysicianAccountForm');
-        event.preventDefault();
-        //setTimeout(() => {
-        if ($('#CreatePhysicianAccountForm').valid()) {
-            $.ajax({
-                url: "/Admin/CreateProviderAccount",
-                type: 'POST',
-                data: new FormData($('#CreatePhysicianAccountForm')[0]),
-                processData: false,
-                contentType: false,
+        setTimeout(() => {
+            if ($('#CreatePhysicianAccountForm').valid()) {
+                if (anyRegionCheckboxChecked()) {
+                    $.ajax({
+                        url: "/Admin/CreateProviderAccount",
+                        type: 'POST',
+                        data: new FormData($('#CreatePhysicianAccountForm')[0]),
+                        processData: false,
+                        contentType: false,
 
-                success: function (result) {
-                    if (result.flag == "done") {
-                        createProviderAccount();
-                        toastr.success("Account Created Successfully");
-                    } else if (result.flag == "email") {
-                        toastr.error("Email Already Exists!!");
-                    } else {
-                        toastr.error("Zipcode Not Valid!!");
-                    }
-                },
-                error: function () {
-                    alert("Error");
-                },
-            });
-        }
+                        success: function (result) {
+                            if (result.flag == "done") {
+                                showProvider();
+                                toastr.success("Account Created Successfully");
+                            } else if (result.flag == "email") {
+                                toastr.error("Email Already Exists!!");
+                            } else {
+                                toastr.error("Zipcode Not Valid!!");
+                            }
+                        },
+                        error: function () {
+                            alert("Error");
+                        },
+                    });
+                }
+                else {
+                    event.preventDefault();
+                    toastr.error("Please Select Atleast Region");
+                }
 
-        // }, 1000);
+            }
+
+        }, 1000);
     }
 
+
     function fetchCoordinates(postalCode) {
+
         var apiUrl = 'https://nominatim.openstreetmap.org/search?postalcode=' + postalCode + '&format=json';
 
         fetch(apiUrl)

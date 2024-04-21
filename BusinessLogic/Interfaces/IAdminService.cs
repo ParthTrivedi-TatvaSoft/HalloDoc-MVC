@@ -16,7 +16,7 @@ namespace BusinessLogic.Interfaces
         Aspnetuser GetAspnetuser(string email);
         DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage);
 
-
+        LoginDetail GetLoginDetail(string email);
 
         StatusCountModel GetStatusCount();
 
@@ -105,10 +105,10 @@ namespace BusinessLogic.Interfaces
         List<Region> RegionTable();
 
         List<PhysicianRegionTable> PhyRegionTable(int phyId);
+        bool CreateAdminAccount(CreateAdminAccount obj, List<int> AdminRegion, string email);
 
-        bool CreateAdminAccount(CreateAdminAccount obj, string email);
 
-        
+
 
         bool DeleteRole(int roleId);
 

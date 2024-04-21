@@ -64,6 +64,12 @@ footer {
     margin-bottom: 2rem;
 }
 
+.icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: -40px;
+}
+
 @media screen and (max-width:768px) {
     .left {
         display: none;

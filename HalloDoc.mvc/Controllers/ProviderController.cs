@@ -42,8 +42,9 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult provider_dashboard()
         {
-
-            return View();
+            var email = GetTokenEmail();
+            var model = _providerService.GetLoginDetail(email);
+            return View(model);
         }
         [HttpGet]
         public IActionResult Logout()
@@ -174,19 +175,41 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_PViewCase", model);
         }
 
+        //[HttpPost]
+        //public IActionResult UpdateNotes(ViewNotesModel model)
+        //{
+        //    bool isUpdated = _adminService.UpdateAdminNotes(model.AdditionalNotes, model.ReqId, 2);
+
+        //    return Json(new { isUpdated, reqId = model.ReqId });
+        //}
+
+        //public IActionResult ViewNote(int ReqId)
+        //{
+
+        //    ViewNotesModel data = _adminService.ViewNotes(ReqId);
+        //    return PartialView("_Pviewnotes", data);
+        //}
+
+
         [HttpPost]
         public IActionResult UpdateNotes(ViewNotesModel model)
         {
-            bool isUpdated = _adminService.UpdateAdminNotes(model.AdditionalNotes, model.ReqId, 2);
+            int? reqId = HttpContext.Session.GetInt32("RNId");
+            bool isUpdated = _adminService.UpdateAdminNotes(model.AdditionalNotes, (int)reqId, 2);
+            if (isUpdated)
+            {
+                _notyf.Success("Saved Changes !!");
+                return RedirectToAction("Pviewnotes", "Provider", new { ReqId = reqId });
 
-            return Json(new { isUpdated, reqId = model.ReqId });
+            }
+            return View();
         }
 
-        public IActionResult ViewNote(int ReqId)
+        public IActionResult Pviewnotes(int ReqId)
         {
-
+            HttpContext.Session.SetInt32("RNId", ReqId);
             ViewNotesModel data = _adminService.ViewNotes(ReqId);
-            return View("_Pviewnotes", data);
+            return View(data);
         }
 
         public IActionResult AcceptCase(int requestId)
@@ -201,7 +224,7 @@ namespace HalloDoc.mvc.Controllers
 
             var model = _adminService.CancelCase(reqId);
             model.reqId = reqId;
-            return PartialView("_cancelcase", model);
+            return PartialView("_Pcancelcase", model);
         }
 
 
@@ -271,7 +294,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult viewuploads(int reqId)
+        public IActionResult Pviewuploads(int reqId)
         {
             HttpContext.Session.SetInt32("rid", reqId);
             var model = _adminService.GetAllDocById(reqId);
@@ -285,18 +308,18 @@ namespace HalloDoc.mvc.Controllers
             if (model.uploadedFiles == null)
             {
                 _notyf.Error("First Upload Files");
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
             bool isUploaded = _adminService.UploadFiles(model.uploadedFiles, rid);
             if (isUploaded)
             {
                 _notyf.Success("Uploaded Successfully");
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
             else
             {
                 _notyf.Error("Upload Failed");
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
         }
 
@@ -306,12 +329,12 @@ namespace HalloDoc.mvc.Controllers
             bool isDeleted = _adminService.DeleteFileById(id);
             if (isDeleted)
             {
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
             else
             {
                 _notyf.Error("SomeThing Went Wrong");
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
         }
 
@@ -322,10 +345,10 @@ namespace HalloDoc.mvc.Controllers
             if (isDeleted)
             {
                 _notyf.Success("Deleted Successfully");
-                return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+                return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
             }
             _notyf.Error("SomeThing Went Wrong");
-            return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+            return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
 
         }
 
@@ -337,7 +360,7 @@ namespace HalloDoc.mvc.Controllers
             //var message = string.Join(", ", selectedFiles);
             SendEmail("parthtrivedi0710@gmail.com", "Documents", selectedFiles);
             _notyf.Success("Send Mail Successfully");
-            return RedirectToAction("viewuploads", "Provider", new { reqId = rid });
+            return RedirectToAction("Pviewuploads", "Provider", new { reqId = rid });
         }
 
         public Task SendEmail(string email, string subject, List<string> filenames)
@@ -365,6 +388,38 @@ namespace HalloDoc.mvc.Controllers
 
 
             return client.SendMailAsync(mailMessage);
+        }
+
+
+        [HttpGet]
+        public IActionResult SendAgreement(int reqId, int reqType)
+        {
+            var model = _adminService.SendAgreementCase(reqId);
+            model.reqType = reqType;
+            return PartialView("_Psendagreement", model);
+        }
+
+        public IActionResult RequestAdmin()
+        {
+            return PartialView("_Prequestadmin");
+        }
+
+        [HttpPost]
+        public IActionResult RequestAdmin(RequestAdmin model)
+        {
+            try
+            {
+                var email = GetTokenEmail();
+                _providerService.RequestAdmin(model, email);
+                _notyf.Success("Email Send Successfully");
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+
         }
 
         [HttpGet]
@@ -450,11 +505,7 @@ namespace HalloDoc.mvc.Controllers
             bool editProvider = _adminService.providerResetPass(email, password);
             return Json(new { indicate = editProvider, phyId = phyId });
         }
-        public IActionResult RequestAdmin()
-        {
-          
-            return View("_Prequestadmin");
-        }
+        
 
         public IActionResult pcaremodal(int reqId)
         {

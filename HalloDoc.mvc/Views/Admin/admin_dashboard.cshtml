@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "admin_dashboard";
 }
-
+@model LoginDetail;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,8 +106,8 @@
                     </li>
                     <li class="nav-item p-2 fw-bolder">
                         <span class="d-flex gap-1">
-                            <span>Parth</span>
-                            <span>Trivedi</span>
+                            <span>@Model.firstName</span>
+                            <span>@Model.lastName</span>
                         </span>
                     </li>
             </div>
@@ -549,24 +549,11 @@
 
 
         function ExpertDataTabWise(tabNo) {
-            console.log("b");
-            $.ajax({
-                url: '/Admin/GetRequest',
-                type: 'GET',
-                data: { tabNo: tabNo },
-                success: function (response) {
-                    Export(response);
-                }
-            });
-        }
-
-        function Export(reqList) {
-            debugger
+            
             $.ajax({
                 url: '/Admin/ExportReq',
-                type: 'POST',
-                data: {reqList : reqList},
-                datatype: "json",
+                type: 'GET',
+                data: { tabNo: tabNo },
                 success: function (resp) {
 
                     const blob = new Blob([resp], { type: 'text/csv' });
@@ -577,7 +564,7 @@
 
                     anchor.style.display = 'none';
                     anchor.href = url;
-                    anchor.download = 'Exported-Requests.csv';
+                    anchor.download = 'ExportedRequests.csv';
 
                     document.body.appendChild(anchor);
                     anchor.click();
@@ -589,10 +576,42 @@
                     alert(e);
                     console.log(e);
                 }
-
             });
-
         }
+
+        // function Export(reqList) {
+        //     console.log(reqList);
+        //     $.ajax({
+                
+        //         url: '/Admin/ExportReq',
+        //         type: 'POST',
+        //         data: reqList, 
+        //         success: function (resp) {
+
+        //             const blob = new Blob([resp], { type: 'text/csv' });
+
+        //             var url = window.URL.createObjectURL(blob);
+
+        //             var anchor = document.createElement('a');
+
+        //             anchor.style.display = 'none';
+        //             anchor.href = url;
+        //             anchor.download = 'Exported-Requests.csv';
+
+        //             document.body.appendChild(anchor);
+        //             anchor.click();
+        //             window.URL.revokeObjectURL(url);
+        //             document.body.removeChild(anchor);
+        //         },
+
+        //         error: function (e) {
+        //             alert(e);
+        //             console.log(e);
+        //         }
+
+        //     });
+
+        // }
 
 
 
@@ -649,10 +668,11 @@
                 url: '/Admin/CreateAdminAccount',
                 type: 'GET',
                 success: function (response) {
+                   
                     $("#access-tab-pane").html(response);
                 },
                 error: function (e) {
-                    alert("error loading partial view");
+                    alert("Error Loading Partial View");
                 }
             });
         }

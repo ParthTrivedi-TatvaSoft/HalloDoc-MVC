@@ -218,16 +218,16 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" asp-controller="Provider" asp-action="PViewDocument" asp-route-reqId=@item.Reqid>
+                                                <a class="dropdown-item" asp-controller="Provider" asp-action="Pviewuploads" asp-route-reqId=@item.Reqid>
                                                     <i class="bi bi-file-earmark-text"></i>
                                                     View Uploads
                                                 </a>
                                             </li>
                                             <li>
-                                                <button class="dropdown-item" onclick="pShowViewNotes(@item.Reqid)">
+                                                <a class="dropdown-item" href="@Url.Action("Pviewnotes", new {ReqId = item.Reqid})">
                                                     <i class="bi bi-file-earmark-text"></i>
-                                                    ViewNotes
-                                                </button>
+                                                    View Notes
+                                                </a>
                                             </li>
                                             <li>
                                                 @if (item.isFinalized == false || item.isFinalized == null)

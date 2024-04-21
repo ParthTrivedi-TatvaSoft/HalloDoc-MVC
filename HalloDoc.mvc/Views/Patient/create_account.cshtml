@@ -2,6 +2,11 @@
 
 @model CreateAccountModel;
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,7 +118,7 @@
                     data: { email: email },
                     success: function (response) {
                         if (response.passwordExists) {
-                            toastr.error("Account Already Exists on this Email Id!!");
+                            toastr.error("Account Already Exists On This Email Id!!");
                             $('#passwordSection').hide();
                             $('#confirmPasswordSec').hide();
 
@@ -137,19 +142,27 @@
             }
             return false;
         }
-                //function validateForm() {
-                //    var password = document.getElementById("password").value;
-                //    var confirmPassword = document.getElementById("confirmPassword").value;
+                
 
-                //    if (password !== confirmPassword) {
-                //        document.getElementById("passwordMatchError").style.display = "block";
-                //        return false; // Prevent form submission
-                //    }
 
-                //    // If passwords match, allow form submission
-                //    return true;
-                //}
+        
+        var temp = true;
+        $(document).on("click", "#icon_1", function () {
+            if (temp) {
+                $(this).addClass("bi-eye-slash");
+                $(this).removeClass("bi-eye");
+                $("#floatingPassword").prop("type", "text");
+            }
+            else {
+                $(this).addClass("bi-eye");
+                $(this).removeClass("bi-eye-slash");
+                $("#floatingPassword").prop("type", "password");
+            }
+            temp = !temp;
+        })
 
+
+          
     </script>
 
 </body>
