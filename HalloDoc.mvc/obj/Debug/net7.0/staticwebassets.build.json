@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "51OvP40qGVQlCEPLG5SlgN5+KBVfnrpYIo1i60rByHA=",
+  "Hash": "BG7Vk9zn1j1f07kevqvUjVutEL7zNESdzvgOziTW3Bk=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -2732,6 +2732,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
+      "SourceId": "HalloDoc.mvc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc.mvc",
+      "RelativePath": "UploadedFiles/images.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedFiles\\images.jfif"
     },
     {
       "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",

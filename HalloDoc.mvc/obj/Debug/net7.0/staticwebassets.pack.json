@@ -193,6 +193,10 @@
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor.svg"
     },
     {
+      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
+      "PackagePath": "staticwebassets\\UploadedFiles\\images.jfif"
+    },
+    {
       "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
     },

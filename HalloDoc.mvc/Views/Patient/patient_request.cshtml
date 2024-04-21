@@ -26,11 +26,7 @@
         }
     </style>
 </head>
-<button hidden type="button" class="btn shadow border-info ms-2"
-        style="border-radius: 10px; border-color: aqua" id="colorButton">
-    <i id="moon" class="bi bi-moon text-info fs-5"></i>
-    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
-</button>
+
 <body>
     <partial name="_navbar" />
 
@@ -212,8 +208,8 @@
         });
 
 
-            // Get today's date
-            var today = new Date();
+        // Get today's date
+        var today = new Date();
 
         // Format the date in YYYY-MM-DD for setting as max attribute
         var formattedDate = today.toISOString().split('T')[0];

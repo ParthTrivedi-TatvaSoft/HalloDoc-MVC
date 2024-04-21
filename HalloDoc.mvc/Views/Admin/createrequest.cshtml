@@ -51,7 +51,7 @@
 
                 </div>
                 <div class="col-12 col-md-6 form-floating mb-3">
-                    <input asp-for="   dateofbirth" type="date" class="form-control  dark-mode1" id="datePickerId" placeholder="DateOfBirth">
+                    <input asp-for="   dateofbirth" type="date" class="form-control  dark-mode1" id="datePicker" placeholder="DateOfBirth">
                     <label for="datePickerId" class="ms-2">Date Of Birth</label>
                     <span asp-validation-for="dateofbirth" class="text-danger"></span>
 
@@ -117,6 +117,16 @@
 
 
 <script>
+
+    // Get today's date
+    var today = new Date();
+
+    // Format the date in YYYY-MM-DD for setting as max attribute
+    var formattedDate = today.toISOString().split('T')[0];
+
+    // Set the max attribute of the date picker to today's date
+    document.getElementById("datePicker").setAttribute("max", formattedDate);
+
 
     function verifyRequestState() {
         var state = $("#floatingInputState").val();

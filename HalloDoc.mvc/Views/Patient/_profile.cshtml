@@ -1,39 +1,32 @@
 ﻿@using DataAccess.CustomModels
 @model Profile;
+<form method="post" asp-action="SaveEditProfile" asp-controller="Patient" enctype="multipart/form-data" class="container my-5 p-4 shadow dark-mode2" id="main-cont">
 
-<script>
-    const phoneInputField = document.querySelectorAll("input[type='tel']");
-    for (var i = 0; i < phoneInputField.length; i++) {
-        const phoneInput = window.intlTelInput(phoneInputField[i], {
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-    }
-</script>
-<form method="post" asp-action="SaveEditProfile" asp-controller="Patient" enctype="multipart/form-data" class="container my-5 p-4 dark-mode1" id="main-cont">
-    <h3 class="col-12">General Information</h3>
-    <div class="row ">
-       
-
-        <div class="col-6">
+    <div class="row">
+        <h5 class="col-12">General Information</h5>
+        <input asp-for="userId" hidden />
+        <div class="col-12 col-md-6">
             <div class="form-floating mb-3">
-                <input asp-for="FirstName" type="text" class="form-control" id="floatingInputDisabled" placeholder="name" disabled>
+                <input asp-for="FirstName" type="text" class="form-control dark-mode1" id="floatingInputDisabled" placeholder="name" disabled>
 
 
                 <label for="floatingInputDisabled">First Name</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="LastName" type="text" class="form-control" id="floatingInput" disabled>
+                <input asp-for="LastName" type="text" class="form-control dark-mode1" id="floatingInput" disabled>
                 <label for="floatingInput">Last Name</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="DateOfBirth" type="date" class="form-control" id="datePicker" placeholder="name@example.com" disabled>
+                <input asp-for="DateOfBirth" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control dark-mode1" placeholder="name@example.com" disabled>
                 <label for="floatingInput">Date Of Birth</label>
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
         </div>
     </div>
@@ -45,24 +38,26 @@
 
 
 
-        <div class="col-2">
+        <div class="col-6 col-md-2">
             <div class="form-floating">
-                <select class="form-select" asp-for="isMobileCheck" id="floatingSelect" type="select" aria-label="Floating label select example" disabled>
+                <select class="form-select dark-mode1" id="floatingSelect" type="select" aria-label="Floating label select example" disabled>
                     <option value="1">Mobile</option>
-                    <option value="0">Landline</option>
+                    <option value="2">Landline</option>
                 </select>
                 <label for="floatingSelect">Works With Selects</label>
             </div>
         </div>
-        <div class="col-4">
-            <div class="form-floating mb-3 ">
-                <input asp-for="PhoneNo" type="number" name="phone" class="form-control p-3 ps-5"  id="phoneNo" placeholder="(201) 555-0123" disabled>
+        <div class="col-6 col-md-4">
+            <div class="input-div form-floating mb-3">
+                <input type="number" asp-for="PhoneNo" class="form-control dark-mode1 p-3 ps-5" id="phone1" disabled>
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input name="email" asp-for="Email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
+                <input asp-for="Email" type="email" class="form-control dark-mode1" placeholder="name@example.com" disabled>
                 <label for="floatingInput">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
 
@@ -71,33 +66,37 @@
         <div class="col-12">
             <h5>Patient Location</h5>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="Street" type="text" class="form-control" id="floatingInputStreet" placeholder="" disabled>
+                <input asp-for="Street" type="text" class="form-control dark-mode1" value="@Model.Street" id="floatingInputStreet" placeholder="" disabled>
                 <label for="floatingInput">Street</label>
+                <span asp-validation-for="Street" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="City" type="text" class="form-control" id="floatingInputCity" placeholder="" disabled>
+                <input asp-for="City" type="text" class="form-control dark-mode1" value="@Model.City" id="floatingInputCity" placeholder="" disabled>
                 <label for="floatingInput">City</label>
+                <span asp-validation-for="City" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-div form-floating mb-3">
-                <input asp-for="State" type="text" class="form-control" id="floatingInputState" placeholder="" disabled>
+                <input asp-for="State" type="text" class="form-control dark-mode1" value="@Model.State" id="floatingInputState" placeholder="" disabled>
                 <label for="floatingInput">State</label>
+                <span asp-validation-for="State" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-10 col-md-5">
             <div class="input-div form-floating mb-3">
-                <input asp-for="ZipCode" type="text" class="form-control" id="floatingInputZipcode" placeholder="" disabled>
+                <input asp-for="ZipCode" type="number" class="form-control dark-mode1" value="@Model.ZipCode" id="floatingInputZipcode" placeholder="" disabled>
                 <label for="floatingInput">Zip Code</label>
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-1">
+        <div class="col-2 col-md-1">
             <div class="form-floating mb-3">
-                <a type="button" class="btn btn-outline-primary" href="#" onclick="createReqMap()" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</a>
+                <button type="button" class="btn btn-outline-primary" onclick="createReqMap()" style="height:3.4rem ;"> <i class="bi bi-geo-alt"></i> Map</button>
             </div>
         </div>
 
@@ -110,6 +109,10 @@
     </div>
 
     <div class="col w-auto">
+        <button type="reset" id="profileCancelBtn" class="btn btn-outline-info CancelBtn"
+                hidden>
+            Cancel
+        </button>
         <button class="back btn btn-outline-info" type="submit" id="saveButton" hidden>
             Save
         </button>
@@ -117,23 +120,46 @@
 
 </form>
 
+<partial name="_ValidationScriptsPartial" />
 <script>
-   
+    const prophoneInputField = document.getElementById("phone1");
+
+    const prophoneInput = window.intlTelInput(prophoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
     //script for edit and save button
     $(document).ready(function () {
-        $('#editButton').click(function () {
 
 
-            $('input[type="text"]').removeAttr('disabled', false);
-            $('select').removeAttr('disabled', false);
 
-            $('input[type="date"]').removeAttr('disabled', false);
-            $('input[type="tel"]').removeAttr('disabled', false);
+    });
+    $('#editButton').click(function () {
 
-            // Hide the edit button after clicking it
-            $(this).hide();
-            $('#saveButton').removeAttr('hidden', false);
-        });
+
+        $('input[type="text"]').removeAttr('disabled', false);
+
+        $('input[type="date"]').removeAttr('disabled', false);
+        $('input[type="number"]').removeAttr('disabled', false);
+
+
+        // Hide the edit button after clicking it
+        $(this).attr('hidden', true);
+        $('#saveButton').removeAttr('hidden', false);
+        $('#profileCancelBtn').removeAttr('hidden', false);
+    });
+
+    $('#profileCancelBtn').click(function () {
+
+
+        $('input[type="text"]').attr('disabled', true);
+        $('input[type="date"]').attr('disabled', true);
+        $('input[type="number"]').attr('disabled', true);
+
+        // Hide the edit button after clicking it
+        $(this).attr('hidden', true);
+        $('#saveButton').attr('hidden', true);
+        $('#editButton').removeAttr('hidden', false);
     });
 
     function createReqMap() {
@@ -142,22 +168,8 @@
         var state = $("#floatingInputState").val();
         var zipcode = $("#floatingInputZipcode").val();
 
-        window.location.href = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+        var url = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+
+        window.open(url, '_blank');
     }
-
-    const phoneInputField = document.getElementById("phoneNo");
-
-    const phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-    // Get today's date
-    var today = new Date();
-
-    // Format the date in YYYY-MM-DD for setting as max attribute
-    var formattedDate = today.toISOString().split('T')[0];
-
-    // Set the max attribute of the date picker to today's date
-    document.getElementById("datePicker").setAttribute("max", formattedDate);
-
 </script>

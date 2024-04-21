@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="firstName" type="text" class="form-control" id="floatingInput" placeholder="" disabled >
+                        <input asp-for="firstName" type="text" class="form-control" id="floatingInput" placeholder="" readonly >
                         <label for="floatingInput">First Name</label>
                         <span asp-validation-for="firstName" class="text-danger"></span>
                     </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="lastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"  >
+                        <input asp-for="lastName" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" readonly >
                         <label for="floatingInput">Last Name</label>
                     </div>
                 </div>
@@ -83,14 +83,15 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com" disabled>
+                        <input asp-for="email" name="email" type="email" class="form-control" id="email" placeholder="name@example.com" readonly>
                         <label for="floatingInput">Email</label>
                         <span asp-validation-for="email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="phoneNo" type="tel" name="phone" class="form-control p-3 ps-5" id="floatingInput" disabled>
+                        <input type="number" asp-for="phoneNo" class="form-control  p-3 ps-5" id="phone1">
+                        <span asp-validation-for="phoneNo" class="text-danger"></span>
 
                     </div>
                 </div>
@@ -103,26 +104,26 @@
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="street" type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input asp-for="street" type="text" class="form-control" id="floatingInputStreet" placeholder="">
                         <label for="floatingInput">Street</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="city" type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input asp-for="city" type="text" class="form-control" id="floatingInputCity" placeholder="">
                         <label for="floatingInput">City</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="state" type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input asp-for="state" type="text" class="form-control" id="floatingInputState" placeholder="">
                         <label for="floatingInput">State</label>
                         <span asp-validation-for="state" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-div form-floating mb-3">
-                        <input asp-for="zipCode" type="text" class="form-control" id="floatingInput" placeholder="">
+                        <input asp-for="zipCode" type="text" class="form-control" id="floatingInputZipcode" placeholder="">
                         <label for="floatingInput">Zip Code</label>
                     </div>
                 </div>
@@ -133,7 +134,7 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3 col-6 ">
-                    <button type="button" class="btn btn-outline-primary" style="height:3.3rem ; width:6rem"> <i class="bi bi-geo-alt"></i> Map</button>
+                    <button type="button" onclick="createReqMap()" class="btn btn-outline-primary" style="height:3.3rem ; width:6rem"> <i class="bi bi-geo-alt"></i> Map</button>
                 </div>
             </div>
 
@@ -176,14 +177,22 @@
 
 
     <script>
-        const phoneInputField = document.querySelectorAll("input[type='tel']");
-        for (var i = 0; i < phoneInputField.length; i++) {
-            const phoneInput = window.intlTelInput(phoneInputField[i], {
-                utilsScript:
-                    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            });
-        }
+        const phoneInputField = document.getElementById("phone1");
 
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        function createReqMap() {
+            var street = $("#floatingInputStreet").val();
+            var city = $("#floatingInputCity").val();
+            var state = $("#floatingInputState").val();
+            var zipcode = $("#floatingInputZipcode").val();
+            var url = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+            window.open(url, "_blank");
+
+        }
 
     </script>
 </body>

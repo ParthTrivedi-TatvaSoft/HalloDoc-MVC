@@ -24,13 +24,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/css/darkmode.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <link rel="stylesheet" href="~/css/patient_dashboard.css">
 
 
-
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
 
 <div class="container my-5 bg-white dark-mode1">
 
@@ -53,7 +58,7 @@
         <!-- ----container    -->
     </div>
 
-    <form method="post" asp-action="UploadFiles" asp-controller="Admin" class="input-group my-5 mt-3" enctype="multipart/form-data">
+    <form method="post" asp-action="UploadFiles" asp-controller="Provider" class="input-group my-5 mt-3" enctype="multipart/form-data">
         @*<input name="file" type="file" class="form-control" id="formFileLg" multiple>*@
         <input asp-for="uploadedFiles" type="file" class="form-control form-control-lg" id="formFileLg" multiple>
         <button type="submit" class="input-group-text bg-primary text-white" for="inputGroupFile02"><i class="bi bi-cloud-arrow-up m-1"></i>&nbsp;Upload</button>
@@ -108,7 +113,7 @@
                                 <a href="~/UploadedFiles/@item.Filename" class="btn px-2 py-1 btn-outline-info shadow-none night-mode-btn" download>
                                     <i class="bi bi-cloud-download"></i>
                                 </a>
-                                <a class="btn ms-2 px-2 py-1 btn-outline-info shadow-none night-mode-btn" asp-controller="Admin" asp-action="DeleteFileById" asp-route-id="@item.Requestwisefileid">
+                                <a class="btn ms-2 px-2 py-1 btn-outline-info shadow-none night-mode-btn" asp-controller="Provider" asp-action="DeleteFileById" asp-route-id="@item.Requestwisefileid">
                                     @*onclick="deleteFile(@item.Requestwisefileid)"*@
                                     <i class="bi bi-trash"></i>
                                 </a>

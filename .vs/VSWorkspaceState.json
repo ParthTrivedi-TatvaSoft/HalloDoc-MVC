@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\HalloDoc.mvc",
+    "\\HalloDoc.mvc\\Views",
+    "\\HalloDoc.mvc\\Views\\Patient"
   ],
-  "SelectedNode": "\\HalloDoc.sln",
+  "SelectedNode": "\\HalloDoc.mvc\\Views\\Patient\\friendfamily_request.cshtml",
   "PreviewInSolutionExplorer": false
 }
