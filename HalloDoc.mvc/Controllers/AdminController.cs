@@ -574,15 +574,19 @@ namespace HalloDoc.mvc.Controllers
         [HttpGet]
         public IActionResult ShowMyProfile()
         {
-            var request = HttpContext.Request;
-            var token = request.Cookies["jwt"];
-            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
-            {
-                return Json("Token Expired");
-            }
-            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+            //var request = HttpContext.Request;
+            //var token = request.Cookies["jwt"];
+            //if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            //{
+            //    return Json("Token Expired");
+            //}
+            //var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
 
-            var model = _adminService.MyProfile(emailClaim.Value);
+            var email = GetTokenEmail();
+            var model = _adminService.MyProfile(email)
+;
+            model.adminregions = _adminService.AdminRegionTable(email)
+;
             return PartialView("_myprofile", model);
         }
         public string GetTokenEmail()
@@ -687,11 +691,11 @@ namespace HalloDoc.mvc.Controllers
             if (isSaved)
             {
                 _notyf.Success("Request Created");
-                return RedirectToAction("admin-dashboard");
+                return RedirectToAction("admin_dashboard");
             }
             else
             {
-                _notyf.Error("Failed to Create");
+                _notyf.Error("Failed To Create");
                 return View(model);
             }
         }
@@ -752,8 +756,29 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_pendingrequest", list);
         }
 
+        public IActionResult FilterRegionActive(FilterModel filterModel)
+        {
+            var list = _adminService.GetRequestByRegion(filterModel);
+            return PartialView("_activerequest", list);
+        }
 
+        public IActionResult FilterRegionConclude(FilterModel filterModel)
+        {
+            var list = _adminService.GetRequestByRegion(filterModel);
+            return PartialView("_concluderequest", list);
+        }
 
+        public IActionResult FilterRegionToClose(FilterModel filterModel)
+        {
+            var list = _adminService.GetRequestByRegion(filterModel);
+            return PartialView("_tocloserequest", list);
+        }
+
+        public IActionResult FilterRegionUnpaid(FilterModel filterModel)
+        {
+            var list = _adminService.GetRequestByRegion(filterModel);
+            return PartialView("_unpaidrequest", list);
+        }
 
         [HttpGet]
         public IActionResult ShowProvider()

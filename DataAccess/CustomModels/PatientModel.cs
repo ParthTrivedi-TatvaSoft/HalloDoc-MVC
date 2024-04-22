@@ -55,8 +55,7 @@ namespace DataAccess.CustomModels
         public string? country { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-      ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
+
         public string? password { get; set; }
 
         [Compare("password", ErrorMessage = "Password Missmatch")]

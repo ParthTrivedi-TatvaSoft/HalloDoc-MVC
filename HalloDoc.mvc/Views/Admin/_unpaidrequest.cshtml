@@ -36,13 +36,13 @@
     <div class="row mt-3 bg-white dark-mode1">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
+                <input type="text" class="form-control" id="searchwordunpaid" onkeypress="unpaidReqSearch(event)" placeholder="Search">
                 <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
             </div>
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="unpaidRegionFilter" aria-label="Floating label select example">
+                <select class="form-select" id="unpaidRegionFilter" onchange="FilterDataUnpaid(6)" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -58,12 +58,12 @@
         <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
 
             <div class="d-none d-md-block">
-                <div onclick="allElements()" style="cursor:pointer" class="border-2">All</div>
+                <div onclick="FilterDataUnpaid(6)" style="cursor:pointer" class="border-2">All</div>
             </div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="patientElements()"><div class="patient_circle"></div><span>Patient</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
+            <div class="d-flex align-items-center" id="requestTypePatient" style="cursor:pointer" onclick="FilterDataUnpaid(6,2)"><div class="patient_circle"></div><span>Patient</span></div>
+            <div class="d-flex align-items-center" id="requestTypeFamily" style="cursor:pointer" onclick="FilterDataUnpaid(6,3)"><div class="family_circle"></div><span>Friend/Family</span></div>
+            <div class="d-flex align-items-center" id="requestTypeBusiness" style="cursor:pointer" onclick="FilterDataUnpaid(6,1)"><div class="business_circle"></div><span> Business</span></div>
+            <div class="d-flex align-items-center" id="requestTypeConcierge" style="cursor:pointer" onclick="FilterDataUnpaid(6,4)"><div class="concierge_circle"></div><span> Concierge</span></div>
            
 
         </div>
@@ -234,9 +234,9 @@
             }
             else
             {
-                <tr>
+              @*   <tr>
                     <td colspan="3" style="text-align: center;">No Records Found.</td>
-                </tr>
+                </tr> *@
             }
         </tbody>
         </tbody>
@@ -294,17 +294,39 @@ else
 <script>
    
 
-    $('#unpaidRegionFilter').on('change', function () {
-        var searchRegion = $('#tocloseRegionFilter').val();
+    function unpaidReqSearch(event) {
+        var x = event.code;
+        if (x == "Enter") {
+            FilterDataUnpaid(6);
+        }
+
+    }
+
+    function FilterDataUnpaid(tabNo, reqType) {
+
+        var searchRegion = $('#unpaidRegionFilter').val();
+        var searchword = $('#searchwordunpaid').val();
+
+        let payload = {
+            regionId: searchRegion,
+            tabNo: tabNo,
+            searchWord: searchword,
+            requestTypeId: reqType
+        }
         $.ajax({
             url: '/Admin/FilterRegionUnpaid',
             type: 'GET',
-            data: { regionId: searchRegion, tabNo: 6 },
+            data: payload,
             success: function (response) {
                 $("#tab6").html(response);
+
+                $('#unpaidRegionFilter').val(searchRegion);
+                $('#searchwordunpaid').val(searchword);
+
+
             }
         })
-    })
+    }
 
     function ShowRequestSupportUnpaid() {
         $.ajax({

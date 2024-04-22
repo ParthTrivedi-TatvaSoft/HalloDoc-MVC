@@ -75,6 +75,7 @@ namespace BusinessLogic.Interfaces
         bool SubmitCancelAgreement(AgreementModel model);
         int GetStatusForReviewAgreement(int reqId);
 
+        List<AdminRegionTable> AdminRegionTable(string email);
         MyProfileModel MyProfile(string email);
         bool ResetPassword(string tokenEmail, string resetPassword);
         bool SubmitAdminInfo(MyProfileModel model, string tokenEmail);

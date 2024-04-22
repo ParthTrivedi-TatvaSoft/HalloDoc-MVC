@@ -16,13 +16,13 @@
                     Link
                 </span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn" onclick="location.href='@Url.Action("Pcreaterequest", "Provider")'">
                 <i class="bi bi-journal-text"></i> <span class="d-none d-md-block">Create Requests</span>
             </button>
-            <button class="action-btn" id="exportPendingReq">
+            <button class="action-btn" id="exportPendingReq" onclick="ExpertDataTabWise(2)">
                 <i class="bi bi-reply"></i> <span class="d-none d-md-block">Export</span>
             </button>
-            <button class="action-btn" onclick="ExportAll()">
+            <button class="action-btn" onclick="ExportAll()" onclick="ExpertDataTabWise(0)>
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
             <button class="action-btn">

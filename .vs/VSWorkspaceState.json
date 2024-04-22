@@ -3,8 +3,8 @@
     "",
     "\\HalloDoc.mvc",
     "\\HalloDoc.mvc\\Views",
-    "\\HalloDoc.mvc\\Views\\Patient"
+    "\\HalloDoc.mvc\\Views\\Admin"
   ],
-  "SelectedNode": "\\HalloDoc.mvc\\Views\\Patient\\friendfamily_request.cshtml",
+  "SelectedNode": "\\HalloDoc.mvc\\Views\\Admin\\_myprofile.cshtml",
   "PreviewInSolutionExplorer": false
 }

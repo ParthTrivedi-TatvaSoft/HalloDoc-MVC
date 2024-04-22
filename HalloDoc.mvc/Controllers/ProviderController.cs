@@ -399,6 +399,25 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_Psendagreement", model);
         }
 
+        [HttpPost]
+        public IActionResult SendAgreement(SendAgreementModel model)
+        {
+            try
+            {
+                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                string reviewPathLink = baseUrl + Url.Action("ReviewAgreement", "Home", new { reqId = model.Reqid });
+
+                SendEmail(model.Email, "Review Agreement", $"Hello, Review The Agreement Properly: {reviewPathLink}");
+                return Json(new { isSend = true });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSend = false });
+            }
+        }
+
+
         public IActionResult RequestAdmin()
         {
             return PartialView("_Prequestadmin");
@@ -634,7 +653,70 @@ namespace HalloDoc.mvc.Controllers
             return RedirectToAction("provider_dashboard");
         }
 
-       
+        [HttpGet]
+        public IActionResult Pcreaterequest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Pcreaterequest(CreateRequestModel model)
+        {
+            var request = HttpContext.Request;
+            var token = request.Cookies["jwt"];
+            if (token == null || !_jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
+            {
+                _notyf.Error("Token Expired,Login Again");
+                return View(model);
+            }
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string createAccountLink = baseUrl + Url.Action("create_account", "Patient");
+            var email = GetTokenEmail();
+            var isSaved = _adminService.CreateRequest(model, email, createAccountLink);
+            if (isSaved)
+            {
+                _notyf.Success("Request Created");
+                return RedirectToAction("admin-dashboard");
+            }
+            else
+            {
+                _notyf.Error("Failed To Create");
+                return View(model);
+            }
+        }
+
+        public string ExportReq(int tabNo)
+        {
+            var reqList = _adminService.Export(tabNo);
+
+
+            StringBuilder stringbuild = new StringBuilder();
+
+            string header = "\"No\"," + "\"Name\"," + "\"DateOfBirth\"," + "\"Requestor\"," +
+                "\"RequestDate\"," + "\"Phone\"," + "\"Notes\"," + "\"Address\","
+                 + "\"Physician\"," + "\"DateOfService\"," + "\"Region\"," +
+                "\"Status\"," + "\"RequestTypeId\"," + "\"OtherPhone\"," + "\"Email\"," + "\"RequestId\"," + Environment.NewLine + Environment.NewLine;
+
+            stringbuild.Append(header);
+            int count = 1;
+
+            foreach (var item in reqList)
+            {
+                string content = $"\"{count}\"," + $"\"{item.firstName}\"," + $"\"{item.intDate}\"," + $"\"{item.requestorFname}\"," +
+                    $"\"{item.intDate}\"," + $"\"{item.mobileNo}\"," + $"\"{item.notes}\"," + $"\"{item.street}\"," +
+                    $"\"{item.lastName}\"," + $"\"{item.intDate}\"," + $"\"{item.street}\"," +
+                    $"\"{item.status}\"," + $"\"{item.requestTypeId}\"," + $"\"{item.mobileNo}\"," + $"\"{item.firstName}\"," + $"\"{item.Reqid}\"," + Environment.NewLine;
+
+                count++;
+                stringbuild.Append(content);
+            }
+
+            string finaldata = stringbuild.ToString();
+
+            return finaldata;
+
+        }
+
 
 
 

@@ -320,6 +320,9 @@ namespace DataAccess.CustomModels
         public int? flag { get; set; }
 
         public bool indicate { get; set; }
+
+        public List<AdminRegionTable> adminregions { get; set; }
+
     }
 
 
@@ -695,7 +698,16 @@ namespace DataAccess.CustomModels
 
 
 
+    public class AdminRegionTable
+    {
+        public int? AdminId { get; set; }
 
+        public int? Regionid { get; set; }
+
+        public string? Name { get; set; }
+
+        public bool ExistsInTable { get; set; }
+    }
 
     public class CreateAdminAccount
     {

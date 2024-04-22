@@ -110,15 +110,15 @@ namespace HalloDoc.mvc.Controllers
             if (ModelState.IsValid)
             {
                 var aspnetuser = _patientService.GetAspnetuser(model.Email);
-                int role = aspnetuser.Aspnetuserroles.Where(x => x.Userid == aspnetuser.Id).Select(x => x.Roleid).First();
-                if (role != 2)
-                {
-                    _notyf.Warning("Only Patient Can Login");
-                    return RedirectToAction("patient_login");
-                }
+                
                 if (aspnetuser != null)
                 {
-                    
+                    int role = aspnetuser.Aspnetuserroles.Where(x => x.Userid == aspnetuser.Id).Select(x => x.Roleid).First();
+                    if (role != 2)
+                    {
+                        _notyf.Warning("Only Patient Can Login");
+                        return RedirectToAction("patient_login");
+                    }
                     if (aspnetuser.Passwordhash == model.Password)
                     {
                         var jwtToken = _jwtService.GetJwtToken(aspnetuser);
@@ -169,7 +169,7 @@ namespace HalloDoc.mvc.Controllers
             bool isValid = _patientService.AddPatientInfo(patientInfoModel);
             if (!isValid)
             {
-                _notyf.Error("Service is not available in entered Region");
+                _notyf.Error("Service Is Not Available In Entered Region");
                 return View(patientInfoModel);
             }
             _notyf.Success("Submit Successfully !!");
@@ -197,7 +197,7 @@ namespace HalloDoc.mvc.Controllers
             bool isValid = _patientService.AddFamilyReq(familyReqModel, createAccountLink);
             if (!isValid)
             {
-                _notyf.Error("Service is not available in entered Region");
+                _notyf.Error("Service Is Not Available In Entered Region");
                 return View(familyReqModel);
             }
             _notyf.Success("Submit Successfully !!");
@@ -226,7 +226,7 @@ namespace HalloDoc.mvc.Controllers
             bool isValid = _patientService.AddConciergeReq(conciergeReqModel, createAccountLink);
             if (!isValid)
             {
-                _notyf.Error("Service is not available in entered Region");
+                _notyf.Error("Service Is Not Available In Entered Region");
                 return View(conciergeReqModel);
             }
             _notyf.Success("Submit Successfully !!");
@@ -247,7 +247,7 @@ namespace HalloDoc.mvc.Controllers
             bool isValid = _patientService.AddBusinessReq(businessReqModel, createAccountLink);
             if (!isValid)
             {
-                _notyf.Error("Service is not available in entered Region");
+                _notyf.Error("Service Is Not Available In Entered Region");
                 return View(businessReqModel);
             }
             _notyf.Success("Submit Successfully !!");

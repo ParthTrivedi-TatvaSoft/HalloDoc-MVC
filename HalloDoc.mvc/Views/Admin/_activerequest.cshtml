@@ -35,13 +35,13 @@
     <div class="row mt-3 bg-white dark-mode1">
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="my-search-input" placeholder="Search">
+                <input type="text" class="form-control" id="searchwordactive" onkeypress="activeReqSearch(event)" placeholder="Search">
                 <label for="floatingInput"><i class="bi bi-search"></i> Search</label>
             </div>
         </div>
         <div class="col-12 col-md-2 pt-2">
             <div class="form-floating">
-                <select class="form-select" id="activeRegionFilter" aria-label="Floating label select example">
+                <select class="form-select" id="activeRegionFilter" onchange="FilterDataActive(3)" aria-label="Floating label select example">
                     <option disabled selected>Regions</option>
                     @foreach (var item in Model.regionList)
                     {
@@ -57,12 +57,12 @@
         <div class="col-12 col-md-4 d-flex justify-content-around align-items-center">
 
             <div class="d-none d-md-block">
-                <div onclick="allElements()" style="cursor:pointer" class="border-2">All</div>
+                <div onclick="FilterDataActive(3)" style="cursor:pointer" class="border-2">All</div>
             </div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="patientElements()"><div class="patient_circle"></div><span>Patient</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="familyFriendElements()"><div class="family_circle"></div><span>Friend/Family</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="businessElements()"><div class="business_circle"></div><span> Business</span></div>
-            <div class="d-flex align-items-center" style="cursor:pointer" onclick="conciergeElements()"><div class="concierge_circle"></div><span> Concierge</span></div>
+            <div class="d-flex align-items-center" id="requestTypePatient" style="cursor:pointer" onclick="FilterDataActive(3,2)"><div class="patient_circle"></div><span>Patient</span></div>
+            <div class="d-flex align-items-center" id="requestTypeFamily" style="cursor:pointer" onclick="FilterDataActive(3,3)"><div class="family_circle"></div><span>Friend/Family</span></div>
+            <div class="d-flex align-items-center" id="requestTypeBusiness" style="cursor:pointer" onclick="FilterDataActive(3,1)"><div class="business_circle"></div><span> Business</span></div>
+            <div class="d-flex align-items-center" id="requestTypeConcierge" style="cursor:pointer" onclick="FilterDataActive(3,4)"><div class="concierge_circle"></div><span> Concierge</span></div>
        
 
         </div>
@@ -302,6 +302,8 @@ else
         .page-active:hover {
             color: white;
         }
+
+
 </style>
 
 
@@ -322,22 +324,41 @@ else
         });
     }
 
-    $("#exportActiveReq").click(function () {
-        alert("exportbtn was clicked.");
-        var request = @Html.Raw(Json.Serialize(Model));
+    function activeReqSearch(event) {
+        var x = event.code;
+        if (x == "Enter") {
+            FilterDataActive(3);
+        }
 
-        Export(request);
-    });
+    }
 
-    $('#activeRegionFilter').on('change', function () {
+    function FilterDataActive(tabNo, reqType) {
+
         var searchRegion = $('#activeRegionFilter').val();
+        var searchword = $('#searchwordactive').val();
+
+        let payload = {
+            regionId: searchRegion,
+            tabNo: tabNo,
+            searchWord: searchword,
+            requestTypeId: reqType
+        }
         $.ajax({
             url: '/Admin/FilterRegionActive',
             type: 'GET',
-            data: { regionId: searchRegion, tabNo: 3 },
+            data: payload,
             success: function (response) {
                 $("#tab3").html(response);
+
+                $('#activeRegionFilter').val(searchRegion);
+                $('#searchwordactive').val(searchword);
+
+
             }
         })
-    })
+    }
+
+    
+
+    
 </script>

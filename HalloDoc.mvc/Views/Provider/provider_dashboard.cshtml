@@ -571,6 +571,36 @@
             });
         }
 
+        function ExpertDataTabWise(tabNo) {
+
+            $.ajax({
+                url: '/Provider/ExportReq',
+                type: 'GET',
+                data: { tabNo: tabNo },
+                success: function (resp) {
+
+                    const blob = new Blob([resp], { type: 'text/csv' });
+
+                    var url = window.URL.createObjectURL(blob);
+
+                    var anchor = document.createElement('a');
+
+                    anchor.style.display = 'none';
+                    anchor.href = url;
+                    anchor.download = 'ExportedRequests.csv';
+
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(anchor);
+                },
+
+                error: function (e) {
+                    alert(e);
+                    console.log(e);
+                }
+            });
+        }
 
 
 

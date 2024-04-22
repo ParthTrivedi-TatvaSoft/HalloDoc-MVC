@@ -1,0 +1,188 @@
+﻿@using DataAccess.CustomModels;
+@model CreateRequestModel;
+
+<link rel="stylesheet" href="~/css/darkmode.css">
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<button hidden type="button" class="btn shadow border-info ms-2"
+        style="border-radius: 10px; border-color: aqua" id="colorButton">
+    <i id="moon" class="bi bi-moon text-info fs-5"></i>
+    <i id="sun" class="bi bi-sun text-info fs-5 d-none"></i>
+</button>
+<div class="container">
+
+    <div class=" mt-4 d-flex justify-content-between align-items-center">
+        <h4>Submit Information</h4>
+        <button onclick="location.href='@Url.Action("provider_dashboard", "Provider")'" class="back-btn dark-mode1">&lt; Back</button>
+    </div>
+
+    <form class="shadow border rounded my-3 bg-white dark-mode1" id="CreateRequestForm" method="post" onsubmit="return CheckRegion()">
+        <div class="mx-3 my-4 ">
+            <h5 class="mb-3 mt-2">Patient</h5>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="   firstname" type="text" class="form-control dark-mode1" id="floatingInputFName"
+                           placeholder="Firstname">
+                    <label for="floatingInputFName" class="ms-2">First Name</label>
+                    <span asp-validation-for="firstname" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="   lastname" type="text" class="form-control  dark-mode1" id="floatingInputLName"
+                           placeholder="LastName">
+                    <label for="floatingInputLName" class="ms-2">Last Name</label>
+                    <span asp-validation-for="lastname" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="   phone" type="tel" class="form-control  dark-mode1" id="floatingInputPhone" placeholder="number">
+                    <label for="floatingInputPhone" class="ms-2">Phone Number</label>
+                    <span asp-validation-for="phone" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="   email" type="email" class="form-control  dark-mode1" id="floatingInputEmail"
+                           placeholder="name@example.com">
+                    <label for="floatingInputEmail" class="ms-2">Email</label>
+                    <span asp-validation-for="email" class="text-danger"></span>
+
+
+                </div>
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="   dateofbirth" type="date" class="form-control  dark-mode1" id="datePicker" placeholder="DateOfBirth">
+                    <label for="datePickerId" class="ms-2">Date Of Birth</label>
+                    <span asp-validation-for="dateofbirth" class="text-danger"></span>
+
+                </div>
+            </div>
+            <h5 class="mb-3 mt-3">Patient Location</h5>
+            <div class="row mb-3">
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="street" type="text" class="form-control  dark-mode1" id="floatingInputStreet"
+                           placeholder="street">
+                    <label for="floatingInputStreet" class="ms-2">Street</label>
+                    <span asp-validation-for="street" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="city" type="text" class="form-control  dark-mode1" id="floatingInputCity" placeholder="city">
+                    <label for="floatingInputCity" class="ms-2">City</label>
+                    <span asp-validation-for="city" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="state" onchange="stateOnChange()" type="text" class="form-control dark-mode1" id="floatingInputState" placeholder="state">
+                    <label for="floatingInputState" class="ms-2">State</label>
+                    <span asp-validation-for="state" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="zipcode" type="text" class="form-control  dark-mode1" id="floatingInputZipcode"
+                           placeholder="zipcode">
+                    <label for="floatingInputZipcode" class="ms-2">Zip Code (Optional)</label>
+                    <span asp-validation-for="zipcode" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 col-md-6 form-floating mb-3">
+                    <input asp-for="room" type="text" class="form-control  dark-mode1" id="floatingInputRoom" placeholder="room">
+                    <label for="floatingInputRoom" class="ms-2">Room # (Optional)</label>
+                    <span asp-validation-for="room" class="text-danger"></span>
+                </div>
+                <div class="col form-floating mb-3">
+                    <button type="button" onclick="verifyRequestState()" class="btn btn-outline border-info p-3 text-info me-2">
+                        <span>Verify</span>
+                    </button>
+                    <button type="button" onclick="createReqMap()" class="btn btn-outline border-info p-3 text-info">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Map</span>
+                    </button>
+                </div>
+            </div>
+            <h5 class="mb-3 mt-2">Notes</h5>
+            <div class="form-floating mb-3">
+                <textarea asp-for="admin_notes" class="form-control dark-mode1 border border-2 h-100" rows="5"
+                          placeholder="Leave a comment here" id="floatingTextareaNotes"></textarea>
+                <label for="floatingTextareaNotes" class="text-wrap">Admin Notes(Optional)</label>
+            </div>
+            <div class="d-flex gap-2 justify-content-end mb-3">
+                <button class="btn btn-info text-white" type="submit">Submit</button>
+                <button onclick="createRequestClearAll()" id="createRequestClear" type="reset" class="btn btn-outline-info">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+
+    // Get today's date
+    var today = new Date();
+
+    // Format the date in YYYY-MM-DD for setting as max attribute
+    var formattedDate = today.toISOString().split('T')[0];
+
+    // Set the max attribute of the date picker to today's date
+    document.getElementById("datePicker").setAttribute("max", formattedDate);
+
+
+    function verifyRequestState() {
+        var state = $("#floatingInputState").val();
+        console.log(state);
+        $.ajax({
+            url: "/Admin/VerifyState",
+            type: 'GET',
+            data: { stateMain: state },
+            success: function (result) {
+                event.preventDefault();
+                if (result.isSend == true) {
+                    document.getElementById("floatingInputState").style.border = "1px solid green";
+                } else {
+                    document.getElementById("floatingInputState").style.border = "1px solid red";
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+
+    function stateOnChange() {
+        document.getElementById("floatingInputState").style.border = "1px solid #dee2e6";
+    }
+    function createReqMap() {
+        var street = $("#floatingInputStreet").val();
+        var city = $("#floatingInputCity").val();
+        var state = $("#floatingInputState").val();
+        var zipcode = $("#floatingInputZipcode").val();
+        var url = "https://www.google.com/maps/search/?api=1&query=" + street + city + state + zipcode;
+        window.open(url, "_blank");
+
+    }
+    function CheckRegion() {
+        var state = $("#floatingInputState").val();
+        console.log(state);
+        $.ajax({
+            url: "/Admin/VerifyState",
+            type: 'GET',
+            data: { stateMain: state },
+            success: function (result) {
+                event.preventDefault();
+                if (result.isSend == true) {
+                    document.getElementById("floatingInputState").style.border = "1px solid green";
+                    return true;
+
+                } else {
+                    document.getElementById("floatingInputState").style.border = "1px solid red";
+                    toastr.error("Enter Valid State !!");
+                    return false;
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    }
+</script>

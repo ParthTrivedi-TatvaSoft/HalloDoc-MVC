@@ -561,6 +561,7 @@ namespace BusinessLogic.Services
                     blockrequest.Reason = blockCaseModel.reason;
                     blockrequest.Requestid = (int)blockCaseModel.ReqId;
                     blockrequest.Createddate = DateTime.Now;
+                    blockrequest.Isactive = new BitArray(1, false);
 
                     _db.Blockrequests.Add(blockrequest);
                     _db.SaveChanges();
@@ -1085,6 +1086,22 @@ namespace BusinessLogic.Services
                 return false;
             }
 
+        }
+
+        public List<AdminRegionTable> AdminRegionTable(string email)
+        {
+            int adminid = _db.Admins.Where(x => x.Email == email).Select(x => x.Adminid).First();
+            var region = _db.Regions.ToList();
+            var adminRegion = _db.Adminregions.ToList();
+
+            var checkedRegion = region.Select(r1 => new AdminRegionTable
+            {
+                Regionid = r1.Regionid,
+                Name = r1.Name,
+                ExistsInTable = adminRegion.Any(r2 => r2.Adminid == adminid && r2.Regionid == r1.Regionid),
+            }).ToList();
+
+            return checkedRegion;
         }
 
         public MyProfileModel MyProfile(string sessionEmail)
@@ -2998,6 +3015,7 @@ namespace BusinessLogic.Services
             return requestData;
         }
 
+
         public bool UnblockRequest(int blockId)
         {
             try
@@ -3036,24 +3054,20 @@ namespace BusinessLogic.Services
         public bool IsBlockRequestActive(int blockId)
         {
             var blockrequest = _db.Blockrequests.Where(x => x.Blockrequestid == blockId).First();
-            var isActive = new BitArray(1);
-            isActive[0] = false;
 
-            if (blockrequest.Isactive != null && blockrequest.Isactive[0] == isActive[0])
+            var deletedbit = new BitArray(1, false);
+            if (blockrequest.Isactive[0] == deletedbit[0])
             {
-                blockrequest.Isactive[0] = true;
+                blockrequest.Isactive = new BitArray(1, true);
                 _db.Blockrequests.Update(blockrequest);
                 _db.SaveChanges();
-
                 return true;
             }
             else
             {
-                if (blockrequest.Isactive != null)
-                    blockrequest.Isactive[0] = false;
+                blockrequest.Isactive = new BitArray(1,false);
                 _db.Blockrequests.Update(blockrequest);
                 _db.SaveChanges();
-
                 return false;
             }
         }

@@ -6,7 +6,7 @@
         <h4>
             Create Admin Account
         </h4>
-        <button onclick="ShowAllRequests()" id="back-btn">&lt; Back</button>
+        <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" class="dark-mode1" id="back-btn">&lt; Back</button>
     </div>
     <div class="justify-content-center shadow bg-white dark-mode1 my-4">
         <div class="viewCaseForm form-floating patient-request-form p-3">
@@ -74,9 +74,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating ">
-                            <input type="number" asp-for="AdminPhone" id="phone1" class=" form-control p-3 ps-5">
-                            <span asp-validation-for="AdminPhone" class="text-danger"></span>
+                            <input style="height:58px;" id="phone1" asp-for="AdminPhone"
+                                   class="form-control "
+                                   type="number" />
+                            <span class="text-danger" asp-validation-for="AdminPhone"></span>
                         </div>
+                      
                     </div>
                     <div class="col-md-6 d-flex justify-content-start flex-wrap mt-4">
                         @foreach (var region in Model.RegionList)
@@ -134,11 +137,13 @@
                             <span asp-validation-for="Zip" class="text-danger"></span>
                         </div>
                     </div>
+                  
                     <div class="col-md-6">
-                        <div class="form-floating ">
-                            <input type="tel" asp-for="BillingPhone" class=" form-control p-3 ps-5" id="phone2" placeholder="">
-                            <span asp-validation-for="BillingPhone" class="text-danger"></span>
-                        </div>
+                        <input style="height:58px;" id="phone2" asp-for="BillingPhone"
+                               class="form-control "
+                               type="number" />
+                        <span asp-validation-for="BillingPhone" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -177,11 +182,11 @@
                 data: payload,
                 success: function (response) {
                     if (response.isCreated) {
-                        toastr.success("Admin Created");
+                        toastr.success("Admin Created Successfully");
                         window.location.reload();
                     }
                     else {
-                        toastr.error("Something went wrong");
+                        toastr.error("Something Went Wrong");
                     }
                 },
 
