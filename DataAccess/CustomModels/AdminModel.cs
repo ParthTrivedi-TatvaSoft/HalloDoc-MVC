@@ -84,6 +84,7 @@ namespace DataAccess.CustomModels
 
         public bool? isFinalized { get; set; }
 
+        public string? reqDate { get; set; }
     }
 
 
@@ -117,6 +118,7 @@ namespace DataAccess.CustomModels
         public string? Zipcode { get; set; }
         public string? Room { get; set; }
         public string? ConfirmationNumber { get; set; }
+        public int status { get; set; }
     }
 
 
@@ -1026,6 +1028,7 @@ namespace DataAccess.CustomModels
         public List<Shiftdetail> shiftdetails { get; set; }
 
     }
+
 
     public class ProviderOnCall
     {

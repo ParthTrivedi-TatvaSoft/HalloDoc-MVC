@@ -76,6 +76,7 @@ namespace BusinessLogic.Interfaces
         int GetStatusForReviewAgreement(int reqId);
 
         List<AdminRegionTable> AdminRegionTable(string email);
+        List<AdminRegionTable> AdminRegionTableById(int adminid);
         MyProfileModel MyProfile(string email);
         bool ResetPassword(string tokenEmail, string resetPassword);
         bool SubmitAdminInfo(MyProfileModel model, string tokenEmail);
@@ -162,7 +163,7 @@ namespace BusinessLogic.Interfaces
 
         void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId);
 
-        Task CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
+        bool CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
         CreateNewShift ViewShift(int ShiftDetailId);
         bool EditShift(CreateNewShift model, string email);
         bool ReturnShift(int ShiftDetailId, string email);

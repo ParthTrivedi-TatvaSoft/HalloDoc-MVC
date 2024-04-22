@@ -1320,5 +1320,7 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isActive });
         }
 
+       
+
     }
 }

@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\HalloDoc.mvc",
-    "\\HalloDoc.mvc\\Views",
-    "\\HalloDoc.mvc\\Views\\Admin"
+    "\\HalloDoc.mvc\\wwwroot",
+    "\\HalloDoc.mvc\\wwwroot\\css"
   ],
-  "SelectedNode": "\\HalloDoc.mvc\\Views\\Admin\\_myprofile.cshtml",
+  "SelectedNode": "\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
   "PreviewInSolutionExplorer": false
 }

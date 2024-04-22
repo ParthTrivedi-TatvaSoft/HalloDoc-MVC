@@ -144,7 +144,8 @@
                             @*3*@
                             <td style="background:@bgColor">@item.requestorFname @item.requestorLname</td>
                             @*4*@
-                            <td style="background:@bgColor">@item.reqstrMonth @item.reqintDate, @item.reqintYear</td>
+                            <td style="background:@bgColor;"> @item.reqDate</td>
+                            @*@item.strMonth @item.intDate , @item.intYear*@
                             @*5*@
                             <td style="background:@bgColor">
                                 <div class="table_phone">
@@ -168,7 +169,9 @@
                             }
 
                             @*7*@
-                            <td style="background:@bgColor">-</td>
+                            <td style="background:@bgColor">
+                                @item.notes
+                            </td>
                             @*8*@
                             <td style="background:@bgColor">
 
@@ -651,15 +654,21 @@ else
         });
     }
 
-    
+
     function sendLink() {
         $.ajax({
             url: '/Admin/SendLink',
             type: 'GET',
             success: function (response) {
-              
-                $('#modelContentnew').html(response);
+                $('#dashboardmodel').html(response);
                 $('#sendLinkPopUpOne').modal('show');
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 401) {
+
+                    window.location.reload();
+                }
+                console.error(error);
             }
         })
     }

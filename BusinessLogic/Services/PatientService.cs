@@ -824,19 +824,20 @@ namespace BusinessLogic.Services
         public PatientInfoModel FetchData(string email)
         {
             User? user = _db.Users.FirstOrDefault(i => i.Email == email);
-            var BirthDay = user.Intdate;
-            var BirthMonth = user.Strmonth;
-            var BirthYear = user.Intyear;
-            var userdata = new PatientInfoModel()
+
+            var userdata = new PatientInfoModel();
+
+            userdata.firstName = user.Firstname;
+            userdata.lastName = user.Lastname;
+            userdata.email = user.Email;
+            userdata.phoneNo = user.Mobile;
+
+
+            if (user.Intdate != null && user.Strmonth != null && user.Intyear != null)
             {
-                firstName = user.Firstname,
-                lastName = user.Lastname,
-                email = user.Email,
-                phoneNo = user.Mobile,
 
-
-
-            };
+                //userdata.dob = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate));
+            }
             return userdata;
         }
 

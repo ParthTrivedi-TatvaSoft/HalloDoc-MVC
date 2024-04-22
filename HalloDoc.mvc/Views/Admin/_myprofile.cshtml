@@ -4,7 +4,7 @@
     <div class="container">
         <div class=" mt-2 d-flex justify-content-between align-items-center">
             <h4>My Profile</h4>
-            <button class="dark-mode1" onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
+            <button onclick="location.href='@Url.Action("admin_dashboard", "Admin")'" id="back-btn">&lt; Back</button>
 
         </div>
         <form class="shadow border rounded my-3 bg-white dark-mode1">
@@ -92,11 +92,10 @@
                                 <input asp-for="mobile_no" id="phoneMyProfile"
                                        class="d1class form-control contact"
                                        aria-label="Contact"
-                                       type="number"  />
+                                       type="number" disabled />
                                 <span asp-validation-for="mobile_no" class="text-danger"></span>
 
                             </div>
-                          
                             <div class="d-flex col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                                 <div class="row">
                                     <div class="d-flex col-xl-12 col-lg-12 col-md-12 col-sm-12 form-floating mb-2">
@@ -195,7 +194,8 @@
 
 <script>
 
-   
+
+
     function disableFields() {
         document.querySelectorAll('.d1class').forEach(function (element) {
             element.disabled = true;
@@ -285,7 +285,6 @@
             email: $("#floatingInputemailAdmin").val(),
             confirm_email: $("#floatingInputConfirmEmailAdmin").val(),
             mobile_no: $("#phoneMyProfile").val(),
-
 
         };
 

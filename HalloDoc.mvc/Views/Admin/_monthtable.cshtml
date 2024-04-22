@@ -12,11 +12,11 @@
         var todaydate = DateTime.Now.Date;
         // Generate the calendar table
         var currentDate = now.ToString("MMMM yyyy");
-        <input type="hidden" id="currentMonth" value="@currentDate" />
+        <input class="w-100" disabled id="currentMonth" value="@currentDate" />
         var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
         var firstDay = new DateTime(currentYear, currentMonth, 1).DayOfWeek;
         int x = 5;
-        if (firstDay.ToString() == "Saturday")
+        if (firstDay.ToString() == "Saturday" || (firstDay.ToString() == "Friday" && daysInMonth == 31))
         {
             x = 6;
         }
@@ -49,7 +49,7 @@
                                 <td class="p-0">
                                     <table class="w-100 table-bordered border-light text-center">
                                         <tr>
-                                            @if ((i == 0 && j < (int)firstDay) || date >= daysInMonth)
+                                            @if ((i == 0 && j < (int)firstDay) || date > daysInMonth)
                                             {
                                                 <td></td>
                                             }
@@ -272,4 +272,6 @@
             }
         });
     });
+
+
 </script>
