@@ -85,6 +85,8 @@ namespace DataAccess.CustomModels
         public bool? isFinalized { get; set; }
 
         public string? reqDate { get; set; }
+
+        public string? email { get; set; }
     }
 
 
@@ -721,8 +723,8 @@ namespace DataAccess.CustomModels
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
     ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
         public string? AdminPassword { get; set; }
-
-
+        public string? aspnetUserId { get; set; }
+        public int? adminId { get; set; }
         public short? Status { get; set; }
         public string? Role { get; set; }
 

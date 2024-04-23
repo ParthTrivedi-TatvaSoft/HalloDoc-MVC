@@ -91,11 +91,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
-        public IActionResult FilterRegion(FilterModel filterModel)
-        {
-            var list = _adminService.GetRequestByRegion(filterModel);
-            return PartialView("_Pnewrequest", list);
-        }
+        
 
         [HttpPost]
         public string ExportReq(List<AdminDashTableModel> reqList)

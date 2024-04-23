@@ -22,7 +22,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace BusinessLogic.Services
 {
@@ -87,6 +89,7 @@ namespace BusinessLogic.Services
                                      .OrderBy(x => x.Requeststatuslogid)
                                      .Select(x => x.Notes)
                                      .LastOrDefault() ?? null,
+                            email = rc.Email ?? null,
 
                         };
 
@@ -186,7 +189,15 @@ namespace BusinessLogic.Services
                             Reqid = r.Requestid,
                             regionId = rc.Regionid,
                             callType = r.Calltype,
-                            phyId = r.Physicianid ?? null
+                            phyId = r.Physicianid ?? null,
+                            isFinalized = _db.Encounterforms.Where(x => x.Requestid == r.Requestid).Select(x => x.Isfinalized).First() ?? null,
+                            reqDate = r.Createddate.ToString("yyyy-MMM-dd"),
+                            notes = _db.Requeststatuslogs
+                                     .Where(x => x.Requestid == r.Requestid)
+                                     .OrderBy(x => x.Requeststatuslogid)
+                                     .Select(x => x.Notes)
+                                     .LastOrDefault() ?? null,
+                            email = rc.Email ?? null,
                         };
 
 
@@ -253,7 +264,15 @@ namespace BusinessLogic.Services
                             Reqid = r.Requestid,
                             regionId = rc.Regionid,
                             callType = r.Calltype,
-                            phyId = r.Physicianid ?? null
+                            phyId = r.Physicianid ?? null,
+                            isFinalized = _db.Encounterforms.Where(x => x.Requestid == r.Requestid).Select(x => x.Isfinalized).First() ?? null,
+                            reqDate = r.Createddate.ToString("yyyy-MMM-dd"),
+                            notes = _db.Requeststatuslogs
+                                     .Where(x => x.Requestid == r.Requestid)
+                                     .OrderBy(x => x.Requeststatuslogid)
+                                     .Select(x => x.Notes)
+                                     .LastOrDefault() ?? null,
+                            email = rc.Email ?? null,
                         };
 
 
@@ -1523,23 +1542,9 @@ namespace BusinessLogic.Services
         }
 
 
-        public bool ProviderContactEmail(int phyId, string msg)
-        {
+        
 
-            var providerEmail = _db.Physicians.Where(x => x.Physicianid == phyId).Select(x => x.Email).First();
 
-            try
-            {
-                SendAndSaveProviderEmail(providerEmail, msg, phyId);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
-
-        }
         public void SendAndSaveProviderEmail(string provider, string msg, int phyId)
         {
             string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
@@ -2418,9 +2423,136 @@ namespace BusinessLogic.Services
         }
 
 
+        public CreateAdminAccount adminEditPage(int adminId)
+        {
+            BitArray bitArray = new BitArray(1, true);
+
+            var query = _db.Admins.Where(x => x.Adminid == adminId).Select(r => new CreateAdminAccount()
+            {
+                UserName = r.Aspnetuser.Username,
+                Email = r.Email,
+                ConfirmEmail = r.Email,
+                AdminPassword = r.Aspnetuser.Passwordhash,
+                adminId = adminId,
+                aspnetUserId = r.Aspnetuserid,
+                FirstName = r.Firstname,
+                LastName = r.Lastname,
+                AdminPhone = r.Mobile,
+
+                Address1 = r.Address1,
+                Address2 = r.Address2,
+                City = r.City,
+                regionId = (int)r.Regionid,
+                Zip = r.Zip,
+                BillingPhone = r.Altphone,
+                //createdBy = r.Createdby,
+                //created_date = r.Createddate,
+                //modifiedBy = r.Modifiedby,
+                //modified_date = r.Modifieddate,
+                Status = r.Status,
+                roleId = (int)r.Roleid,
+
+                roles = _db.Roles.Where(x => x.Accounttype == 1).Select(x => x).ToList(),//1 for admin
 
 
 
+            }).ToList().First();
+            query.State = _db.Regions.Where(x => x.Regionid == query.regionId).Select(x => x.Name).FirstOrDefault();
+
+            return query;
+        }
+
+        public bool EditAdminDetailsDb(CreateAdminAccount model, string email, List<int> adminRegions)
+        {
+            if (_db.Admins.Where(x => x.Adminid == model.adminId).Any())
+            {
+
+                var query = _db.Admins.Where(x => x.Adminid == model.adminId).Select(r => r).First();
+
+                var asp_row = _db.Aspnetusers.Where(x => x.Id == model.aspnetUserId).Select(r => r).First();
+
+                //if (model.AdminPassword != null)
+                //{
+                //    asp_row.Passwordhash = GenerateSHA256(model.AdminPassword);
+
+                //}
+                asp_row.Username = model.UserName;
+                _db.Aspnetusers.Update(asp_row);
+
+                query.Roleid = (int)model.roleId;
+
+                query.Firstname = model.FirstName;
+
+                query.Lastname = model.LastName;
+
+                query.Mobile = model.AdminPhone;
+
+                query.Address1 = model.Address1;
+
+                query.Address2 = model.Address2;
+
+                query.City = model.City;
+
+                query.Regionid = model.regionId;
+
+                query.Zip = model.Zip;
+
+                query.Altphone = model.BillingPhone;
+
+                query.Modifiedby = _db.Aspnetusers.Where(x => x.Email == email).Select(X => X.Id).First();
+
+                query.Modifieddate = DateTime.Now;
+
+                query.Status = 1;
+
+
+
+                _db.Admins.Update(query);
+                _db.SaveChanges();
+
+                var abc = _db.Adminregions.Where(x => x.Adminid == model.adminId).Select(r => r.Regionid).ToList();
+
+                var changes = abc.Except(adminRegions);
+
+
+                if (changes.Any() || abc.Count() != adminRegions.Count())
+                {
+                    if (_db.Adminregions.Any(x => x.Adminid == model.adminId))
+                    {
+                        var adminRegion = _db.Adminregions.Where(x => x.Adminid == model.adminId).ToList();
+
+                        _db.Adminregions.RemoveRange(adminRegion);
+                        _db.SaveChanges();
+                    }
+
+                    //var phyRegion = _context.Physicianregions.ToList();
+
+                    foreach (var item in adminRegions)
+                    {
+                        var region = _db.Regions.FirstOrDefault(x => x.Regionid == item);
+
+                        _db.Adminregions.Add(new Adminregion
+                        {
+                            Adminid = (int)model.adminId,
+                            Regionid = region.Regionid,
+                        });
+                    }
+                    _db.SaveChanges();
+                }
+
+
+
+
+
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
 
 
@@ -3413,11 +3545,12 @@ namespace BusinessLogic.Services
         {
             var currentTime = new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute);
             BitArray deletedBit = new BitArray(new[] { false });
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
             var onDutyQuery = _db.Shiftdetails
                 .Include(sd => sd.Shift.Physician)
                 .Where(sd => (regionId == 0 || sd.Shift.Physician.Physicianregions.Any(pr => pr.Regionid == regionId)) &&
-                             //sd.Shiftdate.Date == DateTime.Today &&
+                             sd.Shiftdate == today &&
                              currentTime >= sd.Starttime &&
                              currentTime <= sd.Endtime &&
                              sd.Isdeleted.Equals(deletedBit))
@@ -3431,7 +3564,7 @@ namespace BusinessLogic.Services
                 .Where(p => (regionId == 0 || p.Physicianregions.Any(pr => pr.Regionid == regionId))
                     && !_db.Shiftdetails.Any(sd =>
                     sd.Shift.Physicianid == p.Physicianid &&
-                    //sd.Shiftdate.Date == DateTime.Today &&
+                    sd.Shiftdate == today &&
                     currentTime >= sd.Starttime &&
                     currentTime <= sd.Endtime &&
                     sd.Isdeleted.Equals(deletedBit)) && p.Isdeleted == null).ToList();
@@ -3443,6 +3576,7 @@ namespace BusinessLogic.Services
             };
 
             return onCallModal;
+
         }
 
         public List<ShiftReview> GetShiftReview(int regionId, int callId)
@@ -3522,6 +3656,26 @@ namespace BusinessLogic.Services
             return roles;
         }
 
+        public bool ProviderContactEmail(int phyId, string msg, string tokenEmail)
+        {
+
+            var providerEmail = _db.Physicians.Where(x => x.Physicianid == phyId).Select(x => x.Email).First();
+
+            try
+            {
+                SendAndSaveProviderEmail(providerEmail, msg, phyId, tokenEmail);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+
+
+        }
+
         public bool ProviderContactSms(int phyId, string msg, string tokenEmail)
         {
 
@@ -3529,9 +3683,9 @@ namespace BusinessLogic.Services
 
             try
             {
-                var accountSid = "";
-                var authToken = "";
-                var twilionumber = "";
+                var accountSid = "ACf12e071785de9c3df629908fa2d50d2d";
+                var authToken = "b6206f17621e5657f12d9b7972f6c126";
+                var twilionumber = "+12564195331";
 
                 var messageBody = $"Hello {provider.Firstname} {provider.Lastname},\n {msg} \n\n\nRegards,\n(HelloDoc Admin)";
 
@@ -3566,6 +3720,51 @@ namespace BusinessLogic.Services
                 Console.WriteLine(e);
                 return false;
             }
+        }
+            public void SendAndSaveProviderEmail(string provider, string msg, int phyId, string tokenEmail)
+            {
+                string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
+                string senderPassword = "Parth@70160";
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail, "HalloDoc"),
+                    Subject = "Mail For provider",
+                    IsBodyHtml = true,
+                    Body = $"{msg}",
+                };
+
+
+                mailMessage.To.Add(provider);
+
+                client.Send(mailMessage);
+
+                Emaillog emaillog = new Emaillog();
+
+
+                emaillog.Subjectname = mailMessage.Subject;
+                emaillog.Emailtemplate = "Sender : " + senderEmail + "Reciver :" + provider + "Subject : " + mailMessage.Subject + "Message : " + msg;
+                emaillog.Emailid = provider;
+                emaillog.Roleid = 1;
+                emaillog.Adminid = _db.Admins.Where(r => r.Email == tokenEmail).Select(r => r.Adminid).First();
+                emaillog.Physicianid = phyId;
+                emaillog.Createdate = DateTime.Now;
+                emaillog.Sentdate = DateTime.Now;
+                emaillog.Isemailsent = new BitArray(1, true);
+
+
+
+                _db.Emaillogs.Add(emaillog);
+                _db.SaveChanges();
+            }
 
 
 
@@ -3576,5 +3775,5 @@ namespace BusinessLogic.Services
 
 
 
-}
+
 

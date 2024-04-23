@@ -62,8 +62,8 @@
 
 <div class="container">
     <div class=" mt-2 d-flex justify-content-between align-items-center">
-        <h4>Edit Physician Account</h4>
-        <button class="dark-mode1" onclick="ShowProvider()" id="back-btn">&lt; Back</button>
+        <h4>Edit Provider Account</h4>
+        <button onclick="ShowProvider()" id="back-btn">&lt; Back</button>
 
     </div>
     @*  <form action="" class="shadow border rounded my-3" method="post"> *@
@@ -314,7 +314,21 @@
                                 </div>
                             }
                         </div>
-                        
+                        @*   <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
+
+                        <div>
+                        <div class="input-group rounded d-flex">
+                        <input asp-for="@Model._providerEdit.Signature" type="file" class="d4class form-control py-3" id="fileUploadInp2">
+                        <button class="btn btn-info text-white" type="button" id="upload-btn2" disabled onclick="checkFileExtension2()"> <i class="bi bi-cloud-arrow-up text-white me-1"></i> <span class="d-none d-md-inline-block">Sign</span></button>
+                        </div>
+                        <span class="text-danger" id="errormessgespan2"></span>
+                        </div>
+                        <div>
+                        <button type="button" id="CreateSign" class="d4class btn btn-info ms-2 text-white d-flex align-items-center">
+                        <i class="bi bi-pen me-1"></i><span>Create</span>
+                        </button>
+                        </div>
+                        </div> *@
                         <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3">
                             <div class="  form-floating mb-3 d-flex">
                                 <div class="input-group">
@@ -521,10 +535,10 @@
         document.getElementById('cancelBtn' + formid).style.display = 'block';
         document.getElementById('editBtn' + formid).style.display = 'none';
     }
-    // disableFields(1);
-    // disableFields(2);
-    // disableFields(3);
-    // disableFields(4);
+    disableFields(1);
+    disableFields(2);
+    disableFields(3);
+    disableFields(4);
 
     function showPassword() {
 
@@ -581,15 +595,15 @@
         var x = document.getElementById("providerEditPassword");
         if (x.type === "password") {
             x.type = "text";
-            
+            console.log("hi1")
         } else {
             x.type = "password";
-      
+            console.log("hi2")
         }
     }
 
     function providerEditResetPass(email) {
-       
+        
         var editPass = $("#providerEditPassword").val();
         var editStatus = $("#providerEditStatus").val();
         var editRole = $("#providerEditRole").val();
@@ -604,7 +618,7 @@
                 if (result.indicate == true) {
                     toastr.success("Password Reset Successfully");
                 } else {
-                    toastr.error("For Reset Password You Need To Change Old Password");
+                    toastr.error("For reset password you need to change old password");
                 }
             },
             error: function () {
@@ -704,12 +718,12 @@
         var tagToDisplayMessage = document.getElementById('errormessgespan');
         if (fileName) {
             if (!(fileName.endsWith('.png') || fileName.endsWith('.jpeg') || fileName.endsWith('.jpg') || fileName.endsWith('.svg'))) {
-                alert("Wrong");
+                alert("wrong");
                 tagToDisplayMessage.innerText = "Please Upload File With Valid Format";
                 return false;
             }
             else {
-                alert("Right");
+                alert("right");
                 tagToDisplayMessage.innerText = "";
                 return true;
             }
@@ -758,7 +772,7 @@
             },
 
             error: function () {
-                alert("Oops!", "Something Is Wrong !!!", "error");
+                alert("Oops!", "Something is Wrong !!!", "error");
             }
         });
     }
@@ -782,7 +796,7 @@
             },
 
             error: function () {
-                alert("Error In Edit Onboarding");
+                alert("error in edit onboarding");
             }
         });
     }
@@ -811,7 +825,7 @@
             type: 'POST',
             data: { phyId: phyId },
             success: function (result) {
-                ShowProvider();
+                showProvider();
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {

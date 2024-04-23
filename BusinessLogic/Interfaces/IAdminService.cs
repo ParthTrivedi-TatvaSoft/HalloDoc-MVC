@@ -100,7 +100,8 @@ namespace BusinessLogic.Interfaces
         //ProviderModel ProviderContact(int phyId);
         public bool StopNotification(int phyId);
 
-        bool ProviderContactEmail(int phyIdMain, string msg);
+        bool ProviderContactEmail(int phyIdMain, string msg, string tokenEmail);
+        bool ProviderContactSms(int phyId, string msg, string tokenEmail);
 
         EditProviderModel EditProviderProfile(int phyId, string tokenEmail);
 
@@ -109,7 +110,8 @@ namespace BusinessLogic.Interfaces
         List<PhysicianRegionTable> PhyRegionTable(int phyId);
         bool CreateAdminAccount(CreateAdminAccount obj, List<int> AdminRegion, string email);
 
-
+        CreateAdminAccount adminEditPage(int adminId);
+        bool EditAdminDetailsDb(CreateAdminAccount model, string email, List<int> adminRegions);
 
 
         bool DeleteRole(int roleId);

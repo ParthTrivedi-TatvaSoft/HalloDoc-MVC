@@ -1,5 +1,219 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DataAccess.CustomModels;
+@model CreateAdminAccount;
+
+<div class="container">
+    <div class=" d-flex justify-content-between mt-4">
+        <h4>
+            Edit Admin Account
+        </h4>
+        <button onclick="UserAccess()" id="back-btn">&lt; Back</button>
+    </div>
+    <div class="justify-content-center shadow bg-white dark-mode1 my-4">
+        <div class="viewCaseForm form-floating patient-request-form p-3">
+            <form id="EditAdminAccountForm" class="mb-4">
+                <input asp-for="aspnetUserId" hidden />
+                <input asp-for="adminId" hidden />
+                <h5>Account Information</h5>
+                <div class="row g-2 m-1">
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input asp-for="UserName" type="text" class="form-control" id="AdminUserName">
+                            <label for="">User Name</label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="AdminPassword" value="@Model.AdminPassword" disabled>
+                            <label for="floatingSelectGrid">Password</label>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating ">
+                            <select class="form-select form-control" id="Role" asp-for="roleId">
+                                <option value="" disabled selected>Select Role</option>
+                                @foreach (var obj in Model.roles)
+                                {
+                                    <option value="@obj.Roleid">
+                                        @obj.Name
+                                    </option>
+                                }
+                            </select>
+                            <label for="">Role</label>
+                            <span asp-validation-for="roleId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h5>Administration Information</h5>
+
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="FirstName" type="text" class="form-control" id="AdminFirstName">
+                            <label for="">First Name</label>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="LastName" type="text" class="form-control" id="AdminLastName">
+                            <label for="floatingSelectGrid">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="email" value="@Model.Email" class="form-control" id="AdminEmail" disabled>
+                            <label for="">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating ">
+                            <input type="number" asp-for="AdminPhone" id="editadminphone1" class=" form-control p-3 ps-5">
+                            <span asp-validation-for="AdminPhone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start flex-wrap mt-4">
+                        @foreach (var region in Model.adminRegions)
+                        {
+
+                            <div class="form-floating mt-1 me-3 checkColor ">
+                                <input class="region-checkbox form-check-input border" value="@region.Regionid" name="AdminRegion" type="checkbox" @(region.ExistsInTable ? "checked" : "") style="" />
+                                <span>@region.Name</span>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+                <h5>Mailing & Billing Information</h5>
+
+                <div class="row g-2 m-1">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" asp-for="Address1" class="form-control" placeholder="Address1">
+                            <label for="">Address1</label>
+                            <span asp-validation-for="Address1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" asp-for="Address2" class="form-control" placeholder="Address2">
+                            <label for="floatingSelectGrid">Address2</label>
+                            <span asp-validation-for="Address2" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" asp-for="City" placeholder="City">
+                            <label for="">City</label>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating w-100 h-100 ">
+                            <select asp-for="regionId" class="form-select" aria-label="Default select example">
+                                <option disabled selected>Regions</option>
+                                @foreach (var items in Model.RegionList)
+                                {
+                                    <option value="@items.Regionid" selected>@items.Name</option>
+                                }
+                            </select>
+                            <label for="">Select A Region</label>
+                            <span asp-validation-for="regionId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="number" asp-for="Zip" class="form-control" placeholder="zip">
+                            <label for="">Zip</label>
+                            <span asp-validation-for="Zip" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating ">
+                            <input type="number" asp-for="BillingPhone" class=" form-control p-3 ps-5" id="editadminphone2" placeholder="">
+                            <span asp-validation-for="BillingPhone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="button" onclick="editAdminPostFor()" class="btn btn-success float-end m-1">Edit Account</button><br />
+            </form>
+        </div>
+
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial" />
+
+
+<script>
+    const editAdminphoneInputField = document.getElementById("editadminphone1");
+
+    const editAdminphoneInput = window.intlTelInput(editAdminphoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    const editAdminphoneInputField2 = document.getElementById("editadminphone2");
+
+    const editAdminphoneInput2 = window.intlTelInput(editAdminphoneInputField2, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    function editAdminPostFor() {
+
+        if ($('#EditAdminAccountForm').valid()) {
+            var payload = $("#EditAdminAccountForm").serializeArray();
+            $.ajax({
+                url: "/Admin/EditAdminAccount",
+                type: 'POST',
+                data: payload,
+                success: function (response) {
+                    if (response.isEdited) {
+                        toastr.success("Admin Edited Successfully");
+                        showUserAccess();
+                    }
+                    else {
+                        toastr.error("Something went wrong");
+                    }
+                },
+
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+
+                        window.location.reload();
+                    }
+                    console.error(error);
+                }
+            });
+        }
+
+
+    }
+    function adminCreatePasswordVisible2() {
+        let a = document.getElementById("adminCreatePasswordBtn")
+        console.log(a)
+        if (a.classList.contains("fa-eye")) {
+            a.classList.remove("fa-eye")
+            a.classList.add("fa-eye-slash")
+        } else {
+            a.classList.remove("fa-eye-slash")
+            a.classList.add("fa-eye")
+        }
+
+        var x = document.getElementById("adminCreatePassword");
+        if (x.type === "password") {
+            x.type = "text";
+            console.log("hi1")
+        } else {
+            x.type = "password";
+            console.log("hi2")
+        }
+    }
+</script>

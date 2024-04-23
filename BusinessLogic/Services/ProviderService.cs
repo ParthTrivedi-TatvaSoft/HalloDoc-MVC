@@ -167,7 +167,15 @@ namespace BusinessLogic.Services
                             Reqid = r.Requestid,
                             regionId = rc.Regionid,
                             callType = r.Calltype,
-                            isFinalized = _db.Encounterforms.Where(x => x.Requestid == r.Requestid).Select(x => x.Isfinalized).First() ?? null
+                            phyId = r.Physicianid ?? null,
+                            isFinalized = _db.Encounterforms.Where(x => x.Requestid == r.Requestid).Select(x => x.Isfinalized).First() ?? null,
+                            reqDate = r.Createddate.ToString("yyyy-MMM-dd"),
+                            notes = _db.Requeststatuslogs
+                                     .Where(x => x.Requestid == r.Requestid)
+                                     .OrderBy(x => x.Requeststatuslogid)
+                                     .Select(x => x.Notes)
+                                     .LastOrDefault() ?? null,
+                            email = rc.Email ?? null,
                         };
 
 

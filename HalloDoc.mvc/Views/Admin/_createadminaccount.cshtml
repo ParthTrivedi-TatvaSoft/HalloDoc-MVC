@@ -30,9 +30,14 @@
                     </div>
                     <div class="col-4">
                         <div class="form-floating ">
-                            <select asp-for="roleId" class="form-select mb-3" id="role">
-                                <option value="1">Active</option>
-                                <option value="2">InActive</option>
+                            <select class="form-select form-control" id="Role" asp-for="roleId">
+                                <option value="" disabled selected>Select Role</option>
+                                @foreach (var obj in Model.roles)
+                                {
+                                    <option value="@obj.Roleid">
+                                        @obj.Name
+                                    </option>
+                                }
                             </select>
                             <label for="">Role</label>
                             <span asp-validation-for="roleId" class="text-danger"></span>
@@ -119,7 +124,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating phone-div w-100 h-100 ">
-                            <select asp-for="regionId" class="form-select border-0" aria-label="Default select example">
+                            <select asp-for="regionId" class="form-select" aria-label="Default select example">
                                 <option disabled selected>Regions</option>
                                 @foreach (var items in Model.RegionList)
                                 {

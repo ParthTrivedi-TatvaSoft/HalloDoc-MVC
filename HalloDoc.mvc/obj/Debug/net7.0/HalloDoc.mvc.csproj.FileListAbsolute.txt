@@ -1023,3 +1023,4 @@ D:\HalloDoc-MVC\HalloDoc.mvc\obj\Debug\net7.0\refint\HalloDoc.mvc.dll
 D:\HalloDoc-MVC\HalloDoc.mvc\obj\Debug\net7.0\HalloDoc.mvc.pdb
 D:\HalloDoc-MVC\HalloDoc.mvc\obj\Debug\net7.0\HalloDoc.mvc.genruntimeconfig.cache
 D:\HalloDoc-MVC\HalloDoc.mvc\obj\Debug\net7.0\ref\HalloDoc.mvc.dll
+C:\Users\Admin\Source\Repos\HalloDoc-MVC\HalloDoc.mvc\bin\Debug\net7.0\Twilio.dll

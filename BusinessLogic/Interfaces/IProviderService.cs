@@ -17,6 +17,7 @@ namespace BusinessLogic.Interfaces
         void AcceptCase(int requestId, string loginUserId);
         void CallType(int requestId, short callType);
         public DashboardModel GetRequestsByStatus(int tabNo, int CurrentPage, int phyid);
+
         public StatusCountModel GetStatusCount(int phyid);
         void housecall(int requestId);
         bool finalizesubmit(int reqid);

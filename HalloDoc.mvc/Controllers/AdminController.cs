@@ -829,13 +829,13 @@ namespace HalloDoc.mvc.Controllers
             }
             else if (type == "email")
             {
-                var isSend = _adminService.ProviderContactEmail(phyId, msg);
+                var isSend = _adminService.ProviderContactEmail(phyId, msg, email);
                 return Json(new { isSend = isSend });
             }
             else
             {
                 var isSmsSend = _adminService.ProviderContactSms(phyId, msg, email);
-                var isSend = _adminService.ProviderContactEmail(phyId, msg);
+                var isSend = _adminService.ProviderContactEmail(phyId, msg, email);
                 return Json(new { isSend = isSend, isSmsSend = isSmsSend });
             }
 
@@ -959,13 +959,6 @@ namespace HalloDoc.mvc.Controllers
 
 
 
-
-
-
-
-
-
-
         [HttpPost]
         public IActionResult CreateAccessPost(List<int> MenuIds, string RoleName, short AccountType)
         {
@@ -1032,6 +1025,14 @@ namespace HalloDoc.mvc.Controllers
             data.roles = _adminService.GetAdminRoles();
 
             return View("_edituseraccessadmin", data);
+        }
+
+        [HttpPost]
+        public IActionResult EditAdminAccount(CreateAdminAccount model, List<int> AdminRegion)
+        {
+            var email = GetTokenEmail();
+            var isEdited = _adminService.EditAdminDetailsDb(model, email, AdminRegion);
+            return Json(new { isEdited });
         }
         public IActionResult EditUserAccessPhysician(int phyid)
         {
@@ -1334,7 +1335,7 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult EmailLogs(EmailSmsRecords2 recordsModel)
         {
             EmailSmsRecords2 _data = new EmailSmsRecords2();
-            data = adminService.EmailSmsLogs((int)recordsModel.tempid, recordsModel);
+            _data = _adminService.EmailSmsLogs((int)recordsModel.tempid, recordsModel);
             return PartialView("_emaillogs", _data);
         }
 

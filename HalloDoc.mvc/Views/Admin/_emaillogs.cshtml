@@ -17,12 +17,12 @@
         }
     </div>
 
-    <div class="shadow p-3 bg-white my-3 dark-mode1">
+    <div class="shadow p-3 bg-white dark-mode1 my-3">
 
         <form id="smsLogForm">
             <div class="row g-3 mb-4">
 
-                
+                @*ONE*@
                 <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
                     <select id="status" class="form-select" aria-label="Default select example" asp-for="searchRecordOne">
                         <option selected value="All">All</option>
@@ -32,33 +32,33 @@
                     </select>
                     <label class="text-muted ms-2">Search By Role</label>
                 </div>
-
-                
+                <input asp-for="tempid" hidden />
+                @*TWO*@
                 <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
                     <input class="form-control" type="search" placeholder=" " aria-label="Search" id="patient_name" asp-for="searchRecordTwo">
                     <label for="patient_name" class="floating-label text-muted ms-2">Reciever Name</label>
                 </div>
 
-                
+                @*THREE*@
                 <div class="form-floating mb-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">
                     <input class="form-control" type="search" placeholder=" " aria-label="Search" id="email" asp-for="searchRecordThree">
                     <label for="email" class="text-muted ms-2">Email id</label>
                 </div>
 
-             
+                @*FOUR*@
                 <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
-                    <input type="date" class="form-control " id="from_dateofService" placeholder="From Date of Service" asp-for="searchRecordFour">
+                    <input type="date" class="form-control bg-transparent" id="from_dateofService" placeholder="From Date of Service" asp-for="searchRecordFour">
                     <label for="datePickerId" class="ms-2 text-muted">From Date of Service</label>
                 </div>
 
 
-
+                @*FIVE*@
                 <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
-                    <input type="date" class="form-control " id="to_dateofService" placeholder="To Date of Service" asp-for="searchRecordFive">
+                    <input type="date" class="form-control bg-transparent" id="to_dateofService" placeholder="To Date of Service" asp-for="searchRecordFive">
                     <label for="datePickerId" class="ms-2 text-muted">To Date of Service</label>
                 </div>
                 <div class="form-floating mb-3  col-sm-6 col-md-2 col-lg-2 col-xl-2">
-                    <button id="resetButton" type="button" onclick="emailLogs()" class="btn btn-outline-info rounded-2 me-2" style="height: 55px;width: 80px;">
+                    <button id="resetButton" type="button" onclick="emailSmsLogs(@Model.tempid)" class="btn btn-outline-info rounded-2 me-2" style="height: 55px;width: 80px;">
                         Clear
                     </button>
                     <button id="search_button" type="button" onclick="smsLogSearchBtnOne()" class="btn btn-info text-white rounded-2 ms-2" style="height: 55px;width: 80px;">Search</button>
@@ -281,14 +281,14 @@
 
     function smsLogSearchBtnOne() {
         var arrayMain = $("#smsLogForm").serializeArray();
-        console.log(arrayMain);
+
 
         event.preventDefault();
 
         $.ajax({
             url: "/Admin/EmailLogs",
             data: arrayMain,
-            type: 'POST',
+            type: 'GET',
             success: function (result) {
                 $("#record-tab-pane").html(result);
             },
