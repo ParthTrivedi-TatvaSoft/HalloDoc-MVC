@@ -7,7 +7,7 @@
             <form id="editViewShiftForm">
                 <div class="modal-header bg-info text-white">
                     <h5 class="modal-title" id="staticBackdropLabel">View Shift</h5>
-                    <button type="button" id="viewshiftclose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex flex-row">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-info text-white assign" onclick="returnShift()">Return</button>
-                    <button type="button" class="btn bg-info text-white assign d-none" onclick="editShift()" id="saveViewShift">Save</button>
+                    <button type="button" class="btn bg-info text-white assign d-none" onclick="editShift()" id="saveViewShift">save</button>
                     <button type="button" onclick="enableFieldsViewShift()" class="btn border border-info text-info" id="editViewShift">Edit</button>
                     <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal" onclick="deleteShift()">Delete</button>
                 </div>
@@ -69,24 +69,25 @@
 <script>
 
     function editShift() {
+       
+            var payload = $('#editViewShiftForm').serializeArray();
+            $.ajax({
+                url: '/Admin/EditViewShift',
+                type: 'POST',
+                data: payload,
+                success: function (result) {
+                    if (result.isEditted) {
+                        toastr.success("Shift Edited");
+                        $('#ViewShiftModel').modal('hide');
+                        ShowScheduling();
+                    }
+                    else {
+                        toastr.error("Unable to edit");
+                    }
+                }
+            })
+        
 
-        var payload = $('#editViewShiftForm').serializeArray();
-        console.log(payload);
-        $.ajax({
-            url: '/Admin/EditViewShift',
-            type: 'POST',
-            data: payload,
-            success: function (result) {
-                if (result.isEditted) {
-                    toastr.success("Shift Edited");
-                    $("#viewshiftclose").click();
-                    ShowScheduling();
-                }
-                else {
-                    toastr.error("Unablw to edit");
-                }
-            }
-        })
     }
 
     function returnShift() {
@@ -98,13 +99,12 @@
             data: payload,
             success: function (result) {
                 if (result.isReturned) {
-                    toastr.success("Shift Edited");
-                    $("#viewshiftclose").click();
+                    toastr.success("Shift Returned");
+                    $('#ViewShiftModel').modal('hide');
                     ShowScheduling();
-                    // $("#viewshiftclose").click();
                 }
                 else {
-                    toastr.error("Unablw to edit");
+                    toastr.error("Unable to Return");
                 }
             }
         })
@@ -120,12 +120,11 @@
             success: function (result) {
                 if (result.isDeleted) {
                     toastr.success("Shift Deleted");
-                    // $('#ViewShiftModel').modal('hide');
+                    $('#ViewShiftModel').modal('hide');
                     ShowScheduling();
-                    $("#viewshiftclose").click();
                 }
                 else {
-                    toastr.error("Unable to delete");
+                    toastr.error("Unablw to Delete");
                 }
             }
         })

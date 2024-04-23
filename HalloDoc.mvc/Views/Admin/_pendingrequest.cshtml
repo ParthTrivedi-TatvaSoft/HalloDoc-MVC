@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupportPending()">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request Support
                 </span>
@@ -265,9 +265,135 @@
 
 
 
-<div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
-</div>
+@*accordians*@
+<div class="accordion-item mt-3 d-block d-md-none" style="background-color:var(--bs-accordion-active-bg)">
+    <table class="table" id="tableDataMainTwo" width="100%">
 
+        <thead>
+            <tr>
+                <th class="d-none">
+
+                </th>
+                <th class="d-none">
+
+                </th>
+            </tr>
+        </thead>
+
+        @{
+            var count = 0;
+        }
+
+        <tbody>
+            @foreach (var item in Model.adminDashTableList)
+            {
+
+                if (item.status == 1)
+                {
+
+                    var bgColor = "He";
+                    var role = "hello";
+
+                    @if (item.requestTypeId == (int)RequestTypeEnum.Business)
+                    {
+                        bgColor = "#d76879";
+                        role = "Business";
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Patient)
+                    {
+                        bgColor = "#60be5e";
+                        role = "Patient";
+
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Family)
+                    {
+                        bgColor = "#e69232";
+                        role = "FamilyFriend";
+
+                    }
+                    else if (item.requestTypeId == (int)RequestTypeEnum.Concierge)
+                    {
+                        bgColor = "#0b7ebf";
+                        role = "Concierge";
+                    }
+
+                    <tr style="display: flex;flex-direction: column" class="@role">
+
+                        <td>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#div-@count" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    <span class="d-flex flex-column" style="width:100%">
+                                        <span class="d-flex justify-content-between">
+                                            <span class="mb-3">@item.firstName @item.lastName</span>
+                                            <span>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="pe-2">@role</div>
+                                                    <i class="fa-solid fa-circle" style="color:@bgColor"></i>
+                                                </div>
+                                            </span>
+                                        </span>
+                                        <span class="d-flex align-items-center justify-content-between mb-3">
+                                            <span>
+                                                @item.street<br>
+                                                @item.city
+                                            </span>
+                                            <span class="btn btn-outline-primary" style="font-size:12px;cursor:pointer">Map Location</span>
+
+                                        </span>
+                                        <span class="d-flex align-items-center mt">
+
+                                            <i class="fa-regular fa-clock pe-2 " style="color:#2acbcb"></i> <span>Wait Time: </span>
+                                        </span>
+                                    </span>
+
+                                </button>
+                            </h2>
+                        </td>
+                        <td style="z-index:5">
+                            <div id="div-@count" style="position:relative" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body mt-1">
+                                    <i class="fa-regular fa-calendar-days"></i> Date of Birth: @item.strMonth @item.intDate, @item.intDate
+                                </div>
+                                <div class="accordion-body mt-1">
+                                    <i class="fa-regular fa-envelope"></i> Email:
+                                </div>
+                                <div class="accordion-body mt-1">
+                                    <i class="fa-solid fa-phone"></i> Patient: @item.mobileNo
+                                </div>
+                                <div class="accordion-body mt-1">
+                                    <i class="fa-regular fa-user"></i> Requestor: @item.requestorFname @item.requestorLname
+                                </div>
+                                <div class="accordion-body">
+                                    <span class="d-flex flex-column">
+                                        <span class="d-flex justify-content-between mt-1">
+                                            <button class=" accBtn me-2" style="background-color:purple!important;width:150px;color:white;border-radius:35px;" onclick="showAssignCase(@item.Reqid)">Assign Case</button>
+                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="showCancelCase(@item.Reqid)">Cancel Case</button>
+                                        </span>
+                                        <span class="d-flex justify-content-between mt-1">
+                                            <button class=" accBtn" style="background-color:red!important;width:150px;color:white;border-radius:35px;" onclick="window.location.href = '@Url.Action("viewnotes","Admin",new {ReqId = item.Reqid})'">View Notes</button>
+                                            <button class=" accBtn" style="background-color:green!important;width:150px;color:white;border-radius:35px;" onclick="showBlockCase(@item.Reqid)">Block Patient</button>
+                                        </span>
+                                        <button class="accBtn me-2" style="width:115px;border-radius:35px;position:absolute;top:-36px;right:0px;" onclick="window.location.href = '@Url.Action("viewcase","Admin", new {Requestclientid = item.requestClientId , RequestTypeId = item.requestTypeId})'">View Case</button>
+                                    </span>
+                                </div>
+
+
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    count++;
+
+                }
+
+            }
+        </tbody>
+
+    </table>
+</div>
 @if (Model.TotalPage > 1)
 {
     <div class="page-container">
@@ -309,20 +435,7 @@ else
 
 <script>
 
-    function ShowRequestSupportPending() {
-        $.ajax({
-            url: '/Admin/RequestSupport',
-            type: 'GET',
-
-            success: function (response) {
-
-                $("#modelContentpending").html(response);
-
-                $('#RequestSupportModel').modal('show');
-
-            }
-        });
-    }
+  
 
     function showCancelCase(Reqid) {
         $.ajax({

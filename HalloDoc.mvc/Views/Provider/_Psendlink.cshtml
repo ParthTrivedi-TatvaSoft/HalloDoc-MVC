@@ -1,0 +1,105 @@
+﻿@using DataAccess.CustomModels;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+@model SendLinkModel;
+<style>
+    .iti {
+        width: 100%;
+    }
+
+    .iti__country-list {
+        z-index: 3 !important;
+    }
+</style>
+
+<div class="modal fade" id="sendLinkPopUpOne" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SendLinkLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 22%;">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 text-white" id="SendLinkLabel">
+                    Send Mail To Patient For Submitting Request
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="SendLinkFormMain">
+
+                <div class="modal-body text-secondary">
+                    <div class="form-floating mt-3">
+                        <input asp-for="fName" type="text" class=" form-control" id="floatingInputFirst" placeholder="First Name" aria-label="First Name" />
+                        <label class=" text-secondary" for="floatingInputFirst">First Name</label>
+                        <span asp-validation-for="fName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input asp-for="lName" type="text" class=" form-control" id="floatingInputLast" placeholder="Last Name" aria-label="Last Name" />
+                        <label class=" text-secondary" for="floatingInputLast">Last Name</label>
+                        <span asp-validation-for="lName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <!-- Ensure correct input type for phone number -->
+                        <input asp-for="phoneNo" style="height:58px" id="phoneSendLink" class="form-control contact" aria-label="Contact" type="tel" />
+                        <label class=" text-secondary" for="floatingInputLast">Phone Number</label>
+                        <span asp-validation-for="phoneNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input asp-for="email" type="email" class="form-control" id="sendLinkEmail" placeholder="Email" aria-label="Email">
+                        <label class="text-secondary" for="floatingInputemail">Email</label>
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="m-3 d-flex justify-content-end">
+                    <button type="button" onclick="submitSendLink()" class="btn btn-info confirm-btn text-white">
+                        Send
+                    </button>
+                    <button id="sendLinkCancelBtn" type="button" class="btn cancel-btn border-info text-info ms-3" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    //$(document).ready(function () {
+    //    // Initialize form validation
+    //    $("#SendLinkFormMain").validate({
+    //        // Add your validation rules here if needed
+    //    });
+
+    //    // Form submission handler
+    //    $("#SendLinkFormMain").submit(function (event) {
+    //        event.preventDefault(); // Prevent default form submission
+
+    //        // Check if the form is valid
+
+    //    });
+    //});
+
+    function submitSendLink() {
+        if ($('#SendLinkFormMain').valid()) {
+            var formData = $('#SendLinkFormMain').serializeArray(); // Serialize form data
+
+            // AJAX call
+            $.ajax({
+                url: '/Provider/SendLink',
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if (result.isSend == true) {
+                        $("#sendLinkCancelBtn").click();
+                        toastr.success("Mail Sent Successfully");
+                    } else {
+                        alert("Please enter a valid email");
+                        $("#sendLinkCancelBtn").click();
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+    }
+</script>

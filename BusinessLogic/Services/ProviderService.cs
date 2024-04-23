@@ -216,11 +216,17 @@ namespace BusinessLogic.Services
             _db.SaveChanges();
         }
 
+     
         public bool finalizesubmit(int reqid)
         {
             try
             {
+
                 var enc = _db.Encounterforms.FirstOrDefault(x => x.Requestid == reqid);
+                if (enc == null)
+                {
+                    return false;
+                }
                 enc.Isfinalized = true;
                 _db.Encounterforms.Update(enc);
                 _db.SaveChanges();
@@ -231,6 +237,7 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
+
         public bool concludecaresubmit(int ReqId, string ProviderNote)
         {
             try

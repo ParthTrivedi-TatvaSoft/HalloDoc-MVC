@@ -9,7 +9,7 @@
             <span style="color: darkblue;">(Conclude)</span>
         </span>
         <span class="d-flex gap-1 gap-md-3">
-            <button class="action-btn" >
+            <button class="action-btn" onclick="PSendLink()">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
@@ -240,7 +240,8 @@
                                                 else
                                                 {
                                                     <button class="dropdown-item" onclick="encounterDownload(@item.Reqid)">
-                                                        Encounter
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                        Download Encounter
                                                     </button>
                                                 }
 

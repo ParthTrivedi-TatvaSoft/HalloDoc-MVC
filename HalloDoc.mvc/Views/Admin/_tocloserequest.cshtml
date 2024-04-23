@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupportToClose">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -320,20 +320,7 @@ else
         });
     }
 
-    function ShowRequestSupportToClose() {
-        $.ajax({
-            url: '/Admin/RequestSupport',
-            type: 'GET',
-
-            success: function (response) {
-
-                $("#modelContenttoclose").html(response);
-
-                $('#modelContentRequestSupprt').modal('show');
-
-            }
-        });
-    }
+   
 
   
     function tocloseReqSearch(event) {

@@ -194,6 +194,13 @@
             type: 'POST',
             data: { reqid: reqid },
             success: function (result) {
+                if (result.isFinalized) {
+                    toastr.success("Finalized");
+                    window.location.href = "Provider/provider_dashboard";
+                } else {
+
+                    toastr.error("First Save The Form");
+                }
 
             },
             error: function () {
@@ -201,4 +208,5 @@
             }
         });
     }
+
 </script>

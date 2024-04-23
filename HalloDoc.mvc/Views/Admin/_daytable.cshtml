@@ -118,10 +118,41 @@
     var currentDay = $('#currentDay').val();
     $('#showDate').text(currentDay);
 
-    
+    // $('.viewshiftbtn').on('click', function () {
+    //     console.log("dhsgb")
+    //     let shiftid = $(this).val();
+    //     $('#shiftdetailidviewmodel').val(shiftid);
+    //     $.ajax({
+    //         url: '/Admin/ViewShiftOpen',
+    //         data: { shiftdetailid: shiftid },
+    //         success: function (response) {
+    //             let starttimeviewshift = new Date(response.starttime);
+    //             let endtimeviewshift = new Date(response.endtime);
+    //             let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    //             let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+    //             let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+    //             $("#viewShiftModal").modal();
+    //             console.log(response)
+
+    //             $('#viewshiftregion').val(response.regionname)
+    //             $('#viewshiftphysicianname').empty();
+    //             $('#viewshiftphysicianname').append(
+    //                 $('<option>', {
+    //                     value: response.physicianname,
+    //                     text: response.physicianname,
+    //                 }));
+    //             $('#viewshiftshiftdate').val(response.shiftdateviewshift)
+    //             $('#viewshiftstartdate').val(starttimeString)
+    //             $('#viewshiftenddate').val(endtimeString)
+    //         },
+    //         error: function (xhr, textStatus, error) {
+    //             console.log(error)
+    //         }
+    //     });
+    // });
 
     function viewshift(ShiftDetailId) {
-        console.log("abcd");
         $.ajax({
             url: "/Admin/ViewShift",
             type: "GET",
@@ -130,8 +161,7 @@
                 $("#viewshift").html(data);
                 $('#ViewShiftModel').modal('show');
 
-                // const myModal = new bootstrap.Modal("#ViewShiftModel", {});
-                // myModal.show();
+
             },
             error: function () {
                 alert("No Projects Found");

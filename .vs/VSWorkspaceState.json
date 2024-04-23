@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\HalloDoc.mvc",
-    "\\HalloDoc.mvc\\wwwroot",
-    "\\HalloDoc.mvc\\wwwroot\\css"
+    ""
   ],
-  "SelectedNode": "\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
+  "SelectedNode": "\\HalloDoc.sln",
   "PreviewInSolutionExplorer": false
 }

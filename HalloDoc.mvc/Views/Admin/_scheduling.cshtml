@@ -181,14 +181,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="addNewShift()" class="btn btn-info text-white">Save</button>
-                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="addnewshiftCancelBtn" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 @if (TempData["shiftalreadyassigned"] != null)
 {
     <script>
@@ -196,7 +195,7 @@
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Already Assigned Shift In Selected Time Period",
+            text: "Already assigned shift in selected time period",
         });
     </script>
 }
@@ -216,7 +215,6 @@
 <partial name="_ValidationScriptsPartial" />
 
 
-
 <script>
     var regionid;
     var status;
@@ -225,10 +223,6 @@
     filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
 
     var currentPartial = "";
-    window.onload = function () {
-        $('.admin-layout-nav').removeClass('admin-layout-nav-active');
-        $('#nav-provider-tab').addClass('admin-layout-nav-active');
-    }
 
     function loadSchedulingPartial(PartialName) {
         currentPartial = PartialName;
@@ -255,9 +249,12 @@
                 success: function (response) {
                     if (response.isAdded) {
                         toastr.success("New Shift Added");
-                        $('#addShiftModal').modal('hide');
+                        $('#addnewshiftCancelBtn').click();
+
                     } else {
                         toastr.error("Already assigned shift in created timezone");
+                        $('#addnewshiftCancelBtn').click();
+
                     }
                     ShowScheduling();
                 },

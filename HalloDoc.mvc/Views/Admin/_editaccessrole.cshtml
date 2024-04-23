@@ -5,12 +5,16 @@
 <div class="container mt-3">
     <div class="d-flex justify-content-between align-items-center mx-3">
         <h4>Edit Role</h4>
-        <button class="dark-mode1" onclick="AccountAccess()" id="back-btn">&lt; Back</button>
+
+        <button onclick="AccountAccess()"
+           class="dark-mode1" id="back-btn">
+          &lt; Back
+        </button>
     </div>
 
     <form method="post" id="AccountEditForm" onsubmit="SetEditAccessAccount(document.getElementById('Role').value,document.getElementById('inputroleid').value)">
 
-        <div class="m-3 p-3 border rounded shadow">
+        <div class="m-3 p-3 border rounded shadow bg-white dark-mode1">
             <h5>Details</h5>
             <div class="row mt-1">
                 <div class="form-floating mb-3 col-12 col-sm-6 ">
@@ -23,42 +27,12 @@
                 <input type="text" value="@Model.CreateAccountAccess.RoleId" id="inputroleid" asp-for="@Model.CreateAccountAccess.RoleId" hidden />
                 <div class="form-floating mb-3 col-12 col-sm-6 ">
                     <select class="form-select form-control dark-mode1   d1class" id="Role" value="this.value" asp-for="@Model.CreateAccountAccess.AccountType" onchange="FilterEditRolesMenu(this.value,document.getElementById('inputroleid').value)">
-                        <option value="" disabled selected>All</option>
-                        @foreach (var obj in Model.Aspnetroles)
-                        {
-                            <option value="@obj.Id">
-                                @obj.Name
-                            </option>
-                        }
+                        <option value="0" selected>All</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Physician</option>
+                        <option value="3">Patient</option>
                     </select>
-                   @*  <select class="form-select border-0" aria-label="Default select example" id="accountType">
-                        @if (Model.AccType == 0)
-                        {
-                            <option value="0" selected>All</option>
-                        }
-                        else
-                        {
-                            <option value="0">All</option>
-                        }
-                        @if (Model.AccType == 1)
-                        {
-                            <option value="1" selected>Admin</option>
-                        }
-                        else
-                        {
-                            <option value="1">Admin</option>
-                        }
-                        @if (Model.AccType == 2)
-                        {
-                            <option value="2" selected>Physician</option>
-                        }
-                        else
-                        {
-                            <option value="2">Physician</option>
-                        }
-                    </select>  *@
-
-                    @* <span class="text-danger" asp-validation-for="@Model.CreateAccountAccess.AccountType"></span> *@
+                    <span class="text-danger" asp-validation-for="@Model.CreateAccountAccess.AccountType"></span>
 
                     <label for="Role" class="ms-2 ">Role</label>
                 </div>
@@ -100,7 +74,6 @@
 <script>
     function FilterEditRolesMenu(accounttypeid, roleid) {
         event.preventDefault();
-        
         $.ajax({
             method: "GET",
             url: "/Admin/FilterEditRolesMenu",
@@ -115,7 +88,6 @@
     }
     function SetEditAccessAccount(accounttypeid, roleid) {
         event.preventDefault();
- 
         if ($("#AccountEditForm").valid()) {
             $.ajax({
                 method: "POST",
@@ -126,7 +98,6 @@
                     //localStorage.setItem('ajaxSuccess', true);
                     //localStorage.setItem('roleIdForUserAccess', roleid);
                     //localStorage.setItem('accTypeIdForUserAccess', accounttypeid);
-                    console.log(result);
                     if (result.isEdited) {
                         //location.reload();
                         toastr.success("Data Updated Successfully");

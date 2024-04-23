@@ -645,7 +645,6 @@
             });
         }
 
-   
 
         function searchRecords() {
             $.ajax({
@@ -715,6 +714,20 @@
                 type: 'GET',
                 success: function (response) {
                     $("#provider-tab-pane").html(response);
+                }
+            });
+        }
+
+        function ShowRequestSupport() {
+            $.ajax({
+                url: '/Admin/RequestSupport',
+                type: 'GET',
+
+                success: function (response) {
+
+                    $('#dashboardmodel').html(response);
+                    $('#RequestSupportModel').modal('show');
+
                 }
             });
         }

@@ -130,7 +130,7 @@ namespace HalloDoc.mvc.Controllers
         [HttpGet]
         public IActionResult SendLink()
         {
-            return PartialView("_sendlink");
+            return PartialView("_Psendlink");
         }
         [HttpPost]
         public IActionResult SendLink(SendLinkModel model)
@@ -513,10 +513,11 @@ namespace HalloDoc.mvc.Controllers
             model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
             model.regions = _adminService.RegionTable();
             model.physicianregiontable = _adminService.PhyRegionTable(phyId);
-            model.roles = _adminService.GetRoles();
+            model.roles = _adminService.GetPhyRoles();
             return PartialView("_Pmyprofile", model);
 
         }
+
 
         [HttpPost]
         public IActionResult providerEditFirst(string password, int phyId, string email)
@@ -561,6 +562,7 @@ namespace HalloDoc.mvc.Controllers
         }
 
 
+
         [HttpPost]
         public IActionResult HouseCallSubmit(int requestId)
         {
@@ -570,8 +572,8 @@ namespace HalloDoc.mvc.Controllers
 
         public IActionResult Finalizesubmit(int reqid)
         {
-            _providerService.finalizesubmit(reqid);
-            return RedirectToAction("provider_dashboard");
+            bool isFinalized = _providerService.finalizesubmit(reqid);
+            return Json(new { isFinalized });
         }
         public IActionResult DownloadEncounterPopUp(int reqId)
         {

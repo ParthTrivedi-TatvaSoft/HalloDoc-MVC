@@ -24,7 +24,7 @@
             <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupportNew()">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -452,145 +452,7 @@ else
 
   
 
-    // function allElements() {
-
-    //     let a = document.getElementsByClassName("Patient");
-    //     console.log(a)
-
-    //     for (let i = 0; i < a.length; i++) {
-    //         a[i].style.display = "table-row";
-    //     }
-
-    //     let b = document.getElementsByClassName("FamilyFriend");
-
-    //     for (let i = 0; i < b.length; i++) {
-    //         b[i].style.display = "table-row";
-    //     }
-
-    //     let c = document.getElementsByClassName("Concierge");
-
-    //     for (let i = 0; i < c.length; i++) {
-    //         c[i].style.display = "table-row";
-    //     }
-
-
-    //     let d = document.getElementsByClassName("Business");
-
-
-    //     for (let i = 0; i < d.length; i++) {
-    //         d[i].style.display = "table-row";
-    //     }
-    // }
-
-    // function patientElements() {
-    //     let b = document.getElementsByClassName("FamilyFriend");
-    //     let c = document.getElementsByClassName("Concierge");
-    //     let d = document.getElementsByClassName("Business");
-
-    //     for (let i = 0; i < b.length; i++) {
-    //         b[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < c.length; i++) {
-    //         c[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < d.length; i++) {
-    //         d[i].style.display = "none";
-    //     }
-
-
-    //     let a = document.getElementsByClassName("Patient");
-
-    //     for (let i = 0; i < a.length; i++) {
-    //         a[i].style.display = "table-row";
-    //     }
-
-
-    // }
-
-
-    // function familyFriendElements() {
-    //     let a = document.getElementsByClassName("Patient");
-    //     let c = document.getElementsByClassName("Concierge");
-    //     let d = document.getElementsByClassName("Business");
-
-    //     for (let i = 0; i < a.length; i++) {
-    //         a[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < c.length; i++) {
-    //         c[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < d.length; i++) {
-    //         d[i].style.display = "none";
-    //     }
-
-    //     let b = document.getElementsByClassName("FamilyFriend");
-
-    //     for (let i = 0; i < b.length; i++) {
-    //         b[i].style.display = "table-row";
-    //     }
-
-    // }
-
-
-    // function conciergeElements() {
-    //     let a = document.getElementsByClassName("Patient");
-    //     let b = document.getElementsByClassName("FamilyFriend");
-    //     let d = document.getElementsByClassName("Business");
-
-    //     for (let i = 0; i < a.length; i++) {
-    //         a[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < b.length; i++) {
-    //         b[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < d.length; i++) {
-    //         d[i].style.display = "none";
-    //     }
-
-
-    //     let c = document.getElementsByClassName("Concierge");
-
-    //     for (let i = 0; i < c.length; i++) {
-    //         c[i].style.display = "table-row";
-    //     }
-
-    // }
-
-    // function businessElements() {
-
-    //     let a = document.getElementsByClassName("Patient");
-    //     let b = document.getElementsByClassName("FamilyFriend");
-    //     let c = document.getElementsByClassName("Concierge");
-
-    //     for (let i = 0; i < a.length; i++) {
-    //         a[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < b.length; i++) {
-    //         b[i].style.display = "none";
-    //     }
-
-    //     for (let i = 0; i < c.length; i++) {
-    //         c[i].style.display = "none";
-    //     }
-
-
-
-    //     let d = document.getElementsByClassName("Business");
-
-
-    //     for (let i = 0; i < d.length; i++) {
-    //         d[i].style.display = "table-row";
-    //     }
-
-
-    // }
+    
 
 
     function showAssignCase(Reqid) {
@@ -624,20 +486,7 @@ else
         });
     }
 
-    function ShowRequestSupportNew() {
-        $.ajax({
-            url: '/Admin/RequestSupport',
-            type: 'GET',
-
-            success: function (response) {
-
-                $("#modelContentnew").html(response);
-
-                $('#RequestSupportModel').modal('show');
-
-            }
-        });
-    }
+    
 
     function showBlockCase(reqId) {
         $.ajax({

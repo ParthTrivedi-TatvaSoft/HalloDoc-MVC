@@ -1,583 +1,583 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css",
       "PackagePath": "staticwebassets\\HalloDoc.mvc.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf",
       "PackagePath": "staticwebassets\\PhysicianFiles\\10\\Independent_Contractor.pdf"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\12\\Independent_Contractor.pdf",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\12\\Independent_Contractor.pdf",
       "PackagePath": "staticwebassets\\PhysicianFiles\\12\\Independent_Contractor.pdf"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\PhysicianImages\\10\\11116016_415.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg",
       "PackagePath": "staticwebassets\\PhysicianImages\\11\\7774236_3736765.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\images.jfif",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\images.jfif",
       "PackagePath": "staticwebassets\\PhysicianImages\\12\\images.jfif"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
       "PackagePath": "staticwebassets\\PhysicianImages\\2\\transfer.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg",
       "PackagePath": "staticwebassets\\PhysicianImages\\4\\7774236_3736765.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\5\\LesfImage.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\5\\LesfImage.png",
       "PackagePath": "staticwebassets\\PhysicianImages\\5\\LesfImage.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg",
       "PackagePath": "staticwebassets\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg",
       "PackagePath": "staticwebassets\\PhysicianSign\\11\\7768657_3763028.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg",
       "PackagePath": "staticwebassets\\PhysicianSign\\2\\7768657_3763028.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
       "PackagePath": "staticwebassets\\PhysicianSign\\2\\Screenshot (1).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\4\\11116016_415.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\4\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\PhysicianSign\\4\\11116016_415.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg",
       "PackagePath": "staticwebassets\\PhysicianSign\\5\\Fig1. Platform login page.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\6\\LesfImage.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\6\\LesfImage.png",
       "PackagePath": "staticwebassets\\PhysicianSign\\6\\LesfImage.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
       "PackagePath": "staticwebassets\\Rotativa\\wkhtmltoimage.exe"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
       "PackagePath": "staticwebassets\\Rotativa\\wkhtmltopdf.exe"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\11116016_415.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\2\\Independent_Contractor.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7768657_3763028.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7768657_3763028.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\7768657_3763028.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\7774236_3736765.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig Contact your Provider.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig1. Platform login page.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig26. Edit Physician Account.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig38. View Shift.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig38. View Shift.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig38. View Shift.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\Fig39. Provider Location.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
       "PackagePath": "staticwebassets\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Screenshot (1).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Screenshot (1).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\Screenshot (1).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Updated-Training-Plan-20March24.pdf",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Updated-Training-Plan-20March24.pdf",
       "PackagePath": "staticwebassets\\UploadedFiles\\Updated-Training-Plan-20March24.pdf"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2) (1).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2) (1).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin (1) (1) (2) (1).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin (1) (1) (2).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin (1) (1).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin (1).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (2).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (2).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin (2).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\admin.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (2).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (2).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back (2).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (6).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (6).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back (6).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (7).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (7).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back (7).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (8).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (8).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back (8).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (9).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (9).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back (9).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\back.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1 (3).png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1 (3).png",
       "PackagePath": "staticwebassets\\UploadedFiles\\d1 (3).png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\d1.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
       "PackagePath": "staticwebassets\\UploadedFiles\\dark.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (1).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (1).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor (1).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (3).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (3).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor (3).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\doctor.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
       "PackagePath": "staticwebassets\\UploadedFiles\\images.jfif"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "PackagePath": "staticwebassets\\UploadedFiles\\myfile.txt"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer (1).svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer (1).svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\transfer (1).svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",
       "PackagePath": "staticwebassets\\UploadedFiles\\transfer.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",
       "PackagePath": "staticwebassets\\css\\admin_dashboard.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_login.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_login.css",
       "PackagePath": "staticwebassets\\css\\admin_login.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_resetpassword.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_resetpassword.css",
       "PackagePath": "staticwebassets\\css\\admin_resetpassword.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\business_request.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\business_request.css",
       "PackagePath": "staticwebassets\\css\\business_request.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\concierge_request.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\concierge_request.css",
       "PackagePath": "staticwebassets\\css\\concierge_request.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\create_account.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\create_account.css",
       "PackagePath": "staticwebassets\\css\\create_account.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
       "PackagePath": "staticwebassets\\css\\darkmode.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
       "PackagePath": "staticwebassets\\css\\forgot_password.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\friendfamily_request.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\friendfamily_request.css",
       "PackagePath": "staticwebassets\\css\\friendfamily_request.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
       "PackagePath": "staticwebassets\\css\\patient_dashboard.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
       "PackagePath": "staticwebassets\\css\\patient_login.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
       "PackagePath": "staticwebassets\\css\\patient_request.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\site.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\submit_request.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\submit_request.css",
       "PackagePath": "staticwebassets\\css\\submit_request.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\user_profile.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\user_profile.css",
       "PackagePath": "staticwebassets\\css\\user_profile.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\favicon.ico",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\11116016_415.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\images\\11116016_415.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7768657_3763028.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7768657_3763028.jpg",
       "PackagePath": "staticwebassets\\images\\7768657_3763028.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7774236_3736765.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7774236_3736765.jpg",
       "PackagePath": "staticwebassets\\images\\7774236_3736765.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig Contact your Provider.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\images\\Fig Contact your Provider.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig33. Month wise Scheduling.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig33. Month wise Scheduling.jpg",
       "PackagePath": "staticwebassets\\images\\Fig33. Month wise Scheduling.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\LesfImage.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\LesfImage.png",
       "PackagePath": "staticwebassets\\images\\LesfImage.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
       "PackagePath": "staticwebassets\\images\\admin.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\back.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\back.png",
       "PackagePath": "staticwebassets\\images\\back.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\d1.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\d1.png",
       "PackagePath": "staticwebassets\\images\\d1.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\dark.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\dark.png",
       "PackagePath": "staticwebassets\\images\\dark.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.jpg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.jpg",
       "PackagePath": "staticwebassets\\images\\doctor.jpg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
       "PackagePath": "staticwebassets\\images\\doctor.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
       "PackagePath": "staticwebassets\\images\\hallodoc.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\info.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\info.png",
       "PackagePath": "staticwebassets\\images\\info.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\light.png",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\light.png",
       "PackagePath": "staticwebassets\\images\\light.png"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
       "PackagePath": "staticwebassets\\images\\transfer.svg"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\site.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "D:\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {

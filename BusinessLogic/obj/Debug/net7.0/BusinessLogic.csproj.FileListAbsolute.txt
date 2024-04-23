@@ -44,3 +44,18 @@ D:\HalloDoc Project\BusinessLogic\obj\Debug\net7.0\BusinessLogic.dll
 D:\HalloDoc Project\BusinessLogic\obj\Debug\net7.0\refint\BusinessLogic.dll
 D:\HalloDoc Project\BusinessLogic\obj\Debug\net7.0\BusinessLogic.pdb
 D:\HalloDoc Project\BusinessLogic\obj\Debug\net7.0\ref\BusinessLogic.dll
+D:\HalloDoc-MVC\BusinessLogic\bin\Debug\net7.0\BusinessLogic.deps.json
+D:\HalloDoc-MVC\BusinessLogic\bin\Debug\net7.0\BusinessLogic.dll
+D:\HalloDoc-MVC\BusinessLogic\bin\Debug\net7.0\BusinessLogic.pdb
+D:\HalloDoc-MVC\BusinessLogic\bin\Debug\net7.0\DataAccess.dll
+D:\HalloDoc-MVC\BusinessLogic\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.AssemblyReference.cache
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.AssemblyInfoInputs.cache
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.AssemblyInfo.cs
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.CoreCompileInputs.cache
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.CopyComplete
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.dll
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\refint\BusinessLogic.dll
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\BusinessLogic.pdb
+D:\HalloDoc-MVC\BusinessLogic\obj\Debug\net7.0\ref\BusinessLogic.dll

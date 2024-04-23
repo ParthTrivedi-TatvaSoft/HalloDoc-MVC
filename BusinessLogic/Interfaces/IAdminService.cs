@@ -119,7 +119,7 @@ namespace BusinessLogic.Interfaces
 
         bool RoleExists(string roleName, short accountType);
         List<Physicianlocation> GetPhysicianlocations();
-        List<Role> GetRoles();
+       
 
         CreateProviderAccount CreateProviderAccount(CreateProviderAccount obj, List<int> physicianRegions);
         bool providerResetPass(string email, string password);
@@ -132,49 +132,37 @@ namespace BusinessLogic.Interfaces
 
         List<UserAccess> FetchAccess(short selectedValue);
 
-
         List<BusinessTableModel> BusinessTable(string vendor, string profession);
         bool AddBusiness(AddBusinessModel obj);
         List<Healthprofessionaltype> GetProfession();
         bool RemoveBusiness(int VendorId);
-
         AddBusinessModel GetEditBusiness(int VendorId);
         List<RequestsRecordModel> SearchRecords(RecordsModel recordsModel);
         List<User> PatientRecords(PatientRecordsModel patientRecordsModel);
         void DeleteRecords(int reqId);
         byte[] GenerateExcelFile(List<RequestsRecordModel> recordsModel);
-
-
         List<GetRecordExplore> GetPatientRecordExplore(int userId);
-
-
-
-
-
         EmailSmsRecords2 EmailSmsLogs(int tempId, EmailSmsRecords2 recordsModel);
-
         List<BlockHistory> BlockHistory(BlockHistory2 blockHistory2);
         bool UnblockRequest(int blockId);
         bool IsBlockRequestActive(int blockId);
-
         DayWiseScheduling GetDayTable(string PartialName, string date, int regionid, int status);
         WeekWiseScheduling GetWeekTable(string date, int regionid, int status);
         MonthWiseScheduling GetMonthTable(string date, int regionid, int status);
-
         void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId);
-
         bool CreateShift(SchedulingViewModel model, string Email, List<int> repeatdays);
         CreateNewShift ViewShift(int ShiftDetailId);
         bool EditShift(CreateNewShift model, string email);
         bool ReturnShift(int ShiftDetailId, string email);
         bool DeleteShift(int ShiftDetailId, string email);
-
         OnCallModal GetOnCallDetails(int regionId);
         List<ShiftReview> GetShiftReview(int regionId, int callId);
         bool DeleteShiftReview(int[] shiftDetailsId, string Aspid);
         bool ApproveSelectedShift(int[] shiftDetailsId, string Aspid);
         DashboardModel GetRequestByRegion(FilterModel filterModel);
         List<AdminDashTableModel> Export(int tabNo);
-        List<Role> GetRoles(int AccType);
+        List<Role> GetPhyRoles();
+        List<Role> GetAdminRoles();
+
     }
 }

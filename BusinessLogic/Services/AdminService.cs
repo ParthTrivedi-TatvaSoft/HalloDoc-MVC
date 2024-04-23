@@ -22,6 +22,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Twilio;
 
 namespace BusinessLogic.Services
 {
@@ -1822,20 +1823,7 @@ namespace BusinessLogic.Services
             return _profile;
         }
 
-        public List<Role> GetRoles(int AccType)
-        {
-            BitArray deletedBit = new BitArray(new[] { false });
-            var roles = _db.Roles.Where(x => (x.Accounttype == 2) && (x.Isdeleted.Equals(deletedBit))).ToList();
-
-            return roles;
-        }
-
-        public List<Role> GetRoles()
-        {
-            BitArray deletedBit = new BitArray(new[] { false });
-            var roles = _db.Roles.Where(x => x.Isdeleted.Equals(deletedBit)).ToList();
-            return roles;
-        }
+        
         public List<Region> RegionTable()
         {
             var region = _db.Regions.ToList();
@@ -2194,6 +2182,9 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
+
+
+
         public List<AccountMenu> GetAccountMenu(int accounttype, int roleid)
         {
 
@@ -2303,122 +2294,48 @@ namespace BusinessLogic.Services
                 return obj;
             }
         }
-        public bool RoleExists(string roleName, short accType)
+        public bool RoleExists(string roleName, short accountType)
         {
             BitArray deletedBit = new BitArray(new[] { false });
-
-            var isRoleExists = (accType == 0) ? _db.Roles.Where(x => x.Name.ToLower() == roleName.Trim().ToLower() && x.Isdeleted.Equals(deletedBit)).Any() : _db.Roles.Where(x => (x.Name.ToLower() == roleName.Trim().ToLower() && x.Accounttype == accType) && (x.Isdeleted.Equals(deletedBit))).Any();
-
-            return isRoleExists ? true : false;
+            var isRoleExists = _db.Roles.Where(x => (x.Name.ToLower() == roleName.Trim().ToLower() && x.Accounttype == accountType) && (x.Isdeleted.Equals(deletedBit))).Any();
+            if (isRoleExists)
+            {
+                return true;
+            }
+            return false;
         }
         public bool CreateRole(List<int> menuIds, string roleName, short accountType)
         {
             try
             {
-                if (accountType == 1)
+                Role role = new()
                 {
-                    Role role = new()
-                    {
-                        Name = roleName,
-                        Accounttype = accountType,
-                        Createdby = "Admin",
-                        Createddate = DateTime.Now,
-                        Isdeleted = new BitArray(1, false),
-                    };
-                    _db.Roles.Add(role);
-                    _db.SaveChanges();
+                    Name = roleName,
+                    Accounttype = accountType,
+                    Createdby = "Admin",
+                    Createddate = DateTime.Now,
+                    Isdeleted = new BitArray(1, false),
+                };
+                _db.Roles.Add(role);
+                _db.SaveChanges();
 
-                    foreach (int menuId in menuIds)
-                    {
-                        Rolemenu rolemenu = new()
-                        {
-                            Roleid = role.Roleid,
-                            Menuid = menuId,
-                        };
-                        _db.Rolemenus.Add(rolemenu);
-                    };
-                    _db.SaveChanges();
-                    return true;
-                }
-
-                else if (accountType == 2)
+                foreach (int menuId in menuIds)
                 {
-                    Role role = new()
+                    Rolemenu rolemenu = new()
                     {
-                        Name = roleName,
-                        Accounttype = accountType,
-                        Createdby = "Physician",
-                        Createddate = DateTime.Now,
-                        Isdeleted = new BitArray(1, false),
+                        Roleid = role.Roleid,
+                        Menuid = menuId,
                     };
-                    _db.Roles.Add(role);
-                    _db.SaveChanges();
-
-                    foreach (int menuId in menuIds)
-                    {
-                        Rolemenu rolemenu = new()
-                        {
-                            Roleid = role.Roleid,
-                            Menuid = menuId,
-                        };
-                        _db.Rolemenus.Add(rolemenu);
-                    };
-                    _db.SaveChanges();
-                    return true;
-                }
-
-                else
-                {
-                    Role role = new()
-                    {
-                        Name = roleName,
-                        Accounttype = 1,
-                        Createdby = "Admin",
-                        Createddate = DateTime.Now,
-                        Isdeleted = new BitArray(1, false),
-                    };
-                    _db.Roles.Add(role);
-                    _db.SaveChanges();
-
-                    foreach (int menuId in menuIds)
-                    {
-                        Rolemenu rolemenu = new()
-                        {
-                            Roleid = role.Roleid,
-                            Menuid = menuId,
-                        };
-                        _db.Rolemenus.Add(rolemenu);
-                        _db.SaveChanges();
-                    };
-
-                    Role role2 = new()
-                    {
-                        Name = roleName,
-                        Accounttype = 2,
-                        Createdby = "Physician",
-                        Createddate = DateTime.Now,
-                        Isdeleted = new BitArray(1, false),
-                    };
-                    _db.Roles.Add(role2);
-                    _db.SaveChanges();
-
-                    foreach (int menuId in menuIds)
-                    {
-                        Rolemenu rolemenu2 = new()
-                        {
-                            Roleid = role2.Roleid,
-                            Menuid = menuId,
-                        };
-                        _db.Rolemenus.Add(rolemenu2);
-                        _db.SaveChanges();
-                    };
-                    return true;
-                }
+                    _db.Rolemenus.Add(rolemenu);
+                };
+                _db.SaveChanges();
+                return true;
             }
             catch (Exception ex)
             {
                 return false;
             }
+
         }
 
 
@@ -2518,16 +2435,17 @@ namespace BusinessLogic.Services
             if (selectedValue == 1)
             {
                 var admin = from admins in _db.Admins
-                            join role in _db.Roles on admins.Roleid equals role.Roleid
+                                //join role in _db.Roles on admins.Roleid equals role.Roleid
                             orderby admins.Createddate
                             select new UserAccess
                             {
                                 fname = admins.Firstname,
                                 lname = admins.Lastname,
-                                accType = role.Accounttype,
+                                accType = 1,
                                 phone = admins.Mobile,
                                 status = admins.Status,
-                                openReq = _db.Requests.Where(i => (i.Status != 10)).Count(),
+                                openReq = _db.Requests.Where(x => x.Status != 10).Count(),
+                                adminId = admins.Adminid,
                             };
                 var result1 = admin.ToList();
                 return result1;
@@ -2535,16 +2453,17 @@ namespace BusinessLogic.Services
             else if (selectedValue == 2)
             {
                 var physician = from phy in _db.Physicians
-                                join role in _db.Roles on phy.Roleid equals role.Roleid
+                                    //join role in _db.Roles on phy.Roleid equals role.Roleid
                                 orderby phy.Createddate
                                 select new UserAccess
                                 {
                                     fname = phy.Firstname,
                                     lname = phy.Lastname,
-                                    accType = role.Accounttype,
+                                    accType = 2,
                                     phone = phy.Mobile,
                                     status = phy.Status,
-                                    openReq = _db.Requests.Where(i => i.Physicianid == phy.Physicianid && new int[] { 1, 2, 4, 5, 6 }.Contains(i.Status)).Count()
+                                    openReq = _db.Requests.Where(x => x.Status != 10 && x.Physicianid == phy.Physicianid).Count(),
+                                    phyId = phy.Physicianid,
                                 };
                 var result2 = physician.ToList();
                 return result2;
@@ -2557,7 +2476,6 @@ namespace BusinessLogic.Services
                 return r3;
             }
         }
-
 
 
 
@@ -3255,11 +3173,13 @@ namespace BusinessLogic.Services
             }
             if (model.repeatcount > 0)
             {
-                shift.Isrepeat = new BitArray(1, false);
+                shift.Isrepeat = new BitArray(new[] { true });
+
             }
             else
             {
-                shift.Isrepeat = new BitArray(1, false);
+                shift.Isrepeat = new BitArray(new[] { false });
+
             }
             _db.Shifts.Add(shift);
             _db.SaveChanges();
@@ -3271,7 +3191,7 @@ namespace BusinessLogic.Services
             shiftdetail.Regionid = model.regionid;
             shiftdetail.Starttime = model.starttime;
             shiftdetail.Endtime = model.endtime;
-            shiftdetail.Isdeleted = new BitArray(1, false);
+            shiftdetail.Isdeleted = new BitArray(new[] { false });
             _db.Shiftdetails.Add(shiftdetail);
             _db.SaveChanges();
 
@@ -3349,8 +3269,6 @@ namespace BusinessLogic.Services
 
 
 
-
-
         public CreateNewShift ViewShift(int ShiftDetailId)
         {
             Shiftdetail? shiftDetails = _db.Shiftdetails.Include(a => a.Shift).Where(a => a.Shiftdetailid == ShiftDetailId).FirstOrDefault();
@@ -3368,7 +3286,6 @@ namespace BusinessLogic.Services
             };
             return model;
         }
-
         public void CreateNewShiftSubmit(string selectedDays, CreateShiftModel obj, int adminId)
         {
             var admin = _db.Admins.FirstOrDefault(x => x.Adminid == adminId);
@@ -3527,6 +3444,7 @@ namespace BusinessLogic.Services
 
             return onCallModal;
         }
+
         public List<ShiftReview> GetShiftReview(int regionId, int callId)
         {
             BitArray deletedBit = new BitArray(new[] { false });
@@ -3589,6 +3507,69 @@ namespace BusinessLogic.Services
             }
             _db.SaveChanges();
             return true;
+        }
+
+        public List<Role> GetPhyRoles()
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
+            var roles = _db.Roles.Where(x => x.Isdeleted.Equals(deletedBit) && x.Accounttype == 2).ToList();
+            return roles;
+        }
+        public List<Role> GetAdminRoles()
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
+            var roles = _db.Roles.Where(x => x.Isdeleted.Equals(deletedBit) && x.Accounttype == 1).ToList();
+            return roles;
+        }
+
+        public bool ProviderContactSms(int phyId, string msg, string tokenEmail)
+        {
+
+            var provider = _db.Physicians.Where(x => x.Physicianid == phyId).Select(x => x).First();
+
+            try
+            {
+                var accountSid = "";
+                var authToken = "";
+                var twilionumber = "";
+
+                var messageBody = $"Hello {provider.Firstname} {provider.Lastname},\n {msg} \n\n\nRegards,\n(HelloDoc Admin)";
+
+                TwilioClient.Init(accountSid, authToken);
+
+                var messagee = MessageResource.Create(
+                from: new Twilio.Types.PhoneNumber(twilionumber),
+                body: messageBody,
+                to: new Twilio.Types.PhoneNumber("+91" + provider.Mobile)
+                );
+
+                Smslog smslog = new Smslog()
+                {
+                    Smstemplate = "Sender : " + twilionumber + "Reciver :" + provider.Mobile + "Message : " + msg,
+                    Mobilenumber = provider.Mobile,
+                    Roleid = 1,
+                    Adminid = _db.Admins.Where(r => r.Email == tokenEmail).Select(r => r.Adminid).First(),
+                    Createdate = DateTime.Now,
+                    Sentdate = DateTime.Now,
+                    Issmssent = new BitArray(1, true),
+                    Confirmationnumber = provider.Firstname.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 19).Replace(" ", ""),
+                    Senttries = 1,
+                };
+
+                _db.Smslogs.Add(smslog);
+                _db.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+
+
+
         }
     }
 

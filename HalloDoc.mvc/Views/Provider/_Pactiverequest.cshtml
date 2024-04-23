@@ -9,7 +9,7 @@
             <span style="color: darkblue;">(Active)</span>
         </span>
         <span class="d-flex gap-1 gap-md-3">
-            <button class="action-btn">
+            <button class="action-btn" onclick="PSendLink()">
                 <i class="bi bi-send"></i> <span class="d-none d-md-block">
                     Send
                     Link
@@ -204,13 +204,6 @@
                                                     Orders
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                    Doctors Notes
-                                                </a>
-                                            </li>
-
                                             @if (item.callType == 0)
                                             {
                                                 <li>
@@ -220,13 +213,22 @@
                                                     </button>
                                                 </li>
                                             }
-                                            else
+                                            else if (item.isFinalized == false || item.isFinalized == null)
                                             {
                                                 <li>
                                                     <a class="dropdown-item" href="@Url.Action("PEncounterForm", new {ReqId = item.Reqid})">
                                                         <i class="bi bi-file-earmark-text"></i>
                                                         Encounter
                                                     </a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <button class="dropdown-item" onclick="activeencounterDownload(@item.Reqid)">
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                        Download Encounter
+                                                    </button>
                                                 </li>
                                             }
 
@@ -272,11 +274,13 @@ else
 {
     <div class="text-center text-danger fw-bold h5">No Record Found</div>
 }
-<!-- accordions -->
+
+
 <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
 </div>
-
+<div id="activeModalContent"></div>
 <div id="modelContentcare"></div>
+
 <script>
     function housecall(reqId) {
         $.ajax({
@@ -307,7 +311,6 @@ else
             data: { reqId: requestid },
 
             success: function (result) {
-          
                 $('#modelContentcare').html(result);
                 $('#pcaremodal').modal('show');
             },
@@ -315,5 +318,20 @@ else
                 alert('Error loading partial view');
             }
         })
+    }
+    function activeencounterDownload(reqId) {
+        $.ajax({
+            url: "/Provider/DownloadEncounterPopUp",
+            data: { reqId: reqId },
+            type: 'GET',
+            success: function (result) {
+                $('#activeModalContent').html(result);
+                $('#downloadEncounterModal').modal('toggle');
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
     }
 </script>

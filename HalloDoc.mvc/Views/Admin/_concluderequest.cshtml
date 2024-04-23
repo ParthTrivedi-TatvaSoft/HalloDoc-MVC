@@ -25,7 +25,7 @@
             <button class="action-btn" onclick="ExpertDataTabWise(0)">
                 <i class="bi bi-reply-all"></i> <span class="d-none d-md-block">Export All</span>
             </button>
-            <button class="action-btn" onclick="ShowRequestSupportConclude()">
+            <button class="action-btn" onclick="ShowRequestSupport()">
                 <i class="bi bi-person"></i> <span class="d-none d-md-block">
                     Request
                     Support
@@ -308,20 +308,7 @@ else
 </style>
 
 <script>
-    function ShowRequestSupportConclude() {
-        $.ajax({
-            url: '/Admin/RequestSupport',
-            type: 'GET',
-
-            success: function (response) {
-
-                $("#modelContent").html(response);
-
-                $('#RequestSupportModel').modal('show');
-
-            }
-        });
-    }
+   
 
     function concludeReqSearch(event) {
         var x = event.code;

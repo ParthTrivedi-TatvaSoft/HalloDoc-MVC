@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HalloDoc.mvc.Controllers
 {
@@ -818,10 +819,26 @@ namespace HalloDoc.mvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult ContactProviderEmail(int phyId, string msg)
+        public IActionResult ContactProviderEmail(int phyId, string msg, string type)
         {
-            var isSend = _adminService.ProviderContactEmail(phyId, msg);
-            return Json(new { isSend = isSend });
+            var email = GetTokenEmail();
+            if (type == "sms")
+            {
+                var isSmsSend = _adminService.ProviderContactSms(phyId, msg, email);
+                return Json(new { isSend = isSmsSend });
+            }
+            else if (type == "email")
+            {
+                var isSend = _adminService.ProviderContactEmail(phyId, msg);
+                return Json(new { isSend = isSend });
+            }
+            else
+            {
+                var isSmsSend = _adminService.ProviderContactSms(phyId, msg, email);
+                var isSend = _adminService.ProviderContactEmail(phyId, msg);
+                return Json(new { isSend = isSend, isSmsSend = isSmsSend });
+            }
+
         }
 
         public IActionResult ProviderCheckbox(int phyId)
@@ -840,7 +857,7 @@ namespace HalloDoc.mvc.Controllers
                 model.editPro = _adminService.EditProviderProfile(phyId, tokenemail);
                 model.regions = _adminService.RegionTable();
                 model.physicianregiontable = _adminService.PhyRegionTable(phyId);
-                model.roles = _adminService.GetRoles();
+                model.roles = _adminService.GetPhyRoles();
                 return PartialView("_editprovider", model);
             }
             _notyf.Error("Token Expired,Login Again");
@@ -985,9 +1002,10 @@ namespace HalloDoc.mvc.Controllers
         {
             CreateAdminAccount obj = new CreateAdminAccount();
             obj.RegionList = _adminService.RegionTable();
-
+            obj.roles = _adminService.GetAdminRoles();
             return PartialView("_createadminaccount", obj);
         }
+
 
         [HttpPost]
         public IActionResult AdminAccount(CreateAdminAccount model, List<int> AdminRegion)
@@ -1003,6 +1021,27 @@ namespace HalloDoc.mvc.Controllers
         {
             var obj = _adminService.FetchAccess(selectedValue);
             return PartialView("_useraccess", obj);
+        }
+
+        public IActionResult EditUserAccessAdmin(int adminid)
+        {
+            CreateAdminAccount data = new();
+            //data._providerEdit = _IAdminDash.adminEditPage(adminId);
+            data.adminRegions = _adminService.AdminRegionTableById(adminid);
+            data.regions = _adminService.RegionTable();
+            data.roles = _adminService.GetAdminRoles();
+
+            return View("_edituseraccessadmin", data);
+        }
+        public IActionResult EditUserAccessPhysician(int phyid)
+        {
+            var tokenemail = GetTokenEmail();
+            EditProviderModel2 model = new EditProviderModel2();
+            model.editPro = _adminService.EditProviderProfile(phyid, tokenemail);
+            model.regions = _adminService.RegionTable();
+            model.physicianregiontable = _adminService.PhyRegionTable(phyid);
+            model.roles = _adminService.GetPhyRoles();
+            return PartialView("_edituseraccessphysician", model);
         }
 
         public IActionResult ProviderLocation()
@@ -1063,7 +1102,6 @@ namespace HalloDoc.mvc.Controllers
 
             //var email = User.FindFirstValue(ClaimTypes.Email);
             var isAdded = _adminService.CreateShift(model, email, repeatdays);
-            TempData["Success"] = "Shift Created Successfully";
             return Json(new { isAdded });
         }
 
@@ -1087,6 +1125,7 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isDeleted });
         }
 
+        [HttpPost]
         public IActionResult EditViewShift(CreateNewShift model)
         {
             var email = GetTokenEmail();
@@ -1135,7 +1174,7 @@ namespace HalloDoc.mvc.Controllers
         {
             CreateProviderAccount data = new();
             data.regions = _adminService.RegionTable();
-            data.roles = _adminService.GetRoles(2);
+            data.roles = _adminService.GetPhyRoles();
             return PartialView("_createprovideraccount", data);
         }
 
@@ -1291,10 +1330,11 @@ namespace HalloDoc.mvc.Controllers
             return PartialView("_patientrecordexplore", _data);
         }
 
+        [HttpGet]
         public IActionResult EmailLogs(EmailSmsRecords2 recordsModel)
         {
             EmailSmsRecords2 _data = new EmailSmsRecords2();
-            _data = _adminService.EmailSmsLogs(0, recordsModel);
+            data = adminService.EmailSmsLogs((int)recordsModel.tempid, recordsModel);
             return PartialView("_emaillogs", _data);
         }
 

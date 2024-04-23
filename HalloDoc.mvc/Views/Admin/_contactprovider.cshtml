@@ -78,44 +78,62 @@
         if (msg !== "") {
             //if ($("#ContactProviderForm").valid()) {
             if (checkboxes[0].id == "SMS") {
-                toastr.error("SMS Service Is Not Available!")
-            } else if (checkboxes[0].id == "Email") {
                 $.ajax({
                     url: "/Admin/ContactProviderEmail",
-                    data: { phyId: physicianid, msg: msg },
+                    data: { phyId: physicianid, msg: msg, type: "sms" },
                     type: 'POST',
                     success: function (result) {
-                        toastr.success("Email Sent Successfully")
-                    },
-                    error: function () {
-                        alert("Error");
-                    },
-                });
-            } else if (checkboxes[0].id == "Both") {
-
-                toastr.error("SMS Service Is Not Available!")
-
-                $.ajax({
-                    url: "/Admin/ContactProviderEmail",
-                    data: { phyId: physicianid, msg: msg },
-                    type: 'POST',
-                    success: function (result) {
-                        if (result.isSend) {
-                            toastr.success("Email Sent Successfully");
-                            var button = document.getElementById("cancelContactProvider");
-                            button.click();
-                        }
-                        else {
-                            toastr.error("Something went wrong");
-                        }
+                        toastr.success("Sms Sent Successfully");
+                        var button = document.getElementById("cancelContactProvider");
+                        button.click();
                     },
                     error: function () {
                         alert("Error");
                     },
                 });
             }
+            else if (checkboxes[0].id == "Email") {
+                $.ajax({
+                    url: "/Admin/ContactProviderEmail",
+                    data: { phyId: physicianid, msg: msg, type: "email" },
+                    type: 'POST',
+                    success: function (result) {
+                        toastr.success("Email Sent Successfully");
+                        var button = document.getElementById("cancelContactProvider");
+                        button.click();
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+            }
+            else if (checkboxes[0].id == "Both") {
 
-            //}
+                $.ajax({
+                    url: "/Admin/ContactProviderEmail",
+                    data: { phyId: physicianid, msg: msg, type: "both" },
+                    type: 'POST',
+                    success: function (result) {
+                        if (result.isSend) {
+                            toastr.success("Email Sent Successfully");
+
+                        }
+                        if (result.isSmsSend) {
+                            toastr.success("Sms Sent Successfully");
+                        } else {
+                            toastr.error("Something went wrong");
+                        }
+                        var button = document.getElementById("cancelContactProvider");
+                        button.click();
+
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                });
+
+
+            }
         }
     }
 </script>

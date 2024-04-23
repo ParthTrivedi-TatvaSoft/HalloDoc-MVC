@@ -713,34 +713,35 @@ namespace DataAccess.CustomModels
 
     public class CreateAdminAccount
     {
-        [Required(ErrorMessage = "Username Is Required")]
-        [RegularExpression(@"^\S*$", ErrorMessage = "User Is Invalid.")]
+        [Required(ErrorMessage = "Username is required")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "User is invalid.")]
         public string? UserName { get; set; }
 
-        [Required(ErrorMessage = "Password Is Required")]
-     
+        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+    ErrorMessage = "8 characters long (one uppercase, one lowercase letter, one digit, and one special character.)")]
         public string? AdminPassword { get; set; }
 
 
         public short? Status { get; set; }
         public string? Role { get; set; }
 
-        [Required(ErrorMessage = "First Name Is Required")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First Name Should Contain Only Letters")]
+        [Required(ErrorMessage = "First Name is required")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name should contain only letters")]
         public string? FirstName { get; set; }
 
-        [Required(ErrorMessage = "Last Name Is Required")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last Name Should Contain Only Letters")]
+        [Required(ErrorMessage = "Last Name name is required")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name should contain only letters")]
         public string? LastName { get; set; }
 
 
-        [Required(ErrorMessage = "Phone Number Is Required")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number Must Be 10 Digits Long.")]
+        [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be 10 digits long.")]
         public string? AdminPhone { get; set; }
 
 
-        [Required(ErrorMessage = "Please Enter The Email Address.")]
-        [RegularExpression(@"^\S+@\S+\.\S{2,}$", ErrorMessage = "Please Enter A Valid Email Address.")]
+        [Required(ErrorMessage = "Please enter the email address.")]
+        [RegularExpression(@"^\S+@\S+\.\S{2,}$", ErrorMessage = "Please enter a valid email address.")]
         public string? Email { get; set; }
 
         [Compare("Email", ErrorMessage = "Email Missmatch")]
@@ -748,24 +749,27 @@ namespace DataAccess.CustomModels
         public List<Region>? RegionList { get; set; }
         public IEnumerable<int> AdminRegion { get; set; }
 
-        [RegularExpression(@"^\S.*$", ErrorMessage = "Address Is Invalid.")]
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Address is invalid.")]
         public string? Address1 { get; set; }
-        [RegularExpression(@"^\S.*$", ErrorMessage = "Address Is Invalid.")]
+        [RegularExpression(@"^\S.*$", ErrorMessage = "Address is invalid.")]
         public string? Address2 { get; set; }
-        [RegularExpression(@"^\S*$", ErrorMessage = "City Is Invalid.")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "City is invalid.")]
         public string? City { get; set; }
-        [RegularExpression(@"^\S*$", ErrorMessage = "State Is Invalid.")]
+        [RegularExpression(@"^\S*$", ErrorMessage = "State is invalid.")]
         public string? State { get; set; }
-        [RegularExpression(@"^\d{6}$", ErrorMessage = "Zipcode Must Be 6 Digits Long.")]
+        [RegularExpression(@"^\d{6}$", ErrorMessage = "Zipcode must be 6 digits long.")]
         public string? Zip { get; set; }
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number Must Be 10 Digits Long.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be 10 digits long.")]
         public string? BillingPhone { get; set; }
         public int[] RegionArray { get; set; }
 
-        [Required(ErrorMessage = "Role Is Required")]
+        [Required(ErrorMessage = "Role is required")]
         public int roleId { get; set; }
-        [Required(ErrorMessage = "Region Is Required")]
+        [Required(ErrorMessage = "Region is required")]
         public int regionId { get; set; }
+        public List<Role> roles { get; set; }
+        public List<AdminRegionTable> adminRegions { get; set; }
+        public List<Region> regions { get; set; }
     }
 
     public class UserAccess
@@ -776,9 +780,11 @@ namespace DataAccess.CustomModels
         public string? phone { get; set; }
         public short? status { get; set; }
         public int? openReq { get; set; }
+        public int? phyId { get; set; }
+        public int? adminId { get; set; }
     }
 
-    
+
     public class CheckBoxData
     {
         public int Id { get; set; }

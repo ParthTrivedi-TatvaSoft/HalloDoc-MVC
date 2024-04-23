@@ -236,32 +236,32 @@
 
     }
 
-        // $(document).ready(function () {
+        $(document).ready(function () {
 
-        //     $('#blcokHistoryTable').DataTable({
-        //         "initComplete": function (settings, json) {
+            $('#blcokHistoryTable').DataTable({
+                "initComplete": function (settings, json) {
 
-        //             $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+                    $('#my-search-input').val(settings.oPreviousSearch.sSearch);
 
-        //             $('#my-search-input').on('keyup', function () {
-        //                 var searchValue = $(this).val();
-        //                 settings.oPreviousSearch.sSearch = searchValue;
-        //                 settings.oApi._fnReDraw(settings);
-        //             });
-        //         },
-        //         "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-        //         "pageLength": 5,
-        //         // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
-        //         language: {
-        //             oPaginate: {
-        //                 sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
-        //                 sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+                    $('#my-search-input').on('keyup', function () {
+                        var searchValue = $(this).val();
+                        settings.oPreviousSearch.sSearch = searchValue;
+                        settings.oApi._fnReDraw(settings);
+                    });
+                },
+                "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+                "pageLength": 5,
+                // "columns": [{ "searchable": true }, { "searchable": false }, { "searchable": true }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }, { "searchable": false }],
+                language: {
+                    oPaginate: {
+                        sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                        sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
 
-        //             }
-        //         }
-        //     });
-        //     // $('.dataTables_length').hide();
-        //     $('.dataTables_filter').hide();
-        // });
+                    }
+                }
+            });
+            // $('.dataTables_length').hide();
+            $('.dataTables_filter').hide();
+        });
 
 </script>
