@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\BusinessLogic",
+    "\\BusinessLogic\\Services",
+    "\\DataAccess",
     "\\HalloDoc.mvc",
     "\\HalloDoc.mvc\\Views",
     "\\HalloDoc.mvc\\Views\\Admin"
   ],
-  "SelectedNode": "\\HalloDoc.mvc\\Views\\Admin\\_concluderequest.cshtml",
+  "SelectedNode": "\\BusinessLogic\\Services\\AdminService.cs",
   "PreviewInSolutionExplorer": false
 }
