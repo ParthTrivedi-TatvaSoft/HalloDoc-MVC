@@ -130,6 +130,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VkaXRwcm92aWRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Admin/_edituseraccessadmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VkaXR1c2VyYWNjZXNzYWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Admin/_edituseraccessphysician.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VkaXR1c2VyYWNjZXNzcGh5c2ljaWFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Admin/_emaillogs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VtYWlsbG9ncy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -390,16 +398,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BzZW5kYWdyZWVtZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Provider/_Psendlink.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BzZW5kbGluay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Provider/_Ptransferrequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B0cmFuc2ZlcnJlcXVlc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Provider/_Pviewcase.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B2aWV3Y2FzZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Provider/_Pviewnotes.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B2aWV3bm90ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/source/repos/HalloDoc-MVC/HalloDoc.mvc/Views/Provider/_Pviewshift.cshtml]

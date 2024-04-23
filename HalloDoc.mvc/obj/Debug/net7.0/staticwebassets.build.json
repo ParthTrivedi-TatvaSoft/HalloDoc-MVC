@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hW92Z+YzJAebw4Z6p3IqN9qFeZCocm5SXnardPrOnLE=",
+  "Hash": "GiluaYsJnEHEpSXMUeoUsNRjfJvlm0eFP6CsafC1grg=",
   "Source": "HalloDoc.mvc",
   "BasePath": "_content/HalloDoc.mvc",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "HalloDoc.mvc\\wwwroot",
       "Source": "HalloDoc.mvc",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "Pattern": "**"
     }
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\staticwebassets\\toastify.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\HalloDoc.mvc.styles.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\HalloDoc.mvc.styles.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "HalloDoc.mvc.styles.css",
       "AssetKind": "All",
@@ -109,13 +109,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\HalloDoc.mvc.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\bundle\\HalloDoc.mvc.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "HalloDoc.mvc.bundle.scp.css",
       "AssetKind": "All",
@@ -128,13 +128,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.mvc.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_dashboard.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/admin_dashboard.css",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\css\\admin_dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_login.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_login.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/admin_login.css",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\css\\admin_login.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_resetpassword.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\admin_resetpassword.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/admin_resetpassword.css",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\css\\admin_resetpassword.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\business_request.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\business_request.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/business_request.css",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\css\\business_request.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\concierge_request.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\concierge_request.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/concierge_request.css",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\css\\concierge_request.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\create_account.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\create_account.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/create_account.css",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\css\\create_account.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\darkmode.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/darkmode.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\css\\darkmode.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\forgot_password.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/forgot_password.css",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\css\\forgot_password.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\friendfamily_request.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\friendfamily_request.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/friendfamily_request.css",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\css\\friendfamily_request.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_dashboard.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/patient_dashboard.css",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\css\\patient_dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_login.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/patient_login.css",
       "AssetKind": "All",
@@ -359,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\css\\patient_login.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\patient_request.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/patient_request.css",
       "AssetKind": "All",
@@ -378,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\css\\patient_request.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\site.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -397,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\submit_request.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\submit_request.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/submit_request.css",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\css\\submit_request.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\user_profile.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\css\\user_profile.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "css/user_profile.css",
       "AssetKind": "All",
@@ -435,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\css\\user_profile.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\favicon.ico",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\11116016_415.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\11116016_415.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/11116016_415.jpg",
       "AssetKind": "All",
@@ -473,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\images\\11116016_415.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7768657_3763028.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7768657_3763028.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/7768657_3763028.jpg",
       "AssetKind": "All",
@@ -492,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\images\\7768657_3763028.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7774236_3736765.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\7774236_3736765.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/7774236_3736765.jpg",
       "AssetKind": "All",
@@ -511,10 +511,10 @@
       "OriginalItemSpec": "wwwroot\\images\\7774236_3736765.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\admin.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/admin.svg",
       "AssetKind": "All",
@@ -530,10 +530,10 @@
       "OriginalItemSpec": "wwwroot\\images\\admin.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\back.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\back.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/back.png",
       "AssetKind": "All",
@@ -549,10 +549,10 @@
       "OriginalItemSpec": "wwwroot\\images\\back.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\d1.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\d1.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/d1.png",
       "AssetKind": "All",
@@ -568,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\images\\d1.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\dark.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\dark.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/dark.png",
       "AssetKind": "All",
@@ -587,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\images\\dark.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/doctor.jpg",
       "AssetKind": "All",
@@ -606,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\images\\doctor.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\doctor.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/doctor.svg",
       "AssetKind": "All",
@@ -625,10 +625,10 @@
       "OriginalItemSpec": "wwwroot\\images\\doctor.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig Contact your Provider.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig Contact your Provider.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/Fig Contact your Provider.jpg",
       "AssetKind": "All",
@@ -644,10 +644,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Fig Contact your Provider.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig33. Month wise Scheduling.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\Fig33. Month wise Scheduling.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/Fig33. Month wise Scheduling.jpg",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Fig33. Month wise Scheduling.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\hallodoc.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/hallodoc.png",
       "AssetKind": "All",
@@ -682,10 +682,10 @@
       "OriginalItemSpec": "wwwroot\\images\\hallodoc.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\info.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\info.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/info.png",
       "AssetKind": "All",
@@ -701,10 +701,10 @@
       "OriginalItemSpec": "wwwroot\\images\\info.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\LesfImage.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\LesfImage.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/LesfImage.png",
       "AssetKind": "All",
@@ -720,10 +720,10 @@
       "OriginalItemSpec": "wwwroot\\images\\LesfImage.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\light.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\light.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/light.png",
       "AssetKind": "All",
@@ -739,10 +739,10 @@
       "OriginalItemSpec": "wwwroot\\images\\light.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\images\\transfer.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "images/transfer.svg",
       "AssetKind": "All",
@@ -758,10 +758,10 @@
       "OriginalItemSpec": "wwwroot\\images\\transfer.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\bootstrap.bundle.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -777,10 +777,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\js\\site.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -796,10 +796,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -815,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -834,10 +834,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -853,10 +853,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -872,10 +872,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -891,10 +891,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -910,10 +910,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -929,10 +929,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -948,10 +948,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -967,10 +967,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -1005,10 +1005,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -1024,10 +1024,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -1043,10 +1043,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -1062,10 +1062,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -1081,10 +1081,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -1100,10 +1100,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -1119,10 +1119,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -1138,10 +1138,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -1157,10 +1157,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -1176,10 +1176,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -1195,10 +1195,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -1233,10 +1233,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -1252,10 +1252,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -1271,10 +1271,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -1290,10 +1290,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -1328,10 +1328,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -1347,10 +1347,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -1366,10 +1366,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -1385,10 +1385,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -1404,10 +1404,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -1423,10 +1423,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -1442,10 +1442,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -1461,10 +1461,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -1480,10 +1480,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -1499,10 +1499,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -1518,10 +1518,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -1537,10 +1537,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -1556,10 +1556,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -1575,10 +1575,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -1594,10 +1594,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -1613,10 +1613,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -1632,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1651,10 +1651,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1670,10 +1670,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1689,10 +1689,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -1708,10 +1708,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -1727,10 +1727,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1746,10 +1746,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1765,10 +1765,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1784,10 +1784,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1803,10 +1803,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1822,10 +1822,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1841,10 +1841,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1860,10 +1860,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -1879,10 +1879,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianFiles/10/Independent_Contractor.pdf",
       "AssetKind": "All",
@@ -1898,10 +1898,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianFiles\\10\\Independent_Contractor.pdf"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\12\\Independent_Contractor.pdf",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\12\\Independent_Contractor.pdf",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianFiles/12/Independent_Contractor.pdf",
       "AssetKind": "All",
@@ -1917,10 +1917,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianFiles\\12\\Independent_Contractor.pdf"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/10/11116016_415.jpg",
       "AssetKind": "All",
@@ -1936,10 +1936,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\10\\11116016_415.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/11/7774236_3736765.jpg",
       "AssetKind": "All",
@@ -1955,10 +1955,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\11\\7774236_3736765.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\images.jfif",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\images.jfif",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/12/images.jfif",
       "AssetKind": "All",
@@ -1974,10 +1974,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\12\\images.jfif"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/2/transfer.svg",
       "AssetKind": "All",
@@ -1993,10 +1993,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\2\\transfer.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/4/7774236_3736765.jpg",
       "AssetKind": "All",
@@ -2012,10 +2012,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\4\\7774236_3736765.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\5\\LesfImage.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\5\\LesfImage.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/5/LesfImage.png",
       "AssetKind": "All",
@@ -2031,10 +2031,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\5\\LesfImage.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianImages/6/Fig33. Month wise Scheduling.jpg",
       "AssetKind": "All",
@@ -2050,10 +2050,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianImages\\6\\Fig33. Month wise Scheduling.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/11/7768657_3763028.jpg",
       "AssetKind": "All",
@@ -2069,10 +2069,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\11\\7768657_3763028.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/2/7768657_3763028.jpg",
       "AssetKind": "All",
@@ -2088,10 +2088,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\2\\7768657_3763028.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\2\\Screenshot (1).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/2/Screenshot (1).png",
       "AssetKind": "All",
@@ -2107,10 +2107,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\2\\Screenshot (1).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\4\\11116016_415.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\4\\11116016_415.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/4/11116016_415.jpg",
       "AssetKind": "All",
@@ -2126,10 +2126,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\4\\11116016_415.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/5/Fig1. Platform login page.jpg",
       "AssetKind": "All",
@@ -2145,10 +2145,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\5\\Fig1. Platform login page.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\6\\LesfImage.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\PhysicianSign\\6\\LesfImage.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "PhysicianSign/6/LesfImage.png",
       "AssetKind": "All",
@@ -2164,10 +2164,10 @@
       "OriginalItemSpec": "wwwroot\\PhysicianSign\\6\\LesfImage.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltoimage.exe",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "Rotativa/wkhtmltoimage.exe",
       "AssetKind": "All",
@@ -2183,10 +2183,10 @@
       "OriginalItemSpec": "wwwroot\\Rotativa\\wkhtmltoimage.exe"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\Rotativa\\wkhtmltopdf.exe",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "Rotativa/wkhtmltopdf.exe",
       "AssetKind": "All",
@@ -2202,10 +2202,10 @@
       "OriginalItemSpec": "wwwroot\\Rotativa\\wkhtmltopdf.exe"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\11116016_415.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/11116016_415.jpg",
       "AssetKind": "All",
@@ -2221,10 +2221,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\11116016_415.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/2/Independent_Contractor.svg",
       "AssetKind": "All",
@@ -2240,10 +2240,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\2\\Independent_Contractor.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7768657_3763028.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7768657_3763028.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/7768657_3763028.jpg",
       "AssetKind": "All",
@@ -2259,10 +2259,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\7768657_3763028.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/7774236_3736765.jpg",
       "AssetKind": "All",
@@ -2278,10 +2278,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\7774236_3736765.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2) (1).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2) (1).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin (1) (1) (2) (1).svg",
       "AssetKind": "All",
@@ -2297,10 +2297,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (1) (1) (2) (1).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1) (2).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin (1) (1) (2).svg",
       "AssetKind": "All",
@@ -2316,10 +2316,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (1) (1) (2).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1) (1).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin (1) (1).svg",
       "AssetKind": "All",
@@ -2335,10 +2335,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (1) (1).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (1).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin (1).svg",
       "AssetKind": "All",
@@ -2354,10 +2354,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (1).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (2).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin (2).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin (2).svg",
       "AssetKind": "All",
@@ -2373,10 +2373,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin (2).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\admin.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/admin.svg",
       "AssetKind": "All",
@@ -2392,10 +2392,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\admin.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (2).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (2).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back (2).png",
       "AssetKind": "All",
@@ -2411,10 +2411,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back (2).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (6).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (6).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back (6).png",
       "AssetKind": "All",
@@ -2430,10 +2430,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back (6).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (7).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (7).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back (7).png",
       "AssetKind": "All",
@@ -2449,10 +2449,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back (7).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (8).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (8).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back (8).png",
       "AssetKind": "All",
@@ -2468,10 +2468,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back (8).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (9).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back (9).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back (9).png",
       "AssetKind": "All",
@@ -2487,10 +2487,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back (9).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\back.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/back.png",
       "AssetKind": "All",
@@ -2506,10 +2506,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\back.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1 (3).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1 (3).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/d1 (3).png",
       "AssetKind": "All",
@@ -2525,10 +2525,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\d1 (3).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\d1.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/d1.png",
       "AssetKind": "All",
@@ -2544,10 +2544,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\d1.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\dark.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/dark.png",
       "AssetKind": "All",
@@ -2563,10 +2563,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\dark.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (1).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (1).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/doctor (1).svg",
       "AssetKind": "All",
@@ -2582,10 +2582,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor (1).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (3).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor (3).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/doctor (3).svg",
       "AssetKind": "All",
@@ -2601,10 +2601,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor (3).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/doctor.jpg",
       "AssetKind": "All",
@@ -2620,10 +2620,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\doctor.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/doctor.svg",
       "AssetKind": "All",
@@ -2639,10 +2639,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\doctor.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Fig Contact your Provider.jpg",
       "AssetKind": "All",
@@ -2658,10 +2658,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Fig1. Platform login page.jpg",
       "AssetKind": "All",
@@ -2677,10 +2677,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Fig1. Platform login page.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Fig26. Edit Physician Account.png",
       "AssetKind": "All",
@@ -2696,10 +2696,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Fig26. Edit Physician Account.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig38. View Shift.png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig38. View Shift.png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Fig38. View Shift.png",
       "AssetKind": "All",
@@ -2715,10 +2715,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Fig38. View Shift.png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Fig39. Provider Location.jpg",
       "AssetKind": "All",
@@ -2734,10 +2734,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Fig39. Provider Location.jpg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/HTML-Assignemnt-Assets.zip",
       "AssetKind": "All",
@@ -2753,10 +2753,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\HTML-Assignemnt-Assets.zip"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\images.jfif",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/images.jfif",
       "AssetKind": "All",
@@ -2772,10 +2772,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\images.jfif"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\myfile.txt",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/myfile.txt",
       "AssetKind": "All",
@@ -2791,10 +2791,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\myfile.txt"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Screenshot (1).png",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Screenshot (1).png",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Screenshot (1).png",
       "AssetKind": "All",
@@ -2810,10 +2810,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\Screenshot (1).png"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer (1).svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer (1).svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/transfer (1).svg",
       "AssetKind": "All",
@@ -2829,10 +2829,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\transfer (1).svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\transfer.svg",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/transfer.svg",
       "AssetKind": "All",
@@ -2848,10 +2848,10 @@
       "OriginalItemSpec": "wwwroot\\UploadedFiles\\transfer.svg"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Updated-Training-Plan-20March24.pdf",
+      "Identity": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Updated-Training-Plan-20March24.pdf",
       "SourceId": "HalloDoc.mvc",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\wwwroot\\",
       "BasePath": "_content/HalloDoc.mvc",
       "RelativePath": "UploadedFiles/Updated-Training-Plan-20March24.pdf",
       "AssetKind": "All",

@@ -3683,9 +3683,10 @@ namespace BusinessLogic.Services
 
             try
             {
-                var accountSid = "ACf12e071785de9c3df629908fa2d50d2d";
-                var authToken = "b6206f17621e5657f12d9b7972f6c126";
-                var twilionumber = "+12564195331";
+                var accountSid = "";
+                var authToken = "";
+                var twilionumber = "";
+
 
                 var messageBody = $"Hello {provider.Firstname} {provider.Lastname},\n {msg} \n\n\nRegards,\n(HelloDoc Admin)";
 
@@ -3721,7 +3722,7 @@ namespace BusinessLogic.Services
                 return false;
             }
         }
-            public void SendAndSaveProviderEmail(string provider, string msg, int phyId, string tokenEmail)
+        public void SendAndSaveProviderEmail(string provider, string msg, int phyId, string tokenEmail)
             {
                 string senderEmail = "tatva.dotnet.parthtrivedi@outlook.com";
                 string senderPassword = "Parth@70160";

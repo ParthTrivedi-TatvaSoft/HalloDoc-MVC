@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hyqYmsovt+hkz/X+OBRgb/rnVFYKHaBFQd6CEo1+acoXdSVY0qcmi35/KhWbobxplKqrhU2jvJY4sxMI/A2gaA==",
+  "dgSpecHash": "IUHb/DpsmD1r0F5tWgEQij5COia8yG0Yj7KmgBwJw+iH9XdP6ziJcu1G2+5EytevKJE2Z9Kq3TeY8ADwXyzqgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Source\\Repos\\HalloDoc-MVC\\BusinessLogic\\BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\BusinessLogic\\BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\epplus\\7.1.1\\epplus.7.1.1.nupkg.sha512",
