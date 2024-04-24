@@ -168,7 +168,7 @@
 
     function editAdminPostFor() {
 
-        if ($('#EditAdminAccountForm').valid()) {
+       
             var payload = $("#EditAdminAccountForm").serializeArray();
             $.ajax({
                 url: "/Admin/EditAdminAccount",
@@ -177,10 +177,10 @@
                 success: function (response) {
                     if (response.isEdited) {
                         toastr.success("Admin Edited Successfully");
-                        showUserAccess();
+                        UserAccess();
                     }
                     else {
-                        toastr.error("Something went wrong");
+                        toastr.error("Something Went Wrong");
                     }
                 },
 
@@ -192,7 +192,7 @@
                     console.error(error);
                 }
             });
-        }
+        
 
 
     }

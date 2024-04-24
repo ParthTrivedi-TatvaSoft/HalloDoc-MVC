@@ -22,9 +22,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-//using Microsoft.EntityFrameworkCore.Metadata;
-//using Twilio;
-//using Twilio.Rest.Api.V2010.Account;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+
 
 namespace BusinessLogic.Services
 {
@@ -2462,6 +2463,7 @@ namespace BusinessLogic.Services
             return query;
         }
 
+
         public bool EditAdminDetailsDb(CreateAdminAccount model, string email, List<int> adminRegions)
         {
             if (_db.Admins.Where(x => x.Adminid == model.adminId).Any())
@@ -3567,7 +3569,9 @@ namespace BusinessLogic.Services
                     sd.Shiftdate == today &&
                     currentTime >= sd.Starttime &&
                     currentTime <= sd.Endtime &&
-                    sd.Isdeleted.Equals(deletedBit)) && p.Isdeleted == null).ToList();
+                    sd.Isdeleted.Equals(deletedBit)) && p.Isdeleted.Equals(deletedBit)).ToList();
+
+
             var onCallModal = new OnCallModal
             {
                 OnCall = onDutyQuery,
@@ -3683,9 +3687,9 @@ namespace BusinessLogic.Services
 
             try
             {
-                var accountSid = "";
-                var authToken = "";
-                var twilionumber = "";
+                var accountSid = "ACf12e071785de9c3df629908fa2d50d2d";
+                var authToken = "b6206f17621e5657f12d9b7972f6c126";
+                var twilionumber = "+12564195331";
 
 
                 var messageBody = $"Hello {provider.Firstname} {provider.Lastname},\n {msg} \n\n\nRegards,\n(HelloDoc Admin)";

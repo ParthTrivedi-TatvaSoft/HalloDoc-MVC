@@ -1,0 +1,17 @@
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\BusinessLogic.deps.json
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\BusinessLogic.dll
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\BusinessLogic.pdb
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\DataAccess.dll
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.AssemblyReference.cache
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.AssemblyInfoInputs.cache
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.AssemblyInfo.cs
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.CoreCompileInputs.cache
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.csproj.CopyComplete
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.dll
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\refint\BusinessLogic.dll
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.pdb
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\ref\BusinessLogic.dll
+D:\HalloDoc Platform\Assignment\BusinessLogic\bin\Debug\net7.0\BusinessLogic.runtimeconfig.json
+D:\HalloDoc Platform\Assignment\BusinessLogic\obj\Debug\net7.0\BusinessLogic.genruntimeconfig.cache

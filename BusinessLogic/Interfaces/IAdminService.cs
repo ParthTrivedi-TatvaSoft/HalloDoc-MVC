@@ -97,10 +97,9 @@ namespace BusinessLogic.Interfaces
         List<ProviderModel> GetProvider();
         List<ProviderModel> GetProviderByRegion(int regionId);
 
-        //ProviderModel ProviderContact(int phyId);
         public bool StopNotification(int phyId);
 
-        bool ProviderContactEmail(int phyIdMain, string msg, string tokenEmail);
+        bool ProviderContactEmail(int phyId, string msg, string tokenEmail);
         bool ProviderContactSms(int phyId, string msg, string tokenEmail);
 
         EditProviderModel EditProviderProfile(int phyId, string tokenEmail);

@@ -1019,9 +1019,9 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult EditUserAccessAdmin(int adminid)
         {
             CreateAdminAccount data = new();
-            //data._providerEdit = _IAdminDash.adminEditPage(adminId);
+            data = _adminService.adminEditPage(adminid);
             data.adminRegions = _adminService.AdminRegionTableById(adminid);
-            data.regions = _adminService.RegionTable();
+            data.RegionList = _adminService.RegionTable();
             data.roles = _adminService.GetAdminRoles();
 
             return View("_edituseraccessadmin", data);

@@ -7,8 +7,7 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="mb-4">MDs On Call</h4>
-        @*         <button onclick="ShowScheduling()" id="back-btn">&lt; Back</button>
-        *@
+       
     </div>
 
 
@@ -30,7 +29,7 @@
                 Calendar View
             </button>
             <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="ShiftReview()">
-                Shift for
+                Shift For
                 Review
             </button>
 
@@ -99,13 +98,13 @@
     function GetScheduling() {
         $.ajax({
             method: "GET",
-            url: "/Admin/GetScheduling",
+            url: "/adminDashboard/GetScheduling",
             success: function (res) {
                 $("#provider-tab-pane").html(res);
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
+                Swal.fire("Oops!", "Something is Wrong !!!", "error");
             },
         });
     }
@@ -121,7 +120,7 @@
             },
 
             error: function () {
-                Swal.fire("Oops!", "Something Is Wrong !!!", "error");
+                Swal.fire("Oops!", "Something is Wrong !!!", "error");
             },
         });
     }

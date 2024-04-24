@@ -12268,24 +12268,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\pct110\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\HalloDoc.mvc.csproj",
+      "projectUniqueName": "D:\\HalloDoc Platform\\HalloDoc.mvc\\HalloDoc.mvc.csproj",
       "projectName": "HalloDoc.mvc",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\HalloDoc.mvc.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\HalloDoc.mvc\\obj\\",
+      "projectPath": "D:\\HalloDoc Platform\\HalloDoc.mvc\\HalloDoc.mvc.csproj",
+      "packagesPath": "C:\\Users\\pct110\\.nuget\\packages\\",
+      "outputPath": "D:\\HalloDoc Platform\\HalloDoc.mvc\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\pct110\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12293,18 +12288,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\BusinessLogic\\BusinessLogic.csproj"
+            "D:\\HalloDoc Platform\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "D:\\HalloDoc Platform\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\Admin\\source\\repos\\HalloDoc-MVC\\DataAccess\\DataAccess.csproj"
+            "D:\\HalloDoc Platform\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\HalloDoc Platform\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -12379,7 +12373,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

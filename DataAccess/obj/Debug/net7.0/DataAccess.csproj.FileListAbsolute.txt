@@ -55,3 +55,17 @@ D:\HalloDoc-MVC\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
 D:\HalloDoc-MVC\DataAccess\obj\Debug\net7.0\DataAccess.pdb
 D:\HalloDoc-MVC\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
 D:\HalloDoc-MVC\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
+D:\HalloDoc Platform\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+D:\HalloDoc Platform\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+D:\HalloDoc Platform\DataAccess\bin\Debug\net7.0\DataAccess.dll
+D:\HalloDoc Platform\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.dll
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+D:\HalloDoc Platform\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll

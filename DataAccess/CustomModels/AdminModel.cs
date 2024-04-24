@@ -732,7 +732,7 @@ namespace DataAccess.CustomModels
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name should contain only letters")]
         public string? FirstName { get; set; }
 
-        [Required(ErrorMessage = "Last Name name is required")]
+        [Required(ErrorMessage = "Last Name  is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name should contain only letters")]
         public string? LastName { get; set; }
 
@@ -1036,7 +1036,6 @@ namespace DataAccess.CustomModels
         public List<Shiftdetail> shiftdetails { get; set; }
 
     }
-
 
     public class ProviderOnCall
     {

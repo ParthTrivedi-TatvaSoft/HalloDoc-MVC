@@ -1,0 +1,163 @@
+﻿@using DataAccess.CustomModels;
+@model List<Records>;
+
+<div class="container">
+    <div class="container d-flex justify-content-between mt-4">
+        <h4>
+            EMS Records
+        </h4>
+        <button  style="width:150px" id="back-btn" onclick="AddEmployee()">
+            Add Employee
+        </button>
+    </div>
+
+
+    <div class="border rounded shadow p-3 bg-white dark-mode1">
+        <div class="d-md-flex w-25 justify-content-start align-items-center mb-3">
+        </div>
+        <div class="table-responsive d-lg-block d-none">
+            <table class="table" id="usertable">
+                <thead class="bg-body-tertiary ">
+                <thead>
+                    <tr>
+                        <th>Id<span><i class="bi bi-arrow-up bg-transparent"></i></span></th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>Education</th>
+                        <th>Company</th>
+                        <th>Experience</th>
+                        <th>Package</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr class="align-middle">
+                            <td>
+                                   
+                            </td>
+                            <td>
+                                    @item.firstname
+                            </td>
+                            <td>
+                                    @item.lastname
+                            </td>
+                            <td>
+                                    @item.email
+                            </td>
+                            <td>
+                                    @item.age
+                            </td>
+                            <td>
+                                   -
+
+                            </td>
+                            <td>
+                                    @item.departmentname
+                            </td>
+                            <td>
+                                    @item.education
+                            </td>
+                        
+                            <td>
+                                    @item.company
+                            </td>
+                            <td>
+                                    @item.experience
+                            </td>
+                            <td>
+                                    @item.package
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-dark" onclick="editemployeerecord(@item.employeeid)">Edit</button>
+                                <button type="button" class="btn btn-danger" onclick="deleterecord(@item.employeeid)">Delete</button>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+
+               
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="modelContent" />
+
+<script>
+
+    function deleterecord(employeeid) {
+        $.ajax({
+            url: "/Home/DeleteRecord",
+            data: { employeeid: employeeid },
+            type: 'GET',
+            success: function (result) {
+                if (result.isDeleted == true) {
+
+                    toastr.success("Employee Deleted Successfully");
+                    window.location.reload();
+                   
+                }
+                else {
+                    toastr.error("Something Went Wrong");
+                    
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Error Fetching Request')
+            },
+        });
+    }
+
+    function editemployeerecord(employeeid) {
+
+        $.ajax({
+            url: "/Home/EditEmployeeRecord",
+            method: 'GET',
+            data: { employeeid: employeeid },
+            success: function (response) {
+
+                $("#modelContent").html(response);
+                $('#sendLinkPopUpOne').modal('show');
+
+                
+
+            },
+            error: function (error) {
+                console.error('Error fetching data: ' + error);
+            }
+        });
+    }
+
+    function AddEmployee() {
+        $.ajax({
+            url: '/Home/AddEmployee',
+            type: 'GET',
+            success: function (response) {
+                $("#modelContent").html(response);
+                $('#sendLinkPopUpOne').modal('show');
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 401) {
+
+                    window.location.reload();
+                }
+                console.error(error);
+            }
+        })
+    }
+
+
+   
+
+
+</script>                                            
