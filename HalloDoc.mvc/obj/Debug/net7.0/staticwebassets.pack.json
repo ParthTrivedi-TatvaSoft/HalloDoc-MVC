@@ -13,6 +13,26 @@
       "PackagePath": "staticwebassets\\PhysicianFiles\\12\\Independent_Contractor.pdf"
     },
     {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\13\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\13\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\14\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\14\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\15\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\15\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\16\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\16\\Independent_Contractor.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianFiles\\2\\Independent_Contractor.pdf",
+      "PackagePath": "staticwebassets\\PhysicianFiles\\2\\Independent_Contractor.pdf"
+    },
+    {
       "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\10\\11116016_415.jpg",
       "PackagePath": "staticwebassets\\PhysicianImages\\10\\11116016_415.jpg"
     },
@@ -21,8 +41,28 @@
       "PackagePath": "staticwebassets\\PhysicianImages\\11\\7774236_3736765.jpg"
     },
     {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\back.png",
+      "PackagePath": "staticwebassets\\PhysicianImages\\12\\back.png"
+    },
+    {
       "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\12\\images.jfif",
       "PackagePath": "staticwebassets\\PhysicianImages\\12\\images.jfif"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\13\\back.png",
+      "PackagePath": "staticwebassets\\PhysicianImages\\13\\back.png"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\14\\info.png",
+      "PackagePath": "staticwebassets\\PhysicianImages\\14\\info.png"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\15\\back (1).png",
+      "PackagePath": "staticwebassets\\PhysicianImages\\15\\back (1).png"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\16\\admin (2).svg",
+      "PackagePath": "staticwebassets\\PhysicianImages\\16\\admin (2).svg"
     },
     {
       "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\PhysicianImages\\2\\transfer.svg",
@@ -87,6 +127,18 @@
     {
       "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\7774236_3736765.jpg",
       "PackagePath": "staticwebassets\\UploadedFiles\\7774236_3736765.jpg"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Assignment 1-EMS.pdf",
+      "PackagePath": "staticwebassets\\UploadedFiles\\Assignment 1-EMS.pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\EncounterForm (2).pdf",
+      "PackagePath": "staticwebassets\\UploadedFiles\\EncounterForm (2).pdf"
+    },
+    {
+      "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\EncounterForm (3).pdf",
+      "PackagePath": "staticwebassets\\UploadedFiles\\EncounterForm (3).pdf"
     },
     {
       "Id": "D:\\HalloDoc Platform\\HalloDoc.mvc\\wwwroot\\UploadedFiles\\Fig Contact your Provider.jpg",

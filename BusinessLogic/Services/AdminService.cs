@@ -3243,21 +3243,21 @@ namespace BusinessLogic.Services
             };
             if (regionid != 0 && status != 0)
             {
-                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && (m.Status == status && m.Isdeleted.Equals(deletedBit))).ToList();
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift.Physician).Where(m => m.Regionid == regionid && (m.Status == status && m.Isdeleted.Equals(deletedBit))).ToList();
             }
             else if (regionid != 0)
             {
-                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Isdeleted.Equals(deletedBit)).ToList();
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift.Physician).Where(m => m.Regionid == regionid && m.Isdeleted.Equals(deletedBit)).ToList();
 
             }
             else if (status != 0)
             {
-                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status && m.Isdeleted.Equals(deletedBit)).ToList();
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift.Physician).Where(m => m.Status == status && m.Isdeleted.Equals(deletedBit)).ToList();
 
             }
             else
             {
-                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift).Where(x => x.Isdeleted.Equals(deletedBit)).ToList();
+                month.shiftdetails = _db.Shiftdetails.Include(u => u.Shift.Physician).Where(x => x.Isdeleted.Equals(deletedBit)).ToList();
             }
             return month;
         }

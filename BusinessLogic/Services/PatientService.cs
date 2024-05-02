@@ -92,6 +92,12 @@ namespace BusinessLogic.Services
                     user.Createddate = DateTime.Now;
                     _db.Users.Add(user);
                     _db.SaveChanges();
+
+                    Aspnetuserrole aspnetuserrole = new Aspnetuserrole();
+                    aspnetuserrole.Userid = asp.Id;
+                    aspnetuserrole.Roleid = (int)AspNetRole.user;
+                    _db.Aspnetuserroles.Add(aspnetuserrole);
+                    _db.SaveChanges();
                 }
                 else
                 {
@@ -766,25 +772,25 @@ namespace BusinessLogic.Services
 
         public Profile GetProfile(int userid)
         {
-
             var user = _db.Users.FirstOrDefault(x => x.Userid == userid);
-            Profile profile = new()
+            Profile profile = new();
+
+            profile.FirstName = user.Firstname ?? null;
+            profile.LastName = user.Lastname ?? null;
+            profile.Email = user.Email;
+            profile.PhoneNo = user.Mobile ?? null;
+            profile.State = user.State ?? null;
+            profile.City = user.City ?? null;
+            profile.Street = user.Street ?? null;
+            profile.ZipCode = user.Zipcode ?? null;
+            if (user.Intdate != null && user.Strmonth != null && user.Intyear != null)
             {
-                FirstName = user.Firstname,
-                LastName = user.Lastname,
-                Email = user.Email,
-                PhoneNo = user.Mobile,
-                State = user.State,
-                City = user.City,
-                //isMobileCheck = user.Ismobile[0] ? 1 : 0,
-                Street = user.Street,
-                ZipCode = user.Zipcode,
-                //DateOfBirth = new Da(user.Intyear, user.Strmonth, user.Intdate)
 
-               DateOfBirth = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
+                profile.DateOfBirth = new DateTime(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate));
+            }
+            profile.userId = userid;
 
 
-        };
             return profile;
         }
 

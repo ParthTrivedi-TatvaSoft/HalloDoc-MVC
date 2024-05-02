@@ -905,6 +905,7 @@ namespace HalloDoc.mvc.Controllers
         public IActionResult editProviderDeleteAccount(int phyId)
         {
             _adminService.editProviderDeleteAccount(phyId);
+            _notyf.Success("Account Deleted Successfully");
             return Ok();
         }
 

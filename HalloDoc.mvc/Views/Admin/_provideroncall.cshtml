@@ -7,14 +7,15 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="mb-4">MDs On Call</h4>
-       
+        @*         <button onclick="ShowScheduling()" id="back-btn">&lt; Back</button>
+        *@
     </div>
 
 
     <div class="d-flex justify-content-between align-items-center mb-3 mt-2">
         <form role="search" class="d-flex align-items-center border border-rounded rounded border-info mb-3">
             <i type="search" class="bi bi-search px-2 text-black" style="position: absolute;"></i>
-            <select class="form-select border-0 regionDropdown ps-5" id="MDsRegion" aria-label="Default select example" onchange="GetOnCall(this.value)">
+            <select class="form-select border-0 regionDropdown ps-5" id="MDsRegion" aria-label="Default select example" onchange="ShiftReview(this.value)">
                 <option value="0">All Region</option>
                 @foreach (var obj in Model.regions.ToList())
                 {
@@ -29,7 +30,7 @@
                 Calendar View
             </button>
             <button type="button" class="btn btn-info text-light d-md-block d-none" onclick="ShiftReview()">
-                Shift For
+                Shift for
                 Review
             </button>
 
@@ -51,7 +52,7 @@
                         else
                         {
                             <div class="me-2 text-center" style="width:40px;height:40px">
-                                <img class="w-100 h-100 border rounded-5" src="~/PhysicianImages/@oncall.Physicianid/ProfilePhoto.jpg" />
+                                <img class="w-100 h-100 border rounded-5" src="~/PhysicianImages/@oncall.Physicianid/@oncall.Photo" />
                             </div>
                         }
                         <div>Dr @oncall.Firstname</div>
@@ -81,7 +82,7 @@
                         else
                         {
                             <div class="me-2 text-center" style="width:40px;height:40px">
-                                <img class="w-100 h-100 border rounded-5" src="~/PhysicianImages/@offduty.Physicianid/ProfilePhoto.jpg" />
+                                <img class="w-100 h-100 border rounded-5" src="~/PhysicianImages/@offduty.Physicianid/@offduty.Photo" />
                             </div>
                         }
                         <div>Dr @offduty.Firstname</div>

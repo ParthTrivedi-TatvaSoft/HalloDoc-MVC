@@ -32,7 +32,7 @@
                         <i class="bi bi-plus-square"></i>
                         <span class="d-none d-lg-block ps-2">Providers On Call</span>
                     </button>
-                    <button onclick="ShiftReview()" class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center">
+                    <button onclick="ShiftReview(0)" class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center">
                         <i class="bi bi-plus-square"></i>
                         <span class="d-none d-lg-block ps-2">Shifts For Review</span>
                     </button>
@@ -402,12 +402,12 @@
             }
         });
     }
-    function ShiftReview() {
+    function ShiftReview(regionId, callId) {
 
         $.ajax({
             url: "/Admin/ShiftReview",
             type: "GET",
-
+            data: { regionId:regionId, callId:callId },
             success: function (data) {
                 $("#provider-tab-pane").html(data);
             },

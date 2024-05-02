@@ -819,13 +819,13 @@
         }
     }
 
-    function DeletePhysicianAccount(phyId) {
+   function DeletePhysicianAccount(phyId) {
         $.ajax({
             url: "/Admin/editProviderDeleteAccount",
             type: 'POST',
             data: { phyId: phyId },
             success: function (result) {
-                showProvider();
+                ShowProvider();
                 toastr.success("Account Deleted Successfully");
             },
             error: function () {

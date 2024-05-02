@@ -29,7 +29,7 @@
     <div class=" mt-2 d-flex justify-content-between align-items-center">
         <h4>Create Provider Account</h4>
         <button onclick="ShowProvider()"
-                class=" dark-mode1 btn shadow  btn-outline-info px-3 ">
+                class="btn shadow  btn-outline-info px-3 ">
             &#60; Back
         </button>
     </div>
@@ -466,7 +466,7 @@
 
                         success: function (result) {
                             if (result.flag == "done") {
-                                showProvider();
+                                ShowProvider();
                                 toastr.success("Account Created Successfully");
                             } else if (result.flag == "email") {
                                 toastr.error("Email Already Exists!!");
