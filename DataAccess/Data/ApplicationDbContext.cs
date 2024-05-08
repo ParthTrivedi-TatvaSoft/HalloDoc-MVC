@@ -46,6 +46,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Orderdetail> Orderdetails { get; set; }
 
+    public virtual DbSet<Payrate> Payrates { get; set; }
+
     public virtual DbSet<Physician> Physicians { get; set; }
 
     public virtual DbSet<Physicianlocation> Physicianlocations { get; set; }
@@ -87,6 +89,10 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Smslog> Smslogs { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Weeklytimesheet> Weeklytimesheets { get; set; }
+
+    public virtual DbSet<Weeklytimesheetdetail> Weeklytimesheetdetails { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -728,6 +734,20 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Vendor).WithMany(p => p.Orderdetails)
                 .HasForeignKey(d => d.Vendorid)
                 .HasConstraintName("fk_orderdetails");
+        });
+
+        modelBuilder.Entity<Payrate>(entity =>
+        {
+            entity.HasKey(e => e.PayRateId).HasName("PayRate_pkey");
+
+            entity.ToTable("payrate");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.Payrates)
+                .HasForeignKey(d => d.PhysicianId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("phyrate_physicianid_fk");
         });
 
         modelBuilder.Entity<Physician>(entity =>
@@ -1636,6 +1656,43 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Region).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Regionid)
                 .HasConstraintName("fk_users2");
+        });
+
+        modelBuilder.Entity<Weeklytimesheet>(entity =>
+        {
+            entity.HasKey(e => e.TimeSheetId).HasName("WeeklyTimeSheet_pkey");
+
+            entity.ToTable("weeklytimesheet");
+
+            entity.Property(e => e.AdminNote).HasColumnType("character varying");
+            entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.Weeklytimesheets)
+                .HasForeignKey(d => d.AdminId)
+                .HasConstraintName("WeeklyTimeSheet_AdminId_fkey");
+
+            entity.HasOne(d => d.PayRate).WithMany(p => p.Weeklytimesheets)
+                .HasForeignKey(d => d.PayRateId)
+                .HasConstraintName("WeeklyTimeSheet_PayRateId_fkey");
+
+            entity.HasOne(d => d.Provider).WithMany(p => p.Weeklytimesheets)
+                .HasForeignKey(d => d.ProviderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("WeeklyTimeSheet_ProviderId_fkey");
+        });
+
+        modelBuilder.Entity<Weeklytimesheetdetail>(entity =>
+        {
+            entity.HasKey(e => e.TimeSheetDetailId).HasName("WeeklyTimeSheetDetail_pkey");
+
+            entity.ToTable("weeklytimesheetdetail");
+
+            entity.Property(e => e.Bill).HasMaxLength(100);
+            entity.Property(e => e.Item).HasMaxLength(100);
+
+            entity.HasOne(d => d.TimeSheet).WithMany(p => p.Weeklytimesheetdetails)
+                .HasForeignKey(d => d.TimeSheetId)
+                .HasConstraintName("WeeklyTimeSheetDetail_TimeSheetId_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

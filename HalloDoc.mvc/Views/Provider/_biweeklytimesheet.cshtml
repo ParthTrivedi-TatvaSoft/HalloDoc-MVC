@@ -1,0 +1,292 @@
+﻿@using DataAccess.CustomModels;
+@model InvoicingViewModel;
+
+@* @{
+    @if (Model.isAdminSide == true)
+    {
+        Layout = "~/Views/Shared/AdminDashboardLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/ProviderDashboardLayout.cshtml";
+    }
+} *@
+
+<div class="head5">
+    <div style="display: flex; align-items: center;">
+    </div>
+    <div class="backbtn">
+        @if (Model.isAdminSide == true)
+        {
+            <a onclick="Invoicing()" class="btn shadow  btn-outline-info px-3 ">
+                <i class="fa-solid fa-angle-left fs-6"></i> Back
+            </a>
+        }
+        else
+        {
+            <a onclick="InvoicingMain()" class="btn shadow  btn-outline-info px-3 ">
+                <i class="fa-solid fa-angle-left fs-6"></i> Back
+            </a>
+        }
+    </div>
+</div>
+<form method="post" enctype="multipart/form-data" id="BiWeeklyForm">
+    <input type="hidden" asp-for="startDate" value="@Model.startDate">
+    <input type="hidden" asp-for="endDate" value="@Model.endDate">
+    <input type="hidden" asp-for="PhysicianId" />
+    <div class="outerbox2">
+        <table class="table">
+
+            <tr style="background-color: rgba(160, 160, 160, 0.137);">
+                <td width="10%" class="ViewUploadtd">Date</td>
+                <td width="10%" class="ViewUploadtd">On-Call Hours</td>
+                <td width="15%" class="ViewUploadtd">Total Hours</td>
+                <td width="10%" class="ViewUploadtd">Weekend / Holiday</td>
+                <td width="20%" class="ViewUploadtd">Number Of HouseCalls</td>
+                <td width="20%" class="ViewUploadtd">Number Of PhoneConsults</td>
+                @if (Model.isAdminSide == true)
+                {
+                    <td class="ViewUploadtd">Total</td>
+                }
+            </tr>
+            @for (int i = 0; i <= Model.differentDays; i++)
+            {
+                <tr>
+                    <input type="hidden" value="@Model.PhysicianId" id="physicianId" />
+                    <td class="ViewUploadtd">@Model.startDate.AddDays(i)<input type="hidden" asp-for="timesheets[i].Date" value="@Model.startDate.AddDays(i)"></td>
+                    <td class="ViewUploadtd">@Model.timesheets[i].OnCallhours</td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="timesheets[i].TotalHours" /></td>
+                    <td class="ViewUploadtd"><input type="checkbox" asp-for="timesheets[i].Weekend" /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="timesheets[i].NumberOfHouseCall" /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="timesheets[i].NumberOfPhoneConsults" /></td>
+                    @if (Model.isAdminSide == true)
+                    {
+                        <td class="ViewUploadtd"></td>
+                    }
+                </tr>
+            }
+            @if (Model.isAdminSide == true)
+            {
+                <tr>
+                    <td class="ViewUploadtd">Payrate</td>
+                    <td class="ViewUploadtd"></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="shiftPayrate" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="weekendPayrate" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="HouseCallPayrate" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="phoneConsultPayrate" disabled /></td>
+                    <td class="ViewUploadtd"></td>
+                </tr>
+                <tr>
+                    <td class="ViewUploadtd">Invoice Total</td>
+                    <td class="ViewUploadtd"></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="shiftTotal" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="weekendTotal" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="HouseCallTotal" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="phoneconsultTotal" disabled /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="GrandTotal" disabled /></td>
+                </tr>
+            }
+        </table>
+        <div class="d-flex gap-2 justify-content-end mb-3" style="padding-left:15%;">
+            <button class="btn btn-info text-white submit" type="button" onclick="BiWeeklyTimeSubmit()" name="command" value="Submit">Submit</button>
+        </div>
+    </div>
+    <div class="d-flex gap-2 justify-content-start mb-3 mt-3" style="padding-left:8%;">
+        <button onclick="toggleDivVisibility()" class="btn btn-info text-white" type="button">Add Recipts</button>
+    </div>
+    <div class="outerbox2" id="ReciptsDiv" style="display:none">
+        <table class="table">
+
+            <tr style="background-color: rgba(160, 160, 160, 0.137);">
+                <td width="10%" class="ViewUploadtd">Date</td>
+                <td width="15%" class="ViewUploadtd">Item</td>
+                <td width="15%" class="ViewUploadtd">Amount</td>
+                <td width="40%" class="ViewUploadtd ps-4" style="width:38%!important;text-align:center;">Bill</td>
+                <td width="20%" class="ViewUploadtd">Action</td>
+            </tr>
+            @for (int i = 0; i <= Model.differentDays; i++)
+            {
+                <tr>
+                    <td class="ViewUploadtd">@Model.startDate.AddDays(i)</td>
+                    <td class="ViewUploadtd"><input type="text" asp-for="timesheets[i].Items" /></td>
+                    <td class="ViewUploadtd"><input type="number" asp-for="timesheets[i].Amount" /></td>
+                    <td class="ViewUploadtd">
+                        @if (Model.timesheets[i].BillName == null && Model.isAdminSide == false)
+                        {
+                            <div class="input-group w-75 m-auto ps-4">
+                                <input asp-for="timesheets[i].BillName" type="text" id="file-input-@i" class="form-control pe-0" placeholder="Select File"
+                                       style="border-right: none !important; height:58px !important" aria-label="Recipient's username" disabled
+                                       aria-describedby="basic-addon2" />
+                                <div class="input-group-append">
+                                    <label for="uploadbtn-@i" class="btn btn-info text-white uploadbtn py-2" style="height: 100%;display: flex;align-items: center;">
+                                        <i class="bi bi-cloud-upload me-1"></i>
+                                        <span class="up">Upload</span>
+                                        <input asp-for="timesheets[i].Bill" type="file" id="uploadbtn-@i" style="display: none;" class="enabled3" onchange="FileUpload(@i)">
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        else if (Model.isAdminSide == true && Model.timesheets[i].BillName == null)
+                        {
+                            <div class="input-group w-75 m-auto">
+                                <input type="text" disabled class="m-auto" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="w-100 m-auto" style="text-align:center;">@Model.timesheets[i].BillName</div>
+                        }
+                    </td>
+                    <td class="ViewUploadtd">
+                        @if (Model.timesheets[i].BillName == null)
+                        {
+                            <span>-</span>
+                        }
+                        else
+                        {
+                            <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
+                            if (Model.isAdminSide == false)
+                            {
+                                <button type="button" class="submit1 btn shadow  btn-outline-info px-3" onclick="DeleteBill('@Model.timesheets[i].WeeklyTimesheetDeatilsId','@Model.startDate','@Model.endDate')">Delete</button>
+                            }
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    @if (Model.IsFinalized == true && Model.isAdminSide == false)
+    {
+        <div class="d-flex gap-2 justify-content-end mb-3 mt-3" style="padding-right:15%;">
+            <button onclick="FinalizeTimeSheet(@Model.TimeSheetId)" class="btn btn-info text-white" type="button">Finalize</button>
+        </div>
+    }
+    @if (Model.isAdminSide == true)
+    {
+        <div class="m-auto py-3 d-flex justify-content-end" style="width:84%; gap:10px">
+            <div class="">
+                <div class="form-floating">
+                    <input asp-for="BonusAmount" type="number" class="form-control" id="floatingInput" placeholder="">
+                    <label for="floatingInput">Bonus Amount</label>
+                    <span asp-validation-for="BonusAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-floating">
+                    <input asp-for="AdminNotes" type="text" class="form-control" id="floatingInput" placeholder="">
+                    <label for="floatingInput">Description</label>
+                    <span asp-validation-for="AdminNotes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="submit btn btn-info text-white" type="button" name="command" value="Aproove" style="height:58px;" onclick="AprooveBtn()">Approve</button>
+            </div>
+        </div>
+    }
+</form>
+
+
+<script>
+    function FileUpload(x) {
+
+        if (document.getElementById(`uploadbtn-${x}`).files.length == 0) {
+            document.getElementById(`file-input-${x}`).value = "No item Selected";
+        }
+        else {
+            const url = document.getElementById(`uploadbtn-${x}`).value;
+            const fname = url.substring(url.lastIndexOf('\\') + 1);
+            document.getElementById(`file-input-${x}`).value = x + fname;
+        }
+    }
+</script>
+<script>
+
+    function toggleDivVisibility() {
+        var div = document.getElementById("ReciptsDiv");
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    }
+
+    function BiWeeklyTimeSubmit() {
+        $.ajax({
+            url: "/Provider/SubmitTimeSheet",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#BiWeeklyForm')[0]),
+            success: function (result) {
+                if (result.isSend == 1) {
+                    InvoicingMain();
+                } else {
+                    Invoicing();
+                }
+                toastr.success("TimeSheet Saved Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+    function DeleteBill(id, startDate, endDate) {
+        $.ajax({
+            url: "/Provider/DeleteBill",
+            type: 'POST',
+            data: {
+                id: id,
+                startDate: startDate,
+                endDate: endDate
+            },
+            success: function (result) {
+                InvoicingMain();
+                toastr.success("Bill Deleted Successfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+    function FinalizeTimeSheet(id) {
+        $.ajax({
+            url: "/Provider/FinalizeTimeSheet",
+            type: 'POST',
+            data: { id: id },
+            success: function (result) {
+                InvoicingMain();
+                toastr.success("TimeSheet Finalized Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+    function EditBill() {
+        alert("Edit Clicked");
+    }
+
+    function AprooveBtn() {
+        $.ajax({
+            url: "/adminDashboard/AprooveTimeSheet",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: new FormData($('#BiWeeklyForm')[0]),
+            success: function (result) {
+                Invoicing();
+                toastr.success("TimeSheet Aprooved Succesfully");
+            },
+            error: function () {
+                toastr.error("Error");
+            },
+        });
+    }
+
+</script>

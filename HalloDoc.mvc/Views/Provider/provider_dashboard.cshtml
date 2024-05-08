@@ -155,7 +155,13 @@
                             Dashboard
                         </button>
                     </li>
-
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="invoicing-tab" data-bs-toggle="tab"
+                                data-bs-target="#invoicing-tab-pane" type="button" role="tab" aria-controls="invoicing-tab-pane"
+                                aria-selected="false" onClick="pInvoicing()">
+                            Invoicing
+                        </button>
+                    </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                 data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane"
@@ -185,7 +191,8 @@
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
              tabindex="0">
         </div>
-
+        <div class="tab-pane fade" id="invoicing-tab-pane" role="tabpanel" aria-labelledby="invoicing-tab" tabindex="0">
+        </div>
         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
         </div>
         <div class="tab-pane fade" id="provider-tab-pane" role="tabpanel" aria-labelledby="provider-tab" tabindex="0">
@@ -613,6 +620,25 @@
             })
         }
 
+        function pInvoicing() {
+
+            $.ajax({
+                url: "/Provider/Invoicing",
+                type: 'GET',
+
+                success: function (result) {
+
+                    $('#invoicing-tab-pane').html(result);
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+
+                        window.location.reload();
+                    }
+                    console.error(error);
+                }
+            });
+        }
 
 
     </script>

@@ -25,5 +25,14 @@ namespace BusinessLogic.Interfaces
 
         void RequestAdmin(RequestAdmin model, string sessionEmail);
         void SendRegistrationEmailCreateRequest(string email, string note, string sessionEmail);
+
+        public List<DateViewModel> GetDates();
+        InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
+        InvoicingViewModel GetUploadedDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int pageNumber, int pagesize);
+        InvoicingViewModel getDataOfTimesheet(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID);
+        void AprooveTimeSheet(InvoicingViewModel model, int? AdminID);
+        void SubmitTimeSheet(InvoicingViewModel model, int? PhysicianId);
+        void DeleteBill(int id);
+        void FinalizeTimeSheet(int id);
     }
 }

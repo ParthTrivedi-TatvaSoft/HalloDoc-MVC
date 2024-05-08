@@ -54,6 +54,7 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
+builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
 //builder.Services.AddSingleton<IEmailSender, EmailSender>();
 

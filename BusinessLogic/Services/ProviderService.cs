@@ -13,16 +13,28 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Http;
+using System.Linq.Expressions;
+using BusinessLogic.Services;
+using LinqKit;
 
 namespace BusinessLogic.Services
 {
     public class ProviderService : IProviderService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IGenericService<Weeklytimesheet> _weeklyTimeSheetRepo;
+        private readonly IGenericService<Shiftdetail> _shiftDetailrepo;
+        private readonly IGenericService<Payrate> _payRateRepo;
+        private readonly IGenericService<Weeklytimesheetdetail> _weeklyTimeSheetDetailRepo;
 
-        public ProviderService(ApplicationDbContext db)
+        public ProviderService(ApplicationDbContext db, IGenericService<Weeklytimesheet> weeklyTimeSheetRepo, IGenericService<Shiftdetail> shiftDetailrepo, IGenericService<Weeklytimesheetdetail> weeklyTimeSheetDetailRepo, IGenericService<Payrate> payRateRepo)
         {
             _db = db;
+            _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
+            _shiftDetailrepo = shiftDetailrepo;
+            _weeklyTimeSheetDetailRepo = weeklyTimeSheetDetailRepo;
+            _payRateRepo = payRateRepo;
         }
 
         public LoginDetail GetLoginDetail(string email)
@@ -354,6 +366,330 @@ namespace BusinessLogic.Services
                 {
                     Console.WriteLine(e);
                 }
+            }
+        }
+
+
+        public List<DateViewModel> GetDates()
+        {
+            List<DateViewModel> dates = new List<DateViewModel>();
+            int startMonth = 0;
+            int startYear = 0;
+            int startDate = 1;
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            int nextDate = 1;
+            if (today.Day > 15)
+            {
+                nextDate = 2;
+            }
+            if (today.Month - 6 < 0)
+            {
+                startMonth = 12 - (6 - today.Month) + 1;
+                startYear = today.Year - 1;
+            }
+            else if (today.Month - 6 == 0)
+            {
+                startMonth = 1;
+                startYear = today.Year;
+            }
+            else
+            {
+                startMonth = today.Month - 6;
+                startYear = today.Year;
+            }
+            int count = 12;
+            if (nextDate == 1)
+            {
+                count = 11;
+            }
+            for (int i = 1; i <= count; i++)
+            {
+
+                if (i % 2 == 0)
+                {
+                    startDate = 16;
+                }
+                else
+                {
+                    startDate = 1;
+
+                }
+                if (startMonth > 12)
+                {
+                    startMonth = 1;
+                    startYear = today.Year;
+                }
+                DateViewModel date = new DateViewModel();
+                date.StartDate = new DateOnly(startYear, startMonth, startDate);
+                if (startDate != 1)
+                    date.EndDate = date.StartDate.AddMonths(1).AddDays(-16);
+                else
+                    date.EndDate = new DateOnly(startYear, startMonth, 15);
+                dates.Add(date);
+                if (startDate == 16)
+                    startMonth += 1;
+            }
+            dates.Reverse();
+            return dates;
+        }
+
+
+        public InvoicingViewModel GetInvoicingDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID)
+        {
+            InvoicingViewModel model = new InvoicingViewModel();
+            var weeklyTimeSheet = _db.Weeklytimesheets.FirstOrDefault(u => u.ProviderId == PhysicianId && (u.StartDate == startDate && u.EndDate == endDate));
+            if (weeklyTimeSheet != null)
+            {
+                var TimehseetsData = _weeklyTimeSheetDetailRepo.SelectWhereOrderBy(x => new Timesheet
+                {
+                    Date = x.Date,
+                    NumberofShift = x.NumberOfShifts ?? 0,
+                    NightShiftWeekend = x.IsWeekendHoliday == true ? 1 : 0,
+                    NumberOfHouseCall = (x.IsWeekendHoliday == false ? x.HouseCall : 0) ?? 0,
+                    HousecallNightsWeekend = (x.IsWeekendHoliday == true ? x.HouseCall : 0) ?? 0,
+                    NumberOfPhoneConsults = (x.IsWeekendHoliday == false ? x.PhoneConsult : 0) ?? 0,
+                    phoneConsultNightsWeekend = (x.IsWeekendHoliday == true ? x.PhoneConsult : 0) ?? 0,
+                    BatchTesting = x.BatchTesting ?? 0
+                }, x => x.TimeSheetId == weeklyTimeSheet.TimeSheetId, x => x.Date);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in TimehseetsData)
+                {
+                    list.Add(item);
+                }
+                model.timesheets = list;
+                model.PhysicianId = PhysicianId ?? 0;
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+                model.startDate = startDate;
+                model.endDate = endDate;
+                model.Status = weeklyTimeSheet.Status == 1 ? "Pending" : "Aprooved";
+            }
+            else
+            {
+                model.timesheets = new List<Timesheet>();
+            }
+            model.isAdminSide = AdminID == null ? false : true;
+            return model;
+        }
+
+
+        public InvoicingViewModel GetUploadedDataonChangeOfDate(DateOnly startDate, DateOnly endDate, int? PhysicianId, int pageNumber, int pagesize)
+        {
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && (u.StartDate == startDate && u.EndDate == endDate));
+            InvoicingViewModel model = new InvoicingViewModel();
+            Expression<Func<Weeklytimesheetdetail, bool>> whereClauseSyntax = PredicateBuilder.New<Weeklytimesheetdetail>();
+            whereClauseSyntax = x => x.Bill != null && x.TimeSheetId == weeklyTimeSheet.TimeSheetId;
+            if (weeklyTimeSheet != null)
+            {
+                var UploadedItems = _weeklyTimeSheetDetailRepo.GetAllWithPagination(x => new Timesheet
+                {
+                    Date = x.Date,
+                    Items = x.Item ?? "-",
+                    Amount = x.Amount ?? 0,
+                    BillName = x.Bill ?? "-",
+                }, whereClauseSyntax, pageNumber, pagesize, x => x.Date, true);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in UploadedItems)
+                {
+                    list.Add(item);
+                }
+                model.timesheets = list;
+
+                model.pager = new Pager
+                {
+                    TotalItems = _weeklyTimeSheetDetailRepo.GetTotalcount(whereClauseSyntax),
+                    CurrentPage = pageNumber,
+                    ItemsPerPage = pagesize
+                };
+                model.SkipCount = (pageNumber - 1) * pagesize;
+                model.CurrentPage = pageNumber;
+                model.TotalPages = (int)Math.Ceiling((decimal)model.pager.TotalItems / pagesize);
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+            }
+            model.PhysicianId = PhysicianId ?? 0;
+            return model;
+        }
+
+        public InvoicingViewModel getDataOfTimesheet(DateOnly startDate, DateOnly endDate, int? PhysicianId, int? AdminID)
+        {
+            InvoicingViewModel model = new InvoicingViewModel();
+            model.startDate = startDate;
+            model.endDate = endDate;
+            model.differentDays = endDate.Day - startDate.Day;
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+            Expression<Func<Weeklytimesheetdetail, bool>> whereClauseSyntax1 = PredicateBuilder.New<Weeklytimesheetdetail>();
+
+
+            if (weeklyTimeSheet != null)
+            {
+                Payrate payRate = _payRateRepo.GetFirstOrDefault(u => u.PhysicianId == weeklyTimeSheet.ProviderId);
+                whereClauseSyntax1 = x => x.TimeSheet!.ProviderId == PhysicianId && x.TimeSheet.StartDate == startDate && x.TimeSheet.EndDate == endDate;
+                model.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                var ExistingTimeshet = _weeklyTimeSheetDetailRepo.SelectWhereOrderBy(x => new Timesheet
+                {
+                    Date = x.Date,
+                    NumberOfHouseCall = x.HouseCall ?? 0,
+                    NumberOfPhoneConsults = x.PhoneConsult ?? 0,
+                    Weekend = x.IsWeekendHoliday ?? false,
+                    TotalHours = x.TotalHours ?? 0,
+                    OnCallhours = x.NumberOfShifts ?? 0,
+                    Amount = x.Amount ?? 0,
+                    Items = x.Item,
+                    BillName = x.Bill,
+                    WeeklyTimesheetDeatilsId = x.TimeSheetDetailId,
+                }, whereClauseSyntax1, x => x.Date);
+                List<Timesheet> list = new List<Timesheet>();
+                foreach (Timesheet item in ExistingTimeshet)
+                {
+                    model.shiftTotal += (item.TotalHours * payRate.Shift) ?? 0;
+                    model.weekendTotal += item.Weekend == true ? (1 * payRate.NightShiftWeekend) ?? 0 : 0;
+                    model.HouseCallTotal += (item.NumberOfHouseCall * payRate.HouseCall) ?? 0;
+                    model.phoneconsultTotal += (item.NumberOfPhoneConsults * payRate.PhoneConsult) ?? 0;
+                    list.Add(item);
+                }
+                model.timesheets = list;
+                model.shiftPayrate = payRate.Shift ?? 0;
+                model.weekendPayrate = payRate.NightShiftWeekend ?? 0;
+                model.HouseCallPayrate = payRate.HouseCall ?? 0;
+                model.phoneConsultPayrate = payRate.PhoneConsult ?? 0;
+                model.GrandTotal = model.shiftTotal + model.weekendTotal + model.HouseCallTotal + model.phoneconsultTotal;
+
+            }
+            else
+            {
+                DateOnly currentDate = startDate;
+                while (currentDate <= endDate)
+                {
+                    model.timesheets.Add(new Timesheet
+                    {
+                        Date = currentDate,
+
+                    });
+
+                    currentDate = currentDate.AddDays(1);
+                }
+            }
+            model.startDate = startDate;
+            model.endDate = endDate;
+            model.PhysicianId = PhysicianId ?? 0;
+            model.IsFinalized = weeklyTimeSheet == null ? false : true;
+            model.isAdminSide = AdminID == null ? false : true;
+            return model;
+
+        }
+
+        public void AprooveTimeSheet(InvoicingViewModel model, int? AdminID)
+        {
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == model.PhysicianId && u.StartDate == model.startDate && u.EndDate == model.endDate);
+            if (weeklyTimeSheet != null)
+            {
+                weeklyTimeSheet.AdminId = AdminID;
+                weeklyTimeSheet.Status = 2;
+                //weeklyTimeSheet.BonusAmount = model.BonusAmount;
+                weeklyTimeSheet.AdminNote = model.AdminNotes;
+                _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
+            }
+        }
+
+        public void SubmitTimeSheet(InvoicingViewModel model, int? PhysicianId)
+        {
+            Weeklytimesheet existingWeekltTimesheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == model.startDate && u.EndDate == model.endDate);
+            if (existingWeekltTimesheet == null)
+            {
+                Weeklytimesheet weeklyTimeSheet = new Weeklytimesheet();
+                weeklyTimeSheet.StartDate = model.startDate;
+                weeklyTimeSheet.EndDate = model.endDate;
+                weeklyTimeSheet.Status = 1;
+                weeklyTimeSheet.CreatedDate = DateTime.Now;
+                weeklyTimeSheet.ProviderId = PhysicianId ?? 0;
+                _weeklyTimeSheetRepo.Add(weeklyTimeSheet);
+
+                foreach (var item in model.timesheets)
+                {
+                    BitArray deletedBit = new BitArray(new[] { false });
+
+                    Weeklytimesheetdetail detail = new Weeklytimesheetdetail();
+                    detail.Date = item.Date;
+                    detail.NumberOfShifts = _shiftDetailrepo.Count(u => u.Shift.Physicianid == PhysicianId && u.Shiftdate == item.Date && u.Isdeleted == deletedBit);
+                    detail.TotalHours = item.TotalHours;
+                    detail.IsWeekendHoliday = item.Weekend;
+                    detail.HouseCall = item.NumberOfHouseCall;
+                    detail.PhoneConsult = item.NumberOfPhoneConsults;
+                    detail.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                    if (item.Bill != null)
+                    {
+                        IFormFile newFile = item.Bill;
+                        detail.Bill = newFile.FileName;
+                        var filePath = Path.Combine("wwwroot", "UploadedFiles", "ProviderBills", PhysicianId + "-" + item.Date + "-" + Path.GetFileName(newFile.FileName));
+                        using (FileStream stream = System.IO.File.Create(filePath))
+                        {
+                            newFile.CopyTo(stream);
+                        }
+                    }
+                    detail.Item = item.Items;
+                    detail.Amount = item.Amount;
+                    _weeklyTimeSheetDetailRepo.Add(detail);
+                }
+            }
+            else
+            {
+                var exsitingTimeSheetDetail = _weeklyTimeSheetDetailRepo.GetList(u => u.TimeSheetId == existingWeekltTimesheet.TimeSheetId && u.Date >= model.startDate && u.Date <= model.endDate);
+                List<Weeklytimesheetdetail> list = new List<Weeklytimesheetdetail>();
+
+                for (int i = 0; i < model.timesheets.Count; i++)
+                {
+                    var currentDate = model.timesheets[i].Date;
+                    Weeklytimesheetdetail weeklyTimeSheetDetail = exsitingTimeSheetDetail.FirstOrDefault(detail => detail.Date == currentDate)!;
+                    if (weeklyTimeSheetDetail != null)
+                    {
+                        weeklyTimeSheetDetail.Date = model.timesheets[i].Date;
+                        weeklyTimeSheetDetail.HouseCall = model.timesheets[i].NumberOfHouseCall;
+                        weeklyTimeSheetDetail.PhoneConsult = model.timesheets[i].NumberOfPhoneConsults;
+                        weeklyTimeSheetDetail.Item = model.timesheets[i].Items ?? null;
+                        weeklyTimeSheetDetail.Amount = model.timesheets[i].Amount;
+                        weeklyTimeSheetDetail.TotalHours = model.timesheets[i].TotalHours;
+                        weeklyTimeSheetDetail.IsWeekendHoliday = model.timesheets[i].Weekend;
+                        if (model.timesheets[i].Bill != null && model.timesheets[i].Bill!.Length > 0)
+                        {
+                            IFormFile newFile = model.timesheets[i].Bill!;
+                            weeklyTimeSheetDetail.Bill = newFile.FileName;
+                            var filePath = Path.Combine("wwwroot", "Uploaded_files", "ProviderBills", PhysicianId + "-" + model.timesheets[i].Date + "-" + Path.GetFileName(newFile.FileName));
+                            FileStream stream = null;
+                            try
+                            {
+                                stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+                                newFile.CopyToAsync(stream)
+;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"An error occurred: {ex.Message}");
+                            }
+                        }
+                        list.Add(weeklyTimeSheetDetail);
+                    }
+                }
+                foreach (Weeklytimesheetdetail item in list)
+                {
+                    _weeklyTimeSheetDetailRepo.Update(item);
+                }
+            }
+
+        }
+
+        public void DeleteBill(int id)
+        {
+            Weeklytimesheetdetail weeklyTimeSheetDetail = _weeklyTimeSheetDetailRepo.GetFirstOrDefault(u => u.TimeSheetDetailId == id);
+            weeklyTimeSheetDetail.Bill = null;
+            _weeklyTimeSheetDetailRepo.Update(weeklyTimeSheetDetail);
+
+        }
+        public void FinalizeTimeSheet(int id)
+        {
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.TimeSheetId == id);
+            if (weeklyTimeSheet != null)
+            {
+                weeklyTimeSheet.IsFinalized = true;
+                _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
             }
         }
     }

@@ -1,0 +1,75 @@
+﻿@using DataAccess.CustomModels;
+﻿@{
+    ViewData["Title"] = "TimeSheetReiembursementPartialView";
+}
+
+@model InvoicingViewModel;
+
+@if (Model.timesheets.Count != 0)
+{
+    <table class="table">
+        <tr style="background-color: rgba(160, 160, 160, 0.137);">
+            <td width="15%" class="ViewUploadtd">Date</td>
+            <td width="15%" class="ViewUploadtd">Item</td>
+            <td width="15%" class="ViewUploadtd">Amount</td>
+            <td width="35%" class="ViewUploadtd">Bill</td>
+            <td width="20%" class="ViewUploadtd">Action</td>
+        </tr>
+        @foreach (var item in Model.timesheets)
+        {
+            <tr>
+                <td class="ViewUploadtd">@item.Date</td>
+                <td class="ViewUploadtd">@item.Items</td>
+                <td class="ViewUploadtd">@item.Amount</td>
+                <td class="ViewUploadtd">@item.BillName</td>
+                <td class="ViewUploadtd"><a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@item.Date-@item.BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a></td>
+            </tr>
+        }
+    </table>
+    <nav aria-label="Page navigation example" class="pb-1">
+
+        <div class="pagination mb-3" style="display: flex;justify-content: space-between;">
+            <div class="d-flex align-items-center">
+                @if (Model.pager!.TotalItems == 0)
+                {
+                    <p class="PaginationText">
+                        Showing @Model.SkipCount to @Model.pager.TotalItems Entries out of @Model.pager.TotalItems Total Entries
+                    </p>
+                }
+                else if ((Model.SkipCount + Model.pager.ItemsPerPage) >= Model.pager.TotalItems)
+                {
+                    <p class="PaginationText">
+                        Showing @(@Model.SkipCount + 1) to @Model.pager.TotalItems Entries out of @Model.pager.TotalItems Total Entries
+                    </p>
+                }
+                else
+                {
+                    <p class="PaginationText">
+                        Showing @(@Model.SkipCount + 1) to @(@Model.SkipCount + @Model.pager.ItemsPerPage) Entries out of @Model.pager.TotalItems Total Entries
+                    </p>
+                }
+            </div>
+            <ul class="d-flex align-items-center" style="list-style-type:none; margin-bottom:0 !important">
+                <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                    <button class="page-link" id="prevPageLink" onclick="GetUploadedDataonChangeOfDate(@Model.CurrentPage - 1)">Back</button>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                        <button class="page-link" id="pageLink" onclick="GetUploadedDataonChangeOfDate(@i)">@i</button>
+                    </li>
+                }
+                <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                    <button class="page-link" id="nextPageLink" onclick="GetUploadedDataonChangeOfDate(@Model.CurrentPage + 1)">Next</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+}
+else
+{
+    <div class="d-flex justify-content-center mb-1 pt-3">
+        <h6 style="color:gray !important">No Records Found</h6>
+    </div>
+}

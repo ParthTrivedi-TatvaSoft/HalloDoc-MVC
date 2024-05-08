@@ -715,6 +715,96 @@ namespace HalloDoc.mvc.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Invoicing()
+        {
+            InvoicingViewModel invoicingViewModel = new InvoicingViewModel();
+            invoicingViewModel.dates = _providerService.GetDates();
+            invoicingViewModel.PhysicianId = _providerService.GetPhysicianId(GetLoginId());
+            return PartialView("_Pinvoicing", invoicingViewModel);
+        }
+
+
+
+        public IActionResult GetInvoicingDataonChangeOfDate(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _providerService.GetInvoicingDataonChangeOfDate(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("_invoicingpartialview", model);
+        }
+
+
+        public IActionResult GetUploadedDataonChangeOfDate(string selectedValue, int PhysicianId, int pageNumber, int pagesize)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _providerService.GetUploadedDataonChangeOfDate(startDate, endDate, PhysicianId, pageNumber, pagesize);
+            return PartialView("_timesheetreiembursement", model);
+        }
+
+
+        public IActionResult BiWeeklyTimesheet(string selectedValue, int PhysicianId)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            if (AdminID == null)
+            {
+                ViewBag.username = HttpContext.Session.GetString("Provider");
+            }
+            else
+            {
+                ViewBag.username = HttpContext.Session.GetString("Admin");
+            }
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            InvoicingViewModel model = _providerService.getDataOfTimesheet(startDate, endDate, PhysicianId, AdminID);
+            return PartialView("_biweeklytimesheet", model);
+        }
+
+        [HttpPost]
+        public IActionResult AprooveTimeSheet(InvoicingViewModel model)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            _providerService.AprooveTimeSheet(model, AdminID);
+            TempData["successrequest"] = "TimeSheet Aprooved Succesfully";
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public IActionResult SubmitTimeSheet(InvoicingViewModel model)
+        {
+            int? AdminID = HttpContext.Session.GetInt32("AdminId");
+            _providerService.SubmitTimeSheet(model, model.PhysicianId);
+            TempData["success"] = "TimeSheet Saved Succesfully";
+            if (AdminID == null)
+            {
+                return Json(new { isSend = 1 });
+            }
+            else
+            {
+                return Json(new { isSend = 2 });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBill(int id, DateOnly startDate, DateOnly endDate)
+        {
+            _providerService.DeleteBill(id);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult FinalizeTimeSheet(int id)
+        {
+            _providerService.FinalizeTimeSheet(id);
+            return Ok();
+        }
+
 
 
 

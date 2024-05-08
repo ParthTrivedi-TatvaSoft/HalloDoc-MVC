@@ -1,0 +1,118 @@
+﻿@using DataAccess.CustomModels;
+@model InvoicingViewModel;
+<div class="contianer">
+</div>
+<div class="container bg-white">
+    <div class=" mt-4 d-flex justify-content-between align-items-center">
+        <h4>Timesheet</h4>
+        <a onclick="DashboardMain()" class="btn shadow  btn-outline-info px-3 ">
+            <i class="fa-solid fa-angle-left fs-6"></i> Back
+        </a>
+    </div>
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <div class="form-floating">
+
+                <select class="form-control" id="timesheetdropdown" aria-label="Floating label select example" style="height:58px !important; width:100%" onchange="GetInvoicingDataonChangeOfDate()">
+                    @foreach (var item in Model.dates!)
+                    {
+                        <option value="@item.StartDate*@item.EndDate">@item.StartDate - @item.EndDate</option>
+                    }
+                </select>
+                <label for="floatingSelect">TimesheetPeriod</label>
+            </div>
+        </div>
+        <div>
+            <a id="FinalizeBtn" onclick="FinalizeNew()" class="btn shadow btn-outline-info px-3 cancel1"> Finalize Timesheet </a>
+        </div>
+    </div>
+    <div id="partialView"></div>
+</div>
+
+<div class="container">
+    <div class=" mt-4 d-flex justify-content-between align-items-center" style="width:100%">
+        <h4>TimeSheet Reimbursement</h4>
+    </div>
+</div>
+
+<div class="container">
+    <div id="partialViewForUploadedFiles"></div>
+</div>
+
+
+<input type="hidden" value="@Model.PhysicianId" id="PhyscianID" />
+
+<script>
+
+    $(document).ready(function () {
+        GetInvoicingDataonChangeOfDate();
+        GetUploadedDataonChangeOfDate(1);
+    });
+
+    function GetInvoicingDataonChangeOfDate() {
+        var timesheetdropdown = $('#timesheetdropdown').val();
+        var PhyscianID = $('#PhyscianID').val();
+
+        $.ajax({
+            method: "GET",
+            url: "/Provider/GetInvoicingDataonChangeOfDate",
+            data: {
+                selectedValue: timesheetdropdown,
+                PhysicianId: PhyscianID
+            },
+            success: function (response) {
+                $('#partialView').html(response);
+                GetUploadedDataonChangeOfDate(1);
+            },
+            error: function () {
+                console.log("Function Fail")
+            }
+
+        })
+    }
+
+
+    function GetUploadedDataonChangeOfDate(PageNumber) {
+        var timesheetdropdown = $('#timesheetdropdown').val();
+        var PhyscianID = $('#PhyscianID').val();
+        $.ajax({
+            method: "GET",
+            url: "/Provider/GetUploadedDataonChangeOfDate",
+            data: {
+                selectedValue: timesheetdropdown,
+                PhysicianId: PhyscianID,
+                pageNumber: PageNumber,
+                pagesize: 2
+            },
+            success: function (response) {
+                $('#partialViewForUploadedFiles').html(response)
+
+            },
+            error: function () {
+                console.log("Function Fail")
+            }
+
+        })
+    }
+
+    function FinalizeNew() {
+        var PhyscianID = $('#PhyscianID').val();
+        var timesheetdropdown = $('#timesheetdropdown').val();
+        console.log(timesheetdropdown);
+        $.ajax({
+            url: "/Provider/BiWeeklyTimesheet",
+            method: 'GET',
+            data: {
+                selectedValue: timesheetdropdown,
+                PhysicianId: PhyscianID
+            },
+            success: function (result) {
+                $('#invoicing-tab-pane').html(result);
+            },
+            error: function () {
+                console.log("Function Fail")
+            },
+        });
+    }
+
+</script>

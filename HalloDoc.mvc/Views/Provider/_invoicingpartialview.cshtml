@@ -1,0 +1,58 @@
+﻿@using DataAccess.CustomModels;
+@model InvoicingViewModel;
+﻿@{
+    ViewData["Title"] = "InvoicingPartialView";
+}
+
+
+
+
+@if (Model.timesheets.Count != 0)
+{
+
+    <table class="table">
+        <tr style="background-color: rgba(160, 160, 160, 0.137);">
+            <td width="15%" class="ViewUploadtd">Shift Date</td>
+            <td width="5%" class="ViewUploadtd">Shift</td>
+            <td width="10%" class="ViewUploadtd">NightShift Weekend</td>
+            <td width="10%" class="ViewUploadtd">HouseCall</td>
+            <td width="20%" class="ViewUploadtd">HouseCall Nights Weekend</td>
+            <td width="10%" class="ViewUploadtd">PhoneConsults</td>
+            <td width="20%" class="ViewUploadtd">PhoneConsults Nights Weekend</td>
+            <td width="10%" class="ViewUploadtd">Batch Testing</td>
+        </tr>
+        @foreach (var item in Model.timesheets)
+        {
+            <tr>
+                <td class="ViewUploadtd">@item.Date</td>
+                <td class="ViewUploadtd">@item.NumberofShift</td>
+                <td class="ViewUploadtd">@item.NightShiftWeekend</td>
+                <td class="ViewUploadtd">@item.NumberOfHouseCall</td>
+                <td class="ViewUploadtd">@item.HousecallNightsWeekend</td>
+                <td class="ViewUploadtd">@item.NumberOfPhoneConsults</td>
+                <td class="ViewUploadtd">@item.phoneConsultNightsWeekend</td>
+                <td class="ViewUploadtd">@item.BatchTesting</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="d-flex justify-content-center mb-1 pt-3">
+        <h6 style="color:gray !important">No Records Found</h6>
+    </div>
+}
+<input type="hidden" asp-for="IsFinalized" id="isFinalized" />
+
+
+<script>
+    $(document).ready(function () {
+        var FinalizeBtn = $('#FinalizeBtn');
+        var isFinalized = $('#isFinalized').val();
+        if (isFinalized == "True") {
+            FinalizeBtn.hide();
+        } else {
+            FinalizeBtn.show();
+        }
+    });
+</script>

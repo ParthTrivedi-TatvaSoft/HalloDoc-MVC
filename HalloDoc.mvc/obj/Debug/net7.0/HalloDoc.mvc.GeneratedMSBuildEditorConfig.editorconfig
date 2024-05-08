@@ -344,6 +344,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcUHZpZXd1cGxvYWRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_biweeklytimesheet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX2Jpd2Vla2x5dGltZXNoZWV0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_invoicingpartialview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX2ludm9pY2luZ3BhcnRpYWx2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_Pactiverequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BhY3RpdmVyZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -366,6 +374,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_Pdownloadmodel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1Bkb3dubG9hZG1vZGVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_Pinvoicing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1BpbnZvaWNpbmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_Pmonthlyschedule.cshtml]
@@ -410,6 +422,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_Pviewshift.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1B2aWV3c2hpZnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Provider/_timesheetreimbursement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX3RpbWVzaGVldHJlaW1idXJzZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Shared/Error.cshtml]
