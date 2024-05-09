@@ -12,8 +12,8 @@
     }
 } *@
 
-<div class="head5">
-    <div style="display: flex; align-items: center;">
+<div class="container my-4">
+    <div class="d-flex align-items-center justify-content-end">
     </div>
     <div class="backbtn">
         @if (Model.isAdminSide == true)
@@ -24,7 +24,7 @@
         }
         else
         {
-            <a onclick="InvoicingMain()" class="btn shadow  btn-outline-info px-3 ">
+            <a onclick="pInvoicing()" class="btn shadow  btn-outline-info px-3 ">
                 <i class="fa-solid fa-angle-left fs-6"></i> Back
             </a>
         }
@@ -34,7 +34,7 @@
     <input type="hidden" asp-for="startDate" value="@Model.startDate">
     <input type="hidden" asp-for="endDate" value="@Model.endDate">
     <input type="hidden" asp-for="PhysicianId" />
-    <div class="outerbox2">
+    <div class="container">
         <table class="table">
 
             <tr style="background-color: rgba(160, 160, 160, 0.137);">
@@ -94,7 +94,7 @@
     <div class="d-flex gap-2 justify-content-start mb-3 mt-3" style="padding-left:8%;">
         <button onclick="toggleDivVisibility()" class="btn btn-info text-white" type="button">Add Recipts</button>
     </div>
-    <div class="outerbox2" id="ReciptsDiv" style="display:none">
+    <div class="container" id="ReciptsDiv" style="display:none">
         <table class="table">
 
             <tr style="background-color: rgba(160, 160, 160, 0.137);">
@@ -144,7 +144,7 @@
                         }
                         else
                         {
-                            <a type="button" href="~/Uploaded_files/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
+                            <a type="button" href="~/UploadedFiles/ProviderBills/@Model.PhysicianId-@Model.startDate.AddDays(i)-@Model.timesheets[i].BillName" target="_blank" class="submit1 btn shadow  btn-outline-info px-3">View</a>
                             if (Model.isAdminSide == false)
                             {
                                 <button type="button" class="submit1 btn shadow  btn-outline-info px-3" onclick="DeleteBill('@Model.timesheets[i].WeeklyTimesheetDeatilsId','@Model.startDate','@Model.endDate')">Delete</button>
@@ -222,7 +222,7 @@
             data: new FormData($('#BiWeeklyForm')[0]),
             success: function (result) {
                 if (result.isSend == 1) {
-                    InvoicingMain();
+                    pInvoicing();
                 } else {
                     Invoicing();
                 }
@@ -244,7 +244,7 @@
                 endDate: endDate
             },
             success: function (result) {
-                InvoicingMain();
+                pInvoicing();
                 toastr.success("Bill Deleted Successfully");
             },
             error: function () {
@@ -259,7 +259,7 @@
             type: 'POST',
             data: { id: id },
             success: function (result) {
-                InvoicingMain();
+                pInvoicing();
                 toastr.success("TimeSheet Finalized Succesfully");
             },
             error: function () {

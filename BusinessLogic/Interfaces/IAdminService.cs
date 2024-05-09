@@ -165,5 +165,9 @@ namespace BusinessLogic.Interfaces
         List<Role> GetPhyRoles();
         List<Role> GetAdminRoles();
 
+        List<PhysicianViewModel> GetPhysiciansForInvoicing();
+        string CheckInvoicingApprove(string selectedValue, int PhysicianId);
+        InvoicingViewModel GetApprovedViewData(string selectedValue, int PhysicianId);
+
     }
 }

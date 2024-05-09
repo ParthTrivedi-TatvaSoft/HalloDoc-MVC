@@ -33,11 +33,16 @@ namespace BusinessLogic.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _environment;
+        private readonly IGenericService<Physician> _physicianrepo;
+        private readonly IGenericService<Weeklytimesheet> _weeklyTimeSheetRepo;
 
-        public AdminService(ApplicationDbContext db, IWebHostEnvironment environment)
+        public AdminService(ApplicationDbContext db, IWebHostEnvironment environment, IGenericService<Physician> physicianrepo, IGenericService<Weeklytimesheet> weeklyTimeSheetRepo)
         {
             _db = db;
             _environment = environment;
+            _physicianrepo = physicianrepo;
+            _weeklyTimeSheetRepo = weeklyTimeSheetRepo;
+
         }
 
 
@@ -3772,9 +3777,75 @@ namespace BusinessLogic.Services
             }
 
 
+        public List<PhysicianViewModel> GetPhysiciansForInvoicing()
+        {
+            BitArray deletedBit = new BitArray(new[] { false });
 
+            var physicians = _physicianrepo.SelectWhere(x => new PhysicianViewModel
+            {
+                PhysicianId = x.Physicianid,
+                PhysicianName = x.Firstname + " " + x.Lastname,
+            }, x => x.Isdeleted == null || x.Isdeleted.Equals(deletedBit));
+            List<PhysicianViewModel> PhysicianList = new List<PhysicianViewModel>();
+            foreach (PhysicianViewModel item in physicians)
+            {
+                PhysicianList.Add(item);
+            }
+            return PhysicianList;
+        }
+        public string CheckInvoicingApprove(string selectedValue, int PhysicianId)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            string result = "";
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+            if (weeklyTimeSheet != null)
+            {
+                if (weeklyTimeSheet.IsFinalized != true && weeklyTimeSheet.Status == 1)
+                {
+                    result = "NotFinalized-NotAprooved";
+                }
+                else if (weeklyTimeSheet.IsFinalized == true && weeklyTimeSheet.Status == 1)
+                {
+                    result = "Finalized-NotAprooved";
+                }
+                else if (weeklyTimeSheet.IsFinalized == true && weeklyTimeSheet.Status == 2)
+                {
+                    result = "Finalized-Aprooved";
+                }
+            }
+            else
+            {
+                result = "False";
+            }
+            return result;
+        }
+
+        public InvoicingViewModel GetApprovedViewData(string selectedValue, int PhysicianId)
+        {
+            string[] dateRange = selectedValue.Split('*');
+            DateOnly startDate = DateOnly.Parse(dateRange[0]);
+            DateOnly endDate = DateOnly.Parse(dateRange[1]);
+            Weeklytimesheet weeklyTimeSheet = _weeklyTimeSheetRepo.GetFirstOrDefault(u => u.ProviderId == PhysicianId && u.StartDate == startDate && u.EndDate == endDate);
+
+            InvoicingViewModel model = new InvoicingViewModel();
+            if (weeklyTimeSheet != null)
+            {
+                model.startDate = weeklyTimeSheet.StartDate;
+                model.endDate = weeklyTimeSheet.EndDate;
+                model.Status = weeklyTimeSheet.Status == 1 ? "Pending" : "Aprooved";
+                model.TimeSheetId = weeklyTimeSheet.TimeSheetId;
+                model.IsFinalized = weeklyTimeSheet.IsFinalized == true ? true : false;
+            }
+            return model;
 
         }
+    }
+
+
+
+}
     }
 
 

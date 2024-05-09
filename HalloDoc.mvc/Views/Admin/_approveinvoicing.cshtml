@@ -1,0 +1,32 @@
+﻿@using DataAccess.CustomModels;
+@model InvoicingViewModel;
+
+@if (Model.TimeSheetId == 0)
+{
+    <div class="d-flex justify-content-center mb-1 pt-3">
+        <h6 style="color:gray !important">No Records Found</h6>
+    </div>
+}
+else if (Model.TimeSheetId != 0 && Model.IsFinalized == false)
+{
+    <div class="d-flex justify-content-center mb-1 pt-3">
+        <h6 style="color:gray !important">Provider has No finalize the Timesheet</h6>
+    </div>
+}
+else
+{
+    <table class="table">
+        <tr style="background-color: rgba(160, 160, 160, 0.137);">
+            <td width="25" class="ViewUploadtd">Start Date</td>
+            <td width="25%" class="ViewUploadtd">End Date</td>
+            <td width="20%" class="ViewUploadtd">Status</td>
+            <td width="30%" class="ViewUploadtd">Action</td>
+        </tr>
+        <tr>
+            <td class="ViewUploadtd">@Model.startDate</td>
+            <td class="ViewUploadtd">@Model.endDate</td>
+            <td class="ViewUploadtd">@Model.Status</td>
+            <td class="ViewUploadtd"><button class="btn shadow  btn-outline-info px-3 submit1" onclick="FinalizeNew()">Approve</button></td>
+        </tr>
+    </table>
+}

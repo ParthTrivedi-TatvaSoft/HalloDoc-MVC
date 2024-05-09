@@ -31,14 +31,16 @@ namespace HalloDoc.mvc.Controllers
         private readonly IAdminService _adminService;
         private readonly IPatientService _patientService;
         private readonly IJwtService _jwtService;
+        private readonly IProviderService _providerService;
 
-        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService, IJwtService jwtService)
+        public AdminController(ILogger<AdminController> logger, INotyfService notyfService, IAdminService adminService, IPatientService patientService, IJwtService jwtService, IProviderService providerService)
         {
             _logger = logger;
             _notyf = notyfService;
             _adminService = adminService;
             _patientService = patientService;
             _jwtService = jwtService;
+            _providerService = providerService;
         }
 
         public IActionResult Index()
@@ -1362,7 +1364,28 @@ namespace HalloDoc.mvc.Controllers
             return Json(new { isActive });
         }
 
-       
+        public IActionResult Invoicing()
+        {
+            ViewBag.username = HttpContext.Session.GetString("Admin");
+            InvoicingViewModel model = new InvoicingViewModel();
+            model.dates = _providerService.GetDates();
+            model.PhysiciansList = _adminService.GetPhysiciansForInvoicing();
+            return PartialView("_Pinvoicing", model);
+        }
+
+
+        public IActionResult CheckInvoicingApprove(string selectedValue, int PhysicianId)
+        {
+            string result = _adminService.CheckInvoicingApprove(selectedValue, PhysicianId);
+            return Json(result);
+        }
+
+        public IActionResult GetApprovedViewData(string selectedValue, int PhysicianId)
+        {
+            InvoicingViewModel model = _adminService.GetApprovedViewData(selectedValue, PhysicianId);
+            return PartialView("_ApproveInvoicing", model);
+        }
+
 
     }
 }

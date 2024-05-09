@@ -144,7 +144,7 @@ namespace DataAccess.CustomModels
         [Column(TypeName = "character varying")]
         public string? AdminNote { get; set; }
 
-        public int? BonusAmount { get; set; }
+        public int? Bonusamount { get; set; }
 
         [ForeignKey("AdminId")]
         [InverseProperty("WeeklyTimeSheets")]

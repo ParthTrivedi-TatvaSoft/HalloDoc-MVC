@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2FsbHJlcXVlc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Admin/_approveinvoicing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2FwcHJvdmVpbnZvaWNpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Admin/_assigncase.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2Fzc2lnbmNhc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -138,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Admin/_emaillogs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2VtYWlsbG9ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HalloDoc Platform/HalloDoc.mvc/Views/Admin/_invoicing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX2ludm9pY2luZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HalloDoc Platform/HalloDoc.mvc/Views/Admin/_monthtable.cshtml]

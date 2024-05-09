@@ -584,7 +584,7 @@ namespace BusinessLogic.Services
             {
                 weeklyTimeSheet.AdminId = AdminID;
                 weeklyTimeSheet.Status = 2;
-                //weeklyTimeSheet.BonusAmount = model.BonusAmount;
+                weeklyTimeSheet.bo = model.BonusAmount;
                 weeklyTimeSheet.AdminNote = model.AdminNotes;
                 _weeklyTimeSheetRepo.Update(weeklyTimeSheet);
             }
@@ -652,7 +652,7 @@ namespace BusinessLogic.Services
                         {
                             IFormFile newFile = model.timesheets[i].Bill!;
                             weeklyTimeSheetDetail.Bill = newFile.FileName;
-                            var filePath = Path.Combine("wwwroot", "Uploaded_files", "ProviderBills", PhysicianId + "-" + model.timesheets[i].Date + "-" + Path.GetFileName(newFile.FileName));
+                            var filePath = Path.Combine("wwwroot", "UploadedFiles", "ProviderBills", PhysicianId + "-" + model.timesheets[i].Date + "-" + Path.GetFileName(newFile.FileName));
                             FileStream stream = null;
                             try
                             {
